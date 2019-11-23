@@ -1,6 +1,12 @@
 const todos = require('express').Router()
 const { TodoController } = require('../controllers')
+const { authorize } = require('../middlewares/auth')
 
 todos.post('/', TodoController.createTodo)
+todos.use('/:id', authorize)
+todos.get('/:id', TodoController.getOneTodo)
+todos.put('/:id', TodoController.editTodo)
+todos.patch('/:id', TodoController.updateStatus)
+todos.delete('/:id', TodoController.deleteTodo)
 
 module.exports = todos
