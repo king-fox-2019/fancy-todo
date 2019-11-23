@@ -4,7 +4,9 @@ const { authenticate } = require('../middlewares/auth')
 
 routes.post('/signup', UserController.signUp)
 routes.post('/signin', UserController.signIn)
-routes.get('/checksession', authenticate, UserController.checkSession)
-// routes.use('/todos')
+routes.use(authenticate)
+routes.get('/checksession', UserController.checkSession)
+routes.use('/user', require('./user'))
+routes.use('/todos', require('./todos'))
 
 module.exports = routes
