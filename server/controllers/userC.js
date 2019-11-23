@@ -49,6 +49,10 @@ class UserController {
       .catch(next)
   }
 
+  static gSignIn(req, res, next) {
+    
+  }
+
   static checkSession(req, res, next) {
     res.status(200).json({
       message: 'Token valid',

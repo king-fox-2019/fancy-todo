@@ -1,0 +1,21 @@
+$nav-margin: 8vh;
+
+#main {
+  min-height: 100vh;
+  padding-top: $nav-margin;
+
+  #landing-page {
+    height: 100vh - $nav-margin;
+    margin: 0;
+
+    #get-started {
+    }
+  }
+
+  #signup-page,
+  #signin-page {
+    .card {
+      min-width: 35%;
+    }
+  }
+}

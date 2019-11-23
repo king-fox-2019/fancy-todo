@@ -4,6 +4,7 @@ const { authenticate } = require('../middlewares/auth')
 
 routes.post('/signup', UserController.signUp)
 routes.post('/signin', UserController.signIn)
+routes.post('/g-signin', UserController.gSignIn)
 routes.use(authenticate)
 routes.get('/checksession', UserController.checkSession)
 routes.use('/user', require('./user'))
