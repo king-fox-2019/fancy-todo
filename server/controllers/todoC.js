@@ -6,7 +6,9 @@ class TodoController {
       creator: req.payload.id,
       name: req.body.name,
       description: req.body.description,
-      dueDate: new Date(req.body.dueDate)
+      dueDate: req.body.dueDate
+        ? new Date(req.body.dueDate).setHours(23, 59, 59)
+        : undefined
     })
       // .then(todo => {
       //   return todo.populate('creator', 'username email -_id').execPopulate()
@@ -15,6 +17,7 @@ class TodoController {
         res.status(201).json({
           message: 'Todo created',
           data: {
+            _id: todo._id,
             name: todo.name,
             description: todo.description,
             dueDate: todo.dueDate,
@@ -73,6 +76,13 @@ class TodoController {
         name: req.body.name,
         description: req.body.description,
         dueDate: req.body.dueDate
+          ? new Date(req.body.dueDate).setHours(23, 59, 59)
+          : undefined,
+        status: req.body.dueDate
+          ? new Date(req.body.dueDate).setHours(23, 59, 59) < new Date()
+            ? 'missed'
+            : undefined
+          : undefined
       },
       { new: true, omitUndefined: true, runValidators: true }
     )
@@ -98,7 +108,9 @@ class TodoController {
     Todo.findById(req.params.id)
       .then(todo => {
         todo.status =
-          todo.status == 'pending'
+          new Date(todo.dueDate) < new Date()
+            ? 'missed'
+            : todo.status == 'pending'
             ? 'done'
             : todo.status == 'done'
             ? 'pending'

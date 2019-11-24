@@ -1,4 +1,5 @@
 $(document).ready(() => {
+  $('[data-toggle="tooltip"]').tooltip()
   let activePage = localStorage.getItem('active-page')
   if (!activePage) {
     activePage = 'landing-page'

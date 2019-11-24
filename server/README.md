@@ -134,6 +134,7 @@ POST /todos
 
 ```json
 {
+  "_id": "5dd9007a0177c12c16b4bdfc",
 	"name": "What a todo",
   "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error necessitatibus quibusdam est assumenda facilis repellat repudiandae eveniet laborum hic impedit? Delectus saepe fuga dolorum accusantium expedita veniam sapiente esse provident.",
   "dueDate": "2020-01-01T00:00:00.000Z",

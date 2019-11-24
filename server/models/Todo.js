@@ -24,7 +24,7 @@ const todoSchema = new Schema(
     dueDate: {
       type: Date,
       required: true,
-      default: new Date()
+      default: new Date().setHours(23, 59, 59)
     }
   },
   {
