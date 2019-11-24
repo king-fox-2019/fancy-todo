@@ -17,6 +17,9 @@ function switchPage(page) {
     case 'signin-page':
       toSignInPage()
       break
+    case 'dashboard-page':
+      toDashboardPage()
+      break
 
     default:
       toLandingPage()

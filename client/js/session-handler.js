@@ -35,11 +35,11 @@ function onSignUp(e) {
 }
 
 function onSignIn(e) {
-  const emailUsername = $('#signin-page #emailUsername')
-  const password = $('#signin-page #password')
   if (e.type === 'submit') {
     e.preventDefault()
     toast('Loading')
+    const emailUsername = $('#signin-page #emailUsername')
+    const password = $('#signin-page #password')
     $.ajax(`${baseUrl}/signin`, {
       method: 'POST',
       data: {
@@ -64,29 +64,60 @@ function onSignIn(e) {
       })
       .always(() => password.val(''))
   } else if (e) {
-    g_token = e.getAuthResponse().id_token
-    toast('Loading')
-    $.ajax(`${baseUrl}/g-signin`, {
-      method: 'POST',
-      data: {
-        g_token
-      }
-    })
-      .done(data => {
-        toast('Sign in success!', 3000)
-        localStorage.setItem('access_token', data.access_token)
-        toDashboardPage()
+    const access_token = localStorage.getItem('access_token')
+    if (access_token) {
+      $.ajax(`${baseUrl}/checksession`, {
+        method: 'GET',
+        headers: { access_token }
       })
-      .fail(({ responseJSON }) => {
-        toast(responseJSON, 5000)
-      })
-      .always(() => {
-        emailUsername.val('')
-        password.val('')
-      })
+        .done(({ data }) => {
+          if (data) {
+            if (
+              ['landing-page', 'signup-page', 'signin-page'].includes(
+                localStorage.getItem('active-page')
+              )
+            ) {
+              toDashboardPage()
+            }
+          } else {
+            gAuth(e)
+          }
+        })
+        .fail(({ responseJSON }) => {
+          toast(responseJSON, 5000)
+          toLandingPage()
+        })
+    } else {
+      gAuth(e)
+    }
   }
 
   return false
+}
+
+function gAuth(googleUser) {
+  toast('Loading')
+  const emailUsername = $('#signin-page #emailUsername')
+  const password = $('#signin-page #password')
+  g_token = googleUser.getAuthResponse().id_token
+  $.ajax(`${baseUrl}/g-signin`, {
+    method: 'POST',
+    data: {
+      g_token
+    }
+  })
+    .done(({ data }) => {
+      toast('Sign in success!', 3000)
+      localStorage.setItem('access_token', data.access_token)
+      toDashboardPage()
+    })
+    .fail(({ responseJSON }) => {
+      toast(responseJSON, 5000)
+    })
+    .always(() => {
+      emailUsername.val('')
+      password.val('')
+    })
 }
 
 function onSignOut(e) {

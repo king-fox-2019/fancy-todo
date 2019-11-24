@@ -3,6 +3,8 @@ function toLandingPage(e) {
   $('.page').hide()
   $('#landing-page').show()
   localStorage.setItem('active-page', 'landing-page')
+  $('#in-session-nav').hide()
+  $('#out-session-nav').show()
   return false
 }
 
@@ -11,6 +13,8 @@ function toSignUpPage(e) {
   $('.page').hide()
   $('#signup-page').show()
   localStorage.setItem('active-page', 'signup-page')
+  $('#in-session-nav').hide()
+  $('#out-session-nav').show()
   return false
 }
 
@@ -19,6 +23,8 @@ function toSignInPage(e) {
   $('.page').hide()
   $('#signin-page').show()
   localStorage.setItem('active-page', 'signin-page')
+  $('#in-session-nav').hide()
+  $('#out-session-nav').show()
   return false
 }
 
@@ -27,5 +33,7 @@ function toDashboardPage(e) {
   $('.page').hide()
   $('#dashboard-page').show()
   localStorage.setItem('active-page', 'dashboard-page')
+  $('#in-session-nav').show()
+  $('#out-session-nav').hide()
   return false
 }
