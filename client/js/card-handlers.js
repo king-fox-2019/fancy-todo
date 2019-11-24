@@ -18,14 +18,17 @@ function appendCards(todos) {
         <div class="col-12 col-md-6 col-lg-4 col-xl-3" id="${todo._id}">
           <div
             class="card mb-4"
-            style="min-width: 15rem; min-height: 15rem;"
+            style="min-width: 15rem; min-height: 18rem;"
           >
             <div class="card-body d-flex flex-column position-relative">
               <div class="card-title">
                 <h5 class="mb-0">${todo.name}</h5>
-                <small class="todo-status ${
+                <small class="d-block todo-status ${
                   todo.status == 'missed' ? 'text-danger' : 'text-muted'
                 }">Status: ${todo.status}</small>
+                <small class ="mt-0 text-muted">Due: ${moment(
+                  todo.dueDate
+                ).format('ddd, MMM Do YYYY')}</small>
                 <div
                   class="position-absolute"
                   style="font-size: large; top: 1rem; right: 1rem;"
@@ -65,7 +68,7 @@ function appendCards(todos) {
 
       $(`#edit-todo-${todo._id}`).click(function(e) {
         e.preventDefault()
-        onEditTodo(todo)
+        onOpenEditModal(todo)
         return false
       })
 
@@ -88,9 +91,12 @@ function appendCards(todos) {
             <div class="card-body d-flex flex-column position-relative">
               <div class="card-title">
                 <h5 class="mb-0">${todo.name}</h5>
-                <small class="todo-status ${
+                <small class="d-block todo-status ${
                   todo.status == 'missed' ? 'text-danger' : 'text-muted'
                 }">Status: ${todo.status}</small>
+                <small class ="mt-0 text-muted">Due: ${moment(
+                  todo.dueDate
+                ).format('ddd, MMM Do YYYY')}</small>
                 <div
                   class="position-absolute"
                   style="font-size: large; top: 1rem; right: 1rem;"
@@ -127,9 +133,10 @@ function appendCards(todos) {
           </div>
         </div>
       `)
+
     $(`#edit-todo-${todo._id}`).click(function(e) {
       e.preventDefault()
-      onEditTodo(todo)
+      onOpenEditModal(todo)
       return false
     })
 
@@ -144,9 +151,77 @@ function appendCards(todos) {
 }
 
 // Event hanlders
-function onEditTodo(todo) {
-  console.log('On Edit!')
-  console.log(todo)
+function onOpenTodoModal() {
+  $('#todo-modal').modal({
+    backdrop: 'static'
+  })
+}
+
+function onOpenEditModal(todo) {
+  $('#todo-modal form').off('submit')
+  $('#todo-modal form').on('submit', todo, onEditTodo)
+  $('#todo-modal').on('hidden.bs.modal', function(e) {
+    $('#todo-modal #todo-name').val('')
+    $('#todo-modal #todo-desc').val('')
+    $('#todo-modal #todo-due').val('')
+    $('#btn-todo-submit')
+      .empty()
+      .append('Create')
+  })
+  $('#todo-modal #todo-name').val(todo.name)
+  $('#todo-modal #todo-desc').val(todo.description)
+  $('#todo-modal #todo-due').val(moment(todo.dueDate).format('YYYY-MM-DD'))
+  $('#btn-todo-submit')
+    .empty()
+    .append('Edit')
+    .off('click')
+    .click(todo, onEditTodo)
+  onOpenTodoModal()
+}
+
+function onEditTodo(e) {
+  if (e) e.preventDefault()
+  $('#btn-todo-submit').empty().append(`
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    Updating...
+  `)
+  validateTodoName()
+  if ($('#todo-modal .is-invalid').length > 0) {
+    $('#btn-todo-submit')
+      .empty()
+      .append('Edit')
+    return false
+  }
+  const name = $('#todo-modal #todo-name')
+  const description = $('#todo-modal #todo-desc')
+  const dueDate = $('#todo-modal #todo-due')
+  const access_token = localStorage.getItem('access_token')
+  $.ajax(`${baseUrl}/todos/${e.data._id}`, {
+    method: 'PUT',
+    headers: {
+      access_token
+    },
+    data: {
+      name: name.val(),
+      description: description.val() || undefined,
+      dueDate: dueDate.val() || undefined
+    }
+  })
+    .done(({ data }) => {
+      $(`#${data._id}`).remove()
+      appendCards(data)
+      $('#todo-modal').modal('hide')
+      toast('Todo updated!', 3000)
+    })
+    .fail(({ responseJSON }) => {
+      toast(responseJSON.join(', '), 5000)
+    })
+    .always(() => {
+      $('#btn-todo-submit')
+        .empty()
+        .append('Edit')
+    })
+  return false
 }
 
 function onDeleteTodo(e) {
@@ -208,26 +283,37 @@ function onToggleMark(e) {
     })
 }
 
-function onOpenTodoModal() {
-  $('#todo-modal').modal({
-    backdrop: 'static'
-  })
+function onOpenCreateModal() {
+  $('#todo-modal form').off('submit')
+  $('#todo-modal form').on('submit', onCreateTodo)
   $('#todo-modal').on('hidden.bs.modal', function(e) {
     $('#todo-modal #todo-name').val('')
     $('#todo-modal #todo-desc').val('')
     $('#todo-modal #todo-due').val('')
+    $('#btn-todo-submit')
+      .empty()
+      .append('Create')
   })
+  $('#todo-modal #todo-name').val('')
+  $('#todo-modal #todo-desc').val('')
+  $('#todo-modal #todo-due').val('')
+  $('#btn-todo-submit')
+    .empty()
+    .append('Create')
+    .off('click')
+    .click(onCreateTodo)
+  onOpenTodoModal()
 }
 
 function onCreateTodo(e) {
   if (e) e.preventDefault()
-  $('#btn-todo-create').empty().append(`
+  $('#btn-todo-submit').empty().append(`
     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
     Creating...
   `)
   validateTodoName()
   if ($('#todo-modal .is-invalid').length > 0) {
-    $('#btn-todo-create')
+    $('#btn-todo-submit')
       .empty()
       .append('Create')
     return false
@@ -235,7 +321,6 @@ function onCreateTodo(e) {
   const name = $('#todo-modal #todo-name')
   const description = $('#todo-modal #todo-desc')
   const dueDate = $('#todo-modal #todo-due')
-  console.log(dueDate.val())
   const access_token = localStorage.getItem('access_token')
   $.ajax(`${baseUrl}/todos`, {
     method: 'POST',
@@ -257,10 +342,11 @@ function onCreateTodo(e) {
       toast(responseJSON.join(', '), 5000)
     })
     .always(() => {
-      $('#btn-todo-create')
+      $('#btn-todo-submit')
         .empty()
         .append('Create')
     })
+  return false
 }
 
 function validateTodoName() {

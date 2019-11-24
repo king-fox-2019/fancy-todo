@@ -37,16 +37,13 @@
       <button
         class="navbar-toggler"
         type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
+        data-target="#out-session-nav-toggler"
+        onclick="$('#out-session-nav #out-session-nav-toggler').collapse('toggle')"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse" id="out-session-nav-toggler">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a
@@ -77,16 +74,13 @@
       <button
         class="navbar-toggler"
         type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
+        data-target="#in-session-nav-toggler"
+        onclick="$('#in-session-nav #in-session-nav-toggler').collapse('toggle')"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse" id="in-session-nav-toggler">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a
@@ -276,7 +270,7 @@
             data-placement="top"
             title="Create new todo"
             style="border-radius: 50%; width: 3.3rem; height: 3.3rem; box-shadow: 0 1px 4px 0.3px rgba(0, 0, 0, 0.5);"
-            onclick="onOpenTodoModal()"
+            onclick="onOpenCreateModal()"
           >
             <i class="fas fa-plus"></i>
           </button>
@@ -348,7 +342,7 @@
           </div>
 
           <div class="modal-body">
-            <form onsubmit="onCreateTodo(event)" novalidate>
+            <form novalidate>
               <div class="form-group">
                 <label for="todo-name">Todo Name</label>
                 <input
@@ -394,12 +388,7 @@
             >
               Cancel
             </button>
-            <button
-              type="button"
-              class="btn btn-primary"
-              id="btn-todo-create"
-              onclick="onCreateTodo()"
-            >
+            <button type="button" class="btn btn-primary" id="btn-todo-submit">
               Create
             </button>
           </div>
