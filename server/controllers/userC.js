@@ -69,7 +69,7 @@ class UserController {
           } else {
             return User.create({
               username:
-                payload.name.toLowerCase().replace(' ', '_') +
+                payload.name.toLowerCase().replace(/ +/g, '_') +
                 Math.random() * 1000000,
               email: payload.email,
               password:

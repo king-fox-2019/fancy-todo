@@ -10,6 +10,9 @@ function toLandingPage(e) {
 
 function toSignUpPage(e) {
   if (e) e.preventDefault()
+  $('#signup-page #username').val('')
+  $('#signup-page #email').val('')
+  $('#signup-page #password').val('')
   $('.page').hide()
   $('#signup-page').show()
   localStorage.setItem('active-page', 'signup-page')
@@ -20,6 +23,8 @@ function toSignUpPage(e) {
 
 function toSignInPage(e) {
   if (e) e.preventDefault()
+  $('#signin-page #emailUsername').val('')
+  $('#signin-page #password').val('')
   $('.page').hide()
   $('#signin-page').show()
   localStorage.setItem('active-page', 'signin-page')

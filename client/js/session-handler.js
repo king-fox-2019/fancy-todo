@@ -16,9 +16,7 @@ function onSignUp(e) {
   })
     .done(data => {
       toast('Sign up success!', 3000)
-      username.val('')
-      email.val('')
-      toDashboardPage()
+      toSignInPage()
     })
     .fail(({ responseJSON }) => {
       for (const msg of responseJSON) {
@@ -35,9 +33,9 @@ function onSignUp(e) {
 }
 
 function onSignIn(e) {
+  toast('Loading')
   if (e.type === 'submit') {
     e.preventDefault()
-    toast('Loading')
     const emailUsername = $('#signin-page #emailUsername')
     const password = $('#signin-page #password')
     $.ajax(`${baseUrl}/signin`, {
@@ -50,7 +48,6 @@ function onSignIn(e) {
       .done(({ data }) => {
         toast('Sign in success!', 3000)
         localStorage.setItem('access_token', data.access_token)
-        emailUsername.val('')
         toDashboardPage()
       })
       .fail(({ responseJSON }) => {
@@ -96,9 +93,6 @@ function onSignIn(e) {
 }
 
 function gAuth(googleUser) {
-  toast('Loading')
-  const emailUsername = $('#signin-page #emailUsername')
-  const password = $('#signin-page #password')
   g_token = googleUser.getAuthResponse().id_token
   $.ajax(`${baseUrl}/g-signin`, {
     method: 'POST',
@@ -112,11 +106,7 @@ function gAuth(googleUser) {
       toDashboardPage()
     })
     .fail(({ responseJSON }) => {
-      toast(responseJSON, 5000)
-    })
-    .always(() => {
-      emailUsername.val('')
-      password.val('')
+      toast(responseJSON.join(', '), 5000)
     })
 }
 
