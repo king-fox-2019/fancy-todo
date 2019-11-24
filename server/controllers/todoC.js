@@ -70,23 +70,22 @@ class TodoController {
   }
 
   static editTodo(req, res, next) {
-    Todo.findByIdAndUpdate(
-      req.params.id,
-      {
-        name: req.body.name,
-        description: req.body.description,
-        dueDate: req.body.dueDate
+    Todo.findById(req.params.id)
+      .then(todo => {
+        todo.name = req.body.name || todo.name
+        todo.description = req.body.description || todo.description
+        todo.dueDate = req.body.dueDate
           ? new Date(req.body.dueDate).setHours(23, 59, 59)
-          : undefined,
-        status: req.body.dueDate
-          ? new Date(req.body.dueDate).setHours(23, 59, 59) < new Date()
-            ? 'missed'
-            : undefined
-          : undefined
-      },
-      { new: true, omitUndefined: true, runValidators: true }
-    )
-      .populate({ path: 'creator', select: 'username email -_id' })
+          : todo.dueDate
+        if (new Date(req.body.dueDate).setHours(23, 59, 59) < new Date())
+          todo.status = 'missed'
+        else if (todo.status == 'missed') todo.status = 'pending'
+
+        return todo.save()
+      })
+      .then(todo => {
+        return todo.populate({ path: 'creator', select: 'username email -_id' })
+      })
       .then(todo => {
         res.status(200).json({
           message: 'Todo updated',

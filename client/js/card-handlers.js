@@ -1,3 +1,5 @@
+let todos = []
+
 function fetchCards(access_token) {
   toast('Loading')
   $.ajax(`${baseUrl}/user/todos`, {
@@ -6,15 +8,17 @@ function fetchCards(access_token) {
       access_token
     }
   }).done(({ data }) => {
-    appendCards(data)
+    todos = data
+    arrangeCards()
     Swal.close()
   })
 }
 
-function appendCards(todos) {
-  if (todos.length) {
-    for (const todo of todos) {
-      $('#todo-cards').append(`
+function arrangeCards() {
+  $('#todo-cards').empty()
+  todos = sortTodos(todos)
+  for (const todo of todos) {
+    $('#todo-cards').append(`
         <div class="col-12 col-md-6 col-lg-4 col-xl-3" id="${todo._id}">
           <div
             class="card mb-4"
@@ -24,75 +28,11 @@ function appendCards(todos) {
               <div class="card-title">
                 <h5 class="mb-0">${todo.name}</h5>
                 <small class="d-block todo-status ${
-                  todo.status == 'missed' ? 'text-danger' : 'text-muted'
-                }">Status: ${todo.status}</small>
-                <small class ="mt-0 text-muted">Due: ${moment(
-                  todo.dueDate
-                ).format('ddd, MMM Do YYYY')}</small>
-                <div
-                  class="position-absolute"
-                  style="font-size: large; top: 1rem; right: 1rem;"
-                  id="edit-todo-${todo._id}"
-                >
-                  <a href=""><i class="fas fa-edit text-muted"></i></a>
-                </div>
-              </div>
-              <p class="card-text">
-                ${todo.description || 'No description'}
-              </p>
-              <div class="mt-auto">
-                <p class="card-text">
-                  <small class="todo-last-update text-muted">${moment(
-                    todo.updatedAt
-                  ).fromNow()}</small>
-                </p>
-              </div>
-            </div>
-            <div class="card-footer">
-              <button class="btn btn-danger" id="delete-todo-${todo._id}">
-                <i class="fas fa-trash-alt"></i>
-              </button>
-              <button class="btn btn-success" id="toggle-mark-${todo._id}">
-                ${
-                  todo.status == 'pending'
-                    ? 'Mark Done'
+                  todo.status == 'missed'
+                    ? 'text-danger'
                     : todo.status == 'done'
-                    ? 'Mark Undone'
-                    : ''
-                }
-              </button>
-            </div>
-          </div>
-        </div>
-      `)
-
-      $(`#edit-todo-${todo._id}`).click(function(e) {
-        e.preventDefault()
-        onOpenEditModal(todo)
-        return false
-      })
-
-      $(`#delete-todo-${todo._id}`).click(todo, onDeleteTodo)
-
-      if (todo.status == 'missed') {
-        $(`#toggle-mark-${todo._id}`).remove()
-      } else {
-        $(`#toggle-mark-${todo._id}`).click(todo, onToggleMark)
-      }
-    }
-  } else {
-    const todo = todos
-    $('#todo-cards').prepend(`
-        <div class="col-12 col-md-6 col-lg-4 col-xl-3" id="${todo._id}">
-          <div
-            class="card mb-4"
-            style="min-width: 15rem; min-height: 15rem;"
-          >
-            <div class="card-body d-flex flex-column position-relative">
-              <div class="card-title">
-                <h5 class="mb-0">${todo.name}</h5>
-                <small class="d-block todo-status ${
-                  todo.status == 'missed' ? 'text-danger' : 'text-muted'
+                    ? 'text-success'
+                    : 'text-muted'
                 }">Status: ${todo.status}</small>
                 <small class ="mt-0 text-muted">Due: ${moment(
                   todo.dueDate
@@ -148,6 +88,12 @@ function appendCards(todos) {
       $(`#toggle-mark-${todo._id}`).click(todo, onToggleMark)
     }
   }
+}
+
+function sortTodos(todos) {
+  return todos.sort((a, b) => {
+    return new Date(a.dueDate) - new Date(b.dueDate)
+  })
 }
 
 // Event hanlders
@@ -208,13 +154,15 @@ function onEditTodo(e) {
     }
   })
     .done(({ data }) => {
-      $(`#${data._id}`).remove()
-      appendCards(data)
+      todos = todos.map(todo => {
+        return todo._id == data._id ? data : todo
+      })
+      arrangeCards()
       $('#todo-modal').modal('hide')
       toast('Todo updated!', 3000)
     })
     .fail(({ responseJSON }) => {
-      toast(responseJSON.join(', '), 5000)
+      toast(responseJSON, 5000)
     })
     .always(() => {
       $('#btn-todo-submit')
@@ -245,6 +193,12 @@ function onDeleteTodo(e) {
         }
       })
         .done(() => {
+          todos.splice(
+            todos.findIndex(item => {
+              return item._id == todo._id
+            }),
+            1
+          )
           $(`#${todo._id}`).remove()
           toast('Todo deleted!', 5000)
         })
@@ -265,7 +219,19 @@ function onToggleMark(e) {
     }
   })
     .done(({ data }) => {
-      $(`#${data._id} .todo-status`).text(`Status: ${data.status}`)
+      $(`#${data._id} .todo-status`)
+        .removeClass()
+        .addClass(
+          `d-block todo-status ${
+            data.status == 'missed'
+              ? 'text-danger'
+              : data.status == 'done'
+              ? 'text-success'
+              : 'text-muted'
+          }`
+        )
+        .text(`Status: ${data.status}`)
+
       $(`#toggle-mark-${data._id}`).text(
         `${
           data.status == 'pending'
@@ -276,7 +242,7 @@ function onToggleMark(e) {
         }`
       )
       $(`#${data._id} .todo-last-update`).text(moment(data.updatedAt).fromNow())
-      Swal.close()
+      toast(`Todo marked as ${data.status}`, 3000)
     })
     .fail(({ responseJSON }) => {
       toast(responseJSON, 5000)
@@ -334,7 +300,8 @@ function onCreateTodo(e) {
     }
   })
     .done(({ data }) => {
-      appendCards(data)
+      todos.push(data)
+      arrangeCards()
       $('#todo-modal').modal('hide')
       toast('New todo created', 3000)
     })
@@ -349,6 +316,7 @@ function onCreateTodo(e) {
   return false
 }
 
+// Validator
 function validateTodoName() {
   if ($('#todo-modal #todo-name').val().length > 0) {
     $('#todo-modal #todo-name').removeClass('is-invalid')

@@ -35,7 +35,6 @@ function toDashboardPage(e) {
   localStorage.setItem('active-page', 'dashboard-page')
   $('#in-session-nav').show()
   $('#out-session-nav').hide()
-  $('#todo-cards').empty()
   fetchCards(localStorage.getItem('access_token'))
   return false
 }
