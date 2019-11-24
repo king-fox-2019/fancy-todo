@@ -12,4 +12,8 @@
 #main #signin-page .card {
   min-width: 35%;
 }
+
+#main #dashboard-page #todo-cards .fa-edit:hover {
+  color: #000 !important;
+}
 /*# sourceMappingURL=style.css.map */

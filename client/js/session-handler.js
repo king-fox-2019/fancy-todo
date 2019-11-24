@@ -127,6 +127,7 @@ function onSignOut(e) {
     console.log('User signed out.')
   })
   localStorage.removeItem('access_token')
+  toast('Sign out success!', 3000)
   toLandingPage()
   return false
 }
