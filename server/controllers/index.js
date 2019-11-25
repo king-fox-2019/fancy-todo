@@ -1,4 +1,5 @@
 module.exports = {
   UserController: require('./userC'),
-  TodoController: require('./todoC')
+  TodoController: require('./todoC'),
+  GroupController: require('./groupC')
 }

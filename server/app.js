@@ -13,6 +13,9 @@ app.use(morgan('dev'))
 app.use(cors())
 
 app.use('/', require('./routes'))
+app.use('/', (req, res, next) =>
+  next({ status: 404, message: 'Invalid endpoint/not found' })
+)
 app.use(require('./middlewares/errorHandler'))
 
 module.exports = app

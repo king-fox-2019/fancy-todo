@@ -6,6 +6,10 @@ const todoSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'User'
     },
+    group: {
+      type: Schema.Types.ObjectId,
+      ref: 'Group'
+    },
     name: {
       type: String,
       required: [true, 'Todo name required']

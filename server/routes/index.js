@@ -9,5 +9,6 @@ routes.use(authenticate)
 routes.get('/checksession', UserController.checkSession)
 routes.use('/user', require('./user'))
 routes.use('/todos', require('./todos'))
+routes.use('/groups', require('./groups'))
 
 module.exports = routes
