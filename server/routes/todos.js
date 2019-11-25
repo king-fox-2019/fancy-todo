@@ -1,9 +1,9 @@
 const todos = require('express').Router()
 const { TodoController } = require('../controllers')
-const { authorize } = require('../middlewares/auth')
+const { authorizeTodo } = require('../middlewares/auth')
 
 todos.post('/', TodoController.createTodo)
-todos.use('/:id', authorize)
+todos.use('/:id', authorizeTodo)
 todos.get('/:id', TodoController.getOneTodo)
 todos.put('/:id', TodoController.editTodo)
 todos.patch('/:id', TodoController.updateStatus)

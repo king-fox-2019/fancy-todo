@@ -21,12 +21,15 @@ This section is used to document error responses, cause, and possible ways to re
 ### Status 404: Not Found
 
 - `Invalid endpoint/not found`: This means that the url is not found. Try recheck your request endpoint.
+- `User not found`: This could happen when you try to get a user, usually when you invite or kick a member from your group. The server will try to find if the user that will be invited/kicked is actually exist, and if not, will send this error.
 
 ### Status 422: Unprocessable Entity
 
 - User validation error: This kind of error may occur during Sign Up, oftenly because invalid data value. Recheck whether or not the data you send has valid values, and also if it satisfies all constraints (uniqueness, not empty, etc.). Example error messages: `Username already taken`,  `Email required`, `Password must have at least 6 characters`
 - `Username, email, or password wrong`: This error happens during Sign In. It simply indicates that the data you enter is invalid (whether it's actually wrong or some fields are missing). Please recheck the data you send.
 - `Group name required`: This occurs when you try to Create Group without specifying group name. Recheck your data request.
+- `Email required`: This could happen when you try to invite or kick a member from your group. Recheck whether if you have sent valid email.
+- `User already invited`: This error occurs when you try to invite a user that has already been the member of your group.
 
 ### Status 401: Unauthorized
 
@@ -192,12 +195,12 @@ GET /user/groups?as=[leader][members]
 			"_id": "5ddb8ddfa266870182d3182e",
       "name": "Dummy group",
       "leader": {
-      "_id": "5ddb85b06a8fd9fd116889e6",
-      "username": "dummy",
-      "email": "dummy@mail.com"
+        "_id": "5ddb85b06a8fd9fd116889e6",
+        "username": "dummy",
+        "email": "dummy@mail.com"
       },
       "members": []
-		}
+    }
 	]
 }
 ```
@@ -209,7 +212,7 @@ GET /user/groups?as=[leader][members]
 ##### Endpoint
 
 ```http
-PUT /groups/:id/members
+PATCH /groups/:id/members
 ```
 
 ##### Header
@@ -222,11 +225,35 @@ PUT /groups/:id/members
 
 ##### Body
 
-- email: String **Required** (Valid email of new member where we send the invitation email)
+- email: String **Required** (Valid email of new member where we send the invitation email to)
 
 ##### Response
 
-###### Status 200: New member invited
+###### Status 200: OK
+
+```json
+{
+	"message": "New member invited",
+  "data": {
+    "_id": "5ddbadecccff181332f92b92",
+    "name": "Dummy group 2",
+    "leader": {
+      "_id": "5ddb85b06a8fd9fd116889e6",
+      "username": "dummy",
+      "email": "dummy@mail.com"
+    },
+    "members": [
+      {
+        "_id": "5ddb86ec6a8fd9fd116889e8",
+        "username": "alif",
+        "email": "alif@mail.com"
+      }
+    ]
+  }
+}
+```
+
+
 
 
 
