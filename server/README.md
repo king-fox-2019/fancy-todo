@@ -12,6 +12,8 @@ If you are using this API from source code then use:
 http://localhost:PORT
 ```
 
+The default port used is 3000. But you can override it by assigning other value at `.env` (More on this at Usage section).
+
 
 
 ## Errors
@@ -21,23 +23,29 @@ This section is used to document error responses, cause, and possible ways to re
 ### Status 404: Not Found
 
 - `Invalid endpoint/not found`: This means that the url is not found. Try recheck your request endpoint.
+- `Group not found`: This happens when you try to access a specific group that's not exist, or you might just mistyped it's id. Check whether if you already sent the correct id.
 - `User not found`: This could happen when you try to get a user, usually when you invite or kick a member from your group. The server will try to find if the user that will be invited/kicked is actually exist, and if not, will send this error.
 
 ### Status 422: Unprocessable Entity
 
 - User validation error: This kind of error may occur during Sign Up, oftenly because invalid data value. Recheck whether or not the data you send has valid values, and also if it satisfies all constraints (uniqueness, not empty, etc.). Example error messages: `Username already taken`,  `Email required`, `Password must have at least 6 characters`
 - `Username, email, or password wrong`: This error happens during Sign In. It simply indicates that the data you enter is invalid (whether it's actually wrong or some fields are missing). Please recheck the data you send.
-- `Group name required`: This occurs when you try to Create Group without specifying group name. Recheck your data request.
-- `Email required`: This could happen when you try to invite or kick a member from your group. Recheck whether if you have sent valid email.
-- `User already invited`: This error occurs when you try to invite a user that has already been the member of your group.
+- `Group name required`: This occurs when you try to Create Group or Edit Group Name without specifying group name. Recheck your data request.
+- `Email required`: This could happen when you try to Invite or Kick Member from your group. Recheck whether if you have sent valid email.
+- `User already invited`: This error occurs when you try to Invite Member with a user that has already been the member of your group.
+- `Invalid member id`: This could happen if you try to Kick Member in your group who doesn't exist, or could also happen if you send wrong/mistyping id. Try to recheck the id you send as parameter.
 
 ### Status 401: Unauthorized
 
 - `Valid acccess token required`: This happens when you try to access endpoint that require authentication. Make sure to check whether you have included your `access_token` to your request header. If so, but the error still persist, then try to get new token from Sign In endpoint.
 
+### Status 403: Forbidden
+
+- `Unauthorized access to this group`: This means that you are trying to access/manipulate group (oftenly inviting/kicking members) but you don't have the privilege to do so, since only group leader that has access to member control.
 
 
-## Routes
+
+## User Routes
 
 ### Sign Up
 
@@ -134,6 +142,8 @@ GET /checksession
 
 
 
+## Group Routes
+
 ### Create Group
 
 ##### Endpoint
@@ -207,6 +217,44 @@ GET /user/groups?as=[leader][members]
 
 
 
+### Edit Group Name
+
+##### Endpoint
+
+```http
+PATCH /groups/:id
+```
+
+##### Header
+
+- access_token: String **Required**
+
+##### Body
+
+- name: String **Required**
+
+##### Response
+
+###### Status 200: OK
+
+```json
+{
+  "message": "Group name updated",
+  "data": {
+    "_id": "5ddbadecccff181332f92b92",
+    "name": "Edited Dummy Group",
+    "leader": {
+      "_id": "5ddb85b06a8fd9fd116889e6",
+      "username": "dummy",
+      "email": "dummy@mail.com"
+    },
+    "members": []
+  }
+}
+```
+
+
+
 ### Invite Member
 
 ##### Endpoint
@@ -236,7 +284,7 @@ PATCH /groups/:id/members
 	"message": "New member invited",
   "data": {
     "_id": "5ddbadecccff181332f92b92",
-    "name": "Dummy group 2",
+    "name": "Dummy group",
     "leader": {
       "_id": "5ddb85b06a8fd9fd116889e6",
       "username": "dummy",
@@ -245,8 +293,8 @@ PATCH /groups/:id/members
     "members": [
       {
         "_id": "5ddb86ec6a8fd9fd116889e8",
-        "username": "alif",
-        "email": "alif@mail.com"
+        "username": "dummy2",
+        "email": "dummy2@mail.com"
       }
     ]
   }
@@ -255,14 +303,12 @@ PATCH /groups/:id/members
 
 
 
-
-
 ### Kick Member
 
 ##### Endpoint
 
 ```http
-PUT /group/:id/members/:member_id
+DELETE /group/:id/members/:member_id
 ```
 
 ##### Header
@@ -276,9 +322,51 @@ PUT /group/:id/members/:member_id
 
 ##### Response
 
-###### Status 200: Member kicked
+###### Status 200: OK
+
+```json
+{
+  "message": "Member deleted",
+  "data": {
+    "_id": "5ddbadecccff181332f92b92",
+    "name": "Dummy group",
+    "leader": {
+      "_id": "5ddb85b06a8fd9fd116889e6",
+      "username": "dummy",
+      "email": "dummy@mail.com"
+    },
+    "members": []
+  }
+}
+```
 
 
+
+### Delete Group
+
+##### Enpoint
+
+```http
+DELETE /groups/:id
+```
+
+##### Header
+
+- access_token: String **Required**
+
+##### Response
+
+###### Status 200: OK
+
+```json
+{
+  "message": "Group deleted"
+}
+```
+
+
+
+## Todo Routes
 
 ### Create Todo
 
