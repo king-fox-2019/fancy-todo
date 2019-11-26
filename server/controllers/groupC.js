@@ -4,7 +4,7 @@ class GroupController {
   static createGroup(req, res, next) {
     Group.create({
       name: req.body.name,
-      leader: req.payload.id
+      leader: req.user._id
     })
       .then(group => {
         res.status(201).json({
@@ -24,9 +24,9 @@ class GroupController {
     const as = req.query.as
     Group.find(
       as
-        ? { [as]: req.payload.id }
+        ? { [as]: req.user._id }
         : {
-            $or: [{ leader: req.payload.id }, { members: req.payload.id }]
+            $or: [{ leader: req.user._id }, { members: req.user._id }]
           }
     )
       .populate({ path: 'leader', select: '_id username email' })

@@ -3,6 +3,7 @@ const { TodoController } = require('../controllers')
 const { authorizeTodo } = require('../middlewares/auth')
 
 todos.post('/', TodoController.createTodo)
+
 todos.use('/:id', authorizeTodo)
 todos.get('/:id', TodoController.getOneTodo)
 todos.put('/:id', TodoController.editTodo)

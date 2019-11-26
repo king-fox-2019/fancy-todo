@@ -368,7 +368,7 @@ DELETE /groups/:id
 
 ## Todo Routes
 
-### Create Todo
+### Create Private Todo
 
 ##### Endpoint
 

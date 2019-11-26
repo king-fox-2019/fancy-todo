@@ -1,12 +1,16 @@
-const { Todo, Group } = require('../models')
+const { User, Todo, Group } = require('../models')
 const { decode } = require('../helpers/tokenHandler')
 
 module.exports = {
   authenticate(req, res, next) {
     try {
       const payload = decode(req.headers.access_token)
-      req.payload = payload
-      next()
+      User.findById(payload.id).then(user => {
+        if (!user)
+          throw { status: 401, message: 'Valid acccess token required' }
+        req.user = user
+        next()
+      })
     } catch {
       next({ status: 401, message: 'Valid acccess token required' })
     }
@@ -24,7 +28,7 @@ module.exports = {
     Group.findById(req.params.id)
       .then(group => {
         if (!group) throw { status: 404, message: 'Group not found' }
-        if (group.leader == req.payload.id) {
+        if (group.leader == req.user.id) {
           req.group = group
           next()
         } else

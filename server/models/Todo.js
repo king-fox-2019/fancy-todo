@@ -4,7 +4,8 @@ const todoSchema = new Schema(
   {
     creator: {
       type: Schema.Types.ObjectId,
-      ref: 'User'
+      ref: 'User',
+      required: [true, 'Creator id required']
     },
     group: {
       type: Schema.Types.ObjectId,
