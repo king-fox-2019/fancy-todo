@@ -212,7 +212,7 @@ function onDeleteTodo(e) {
 function onToggleMark(e) {
   const todo = e.data
   toast('Loading')
-  $.ajax(`${baseUrl}/todos/${todo._id}`, {
+  $.ajax(`${baseUrl}/todos/${todo._id}/status`, {
     method: 'PATCH',
     headers: {
       access_token: localStorage.getItem('access_token')
