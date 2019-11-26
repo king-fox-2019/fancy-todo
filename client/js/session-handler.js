@@ -23,6 +23,7 @@ function accessTokenAuth(access_token) {
     headers: { access_token }
   })
     .done(({ data }) => {
+      Swal.close()
       sessionChecked = false
       if (['landing-page', 'signup-page', 'signin-page'].includes(activePage)) {
         toDashboardPage()
@@ -45,6 +46,7 @@ function gAuth(googleUser) {
     }
   })
     .done(({ data }) => {
+      Swal.close()
       sessionChecked = false
       localStorage.setItem('access_token', data.access_token)
       const activePage = localStorage.getItem('active-page')
@@ -146,6 +148,9 @@ function switchPage(page) {
       break
     case 'dashboard-page':
       toDashboardPage()
+      break
+    case 'group-list-page':
+      toGroupListPage()
       break
 
     default:

@@ -16,4 +16,8 @@
 #main #dashboard-page #todo-cards .fa-edit:hover {
   color: #000 !important;
 }
+
+#main #group-list-page #group-list {
+  cursor: pointer;
+}
 /*# sourceMappingURL=style.css.map */

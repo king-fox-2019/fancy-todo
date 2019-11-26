@@ -4,9 +4,4 @@ $(document).ready(() => {
   })
   $('[data-toggle="tooltip"]').tooltip()
   checkSession()
-  let activePage = localStorage.getItem('active-page')
-  if (!activePage) {
-    activePage = 'landing-page'
-  }
-  switchPage(activePage)
 })

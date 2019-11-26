@@ -7,11 +7,15 @@ function fetchCards(access_token) {
     headers: {
       access_token
     }
-  }).done(({ data }) => {
-    todos = data
-    arrangeCards()
-    Swal.close()
   })
+    .done(({ data }) => {
+      todos = data
+      arrangeCards()
+      Swal.close()
+    })
+    .fail(({ responseJSON }) => {
+      toast(responseJSON, 5000)
+    })
 }
 
 function arrangeCards() {

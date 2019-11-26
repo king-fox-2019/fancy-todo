@@ -43,3 +43,14 @@ function toDashboardPage(e) {
   fetchCards(localStorage.getItem('access_token'))
   return false
 }
+
+function toGroupListPage(e) {
+  if (e) e.preventDefault()
+  $('.page').hide()
+  $('#group-list-page').show()
+  localStorage.setItem('active-page', 'group-list-page')
+  $('#in-session-nav').show()
+  $('#out-session-nav').hide()
+  fetchGroup(localStorage.getItem('access_token'))
+  return false
+}
