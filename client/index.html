@@ -81,6 +81,11 @@
       </button>
 
       <div class="collapse navbar-collapse" id="in-session-nav-toggler">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a href="" class="nav-link" onclick="toGroupPage(event)">Group</a>
+          </li>
+        </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a
@@ -179,7 +184,7 @@
                 <span class="mx-3">Or</span>
                 <div
                   class="g-signin2 d-inline-block"
-                  data-onsuccess="onSignIn"
+                  data-onsuccess="checkSession"
                 ></div>
               </div>
               <div class="text-right">
@@ -224,7 +229,6 @@
                   class="form-control"
                   id="password"
                   placeholder="******"
-                  oninput="validatePassword()"
                   required
                 />
               </div>
@@ -233,7 +237,7 @@
                 <span class="mx-3">Or</span>
                 <div
                   class="g-signin2 d-inline-block"
-                  data-onsuccess="onSignIn"
+                  data-onsuccess="checkSession"
                 ></div>
               </div>
               <div class="text-right">
@@ -317,6 +321,10 @@
         </div>
       </div>
       <!-- End Dashboard Page -->
+
+      <!-- Group Page -->
+
+      <!-- End Group Page -->
     </div>
     <!-- End Main -->
 
@@ -416,6 +424,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="js/moment.js"></script>
 
+    <script>
+      let sessionChecked = false
+    </script>
     <script src="js/global-utils.js"></script>
     <script src="js/card-handlers.js"></script>
     <script src="js/page-handler.js"></script>

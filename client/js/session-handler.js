@@ -1,3 +1,65 @@
+function checkSession(googleUser) {
+  toast('Loading')
+  const access_token = localStorage.getItem('access_token')
+  if (googleUser && !sessionChecked) {
+    sessionChecked = true
+    // console.log('First check Session. Using gAuth')
+    gAuth(googleUser)
+  } else if (access_token && !sessionChecked) {
+    sessionChecked = true
+    // console.log('First check Session. Using access token')
+    accessTokenAuth(access_token)
+  } else {
+    // console.log('Session checked or Access token or gAuth fail')
+    Swal.close()
+    toLandingPage()
+  }
+}
+
+function accessTokenAuth(access_token) {
+  const activePage = localStorage.getItem('active-page')
+  $.ajax(`${baseUrl}/checksession`, {
+    method: 'GET',
+    headers: { access_token }
+  })
+    .done(({ data }) => {
+      sessionChecked = false
+      if (['landing-page', 'signup-page', 'signin-page'].includes(activePage)) {
+        toDashboardPage()
+      } else {
+        switchPage(activePage)
+      }
+    })
+    .fail(({ responseJSON }) => {
+      toast(responseJSON, 5000)
+      toLandingPage()
+    })
+}
+
+function gAuth(googleUser) {
+  g_token = googleUser.getAuthResponse().id_token
+  $.ajax(`${baseUrl}/g-signin`, {
+    method: 'POST',
+    data: {
+      g_token
+    }
+  })
+    .done(({ data }) => {
+      sessionChecked = false
+      localStorage.setItem('access_token', data.access_token)
+      const activePage = localStorage.getItem('active-page')
+      if (['landing-page', 'signup-page', 'signin-page'].includes(activePage)) {
+        toDashboardPage()
+      } else {
+        switchPage(activePage)
+      }
+    })
+    .fail(({ responseJSON }) => {
+      toast(responseJSON, 5000)
+      toLandingPage()
+    })
+}
+
 function onSignUp(e) {
   if (e) e.preventDefault()
   validateUsername(), validateEmail(), validatePassword()
@@ -34,70 +96,14 @@ function onSignUp(e) {
 
 function onSignIn(e) {
   toast('Loading')
-  if (e.type === 'submit') {
-    e.preventDefault()
-    const emailUsername = $('#signin-page #emailUsername')
-    const password = $('#signin-page #password')
-    $.ajax(`${baseUrl}/signin`, {
-      method: 'POST',
-      data: {
-        emailUsername: emailUsername.val(),
-        password: password.val()
-      }
-    })
-      .done(({ data }) => {
-        toast('Sign in success!', 3000)
-        localStorage.setItem('access_token', data.access_token)
-        toDashboardPage()
-      })
-      .fail(({ responseJSON }) => {
-        toast(responseJSON, 5000)
-        emailUsername.addClass('is-invalid')
-        password.addClass('is-invalid')
-        emailUsername.one('focus', () =>
-          emailUsername.removeClass('is-invalid')
-        )
-        password.one('focus', () => password.removeClass('is-invalid'))
-      })
-      .always(() => password.val(''))
-  } else if (e) {
-    const access_token = localStorage.getItem('access_token')
-    if (access_token) {
-      $.ajax(`${baseUrl}/checksession`, {
-        method: 'GET',
-        headers: { access_token }
-      })
-        .done(({ data }) => {
-          if (data) {
-            if (
-              ['landing-page', 'signup-page', 'signin-page'].includes(
-                localStorage.getItem('active-page')
-              )
-            ) {
-              toDashboardPage()
-            }
-          } else {
-            gAuth(e)
-          }
-        })
-        .fail(({ responseJSON }) => {
-          toast(responseJSON, 5000)
-          toLandingPage()
-        })
-    } else {
-      gAuth(e)
-    }
-  }
-
-  return false
-}
-
-function gAuth(googleUser) {
-  g_token = googleUser.getAuthResponse().id_token
-  $.ajax(`${baseUrl}/g-signin`, {
+  if (e) e.preventDefault()
+  const emailUsername = $('#signin-page #emailUsername')
+  const password = $('#signin-page #password')
+  $.ajax(`${baseUrl}/signin`, {
     method: 'POST',
     data: {
-      g_token
+      emailUsername: emailUsername.val(),
+      password: password.val()
     }
   })
     .done(({ data }) => {
@@ -106,8 +112,13 @@ function gAuth(googleUser) {
       toDashboardPage()
     })
     .fail(({ responseJSON }) => {
-      toast(responseJSON.join(', '), 5000)
+      toast(responseJSON, 5000)
+      emailUsername.addClass('is-invalid')
+      password.addClass('is-invalid')
+      emailUsername.one('focus', () => emailUsername.removeClass('is-invalid'))
+      password.one('focus', () => password.removeClass('is-invalid'))
     })
+    .always(() => password.val(''))
 }
 
 function onSignOut(e) {
@@ -120,6 +131,27 @@ function onSignOut(e) {
   toast('Sign out success!', 3000)
   toLandingPage()
   return false
+}
+
+function switchPage(page) {
+  switch (page) {
+    case 'landing-page':
+      toLandingPage()
+      break
+    case 'signup-page':
+      toSignUpPage()
+      break
+    case 'signin-page':
+      toSignInPage()
+      break
+    case 'dashboard-page':
+      toDashboardPage()
+      break
+
+    default:
+      toLandingPage()
+      break
+  }
 }
 
 /* Input Validation */

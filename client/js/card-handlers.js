@@ -16,6 +16,21 @@ function fetchCards(access_token) {
 
 function arrangeCards() {
   $('#todo-cards').empty()
+  if (todos.length <= 0) {
+    $('#todo-cards').append(`
+      <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+        <div
+            class="card mb-4"
+            style="min-width: 15rem; min-height: 18rem;"
+          >
+          <div class="card-body d-flex flex-column position-relative">
+            <h5 class="mb-0">No Doodoo</h5>
+            <p class="card-text">Looks like you don't have any Doodoo. <a href onclick="onOpenCreateModal(event)">Create one</a></p>
+          </div>
+        </div
+      </div>
+    `)
+  }
   todos = sortTodos(todos)
   for (const todo of todos) {
     $('#todo-cards').append(`
@@ -249,7 +264,8 @@ function onToggleMark(e) {
     })
 }
 
-function onOpenCreateModal() {
+function onOpenCreateModal(e) {
+  if (e) e.preventDefault()
   $('#todo-modal form').off('submit')
   $('#todo-modal form').on('submit', onCreateTodo)
   $('#todo-modal').on('hidden.bs.modal', function(e) {
