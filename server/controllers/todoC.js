@@ -3,15 +3,16 @@ const { Todo } = require('../models')
 class TodoController {
   static createTodo(req, res, next) {
     Todo.create({
-      creator: req.payload.id,
+      creator: req.user._id,
       name: req.body.name,
       description: req.body.description,
+      group: req.params.id,
       dueDate: req.body.dueDate
         ? new Date(req.body.dueDate).setHours(23, 59, 59)
         : undefined
     })
       // .then(todo => {
-      //   return todo.populate('creator', 'username email -_id').execPopulate()
+      //   return todo.populate('creator', 'username email -_id').populate('group', '') execPopulate()
       // })
       .then(todo => {
         res.status(201).json({
@@ -20,6 +21,7 @@ class TodoController {
             _id: todo._id,
             name: todo.name,
             description: todo.description,
+            group: todo.group,
             dueDate: todo.dueDate,
             createdAt: todo.createdAt,
             status: todo.status
@@ -30,7 +32,35 @@ class TodoController {
   }
 
   static getAllUserTodos(req, res, next) {
-    Todo.find({ creator: req.payload.id })
+    const from = req.query.from
+    Todo.find(
+      from
+        ? from == 'private'
+          ? { $and: [{ creator: req.user._id }, { group: { $exists: false } }] }
+          : { $and: [{ creator: req.user._id }, { group: from }] }
+        : { creator: req.user._id }
+    )
+      .populate({ path: 'creator', select: 'username email -_id' })
+      .then(todos => {
+        res.status(200).json({
+          data: todos.map(todo => {
+            return {
+              _id: todo._id,
+              name: todo.name,
+              creator: todo.creator,
+              description: todo.description,
+              dueDate: todo.dueDate,
+              updatedAt: todo.updatedAt,
+              status: todo.status
+            }
+          })
+        })
+      })
+      .catch(next)
+  }
+
+  static getAllGroupTodos(req, res, next) {
+    Todo.find({ group: req.params.id })
       .populate({ path: 'creator', select: 'username email -_id' })
       .then(todos => {
         res.status(200).json({
@@ -53,12 +83,14 @@ class TodoController {
   static getOneTodo(req, res, next) {
     Todo.findById(req.params.id)
       .populate({ path: 'creator', select: 'username email -_id' })
+      .populate({ path: 'group', select: 'name -_id' })
       .then(todo => {
         res.status(200).json({
           data: {
             _id: todo._id,
             name: todo.name,
             creator: todo.creator,
+            group: todo.group,
             description: todo.description,
             dueDate: todo.dueDate,
             updatedAt: todo.updatedAt,
@@ -84,7 +116,9 @@ class TodoController {
         return todo.save()
       })
       .then(todo => {
-        return todo.populate({ path: 'creator', select: 'username email -_id' })
+        return todo
+          .populate({ path: 'creator', select: 'username email -_id' })
+          .populate({ path: 'group', select: 'name -_id' })
       })
       .then(todo => {
         res.status(200).json({
@@ -93,6 +127,7 @@ class TodoController {
             _id: todo._id,
             name: todo.name,
             creator: todo.creator,
+            group: todo.group,
             description: todo.description,
             dueDate: todo.dueDate,
             updatedAt: todo.updatedAt,
@@ -124,6 +159,7 @@ class TodoController {
             _id: todo._id,
             name: todo.name,
             creator: todo.creator,
+            group: todo.group,
             description: todo.description,
             dueDate: todo.dueDate,
             updatedAt: todo.updatedAt,

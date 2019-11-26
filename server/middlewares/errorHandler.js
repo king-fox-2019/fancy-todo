@@ -1,5 +1,6 @@
 module.exports = (err, req, res, next) => {
   console.log(err.name || err.message)
+  console.log(err.message)
   let status, message
 
   switch (err.name) {
@@ -9,6 +10,10 @@ module.exports = (err, req, res, next) => {
       for (const path in err.errors) {
         message.push(err.errors[path].message)
       }
+      break
+    case 'CastError':
+      status = 422
+      message = 'Invalid object id'
       break
 
     default:

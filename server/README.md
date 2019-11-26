@@ -30,10 +30,9 @@ This section is used to document error responses, cause, and possible ways to re
 
 - User validation error: This kind of error may occur during Sign Up, oftenly because invalid data value. Recheck whether or not the data you send has valid values, and also if it satisfies all constraints (uniqueness, not empty, etc.). Example error messages: `Username already taken`,  `Email required`, `Password must have at least 6 characters`
 - `Username, email, or password wrong`: This error happens during Sign In. It simply indicates that the data you enter is invalid (whether it's actually wrong or some fields are missing). Please recheck the data you send.
-- `Group name required`: This occurs when you try to Create Group or Edit Group Name without specifying group name. Recheck your data request.
-- `Email required`: This could happen when you try to Invite or Kick Member from your group. Recheck whether if you have sent valid email.
-- `User already invited`: This error occurs when you try to Invite Member with a user that has already been the member of your group.
-- `Invalid member id`: This could happen if you try to Kick Member in your group who doesn't exist, or could also happen if you send wrong/mistyping id. Try to recheck the id you send as parameter.
+- Group validation error: This kind of error could happen when you try to manipulate group (create, edit, invite member, etc.), but some data that you send are invalid or missing. Recheck every data that you send, including the existence of member that you refer when trying to Invite or Kick Member. Example error messages: `Group name required`, `User already invited`, `Invalid member id`
+- Todo validation error: This kind of error could occur during todo creation and manipulation (edit, delete, etc.). Check whether if you have sent all required data, and whether those data are valid. Example error messages: `Todo name required`
+- `Invalid object id`: This error happens when you access routes that needs to specify id (example: Get On Private Id, Delete Private Id). Recheck wheter you sent valid id.
 
 ### Status 401: Unauthorized
 
@@ -384,22 +383,66 @@ POST /todos
 
 - name: String **Required**
 - description: String **Optional**
-- dueDate: String | Date **Optional** (String format: YYYY-MM-DD. If ommited, the due date will be set to today.)
+- dueDate: String | Date **Optional** (String format: YYYY-MM-DD. If ommited, the due date will be set to today)
 
 ##### Response
 
-###### Status 201: Todo created
-
-###### Data:
+###### Status 201: Created
 
 ```json
 {
-  "_id": "5dd9007a0177c12c16b4bdfc",
-	"name": "What a todo",
-  "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error necessitatibus quibusdam est assumenda facilis repellat repudiandae eveniet laborum hic impedit? Delectus saepe fuga dolorum accusantium expedita veniam sapiente esse provident.",
-  "dueDate": "2020-01-01T00:00:00.000Z",
-  "createdAt": "2019-11-23T09:39:31.874Z",
-  "status": "pending"
+  "message": "Todo created",
+  "data": {
+    "_id": "5ddcf09e02127b06a362bba0",
+    "name": "Dummy todo",
+    "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error necessitatibus quibusdam est assumenda facilis repellat repudiandae eveniet laborum hic impedit? Delectus saepe fuga dolorum accusantium expedita veniam sapiente esse provident.",
+    "dueDate": "2019-11-26T16:59:59.000Z",
+    "createdAt": "2019-11-26T09:30:06.490Z",
+    "status": "pending"
+  }
+}
+```
+
+
+
+### Create Group Todo
+
+##### Endpoint
+
+```http
+POST /groups/:id/todos
+```
+
+##### Header
+
+- access_token: String **Required**
+
+##### Param
+
+- id: String **Required** (Group id where you create new todo)
+
+##### Body
+
+- name: String **Required**
+- description: String **Optional**
+- dueDate: String | Date **Optional** (String format: YYYY-MM-DD. If ommited, the due date will be set to today)
+
+##### Response
+
+###### Status 201: Created
+
+```json
+{
+  "message": "Todo created",
+  "data": {
+    "_id": "5ddd079569cdd60af0c88cfa",
+    "name": "Dummy todo",
+    "description": "This is group todo",
+    "group": "5ddbadecccff181332f92b92",
+    "dueDate": "2019-11-26T16:59:59.000Z",
+    "createdAt": "2019-11-26T11:08:05.867Z",
+    "status": "pending"
+  }
 }
 ```
 
@@ -410,34 +453,79 @@ POST /todos
 ##### Endpoint
 
 ```http
-GET /user/todos
+GET /user/todos?from=[private][id]
 ```
 
 ##### Header
 
 - access_token: String **Required**
 
+##### Query
+
+- from: `id` | "private" **Optional** (Filter todos to specific groups by specifying it's `group id`, or filter only private todos by setting value to string "private")
+
 ##### Response
 
-###### Status 200
-
-###### Data:
+###### Status 200: OK
 
 ```json
-[
-	{
-		"_id": "5dd9007a0177c12c16b4bdfc",
-    "name": "What a todo",
-    "creator": {
-    	"username": "dummy",
-	    "email": "dummy@mail.com"
-   	},
-    "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error necessitatibus quibusdam est assumenda facilis repellat repudiandae eveniet laborum hic impedit? Delectus saepe fuga dolorum accusantium expedita veniam sapiente esse provident.",
-    "dueDate": "2020-01-01T00:00:00.000Z",
-    "updatedAt": "2019-11-23T09:48:42.390Z",
-    "status": "pending"
-	}
-]
+{
+  "data": [
+    {
+      "_id": "5ddcf0547a90b0068f2d966f",
+      "name": "Dummy todo",
+      "creator": {
+        "username": "dummy",
+        "email": "dummy@mail.com"
+      },
+      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error necessitatibus quibusdam est assumenda facilis repellat repudiandae eveniet laborum hic impedit? Delectus saepe fuga dolorum accusantium expedita veniam sapiente esse provident.",
+      "dueDate": "2020-01-01T16:59:59.000Z",
+      "updatedAt": "2019-11-26T09:28:52.372Z",
+      "status": "pending"
+    }
+  ]
+}
+```
+
+
+
+### Get All Group Todos
+
+##### Endpoint
+
+```http
+GET /groups/:id/todos
+```
+
+##### Header
+
+- access_token: String **Required**
+
+##### Param
+
+- id: String **Required** (Group id where you want to get the todo)
+
+##### Response
+
+###### Status 200: OK
+
+```json
+{
+  "data": [
+    {
+      "_id": "5ddd07283c78fd0aa29bdcf1",
+      "name": "Dummy todo",
+      "creator": {
+        "username": "dummy",
+        "email": "dummy@mail.com"
+      },
+      "description": "This is group todo",
+      "dueDate": "2019-11-26T16:59:59.000Z",
+      "updatedAt": "2019-11-26T11:06:16.286Z",
+      "status": "pending"
+    }
+  ]
+}
 ```
 
 
@@ -456,26 +544,29 @@ GET /todos/:id
 
 ##### Param
 
-- id: String **Required** (Todo id to identify which todo to get.)
+- id: String **Required** (Todo id to identify which todo to get)
 
 ##### Response
 
 ###### Status 200
 
-###### Data:
-
 ```json
 {
-	"_id": "5dd9007a0177c12c16b4bdfc",
-  "name": "What a todo",
-  "creator": {
-    "username": "dummy",
-    "email": "dummy@mail.com"
-  },
-  "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error necessitatibus quibusdam est assumenda facilis repellat repudiandae eveniet laborum hic impedit? Delectus saepe fuga dolorum accusantium expedita veniam sapiente esse provident.",
-  "dueDate": "2020-01-01T00:00:00.000Z",
-  "updatedAt": "2019-11-23T09:48:42.390Z",
-  "status": "pending"
+  "data": {
+    "_id": "5ddcf0547a90b0068f2d966f",
+    "name": "Dummy todo",
+    "creator": {
+      "username": "dummy",
+      "email": "dummy@mail.com"
+    },
+    "group": {
+      "name": "Dummy group"
+    },
+    "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error necessitatibus quibusdam est assumenda facilis repellat repudiandae eveniet laborum hic impedit? Delectus saepe fuga dolorum accusantium expedita veniam sapiente esse provident.",
+    "dueDate": "2020-01-01T16:59:59.000Z",
+    "updatedAt": "2019-11-26T09:28:52.372Z",
+    "status": "pending"
+  }
 }
 ```
 
@@ -495,47 +586,48 @@ PUT /todos/:id
 
 ##### Param
 
-- id: String **Required** (Todo id to identify which todo to edit.)
+- id: String **Required** (Todo id to identify which todo to edit)
 
 ##### Body
 
 - name: String **Optional**
 - description: String **Optional**
-- dueDate: String | Date **Optional**
+- dueDate: String | Date **Optional** (String format: YYYY-MM-DD)
 
 You can edit one, two, or all of those fields, or even none of them. Anytime you access this endpoint, whether you edit any field or not, the `updatedAt` field will always be updated.
 
 ##### Response
 
-###### Status 200: Todo updated
-
-###### Data:
+###### Status 200: OK
 
 ```json
 {
-	"_id": "5dd9007a0177c12c16b4bdfc",
-  "name": "Updated todo",
-  "creator": {
-    "username": "dummy",
-    "email": "dummy@mail.com"
-  },
-  "description": "Shorter lorem",
-  "dueDate": "2019-12-31T00:00:00.000Z",
-  "updatedAt": "2019-11-23T10:44:08.186Z",
-  "status": "pending"
+  "message": "Todo updated",
+  "data": {
+    "_id": "5ddcf0547a90b0068f2d966f",
+    "name": "Updated dummy todo",
+    "creator": "5ddb85b06a8fd9fd116889e6",
+    "group": {
+      "name": "Dummy group"
+    },
+    "description": "Shorter lorem",
+    "dueDate": "2019-12-31T16:59:59.000Z",
+    "updatedAt": "2019-11-26T10:37:12.127Z",
+    "status": "pending"
+  }
 }
 ```
 
 
 
-### Mark Done/Undone
+### Update Todo Status
 
 This endpoint is specifically used to mark a todo as `done`  or, for todo that's already marked `done`, unmark it and return it's status to `pending`.
 
 ##### Endpoint
 
 ```http
-PATCH /todos/:id
+PATCH /todos/:id/status
 ```
 
 ##### Header
@@ -548,19 +640,23 @@ PATCH /todos/:id
 
 ##### Response
 
-###### Status 200: Todo status changed to `done` | `pending`
-
-###### Data:
+###### Status 200: OK
 
 ```json
 {
-	"_id": "5dd9007a0177c12c16b4bdfc",
-  "name": "Updated todo",
-  "creator": "5dd8f273ae0703235897999d",
-  "description": "Shorter lorem",
-  "dueDate": "2019-12-31T00:00:00.000Z",
-  "updatedAt": "2019-11-23T10:57:59.460Z",
-  "status": "done"
+  "message": "Todo status changed to done",
+  "data": {
+    "_id": "5ddcf0547a90b0068f2d966f",
+    "name": "Updated dummy todo",
+    "creator": "5ddb85b06a8fd9fd116889e6",
+    "description": "Shorter lorem",
+    "group": {
+      "name": "Dummy group"
+    },
+    "dueDate": "2019-12-31T16:59:59.000Z",
+    "updatedAt": "2019-11-26T10:41:59.777Z",
+    "status": "done"
+  }
 }
 ```
 
@@ -584,4 +680,10 @@ DELETE /todos/:id
 
 ##### Response
 
-###### Status 200: Todo deleted
+###### Status 200: OK
+
+```json
+{
+	"message": "Todo deleted"
+}
+```
