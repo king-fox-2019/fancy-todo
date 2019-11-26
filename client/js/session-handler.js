@@ -152,6 +152,15 @@ function switchPage(page) {
     case 'group-list-page':
       toGroupListPage()
       break
+    case 'group-page':
+      const groupId = localStorage.getItem('group_id')
+      const groupName = localStorage.getItem('group_name')
+      if (groupId && groupName) {
+        toGroupPage(groupId, groupName)
+      } else {
+        toGroupListPage()
+      }
+      break
 
     default:
       toLandingPage()

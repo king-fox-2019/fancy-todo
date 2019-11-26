@@ -54,3 +54,18 @@ function toGroupListPage(e) {
   fetchGroup(localStorage.getItem('access_token'))
   return false
 }
+
+function toGroupPage(groupId, groupName) {
+  localStorage.setItem('group_id', groupId)
+  localStorage.setItem('group_name', groupName)
+  $('.page').hide()
+  $('#group-page').show()
+  $('#group-page .jumbotron .container')
+    .empty()
+    .append(`<h1>${groupName}</h1>`)
+  localStorage.setItem('active-page', 'group-page')
+  $('#in-session-nav').show()
+  $('#out-session-nav').hide()
+  fetchGroupTodos(localStorage.getItem('access_token'))
+  return false
+}
