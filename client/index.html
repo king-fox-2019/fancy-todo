@@ -364,6 +364,24 @@
 
         <!-- Group Member List Section -->
         <div class="group-section container" id="member-list-section">
+          <form class="form-inline" onsubmit="onInviteMember(event)" novalidate>
+            <div class="form-group mx-sm-3 mb-2 d-flex justify-content-between">
+              <input
+                type="email"
+                class="form-control"
+                id="invite-email"
+                placeholder="Email"
+              />
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary mb-2"
+              id="btn-member-invite"
+            >
+              Invite Member
+            </button>
+          </form>
+
           <table class="table table-striped table-hover">
             <thead class="thead-dark">
               <tr>

@@ -32,6 +32,7 @@ function accessTokenAuth(access_token) {
       }
     })
     .fail(({ responseJSON }) => {
+      console.log('Error from accessTokenAuth')
       toast(responseJSON, 5000)
       toLandingPage()
     })
@@ -57,6 +58,7 @@ function gAuth(googleUser) {
       }
     })
     .fail(({ responseJSON }) => {
+      console.log('Error from gAuth')
       toast(responseJSON, 5000)
       toLandingPage()
     })

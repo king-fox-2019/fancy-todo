@@ -1,6 +1,7 @@
 let groups = []
 let groupTodos = []
 let groupMembers = []
+let isLeader = false
 
 // Group List Page
 function fetchGroup(access_token) {
@@ -94,6 +95,7 @@ function fetchGroupDetails(access_token) {
       Swal.close()
     })
     .fail(({ responseJSON }) => {
+      console.log('Error from fetchGroupDetails1')
       toast(responseJSON, 5000)
     })
 
@@ -109,6 +111,7 @@ function fetchGroupDetails(access_token) {
       Swal.close()
     })
     .fail(({ responseJSON }) => {
+      console.log('Error from fetchGroupDetails2')
       toast(responseJSON, 5000)
     })
 }
@@ -430,4 +433,49 @@ function onGroupToggleMark(e) {
     .fail(({ responseJSON }) => {
       toast(responseJSON, 5000)
     })
+}
+
+function onInviteMember(e) {
+  if (e) e.preventDefault()
+  $('#btn-member-invite').empty().append(`
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    Creating...
+  `)
+  const inviteEmail = $('#group-page #invite-email')
+  if (!inviteEmail.val()) {
+    inviteEmail
+      .addClass('is-invalid')
+      .focusin(() => inviteEmail.removeClass('is-invalid'))
+    $('#btn-member-invite')
+      .empty()
+      .append('Invite Member')
+    return false
+  }
+  const access_token = localStorage.getItem('access_token')
+  const groupId = localStorage.getItem('group_id')
+  $.ajax(`${baseUrl}/groups/${groupId}/members`, {
+    method: 'PATCH',
+    headers: { access_token },
+    data: {
+      email: inviteEmail.val()
+    }
+  })
+    .done(({ data }) => {
+      toast('New member invited', 3000)
+      $('#btn-member-invite')
+        .empty()
+        .append('Invite Member')
+      groupMembers = data.members
+      enlistGroupMembers()
+    })
+    .fail(({ responseJSON }) => {
+      toast(responseJSON, 5000)
+      $('#btn-member-invite')
+        .empty()
+        .append('Invite Member')
+    })
+    .always(() => {
+      inviteEmail.val('')
+    })
+  return false
 }
