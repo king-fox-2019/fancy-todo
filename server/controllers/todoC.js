@@ -109,9 +109,9 @@ class TodoController {
         todo.dueDate = req.body.dueDate
           ? new Date(req.body.dueDate).setHours(23, 59, 59)
           : todo.dueDate
-        if (new Date(req.body.dueDate).setHours(23, 59, 59) < new Date())
-          todo.status = 'missed'
-        else if (todo.status == 'missed') todo.status = 'pending'
+        if (new Date(req.body.dueDate).setHours(23, 59, 59) < new Date()) {
+          if (todo.status != 'done') todo.status = 'missed'
+        } else if (todo.status == 'missed') todo.status = 'pending'
 
         return todo.save()
       })

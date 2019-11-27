@@ -2,7 +2,7 @@ let todos = []
 
 function fetchCards(access_token) {
   toast('Loading')
-  $.ajax(`${baseUrl}/user/todos`, {
+  $.ajax(`${baseUrl}/user/todos?from=private`, {
     method: 'GET',
     headers: {
       access_token
@@ -101,7 +101,7 @@ function arrangeCards() {
 
     $(`#delete-todo-${todo._id}`).click(todo, onDeleteTodo)
 
-    if (todo.status == 'missed') {
+    if (new Date(todo.dueDate) < new Date()) {
       $(`#toggle-mark-${todo._id}`).remove()
     } else {
       $(`#toggle-mark-${todo._id}`).click(todo, onToggleMark)
@@ -110,9 +110,16 @@ function arrangeCards() {
 }
 
 function sortTodos(todos) {
-  return todos.sort((a, b) => {
-    return new Date(a.dueDate) - new Date(b.dueDate)
-  })
+  return todos
+    .sort((a, b) => {
+      return new Date(a.dueDate) - new Date(b.dueDate)
+    })
+    .sort((a, b) => {
+      return a.status == 'done' ? +1 : -1
+    })
+    .sort((a, b) => {
+      return a.status == 'missed' ? +1 : -1
+    })
 }
 
 // Event hanlders

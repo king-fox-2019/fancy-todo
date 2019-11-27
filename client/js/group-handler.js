@@ -117,6 +117,7 @@ function fetchGroupDetails(access_token) {
 }
 
 function arrangeGroupCards() {
+  groupTodos = sortTodos(groupTodos)
   $('#group-todo-cards').empty()
   for (const todo of groupTodos) {
     $('#group-todo-cards').append(`
@@ -183,7 +184,7 @@ function arrangeGroupCards() {
 
     $(`#delete-todo-${todo._id}`).click(todo, onGroupDeleteTodo)
 
-    if (todo.status == 'missed') {
+    if (new Date(todo.dueDate) < new Date()) {
       $(`#toggle-mark-${todo._id}`).remove()
     } else {
       $(`#toggle-mark-${todo._id}`).click(todo, onGroupToggleMark)

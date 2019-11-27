@@ -7,6 +7,11 @@ class GroupController {
       leader: req.user._id
     })
       .then(group => {
+        return group
+          .populate({ path: 'leader', select: '_id username email' })
+          .execPopulate()
+      })
+      .then(group => {
         res.status(201).json({
           message: 'Group created',
           data: {
