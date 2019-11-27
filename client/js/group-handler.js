@@ -1,7 +1,7 @@
 let groups = []
 let groupTodos = []
 let groupMembers = []
-let isLeader = false
+let leaderId = ''
 
 // Group List Page
 function fetchGroup(access_token) {
@@ -106,6 +106,7 @@ function fetchGroupDetails(access_token) {
     }
   })
     .done(({ data }) => {
+      leaderId = data.leader._id
       groupMembers = data.members || []
       enlistGroupMembers()
       Swal.close()
@@ -199,9 +200,14 @@ function enlistGroupMembers() {
       <tr>
         <td>${member.username}</td>
         <td>${member.email}</td>
-        <td><button class="btn btn-danger">Kick</button></td>
+        <td><button class="btn btn-danger" ${
+          leaderId != userId ? 'disabled' : ''
+        } id="btn-kick-member-${member._id}">Kick</button></td>
       </tr>
     `)
+    if (leaderId == userId) {
+      $(`#btn-kick-member-${member._id}`).click(member, onKickMember)
+    }
   }
 }
 
@@ -479,4 +485,35 @@ function onInviteMember(e) {
       inviteEmail.val('')
     })
   return false
+}
+
+function onKickMember(e) {
+  Swal.fire({
+    title: 'Are you sure?',
+    showCancelButton: true,
+    confirmButtonColor: '#dc3545',
+    cancelButtonColor: '#007bff',
+    reverseButtons: true,
+    confirmButtonText: 'Delete',
+    focusConfirm: false,
+    focusCancel: true
+  }).then(result => {
+    if (result.value) {
+      toast('Loading')
+      const access_token = localStorage.getItem('access_token')
+      const groupId = localStorage.getItem('group_id')
+      $.ajax(`${baseUrl}/groups/${groupId}/members/${e.data._id}`, {
+        method: 'DELETE',
+        headers: { access_token }
+      })
+        .done(({ data }) => {
+          toast('Member Kicked', 5000)
+          groupMembers = data.members
+          enlistGroupMembers()
+        })
+        .fail(({ responseJSON }) => {
+          toast(responseJSON, 5000)
+        })
+    }
+  })
 }

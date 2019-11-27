@@ -165,11 +165,15 @@ POST /groups
 
 ```json
 {
-  "message": "Group created"
+  "message": "Group created",
   "data": {
     "_id": "5ddb89a16a8fd9fd116889eb",
     "name": "Dummy group",
-    "leader": "5dd8f273ae0703235897999d",
+    "leader": {
+      "_id": "5ddb85b06a8fd9fd116889e6",
+      "username": "dummy",
+      "email": "dummy@mail.com"
+    },
     "members": []
   }
 }
@@ -246,7 +250,7 @@ GET /groups/:id
       "username": "dummy",
       "email": "dummy@mail.com"
     },
-    "mem	bers": [
+    "members": []
 }
 
 ```
@@ -348,7 +352,7 @@ PATCH /groups/:id/members
 ##### Endpoint
 
 ```http
-DELETE /group/:id/members/:member_id
+DELETE /groups/:id/members/:member_id
 ```
 
 ##### Header
@@ -366,7 +370,7 @@ DELETE /group/:id/members/:member_id
 
 ```json
 {
-  "message": "Member deleted",
+  "message": "Member kicked",
   "data": {
     "_id": "5ddbadecccff181332f92b92",
     "name": "Dummy group",

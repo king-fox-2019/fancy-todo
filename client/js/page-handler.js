@@ -68,6 +68,22 @@ function toGroupPage(groupId, groupName) {
   localStorage.setItem('active-page', 'group-page')
   $('#in-session-nav').show()
   $('#out-session-nav').hide()
-  fetchGroupDetails(localStorage.getItem('access_token'))
+
+  toast('Loading')
+  const access_token = localStorage.getItem('access_token')
+  $.ajax(`${baseUrl}/checksession`, {
+    method: 'GET',
+    headers: { access_token }
+  })
+    .done(({ data }) => {
+      Swal.close()
+      userId = data.id
+      fetchGroupDetails(access_token)
+    })
+    .fail(({ responseJSON }) => {
+      console.log('Error from toGroupPage')
+      toast(responseJSON, 5000)
+      toGroupListPage()
+    })
   return false
 }

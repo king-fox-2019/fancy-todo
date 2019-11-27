@@ -1,3 +1,5 @@
+let userId = ''
+
 function checkSession(googleUser) {
   toast('Loading')
   const access_token = localStorage.getItem('access_token')
