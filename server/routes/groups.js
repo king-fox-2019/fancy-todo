@@ -5,6 +5,7 @@ const { authorizeGroup } = require('../middlewares/auth')
 groups.post('/', GroupController.createGroup)
 
 groups.use('/:id', authorizeGroup)
+groups.get('/:id', GroupController.getOneGroup)
 groups.patch('/:id', GroupController.editGroupName)
 groups.delete('/:id', GroupController.deleteGroup)
 groups.patch('/:id/members', GroupController.inviteMember)

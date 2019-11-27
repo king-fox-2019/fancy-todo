@@ -43,6 +43,24 @@ class GroupController {
           })
         })
       })
+      .catch(next)
+  }
+
+  static getOneGroup(req, res, next) {
+    Group.findById(req.params.id)
+      .populate({ path: 'leader', select: '_id username email' })
+      .populate({ path: 'members', select: '_id username email' })
+      .then(group => {
+        res.status(200).json({
+          data: {
+            _id: group.id,
+            name: group.name,
+            leader: group.leader,
+            members: group.members
+          }
+        })
+      })
+      .catch(next)
   }
 
   static populateLeaderMember(group) {

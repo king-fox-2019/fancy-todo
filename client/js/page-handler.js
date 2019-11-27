@@ -63,9 +63,11 @@ function toGroupPage(groupId, groupName) {
   $('#group-page .jumbotron .container')
     .empty()
     .append(`<h1>${groupName}</h1>`)
+  $('#group-page .group-section').hide()
+  $('#group-page #todo-cards-section').show()
   localStorage.setItem('active-page', 'group-page')
   $('#in-session-nav').show()
   $('#out-session-nav').hide()
-  fetchGroupTodos(localStorage.getItem('access_token'))
+  fetchGroupDetails(localStorage.getItem('access_token'))
   return false
 }

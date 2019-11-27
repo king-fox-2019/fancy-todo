@@ -336,14 +336,34 @@
 
       <!-- Group Page -->
       <div class="page" id="group-page">
-        <div class="jumbotron jumbotron-fluid">
+        <div class="jumbotron jumbotron-fluid position-relative">
           <div class="container">
             <h1>Group Name</h1>
           </div>
+          <ul class="nav nav-tabs position-absolute w-100" style="bottom: 0;">
+            <li class="nav-item ml-4">
+              <a
+                class="nav-link active"
+                href=""
+                onclick="toTodoCardsSection(event)"
+                id="group-nav-todos"
+                >Todos</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href=""
+                onclick="toMemberListSection(event)"
+                id="group-nav-members"
+                >Members</a
+              >
+            </li>
+          </ul>
         </div>
 
         <!-- Group Member List Section -->
-        <div class="container">
+        <div class="group-section container" id="member-list-section">
           <table class="table table-striped table-hover">
             <thead class="thead-dark">
               <tr>
@@ -352,7 +372,7 @@
                 <th></th>
               </tr>
             </thead>
-            <tbody id="group-list">
+            <tbody id="group-member-list">
               <tr>
                 <td>dummymember</td>
                 <td>dummymember@mail.com</td>
@@ -373,7 +393,22 @@
         </div>
 
         <!-- Group Todo Cards Section -->
-        <div class="container">
+        <div class="group-section container" id="todo-cards-section">
+          <div
+            class="position-fixed"
+            style="bottom: 4vh; right: 4vw; z-index: 10;"
+          >
+            <button
+              class="btn btn-primary"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Create new todo"
+              style="border-radius: 50%; width: 3.3rem; height: 3.3rem; box-shadow: 0 1px 4px 0.3px rgba(0, 0, 0, 0.5);"
+              onclick="onGroupOpenCreateModal()"
+            >
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
           <div class="row" id="group-todo-cards"></div>
         </div>
       </div>

@@ -216,6 +216,43 @@ GET /user/groups?as=[leader][members]
 
 
 
+### Get One Group
+
+##### Endpoint
+
+```http
+GET /groups/:id
+```
+
+##### Header
+
+- access_token: String **Required**
+
+##### Params
+
+- id: String **Required** (Group id that you want to get)
+
+##### Response
+
+###### Status 200: OK
+
+```json
+{
+  "data": {
+    "_id": "5ddb8ddfa266870182d3182e",
+    "name": "Dummy group",
+    "leader": {
+      "_id": "5ddb85b06a8fd9fd116889e6",
+      "username": "dummy",
+      "email": "dummy@mail.com"
+    },
+    "mem	bers": [
+}
+
+```
+
+
+
 ### Edit Group Name
 
 ##### Endpoint
@@ -227,6 +264,10 @@ PATCH /groups/:id
 ##### Header
 
 - access_token: String **Required**
+
+##### Params
+
+- id: String **Required** (Group id to which you invite new member)
 
 ##### Body
 
