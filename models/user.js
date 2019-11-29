@@ -1,6 +1,7 @@
 'use strict'
 
 const { Schema, model, models } = require('mongoose')
+const { hashPassword } = require('../helpers/bcrypt')
 
 const userSchema = new Schema({
   username: {
@@ -29,6 +30,12 @@ const userSchema = new Schema({
     type: String,
     required =[true, 'Password cannot be empty!']
   }
+})
+
+userSchema.pre('save', function (next) {
+  let pass = hashPassword(this.password)
+  this.password = pass
+  next()
 })
 
 const User = model('User', userSchema)

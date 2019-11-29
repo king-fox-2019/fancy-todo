@@ -5,8 +5,11 @@ if (process.env.NODE_ENV === 'development') require('dotenv').config();
 const express = require('express')
 const app = express()
 const PORT = process.env.PORT
+const mongoose = require('mongoose')
 const cors = require('cors')
 const router = require('./routes')
+
+mongoose.connect('mongodb://localhost/fancyTodo', { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
 
 app.use(cors())
 app.use(express.json())
