@@ -124,6 +124,9 @@ class TodoController {
           .populate({ path: 'group', select: 'name -_id' })
       })
       .then(todo => {
+        if (todo.group) {
+          req.io.of(`/${todo.group}`).emit('updated-group-todo', todo)
+        }
         res.status(200).json({
           message: 'Todo updated',
           data: {
@@ -156,6 +159,9 @@ class TodoController {
         return todo.save()
       })
       .then(todo => {
+        if (todo.group) {
+          req.io.of(`/${todo.group}`).emit('updated-group-todo', todo)
+        }
         res.status(200).json({
           message: `Todo status changed to ${todo.status}`,
           data: {

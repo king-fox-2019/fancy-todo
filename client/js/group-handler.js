@@ -281,8 +281,8 @@ function onCreateGroupTodo(e) {
     }
   })
     .done(({ data }) => {
-      groupTodos.push(data)
-      arrangeGroupCards()
+      // groupTodos.push(data)
+      // arrangeGroupCards()
       $('#todo-modal').modal('hide')
       toast('New todo created', 3000)
     })
@@ -540,7 +540,16 @@ function setIoListener(groupId) {
   })
 
   socket.on('created-group-todo', todo => {
+    // toast('ga ke sini?', 3000)
     groupTodos.push(todo)
+    arrangeGroupCards()
+  })
+
+  socket.on('updated-group-todo', updatedTodo => {
+    // toast('ga ke sini?', 3000)
+    groupTodos = groupTodos.map(todo => {
+      return todo._id == updatedTodo._id ? updatedTodo : todo
+    })
     arrangeGroupCards()
   })
 }
