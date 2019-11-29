@@ -540,16 +540,28 @@ function setIoListener(groupId) {
   })
 
   socket.on('created-group-todo', todo => {
-    // toast('ga ke sini?', 3000)
+    toast('New todo created!', 5000)
     groupTodos.push(todo)
     arrangeGroupCards()
   })
 
   socket.on('updated-group-todo', updatedTodo => {
     // toast('ga ke sini?', 3000)
+    toast('Todo updated!', 3000)
     groupTodos = groupTodos.map(todo => {
       return todo._id == updatedTodo._id ? updatedTodo : todo
     })
     arrangeGroupCards()
+  })
+
+  socket.on('deleted-group-todo', deletedTodo => {
+    toast('Todo deleted!', 5000)
+    groupTodos.splice(
+      groupTodos.findIndex(item => {
+        return item._id == deletedTodo._id
+      }),
+      1
+    )
+    $(`#${deletedTodo._id}`).remove()
   })
 }

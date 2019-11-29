@@ -181,7 +181,10 @@ class TodoController {
 
   static deleteTodo(req, res, next) {
     Todo.findByIdAndDelete(req.params.id)
-      .then(() => {
+      .then(todo => {
+        if (todo.group) {
+          req.io.of(`/${todo.group}`).emit('deleted-group-todo', todo)
+        }
         res.status(200).json({
           message: 'Todo deleted'
         })
