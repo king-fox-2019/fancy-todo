@@ -1,5 +1,6 @@
 const baseUrl = 'http://localhost:3000'
 
+
 function toast(title, timer) {
   return Swal.fire({
     title: title == 'Loading' ? '' : title,

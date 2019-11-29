@@ -13,7 +13,6 @@ const morgan = require('morgan')
 const cors = require('cors')
 
 app.use((req, res, next) => {
-  io.emit('coba')
   req.io = io
   next()
 })

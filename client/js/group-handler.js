@@ -83,6 +83,7 @@ function onCreateGroup(e) {
 function fetchGroupDetails(access_token) {
   toast('Loading')
   const groupId = localStorage.getItem('group_id')
+  setIoListener(groupId)
   $.ajax(`${baseUrl}/groups/${groupId}/todos`, {
     method: 'GET',
     headers: {
@@ -515,5 +516,23 @@ function onKickMember(e) {
           toast(responseJSON, 5000)
         })
     }
+  })
+}
+
+function setIoListener(groupId) {
+  const socket = io(`${baseUrl}/${groupId}`)
+  socket.on('member-invited', group => {
+    groupMembers = group.members
+    enlistGroupMembers()
+  })
+
+  socket.on('member-kicked', group => {
+    if (
+      group.members.map(member => member._id).includes(userId) ||
+      userId == leaderId
+    ) {
+      groupMembers = group.members
+      enlistGroupMembers()
+    } else toGroupListPage()
   })
 }

@@ -122,6 +122,7 @@ class GroupController {
       })
       .then(group => GroupController.populateLeaderMember(group))
       .then(group => {
+        req.io.of(`/${group._id}`).emit('member-invited', group)
         res.status(200).json({
           message: 'New member invited',
           data: {
@@ -144,6 +145,7 @@ class GroupController {
       .save()
       .then(group => GroupController.populateLeaderMember(group))
       .then(group => {
+        req.io.of(`/${group._id}`).emit('member-kicked', group)
         res.status(200).json({
           message: 'Member kicked',
           data: {
