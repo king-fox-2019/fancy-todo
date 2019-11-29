@@ -52,6 +52,7 @@ function toGroupListPage(e) {
   $('#in-session-nav').show()
   $('#out-session-nav').hide()
   fetchGroup(localStorage.getItem('access_token'))
+  setGlobalIoListener()
   return false
 }
 
@@ -71,19 +72,20 @@ function toGroupPage(groupId, groupName) {
 
   toast('Loading')
   const access_token = localStorage.getItem('access_token')
-  $.ajax(`${baseUrl}/checksession`, {
-    method: 'GET',
-    headers: { access_token }
-  })
-    .done(({ data }) => {
-      Swal.close()
-      userId = data.id
-      fetchGroupDetails(access_token)
-    })
-    .fail(({ responseJSON }) => {
-      console.log('Error from toGroupPage')
-      toast(responseJSON, 5000)
-      toGroupListPage()
-    })
+  fetchGroupDetails(access_token)
+  // $.ajax(`${baseUrl}/checksession`, {
+  //   method: 'GET',
+  //   headers: { access_token }
+  // })
+  //   .done(({ data }) => {
+  //     Swal.close()
+  //     userId = data.id
+  //     fetchGroupDetails(access_token)
+  //   })
+  //   .fail(({ responseJSON }) => {
+  //     console.log('Error from toGroupPage')
+  //     toast(responseJSON, 5000)
+  //     toGroupListPage()
+  //   })
   return false
 }

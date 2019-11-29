@@ -83,7 +83,7 @@ function onCreateGroup(e) {
 function fetchGroupDetails(access_token) {
   toast('Loading')
   const groupId = localStorage.getItem('group_id')
-  setIoListener(groupId)
+  setGroupIoListener(groupId)
   $.ajax(`${baseUrl}/groups/${groupId}/todos`, {
     method: 'GET',
     headers: {
@@ -519,33 +519,16 @@ function onKickMember(e) {
   })
 }
 
-function setIoListener(groupId) {
-  const socket = io(`${baseUrl}/${groupId}`)
-  socket.on('member-invited', group => {
-    groupMembers = group.members
-    enlistGroupMembers()
-  })
+function setGroupIoListener(groupId) {
+  const groupSocket = io(`${baseUrl}/${groupId}`)
 
-  socket.on('member-kicked', group => {
-    if (
-      group.members.map(member => member._id).includes(userId) ||
-      userId == leaderId
-    ) {
-      groupMembers = group.members
-      enlistGroupMembers()
-    } else {
-      toast('You have been kicked from group ' + group.name, 3000)
-      toGroupListPage()
-    }
-  })
-
-  socket.on('created-group-todo', todo => {
+  groupSocket.on('created-group-todo', todo => {
     toast('New todo created!', 5000)
     groupTodos.push(todo)
     arrangeGroupCards()
   })
 
-  socket.on('updated-group-todo', updatedTodo => {
+  groupSocket.on('updated-group-todo', updatedTodo => {
     // toast('ga ke sini?', 3000)
     toast('Todo updated!', 3000)
     groupTodos = groupTodos.map(todo => {
@@ -554,7 +537,7 @@ function setIoListener(groupId) {
     arrangeGroupCards()
   })
 
-  socket.on('deleted-group-todo', deletedTodo => {
+  groupSocket.on('deleted-group-todo', deletedTodo => {
     toast('Todo deleted!', 5000)
     groupTodos.splice(
       groupTodos.findIndex(item => {
@@ -563,5 +546,29 @@ function setIoListener(groupId) {
       1
     )
     $(`#${deletedTodo._id}`).remove()
+  })
+}
+
+function setGlobalIoListener() {
+  const globalSocket = io(`${baseUrl}`)
+  globalSocket.on('member-invited', group => {
+    fetchGroup(localStorage.getItem('access_token')) // This to handle user that's on Group List Page to be notified if he's invited to a group
+    groupMembers = group.members
+    enlistGroupMembers()
+  })
+
+  globalSocket.on('member-kicked', group => {
+    console.log(userId)
+    if (
+      group.members.map(member => member._id).includes(userId) ||
+      userId == leaderId
+    ) {
+      groupMembers = group.members
+      enlistGroupMembers()
+    } else {
+      console.log('ke sini?')
+      toast('You have been kicked from group ' + group.name, 3000)
+      toGroupListPage()
+    }
   })
 }

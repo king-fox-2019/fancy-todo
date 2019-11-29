@@ -26,6 +26,7 @@ function accessTokenAuth(access_token) {
   })
     .done(({ data }) => {
       Swal.close()
+      userId = data.id
       sessionChecked = false
       if (['landing-page', 'signup-page', 'signin-page'].includes(activePage)) {
         toDashboardPage()
@@ -50,6 +51,7 @@ function gAuth(googleUser) {
   })
     .done(({ data }) => {
       Swal.close()
+      userId = data.id
       sessionChecked = false
       localStorage.setItem('access_token', data.access_token)
       const activePage = localStorage.getItem('active-page')
@@ -115,6 +117,7 @@ function onSignIn(e) {
     .done(({ data }) => {
       toast('Sign in success!', 3000)
       localStorage.setItem('access_token', data.access_token)
+      userId = data.id
       toDashboardPage()
     })
     .fail(({ responseJSON }) => {
