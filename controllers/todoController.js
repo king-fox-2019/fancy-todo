@@ -1,6 +1,6 @@
 'use strict'
 
-const Todo = require('../models/todo')
+const { Todo } = require('../models/')
 
 class todoController {
 
@@ -44,7 +44,7 @@ class todoController {
     let id = req.params.id
     let { title, description, status, dueDate } = req.body
     let value = {
-      title, description, status, dueDate
+      title: title || undefined, description, status, dueDate
     }
 
     Todo
