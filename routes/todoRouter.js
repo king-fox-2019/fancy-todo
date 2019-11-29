@@ -3,11 +3,11 @@
 const express = require('express')
 const router = express.Router()
 const { todoController } = require('../controllers')
-const authorization = require('../middleware/authorization')
+// const authorization = require('../middleware/authorization')
 
-router.post('/', authorization, todoController.create)
-router.get('/', authorization, todoController.read)
-router.patch('/:id', authorization, todoController.update)
-router.delete('/:id', authorization, todoController.delete)
+router.post('/', todoController.create)
+router.get('/', todoController.read)
+router.put('/:id', todoController.update)
+router.delete('/:id', todoController.delete)
 
 module.exports = router

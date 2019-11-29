@@ -6,7 +6,7 @@ const { hashPassword } = require('../helpers/bcrypt')
 const userSchema = new Schema({
   username: {
     type: String,
-    required =[true, 'Username cannot be empty!']
+    required: [true, 'Username cannot be empty!']
   },
   email: {
     type: String,
@@ -28,7 +28,7 @@ const userSchema = new Schema({
   },
   password: {
     type: String,
-    required =[true, 'Password cannot be empty!']
+    required: [true, 'Password cannot be empty!']
   }
 })
 
