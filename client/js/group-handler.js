@@ -533,6 +533,14 @@ function setIoListener(groupId) {
     ) {
       groupMembers = group.members
       enlistGroupMembers()
-    } else toGroupListPage()
+    } else {
+      toast('You have been kicked from group ' + group.name, 3000)
+      toGroupListPage()
+    }
+  })
+
+  socket.on('created-group-todo', todo => {
+    groupTodos.push(todo)
+    arrangeGroupCards()
   })
 }

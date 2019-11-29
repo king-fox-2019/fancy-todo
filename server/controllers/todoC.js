@@ -15,6 +15,9 @@ class TodoController {
       //   return todo.populate('creator', 'username email -_id').populate('group', '') execPopulate()
       // })
       .then(todo => {
+        if (todo.group) {
+          req.io.of(`/${todo.group}`).emit('created-group-todo', todo)
+        }
         res.status(201).json({
           message: 'Todo created',
           data: {
