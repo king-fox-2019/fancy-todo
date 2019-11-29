@@ -1,5 +1,6 @@
 function toLandingPage(e) {
   if (e) e.preventDefault()
+  if (groupSocket) groupSocket.close()
   $('.page').hide()
   $('#landing-page').show()
   localStorage.setItem('active-page', 'landing-page')
@@ -10,6 +11,7 @@ function toLandingPage(e) {
 
 function toSignUpPage(e) {
   if (e) e.preventDefault()
+  if (groupSocket) groupSocket.close()
   $('#signup-page #username').val('')
   $('#signup-page #email').val('')
   $('#signup-page #password').val('')
@@ -23,6 +25,7 @@ function toSignUpPage(e) {
 
 function toSignInPage(e) {
   if (e) e.preventDefault()
+  if (groupSocket) groupSocket.close()
   $('#signin-page #emailUsername').val('')
   $('#signin-page #password').val('')
   $('.page').hide()
@@ -35,6 +38,7 @@ function toSignInPage(e) {
 
 function toDashboardPage(e) {
   if (e) e.preventDefault()
+  if (groupSocket) groupSocket.close()
   $('.page').hide()
   $('#dashboard-page').show()
   localStorage.setItem('active-page', 'dashboard-page')
@@ -46,6 +50,7 @@ function toDashboardPage(e) {
 
 function toGroupListPage(e) {
   if (e) e.preventDefault()
+  if (groupSocket) groupSocket.close()
   $('.page').hide()
   $('#group-list-page').show()
   localStorage.setItem('active-page', 'group-list-page')

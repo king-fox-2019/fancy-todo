@@ -2,6 +2,7 @@ let groups = []
 let groupTodos = []
 let groupMembers = []
 let leaderId = ''
+let groupSocket = null
 
 // Group List Page
 function fetchGroup(access_token) {
@@ -83,7 +84,7 @@ function onCreateGroup(e) {
 function fetchGroupDetails(access_token) {
   toast('Loading')
   const groupId = localStorage.getItem('group_id')
-  setGroupIoListener(groupId)
+  groupSocket = setGroupIoListener(groupId)
   $.ajax(`${baseUrl}/groups/${groupId}/todos`, {
     method: 'GET',
     headers: {
@@ -520,15 +521,15 @@ function onKickMember(e) {
 }
 
 function setGroupIoListener(groupId) {
-  const groupSocket = io(`${baseUrl}/${groupId}`)
+  const socket = io(`${baseUrl}/${groupId}`)
 
-  groupSocket.on('created-group-todo', todo => {
+  socket.on('created-group-todo', todo => {
     toast('New todo created!', 5000)
     groupTodos.push(todo)
     arrangeGroupCards()
   })
 
-  groupSocket.on('updated-group-todo', updatedTodo => {
+  socket.on('updated-group-todo', updatedTodo => {
     // toast('ga ke sini?', 3000)
     toast('Todo updated!', 3000)
     groupTodos = groupTodos.map(todo => {
@@ -537,7 +538,7 @@ function setGroupIoListener(groupId) {
     arrangeGroupCards()
   })
 
-  groupSocket.on('deleted-group-todo', deletedTodo => {
+  socket.on('deleted-group-todo', deletedTodo => {
     toast('Todo deleted!', 5000)
     groupTodos.splice(
       groupTodos.findIndex(item => {
@@ -547,17 +548,19 @@ function setGroupIoListener(groupId) {
     )
     $(`#${deletedTodo._id}`).remove()
   })
+
+  return socket
 }
 
 function setGlobalIoListener() {
-  const globalSocket = io(`${baseUrl}`)
-  globalSocket.on('member-invited', group => {
+  const socket = io(`${baseUrl}`)
+  socket.on('member-invited', group => {
     fetchGroup(localStorage.getItem('access_token')) // This to handle user that's on Group List Page to be notified if he's invited to a group
     groupMembers = group.members
     enlistGroupMembers()
   })
 
-  globalSocket.on('member-kicked', group => {
+  socket.on('member-kicked', group => {
     console.log(userId)
     if (
       group.members.map(member => member._id).includes(userId) ||
