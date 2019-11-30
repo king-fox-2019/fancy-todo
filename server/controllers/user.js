@@ -124,17 +124,20 @@ class UserController{
             }
         })
         .then(user => {
-            let objUser = {
-                username: user.username,
-                email: user.email
+            if(user){
+                let objUser = {
+                    username: user.username,
+                    email: user.email
+                }
+                let token = jwt.generateToken({id: user._id})
+                res.status(200).json({
+                    user: objUser,
+                    token
+                })
             }
-            let token = jwt.generateToken({id: user._id})
-            res.status(200).json({
-                user: objUser,
-                token
-            })
         })
         .catch(err => {
+            console.log(err)
             next(err)
         })
     }
