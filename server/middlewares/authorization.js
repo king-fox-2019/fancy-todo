@@ -3,12 +3,12 @@ const Todo = require('../models/Todo');
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
-    console.log('Authorization!', req.body)
+    console.log('Authorization!', req.headers.token)
     Todo
         .findOne({ _id: req.body.id })
         .populate('userId')
         .then(todo=> {
-            jwt.verify(req.body.token, process.env.JWT_SECRET, (err, decoded)=> {
+            jwt.verify(req.headers.token, process.env.JWT_SECRET, (err, decoded)=> {
                 let { id } = decoded
                 if(todo.userId._id == id) {
                     console.log('green')

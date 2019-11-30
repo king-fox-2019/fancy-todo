@@ -31,6 +31,7 @@ $(document).ready(function(){
         e.preventDefault();
         addTodo();
     })
+    fetchData()
     
 })
 
@@ -45,21 +46,24 @@ function addTodo() {
         data: {
             name,
             description,
-            due_date,
+            due_date
+        },
+        headers: {
             token
         }
     })
         .done(result=> {
             $('#new-todo').empty().append(`
             <div class="card" id="element-${result._id}">
-                <div class="card-header">
+                <div class="card-header" style="font-family: 'Indie Flower', cursive; font-size: 20px;">
                     ${result.name} <span id="success-${result._id}"></span>
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">${result.description}</h5>
-                    <p class="card-text">Due Date: ${result.due_date}</p>
+                    <p class="card-text">Due Date: ${new Date(result.due_date).toDateString()}</p>
                     <a href="#" class="btn btn-primary" id="todo-${result._id}-done">Mark as done</a>
                     <a href="#" class="btn btn-primary" id="todo-${result._id}">Delete</a>
+                    <a href="#" class="btn btn-primary" id="todo-${result._id}-google">Add to Google Calender</a>
                 </div>
             </div>
             `)
@@ -81,7 +85,9 @@ function removeTodo(e) {
         url: `${BASE_URL}/todo`,
         data: {
             id: id,
-            token: token
+        },
+        headers: {
+            token
         }
     })
         .done(success=> {
@@ -108,6 +114,8 @@ function markAsDone(e) {
         data: {
             id: id,
             userId: owner,
+        },
+        headers: {
             token: validator
         }
     })
@@ -126,7 +134,7 @@ function fetchData() {
     $.ajax({
         method: 'get',
         url: `${BASE_URL}/todo`,
-        data: {
+        headers: {
             token: localStorage.getItem('token')
         }
     })
@@ -136,28 +144,28 @@ function fetchData() {
                 if(!todo.status) {
                     $('#todos').append(`
                     <div class="card" id="element-${todo._id}">
-                    <div class="card-header">
+                    <div class="card-header" style="font-family: 'Indie Flower', cursive; font-size: 20px;">
                         ${todo.name} <span id="success-${todo._id}"></span>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">${todo.description}</h5>
-                        <p class="card-text">Due Date: ${todo.due_date}</p>
+                        <p class="card-text">Due Date: ${new Date(todo.due_date).toDateString()}</p>
                         <a href="#" class="btn btn-primary" id="todo-${todo._id}-done">Mark as done</a>
                         <a href="#" class="btn btn-primary" id="todo-${todo._id}">Delete</a>
                     </div>
                     </div>
                     `)
-                    $(`#todo-${todo._id}-done`).click( { id: todo._id, owner: todo.userId._id }, markAsDone )
                     $(`#todo-${todo._id}`).click({ id: todo._id }, removeTodo)
+                    $(`#todo-${todo._id}-done`).click( { id: todo._id, owner: todo.userId._id }, markAsDone )
                 } else {
                     $('#todos').append(`
                     <div class="card" id="element-${todo._id}">
-                    <div class="card-header">
+                    <div class="card-header" style="font-family: 'Indie Flower', cursive; font-size: 20px;">
                         ${todo.name} <span id="success-${todo._id}"><span class="badge badge-success">Success</span></span>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">${todo.description}</h5>
-                        <p class="card-text"><em>Due Date: ${todo.due_date}</em></p>
+                        <p class="card-text"><em>Due Date: ${new Date(todo.due_date).toDateString()}</em></p>
                         <a href="#" class="btn btn-primary" id="todo-${todo._id}">Delete</a>
                     </div>
                     </div>
@@ -172,6 +180,7 @@ function fetchData() {
         })
         .always()
 }
+
 
 function registerUser(){
     let userData = {

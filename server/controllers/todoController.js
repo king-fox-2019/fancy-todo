@@ -1,27 +1,28 @@
 'use strict';
-const { Todo } = require('../models');
+const {  Todo  } = require('../models');
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
+const readline = require('readline');
+const {  google  } = require('googleapis');
 
 class TodoControler {
     static createTodo(req, res, next) {
-        console.log(req.body)
-        jwt.verify(req.body.token, process.env.JWT_SECRET, (err, decoded)=> {
-            let todo = {
-                name: req.body.name,
-                status: false,
-                description: req.body.description,
-                due_date: new Date(req.body.due_date),
-                userId: decoded.id
-            }
-            Todo
-                .create(todo)
-                .then(result=> {
-                    res.status(201).json(result);
-                })
-                .catch(err=> {
-                    console.log(err)
-                })
-        })
+        let { id } = req.decoded
+        let todo = {
+            name: req.body.name,
+            status: false,
+            description: req.body.description,
+            due_date: new Date(req.body.due_date),
+            userId: id
+        }
+        Todo
+            .create(todo)
+            .then(result=> {
+                res.status(201).json(result);
+            })
+            .catch(err=> {
+                console.log(err)
+            })
     }
     static markAskDone(req, res, next) {
         Todo
@@ -40,7 +41,7 @@ class TodoControler {
             .catch(next)
     } 
     static todoList(req, res, next) {
-        jwt.verify(req.query.token, process.env.JWT_SECRET, (err, decoded)=> {
+        jwt.verify(req.headers.token, process.env.JWT_SECRET, (err, decoded)=> {
             if(err) next
             else {
                 console.log(decoded)
@@ -55,6 +56,7 @@ class TodoControler {
             }
         })
     }
+
  };
 
 module.exports = TodoControler;
