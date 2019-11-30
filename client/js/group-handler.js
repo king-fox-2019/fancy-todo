@@ -229,7 +229,6 @@ function enlistGroupMembers() {
   for (const member of groupMembers) {
     $('#group-member-list').append(`
       <tr>
-        <td>${member.username}</td>
         <td>${member.email}</td>
         <td><button class="btn btn-danger" ${
           leaderId != userId ? 'disabled' : ''
@@ -244,7 +243,7 @@ function enlistGroupMembers() {
 
 function toTodoCardsSection(e) {
   if (e) e.preventDefault()
-  $('#group-page #member-list-section').hide()
+  $('#group-page .group-section').hide()
   $('#group-page #todo-cards-section').show()
   $('#group-page .nav-link').removeClass('active')
   $('#group-page #group-nav-todos').addClass('active')
@@ -672,6 +671,7 @@ function setGroupIoListener(groupId) {
   socket.on('created-group-todo', todo => {
     toast('New todo created!', 5000)
     groupTodos.push(todo)
+    console.log(groupTodos)
     arrangeGroupCards()
   })
 
