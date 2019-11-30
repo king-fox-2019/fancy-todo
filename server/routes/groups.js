@@ -8,6 +8,7 @@ groups.use('/:id', authorizeGroup)
 groups.get('/:id', GroupController.getOneGroup)
 groups.post('/:id/todos', TodoController.createTodo)
 groups.get('/:id/todos', TodoController.getAllGroupTodos)
+groups.delete('/:id/leave', GroupController.LeaveGroup)
 
 groups.use('/:id', authorizeLeaderGroup)
 groups.patch('/:id', GroupController.editGroupName)

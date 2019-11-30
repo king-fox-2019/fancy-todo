@@ -86,6 +86,7 @@ function fetchGroupDetails(access_token) {
   toast('Loading')
   $('#form-invite-member').show()
   $('#form-rename-group').show()
+  $('#danger-area .btn').show()
   toTodoCardsSection()
   const groupId = localStorage.getItem('group_id')
   groupSocket = setGroupIoListener(groupId)
@@ -116,7 +117,8 @@ function fetchGroupDetails(access_token) {
       if (leaderId !== userId) {
         $('#form-invite-member').hide()
         $('#form-rename-group').hide()
-      }
+        $('#btn-delete-group').hide()
+      } else $('#btn-leave-group').hide()
       groupMembers = data.members || []
       enlistGroupMembers()
       Swal.close()
@@ -538,6 +540,37 @@ function onKickMember(e) {
   })
 }
 
+function onLeaveGroup(e) {
+  if (e) e.preventDefault()
+  Swal.fire({
+    title: 'Are you sure?',
+    showCancelButton: true,
+    confirmButtonColor: '#dc3545',
+    cancelButtonColor: '#007bff',
+    reverseButtons: true,
+    confirmButtonText: 'Delete',
+    focusConfirm: false,
+    focusCancel: true
+  }).then(result => {
+    if (result.value) {
+      toast('Loading')
+      const access_token = localStorage.getItem('access_token')
+      const groupId = localStorage.getItem('group_id')
+      $.ajax(`${baseUrl}/groups/${groupId}/leave`, {
+        method: 'DELETE',
+        headers: { access_token }
+      })
+        .done(({ data }) => {
+          toast('You have left the group!', 5000)
+          toGroupListPage()
+        })
+        .fail(({ responseJSON }) => {
+          toast(responseJSON, 5000)
+        })
+    }
+  })
+}
+
 function onRenameGroup(e) {
   if (e) e.preventDefault()
   $('#btn-rename-group').empty().append(`
@@ -620,6 +653,12 @@ function setGroupIoListener(groupId) {
     $('#group-page .jumbotron .container')
       .empty()
       .append(`<h1>${renamedGroup.name}</h1>`)
+  })
+
+  socket.on('member-left', group => {
+    toast('Member left', 3000)
+    groupMembers = group.members
+    enlistGroupMembers()
   })
 
   return socket

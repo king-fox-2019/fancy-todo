@@ -159,6 +159,30 @@ class GroupController {
       })
       .catch(next)
   }
+
+  static LeaveGroup(req, res, next) {
+    const group = req.group
+    console.log(!group.members.includes(req.user.id))
+    if (!group.members.includes(req.user.id))
+      throw { status: 422, message: 'Invalid member id' }
+    group.members.pull(req.user.id)
+    group
+      .save()
+      .then(group => GroupController.populateLeaderMember(group))
+      .then(group => {
+        req.io.of(`/${group.id}`).emit('member-left', group)
+        res.status(200).json({
+          message: 'You have left the group',
+          data: {
+            _id: group.id,
+            name: group.name,
+            leader: group.leader,
+            members: group.members
+          }
+        })
+      })
+      .catch(next)
+  }
 }
 
 module.exports = GroupController
