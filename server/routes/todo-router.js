@@ -1,35 +1,14 @@
 const express = require('express')
 const router = express.Router()
 
+const { todoController } = require('../controllers')
 
-router.get('/', function(request, response, next) {
-  response.json({ data: 'all todos' })
-})
 
-router.post('/', function(request, response, next) {
-  const { title, description } = request.body
-
-  response.status(201).json({ message: 'success create todo' })
-})
-
-router.delete('/:todoId', function(request, response, next) {
-  const { todoId } = request.params
-
-  response.status(200).json({ message: `will delete todo with id ${todoId}` })
-})
-
-router.put('/:todoId', function(request, response, next) {
-  const { todoId } = request.params
-
-  response.status(200).json({ message: `will update todo with id ${todoId}` })
-})
-
-router.patch('/:todoId', function(request, response, next) {
-  const { todoId } = request.params
-
-  response.status(200).json({ message: `will update todo with id ${todoId}` })
-})
-
+router.get('/', todoController.getAllTodos)
+router.post('/', todoController.createTodo)
+router.delete('/:todoId', todoController.deleteTodo)
+router.put('/:todoId', todoController.putTodo)
+router.patch('/:todoId', todoController.patchTodo)
 
 
 module.exports = router
