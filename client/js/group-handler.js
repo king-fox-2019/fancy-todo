@@ -618,6 +618,37 @@ function onRenameGroup(e) {
   return false
 }
 
+function onDeleteGroup(e) {
+  if (e) e.preventDefault()
+  Swal.fire({
+    title: 'Are you sure?',
+    showCancelButton: true,
+    confirmButtonColor: '#dc3545',
+    cancelButtonColor: '#007bff',
+    reverseButtons: true,
+    confirmButtonText: 'Delete',
+    focusConfirm: false,
+    focusCancel: true
+  }).then(result => {
+    if (result.value) {
+      toast('Loading')
+      const access_token = localStorage.getItem('access_token')
+      const groupId = localStorage.getItem('group_id')
+      $.ajax(`${baseUrl}/groups/${groupId}`, {
+        method: 'DELETE',
+        headers: { access_token }
+      })
+        .done(({ data }) => {
+          toast('Group deleted!', 5000)
+          toGroupListPage()
+        })
+        .fail(({ responseJSON }) => {
+          toast(responseJSON, 5000)
+        })
+    }
+  })
+}
+
 function setGroupIoListener(groupId) {
   const socket = io(`${baseUrl}/${groupId}`)
 
@@ -683,6 +714,16 @@ function setGlobalIoListener() {
       toast('You have been kicked from group ' + group.name, 3000)
       toGroupListPage()
     }
+  })
+
+  socket.on('group-deleted', group => {
+    if (
+      localStorage.getItem('active-page') == 'group-page' &&
+      localStorage.getItem('group_id') == group._id
+    ) {
+      toast('Group deleted!', 5000)
+      toGroupListPage()
+    } else fetchGroup(localStorage.getItem('access_token'))
   })
 
   return socket

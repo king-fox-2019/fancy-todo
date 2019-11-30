@@ -1,4 +1,4 @@
-const { Group, User } = require('../models')
+const { Group, User, Todo } = require('../models')
 
 class GroupController {
   static createGroup(req, res, next) {
@@ -103,11 +103,18 @@ class GroupController {
   }
 
   static deleteGroup(req, res, next) {
-    Group.deleteOne({ id: req.params.id }).then(() => {
-      res.status(200).json({
-        message: 'Group deleted'
+    Group.findByIdAndDelete(req.params.id)
+      .then(group => {
+        req.io.emit('group-deleted', group)
+        res.status(200).json({
+          message: 'Group deleted'
+        })
+        return Todo.deleteMany({ group: group._id })
       })
-    })
+      .then(x => {
+        console.log('Deleted todos:', x)
+      })
+      .catch(next)
   }
 
   static inviteMember(req, res, next) {
