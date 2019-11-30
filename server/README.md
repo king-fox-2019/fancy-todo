@@ -410,6 +410,40 @@ DELETE /groups/:id
 
 
 
+### Leave Group
+
+##### Endpoint
+
+```http
+DELETE /groups/:id/leave
+```
+
+##### Header
+
+- access_token: String **Required**
+
+##### Response
+
+###### Status 200: OK
+
+```json
+{
+  "message": "You have left the group",
+  "data": {
+    "_id": "5ddbadecccff181332f92b92",
+    "name": "Dummy group",
+    "leader": {
+      "_id": "5ddb85b06a8fd9fd116889e6",
+      "username": "dummy",
+      "email": "dummy@mail.com"
+    },
+    "members": []
+  }
+}
+```
+
+
+
 ## Todo Routes
 
 ### Create Private Todo
