@@ -2,7 +2,7 @@
 
 const express = require('express')
 const router = express.Router()
-const { todoController } = require('../server/controllers')
+const { todoController } = require('../controllers')
 // const authorization = require('../middleware/authorization')
 
 router.post('/', todoController.create)

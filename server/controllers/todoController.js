@@ -1,6 +1,6 @@
 'use strict'
 
-const { Todo } = require('../../models')
+const { Todo } = require('../models/')
 
 class todoController {
 

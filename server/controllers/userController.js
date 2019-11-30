@@ -1,8 +1,8 @@
 'use strict'
 
-const { User } = require('../../models')
-const { comparePassword } = require('../../helpers/bcrypt')
-const { generateToken } = require('../../helpers/jwt')
+const { User } = require('../models')
+const { comparePassword } = require('../helpers/bcrypt')
+const { generateToken } = require('../helpers/jwt')
 
 class userController {
 
