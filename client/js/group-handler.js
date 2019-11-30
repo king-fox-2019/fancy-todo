@@ -127,6 +127,23 @@ function fetchGroupDetails(access_token) {
       console.log('Error from fetchGroupDetails2')
       toast(responseJSON, 5000)
     })
+
+  $.ajax(`${baseUrl}/user`, {
+    method: 'GET',
+    headers: { access_token }
+  })
+    .done(({ data }) => {
+      $('#user-list-to-invite').empty()
+      for (const user of data) {
+        $('#user-list-to-invite').append(`
+        <option value="${user.email}"></option>
+      `)
+      }
+    })
+    .fail(({ responseJSON }) => {
+      console.log('Error from fetchGroupDetails3')
+      toast(responseJSON, 5000)
+    })
 }
 
 function arrangeGroupCards() {

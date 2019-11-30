@@ -98,6 +98,21 @@ class UserController {
       }
     })
   }
+
+  static getAllUser(req, res, next) {
+    User.find()
+      .then(users => {
+        res.status(200).json({
+          data: users.map(user => {
+            return {
+              username: user.username,
+              email: user.email
+            }
+          })
+        })
+      })
+      .catch(next)
+  }
 }
 
 module.exports = UserController
