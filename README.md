@@ -2,12 +2,12 @@
 
 ## By : Edwin Satya Yudistira
 
-### build with Express, Mongoose, Jquery, Ajax.
+### build with Express, Mongoose, Jquery, HTML5, CSS3
 
 ## Routes
 
 development baseUrl: http://localhost:3000,
-production basaeUrl: https://radiant-mesa-46721.herokuapp.com
+production basaeUrl:
 
 ### List of basic routes:
 
@@ -430,17 +430,22 @@ Bellows are routes that used in the sever app.js
 ```
 With only npm:
 
+back-end side :
+
 - npm install
+- setting env
 - npm run dev
 
 -> In config go setting your database
 
--> And Then Go Setup Sequelize
+front-end side :
+
+- live-server --host=localhost
 ```
 
-## Deploy in Heroku:
+## Deploy in :
 
 ```
-url : https://radiant-mesa-46721.herokuapp.com/
+
 
 ```
