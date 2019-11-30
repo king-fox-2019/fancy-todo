@@ -1,9 +1,9 @@
 'use strict'
 
 module.exports = (err, req, res, next) => {
-  console.log(err.status)
-  console.log(err.message)
-  console.log(err._message)
+  console.log(err.name)
+  // console.log(err.message)
+  // console.log(err)
 
   let status, message
   switch (err.name) {
@@ -15,6 +15,11 @@ module.exports = (err, req, res, next) => {
     case "SyntaxError":
       status = 401
       message = err.message
+      break;
+
+    case "JsonWebTokenError":
+      status = 401
+      message = "Invalid Access Token"
       break;
 
     default:
