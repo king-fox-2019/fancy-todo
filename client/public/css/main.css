@@ -33,7 +33,7 @@ body {
   position: absolute;
   width: 100px;
   height: 100px;
-  background: #403b4a;
+  background: #000;
   border-radius: 50%;
   filter: blur(25px);
   transition: 2s;

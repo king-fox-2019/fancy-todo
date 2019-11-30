@@ -86,8 +86,12 @@
               List Menu
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Create Project</a>
-              <a class="dropdown-item" href="#">Add Todo</a>
+              <a id="btn-go-create-project" class="dropdown-item" href="#"
+                >Create Project</a
+              >
+              <a id="btn-go-create-todo" class="dropdown-item" href="#"
+                >Create Todo</a
+              >
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Something else here</a>
             </div>
@@ -123,7 +127,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form>
+                <form id="btn-signin">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
                     <input
@@ -132,6 +136,7 @@
                       id="signin-email"
                       aria-describedby="emailHelp"
                       placeholder="Enter email"
+                      required
                     />
                     <small id="emailHelp" class="form-text text-muted"
                       >We'll never share your email with anyone else.</small
@@ -158,7 +163,7 @@
                   </div>
                   <button
                     type="submit"
-                    id="btn-signin"
+                    id="btn-signin-check"
                     class="btn btn-primary disabled"
                   >
                     SignIn
@@ -177,8 +182,8 @@
                 </button>
                 <button
                   type="button"
+                  id="close-modal-signin"
                   class="btn btn-secondary"
-                  data-dismiss="modal"
                 >
                   Close
                 </button>
@@ -210,7 +215,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form>
+                <form id="btn-signup">
                   <div class="form-group">
                     <label for="exampleInputName">Name</label>
                     <input
@@ -243,7 +248,7 @@
                       placeholder="Password"
                     />
                   </div>
-                  <button id="btn-signup" type="submit" class="btn btn-primary">
+                  <button type="submit" class="btn btn-primary">
                     SignUp
                   </button>
                 </form>
@@ -261,6 +266,81 @@
           </div>
         </div>
         <!-- end modal signup -->
+        <!-- modal create todo -->
+        <div
+          class="modal fade"
+          id="modal-create-todo"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Form Create Todo
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="exampleInputTodoName">Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="createTodo-name"
+                      placeholder="Enter Todo Name"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputTodoDescription">Description</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="createTodo-description"
+                      placeholder="Enter Todo Description"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputDueDate">Due Date</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="createTodo-due"
+                      placeholder="Enter Todo Due Date"
+                    />
+                  </div>
+                  <button
+                    id="btn-create-todo"
+                    type="submit"
+                    class="btn btn-primary"
+                  >
+                    Save Todo
+                  </button>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end modal create todo -->
         <button
           class="all-page btn btn-outline-dark my-2 my-sm-0"
           type="button"
@@ -302,6 +382,7 @@
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.12.0/build/alertify.min.js"></script>
     <!-- my script -->
     <script src="./public/js/formLogin.js"></script>
+    <script src="./public/js/todo.js"></script>
     <script src="./public/js/landingpage.js"></script>
     <script src="./public/js/main.js"></script>
     <!-- end my script -->

@@ -1,13 +1,32 @@
-const baseUrl = "http://localhost:3000/users";
-
 function renderModalSignin() {
   $("#modal-signin").modal("show");
   $("#modal-signup").modal("hide");
+  $("#signup-name").val("");
+  $("#signup-email").val("");
+  $("#signup-password").val("");
+  $("#sign-check").click(function() {
+    checked();
+  });
+  $("#close-modal-signin").click(function() {
+    $("#modal-signin").modal("hide");
+    $("#signin-email").val("");
+    $("#signin-password").val("");
+    $("#sign-check").prop("checked", false);
+    checked();
+  });
 }
 
 function renderModalSignup() {
   $("#modal-signup").modal("show");
   $("#modal-signin").modal("hide");
+  $("#signin-email").val("");
+  $("#signin-password").val("");
+  $("#sign-check").prop("checked", false);
+  $("#btn-backsignin").click(function() {
+    renderModalSignin();
+    $("#sign-check").prop("checked", false);
+    checked();
+  });
 }
 
 function signUp(event) {
@@ -16,7 +35,7 @@ function signUp(event) {
   let email = $("#signup-email").val();
   let password = $("#signup-password").val();
   $.ajax({
-    url: baseUrl + "/signup",
+    url: baseUrl + "/users/signup",
     method: "POST",
     data: {
       name,
@@ -25,7 +44,6 @@ function signUp(event) {
     }
   })
     .done(response => {
-      // console.log(response);
       renderModalSignin();
       alertify.success(response.message);
     })
@@ -50,7 +68,7 @@ function signIn(event) {
   let password = $("#signin-password").val();
   if ($("#sign-check").prop("checked")) {
     $.ajax({
-      url: baseUrl + "/signin",
+      url: baseUrl + "/users/signin",
       method: "POST",
       data: {
         email,
@@ -76,23 +94,24 @@ function signIn(event) {
         $("#signin-email").val("");
         $("#signin-password").val("");
         $("#sign-check").prop("checked", false);
+        checked();
       });
   }
-  console.log($("#sign-check").prop("checked"));
-  // console.log(email, password);
 }
 
 function checked() {
+  // console.log($("#sign-check").prop("checked"));
   if ($("#sign-check").prop("checked")) {
-    $("#btn-signin").removeClass("disabled");
+    $("#btn-signin-check").removeClass("disabled");
   } else {
-    $("#btn-signin").addClass("disabled");
+    $("#btn-signin-check").addClass("disabled");
   }
-  console.log($("#sign-check").prop("checked"));
 }
 
 function signOut() {
   localStorage.removeItem("token");
   $(".all-page").hide();
   $(".page-beforesignin").show();
+  alertify.success("Have Nice Day");
+  checked();
 }

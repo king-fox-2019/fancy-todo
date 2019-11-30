@@ -1,3 +1,5 @@
+const baseUrl = "http://localhost:3000";
+
 $(document).ready(function() {
   //form signin/signup
   if (localStorage.getItem("token")) {
@@ -13,20 +15,22 @@ $(document).ready(function() {
   $("#btn-go-signup").click(function() {
     renderModalSignup();
   });
-  $("#btn-backsignin").click(function() {
-    renderModalSignin();
-  });
-  $("#btn-signup").click(function(event) {
+  $("#btn-signup").submit(function(event) {
     signUp(event);
   });
-  $("#btn-signin").click(function(event) {
+  $("#btn-signin").submit(function(event) {
     signIn(event);
   });
   $("#btn-signout").click(function() {
     signOut();
   });
-  $("#sign-check").click(function() {
-    checked();
+  //form end
+  //todo
+  $("#btn-go-create-todo").click(function() {
+    renderModalCreateTodo();
   });
-  //end
+  // $("btn-create-todo").click(function(event) {
+  //   createTodo(event);
+  // });
+  //todo end
 });

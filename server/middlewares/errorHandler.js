@@ -15,9 +15,12 @@ module.exports = (err, req, res, next) => {
     // err.status == 400
   ) {
     status = 400;
-
+    // let current = null;
     for (let key in err.errors) {
+      // current = err.errors[key].message;
+      // if (current !== err.errors[key].message) {
       errors.push(err.errors[key].message);
+      // }
     }
     // errors.push(err.message);
   } else if (err.kind === "ObjectId") {
