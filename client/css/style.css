@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css?family=Francois+One&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+
+#nav-bar{
+    height: 5rem;
+}
+
+#register-form{
+    height: calc(100vh - 100px);
+}
+
+#login-form{
+    height: calc(100vh - 100px);
+}
+
+#setLogin{
+    color: blue;
+}
+
+#setLogin:hover{
+    cursor: pointer;
+    color: black;
+}
+
+#setRegister{
+    color: blue;
+}
+
+#setRegister:hover{
+    cursor: pointer;
+    color: black;
+}
+
+.task{
+    height: calc(100vh - 100px);
+}
+
+#welcome-text{
+    font-size: 5rem;
+    opacity: 0;
+    font-family: 'Francois One', sans-serif;
+    animation: myanimation 5s infinite;
+}
+
+.navbar-brand{
+    font-family: 'Francois One', sans-serif;
+    font-size: 2rem;
+}
+
+.get-start{
+    padding: 15px;
+    font-family: 'Francois One', sans-serif;
+    font-size: 20px;
+    margin-top: 80px;
+    opacity: 0;
+}
+
+.get-start:hover{
+    color: white;
+}
+
+#back-home{
+    cursor: pointer;
+}
+
+#title-text{
+    font-family: 'Francois One', sans-serif;
+    margin-bottom: 2rem;
+    animation: myanimation 5s infinite;
+}
+
+@keyframes myanimation {
+    0% {color: red;}
+    25%{color:yellow;}
+    50%{color:green;}
+    75%{color:brown;}
+    100% {color: red;}
+}
+
+.side-bar{
+    height: calc(100vh - 100px);
+}
+
+.content-todo{
+    height: calc(100vh - 100px);
+}
+
+.card-wrap{
+    height: calc(100vh - 170px);
+}
+
+#add-todo{
+    font-size: 2rem;
+    color: blue;
+    cursor: pointer;
+}
+
+#add-todo:hover{
+    color: red;
+}
+
+.content-title{
+    font-family: 'Francois One', sans-serif;
+    font-size: 2rem;
+}
+
+.card-body{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.card-body:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.Pending{
+    border-bottom: 4px solid red;
+    border-top: 4px solid red;
+}
+
+.Done{
+    border-bottom: 4px solid green;
+    border-top: 4px solid green;
+}
+
+.card-link{
+    font-size: 1.5rem;
+}
+
+#add-project{
+    font-size: 2rem;
+    color: blue;
+    cursor: pointer;
+}
+
+#add-project:hover{
+    color: red;
+}
+
+.empty-project{
+    font-family: 'Poppins', sans-serif;
+}
+
+.empty-todo{
+    font-family: 'Poppins', sans-serif;
+}
+
+#project-name:hover{
+    cursor: pointer;
+    color: blue;
+}
+
+.fas{
+    cursor: pointer;
+}
+
+#kick-member{
+    color: yellow;
+}
+
+#kick-member:hover{
+    color: red;
+}
+
+#add-task{
+    font-size: 2rem;
+    color: blue;
+    cursor: pointer;
+}
+
+#add-task:hover{
+    color: red;
+}

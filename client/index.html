@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="google-signin-client_id" content="328410037575-k9gvvo40p9batk5u21mpjs0js20l19i0.apps.googleusercontent.com">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <title>Do List</title>
+</head>
+<body>
+    <!-- Home page and login -->
+    <div id="front-page">
+        <nav id="nav-bar" class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
+            <div onclick="backHome()" id="back-home">
+                <a class="navbar-brand"><i class="fab fa-servicestack mr-3"></i>DO LIST</a>
+            </div>
+        </nav>
+
+        <!-- Main look -->
+        <div id="main-look">
+            <div class="d-flex flex-column align-items-center task justify-content-center">
+                <div class="w-50 text-center">
+                    <h1 id="welcome-text">Organize your task and project with <span><br>Do List</span></h1>
+                </div>
+                <div class="mt-3">
+                    <button id="getStarted" class="btn btn-outline-warning get-start" onclick="showRegister()">GET STARTED</button>
+                </div>
+            </div>
+        </div>
+        <!-- End main look -->
+
+
+        <!-- Register form -->
+        <div id="register">
+        <form id="register-form" class="d-flex flex-column justify-content-center">
+            <div class="w-25 d-flex flex-column mx-auto">
+                <div>
+                    <h1 id="title-text">Join with us now !!!</h1>
+                </div>
+                <div>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fas fa-user"></i></div>
+                        </div>
+                        <input type="text" class="form-control" id="nameReg" aria-describedby="username" placeholder="Enter username" name="userReg">
+                    </div>
+                    <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fas fa-envelope"></i></div>
+                    </div>
+                    <input type="email" class="form-control" id="emailReg" aria-describedby="email" placeholder="Enter email" name="emailReg">
+                    </div>
+                    <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fas fa-lock"></i></div>
+                    </div>
+                    <input type="password" class="form-control" id="passReg" placeholder="Password" name="passReg">
+                    </div>
+                </div>
+                <div class="d-flex align-items-start flex-column">
+                    <a class="mb-3" id="setLogin" onclick="setToLogin()">Already have account?</a>
+                    <div class="d-flex">
+                    <input type="submit" class="btn btn-primary" value="Register">
+                    <!-- Google signin -->
+                    <div class="g-signin2 ml-3" data-onsuccess="onSignIn"></div>
+                    <!-- end google signin -->
+                    </div>
+                </div>
+            </div>
+        </form>
+        </div>
+        <!-- end register form -->
+
+        <!-- login form -->
+        <div id="login">
+        <form id="login-form" class="d-flex flex-column justify-content-center" style="display: none;">
+            <div class="w-25 d-flex flex-column mx-auto">
+                <div>
+                    <h1 id="title-text">Let's Start !!!</h1>
+                </div>
+                <div>
+                    <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fas fa-envelope"></i></div>
+                    </div>
+                    <input type="email" class="form-control" id="emailLog" aria-describedby="email" placeholder="Enter email" name="emailLog">
+                    </div>
+                    <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fas fa-lock"></i></div>
+                    </div>
+                    <input type="password" class="form-control" id="passLog" placeholder="Password" name="passLog">
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-column align-items-center">
+                <input type="submit" class="btn btn-primary" value="Login">
+                <a class="mt-3" id="setRegister" onclick="setToRegister()">Don't have an account?</a>
+            </div>
+        </form>
+        </div>
+        <!-- End login form -->
+    </div>
+    <!-- End homepage and login -->
+
+    <!-- Main Page -->
+    <div id="main-page">
+        <nav id="nav-bar" class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
+            <div onclick="isLogin(true)" id="back-home">
+                <a class="navbar-brand"><i class="fab fa-servicestack mr-3"></i>DO LIST</a>
+            </div>
+            <div>
+                <button class="btn btn-outline-primary" onclick="signOut()">Sign Out</button>
+            </div>
+        </nav>
+
+        <!-- Content Page -->
+        <div class="row container-fluid mt-3">
+            <div class="col-3 side-bar">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active" onclick="getUserTodo()" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Private Todo</a>
+                    <a class="nav-link" onclick="getProject()" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Project</a>
+                    <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
+                </div>
+            </div>
+            <div class="col-9 content-todo">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                        <div class="d-flex justify-content-between">
+                            <span class="content-title">Your Todo List</span>
+                            <span id="add-todo" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-plus-circle"></i></span>
+                        </div>
+                        <div class="container mt-3 card-wrap">
+                            <div class="card-content mt-3 d-flex flex-wrap">
+                                <!-- Append Card Here -->
+                            </div>
+                            <!-- Add Todo Modal -->
+                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalCenterTitle">Create Todo</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <!-- Form Create Todo -->
+                                          <form method="submit" id="create-todo">
+                                                <div class="form-group">
+                                                  <label for="todo-title">Title</label>
+                                                  <input type="text" class="form-control" id="todo-title" aria-describedby="title" placeholder="Enter title">
+                                                </div>
+                                                <div class="form-group">
+                                                  <label for="todo-desc">Description</label>
+                                                  <textarea class="form-control" id="todo-desc" placeholder="Description here"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="todo-duedate">Due Date</label>
+                                                    <input type="date" class="form-control" id="todo-duedate" aria-describedby="date">
+                                                </div>
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close" onclick="createTodo()">Create</button>
+                                              </form>
+                                          <!-- End Form Create Todo -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Add Todo Modal -->
+                        </div>
+                    </div>
+                    <!-- Project HTML -->
+                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                        <div class="d-flex justify-content-between">
+                                <span class="content-title">Your Project</span>
+                                <span id="add-project" data-toggle="modal" data-target="#exampleModalCenter1"><i class="fas fa-plus-circle"></i></span>
+                        </div>
+                        <div class="container mt-3 card-wrap d-flex flex-column justify-content-between">
+                            <div class="project-list">
+                                <!-- Append Project here -->
+                            </div>
+                            <div class="project-detail d-flex flex-column">
+                                <!-- Append Project Detail here -->
+                            </div>
+                            <div>
+                                <!-- Create Project Modal -->
+                                <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle1" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalCenterTitle1">Create Project</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- Form Create Project -->
+                                                <form method="submit" id="create-project">
+                                                    <div class="form-group">
+                                                        <label for="project-title">Title</label>
+                                                        <input type="text" class="form-control" id="project-title" aria-describedby="title" placeholder="Enter title">
+                                                    </div>
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close" onclick="createProject()">Create</button>
+                                                </form>
+                                                <!-- End Form Create Project -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Modal Project Modal -->
+                                <!-- Add Task Modal -->
+                                <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle2" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                  <h5 class="modal-title" id="exampleModalCenterTitle2">Create Task</h5>
+                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                  </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                  <!-- Form Create Task -->
+                                                  <form method="submit" id="create-task">
+                                                        <div class="form-group">
+                                                          <label for="task-title">Title</label>
+                                                          <input type="text" class="form-control" id="task-title" aria-describedby="title" placeholder="Enter title">
+                                                        </div>
+                                                        <div class="form-group">
+                                                          <label for="task-desc">Description</label>
+                                                          <textarea class="form-control" id="task-desc" placeholder="Description here"></textarea>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="task-duedate">Due Date</label>
+                                                            <input type="date" class="form-control" id="task-duedate" aria-describedby="date">
+                                                        </div>
+                                                        <div id="task-submit">
+                                                            <!-- Append task submit here -->
+                                                        </div>
+                                                      </form>
+                                                  <!-- End Form Create Task -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Project HTML -->
+                    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">Message
+                        <div class="container border mt-3 card-wrap">
+                            <!-- Append Message -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Content Page -->
+    </div>
+    <!-- End of Main Page -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://kit.fontawesome.com/ac67c212ce.js" crossorigin="anonymous"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="./script/main.js"></script>
+    <script src="./script/user.js"></script>
+    <script src="./script/todo.js"></script>
+    <script src="./script/project.js"></script>
+    <script src="./script/member.js"></script>
+    <script src="./script/task.js"></script>
+</body>
+</html>
