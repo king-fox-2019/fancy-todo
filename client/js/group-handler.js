@@ -83,6 +83,7 @@ function onCreateGroup(e) {
 // Group Page
 function fetchGroupDetails(access_token) {
   toast('Loading')
+  toTodoCardsSection()
   const groupId = localStorage.getItem('group_id')
   groupSocket = setGroupIoListener(groupId)
   $.ajax(`${baseUrl}/groups/${groupId}/todos`, {
@@ -109,6 +110,7 @@ function fetchGroupDetails(access_token) {
   })
     .done(({ data }) => {
       leaderId = data.leader._id
+      if (leaderId !== userId) $('#form-invite-member').hide()
       groupMembers = data.members || []
       enlistGroupMembers()
       Swal.close()
@@ -158,6 +160,8 @@ function arrangeGroupCards() {
                   <small class="todo-last-update text-muted">${moment(
                     todo.updatedAt
                   ).fromNow()}</small>
+                  <br/>
+                  <small class="text-muted">By: ${todo.creator.email}</small>
                 </p>
               </div>
             </div>

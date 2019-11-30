@@ -364,15 +364,26 @@
 
         <!-- Group Member List Section -->
         <div class="group-section container" id="member-list-section">
-          <form class="form-inline" onsubmit="onInviteMember(event)" novalidate>
+          <form
+            class="form-inline"
+            onsubmit="onInviteMember(event)"
+            id="form-invite-member"
+            novalidate
+          >
             <div class="form-group mx-sm-3 mb-2 d-flex justify-content-between">
               <input
                 type="email"
                 class="form-control"
                 id="invite-email"
+                list="user-list-to-invite"
                 placeholder="Email"
               />
             </div>
+            <datalist id="user-list-to-invite">
+              <option value="dummy@mail.com"></option>
+              <option value="dummy@mail.com3"></option>
+              <option value="dummy@mail.com2"></option>
+            </datalist>
             <button
               type="submit"
               class="btn btn-primary mb-2"
@@ -391,16 +402,6 @@
               </tr>
             </thead>
             <tbody id="group-member-list">
-              <tr>
-                <td>dummymember</td>
-                <td>dummymember@mail.com</td>
-                <td><button class="btn btn-danger">Kick</button></td>
-              </tr>
-              <tr>
-                <td>dummymember</td>
-                <td>dummymember@mail.com</td>
-                <td><button class="btn btn-danger">Kick</button></td>
-              </tr>
               <tr>
                 <td>dummymember</td>
                 <td>dummymember@mail.com</td>
