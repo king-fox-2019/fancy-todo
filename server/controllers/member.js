@@ -37,7 +37,6 @@ class MemberController {
     }
 
     static removeMember(req,res,next){
-        console.log('masuk controller remove')
         const {id} = req.params
         User.findOne({
             email: req.query.email

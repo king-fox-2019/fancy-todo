@@ -98,6 +98,46 @@ class UserController{
                 next(err)
             })
     }
+
+    static loginGoogle(req,res,next){
+        User.findOne({
+            email: req.user.email
+        })
+        .then(user => {
+            if(user){
+                let token = jwt.generateToken({id: user._id})
+                let newUser = {
+                    username: user.username,
+                    email: user.email
+                }
+                res.status(200).json({
+                    user: newUser,
+                    token
+                })
+            }else{
+                let userPass = process.env.DEFAULT_PASSWORD
+                return User.create({
+                    username: req.user.given_name,
+                    email: req.user.email,
+                    password: userPass
+                })
+            }
+        })
+        .then(user => {
+            let objUser = {
+                username: user.username,
+                email: user.email
+            }
+            let token = jwt.generateToken({id: user._id})
+            res.status(200).json({
+                user: objUser,
+                token
+            })
+        })
+        .catch(err => {
+            next(err)
+        })
+    }
 }
 
 module.exports = UserController

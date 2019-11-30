@@ -67,12 +67,29 @@ function isLogin(status){
 }
 
 function onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
     let id_token = googleUser.getAuthResponse().id_token;
+    $.ajax({
+      url: `http://localhost:3000/user/login/google`,
+      method: 'POST',
+      data:{
+        idToken: id_token
+      }
+    })
+    .done(result => {
+      localStorage.setItem('token', result.token)
+      $('#emailLog').val('')
+      $('#passLog').val('')
+      $('#front-page').hide()
+      $('#main-page').show()
+      getUserTodo()
+    })
+    .fail(err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Google Signin',
+        text: `${err.responseJSON.message}`
+      })
+    })
     $('#front-page').hide()
     $('#main-page').show()
 }
