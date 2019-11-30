@@ -1,0 +1,226 @@
+body {
+  background-size: cover;
+  zoom: 90%;
+  
+}
+
+nav {
+    background-color:#11978ce7 !important ;
+}
+
+nav .brand-logo {
+  margin-top: 7px;
+  margin-bottom: 5px;
+  margin-left: 35px;
+  padding: 1px !important;
+}
+
+nav .next-icon {
+  size: 80px;
+}
+
+.register-text,
+h4 {
+  display: flex;
+  justify-content: center;
+  font-size: 50px;
+}
+
+.btn-register {
+  border-radius: 15px;
+  background-color: #11978ce7 !important;
+  margin-left: 5px;
+}
+
+.row-submit-register,
+.row-submit-login {
+  display: flex;
+  justify-content: center;
+}
+
+.right-section {
+  margin-right: 50px;
+}
+
+.login p {
+  display: flex;
+  justify-content: center;
+  font-size: 15px;
+  margin-top: 1px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.add-item {
+  justify-content: center;
+}
+
+.collection {
+  max-width: 70%;
+}
+
+.collection-header {
+  background-image: url(img/bg.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  object-fit: fill;
+  object-position: 50% 50;
+}
+
+.banner {
+  color: aliceblue;
+}
+
+.collection.with-header {
+  margin: auto;
+}
+
+.add-todo {
+  width: 100%;
+}
+
+.banner {
+  font-size: 20px;
+  padding-top: 7%;
+  padding-bottom: 0% ;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+img {
+  height: 30vh;
+  width: 50vw;
+}
+
+.reg, .log {
+  text-align: center;
+}
+
+.reg img {
+  margin-left: 60px;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+.log img {
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+.row {
+  margin: 0 !important;
+ width: 100%;
+}
+
+.collapsible {
+  max-width: 70%;
+  margin: auto;
+}
+
+.crossed {
+  text-decoration: line-through;
+}
+
+.background-image {
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 550px;
+  object-fit: cover;
+  /* filter: blur(8px);
+  -webkit-filter: blur(2px); */
+
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: block;
+  /* background-image: url('./img/ijo.jpg'); */
+  background-color: rgb(52, 131, 120);
+  /* background: rgb(14,51,44);
+  background: rgb(39,148,127);
+  background: rgb(39,148,127);
+  background: linear-gradient(97deg, rgba(39,148,127,1) 0%, rgba(54,154,131,1) 32%, rgba(168,201,189,1) 100%);  -webkit-filter: blur(3px); */
+  -moz-filter: blur(3px);
+  -o-filter: blur(3px);
+  -ms-filter: blur(3px);
+  filter: blur(3px);
+}
+
+.content {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  margin-left: 20px;
+  margin-right: 20px;
+  
+}
+
+#modal-update {
+  height: 550px;
+  /* border-radius: 45px; */
+  text-align: center;
+  box-shadow: none !important;
+}
+
+.modal-footer {
+  background-color: none !important;
+}
+
+.modal-close {
+  border-radius: 45px;
+  background-color: rgb(19, 77, 85);
+  color: rgb(138, 181, 219);
+}
+
+.input-field input[type=text] + label, .materialize-textarea:focus:not([readonly]) + label {
+  color: rgb(19, 77, 85) !important;
+ }
+ 
+ .input-field input[type=text], .materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid rgb(19, 77, 85) !important;
+  box-shadow: 0 1px 0 0 rgb(19, 77, 85) !important;
+ }
+ 
+ 
+ .input-field input[type=text]:focus + label, .materialize-textarea:focus:not([readonly]) + label {
+  color: #1d6868 !important;
+ }
+ 
+ .input-field input[type=text]:focus, .materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #1d6868 !important;
+  box-shadow: 0 1px 0 0 #1d6868 !important;
+ }
+
+.chip {
+  color: aliceblue;
+}
+
+#form-update-todo {
+  padding-top: 15px;;
+  padding-left: 90px;
+  padding-right: 90px;
+ 
+}
+
+.project-container {
+  text-align: center;
+}
+
+.project-logo {
+  width: 25vw;
+  height: 35vh;
+}
+
+.remark {
+  margin-top: 200px !important;
+}
+
+.background-image.project {
+  height: 200px;
+}

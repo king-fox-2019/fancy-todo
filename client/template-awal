@@ -1,0 +1,106 @@
+ <li class="collection-item row">
+    <div class="col s1">
+      <i class="material-icons">radio_button_unchecked</i>
+    </div>
+    <div class="col s9" >
+        ${todo.title}
+    </div>
+    <div class="col s1" >
+      <i class="clickable material-icons" style="color: #11978ce7 teal-text text-lighten-2 !important" >edit</i>
+    </div>
+    <div class="col s1">
+        <div class="secondary-content">
+        <i class="clickable material-icons" onclick="remove('${todo._id}')">delete</i>
+        </div>
+    </div>
+  </li>
+
+
+  +++++++++++++++++++++++++=
+
+  1. di css ada :
+  . striked {
+    text-decoration: line-through
+  }
+
+  2. di main.js saat append ada :
+
+  O lalalalalala []
+
+  appendTasks = (tasks) => {
+  $('#tasks').empty()
+  tasks.forEach(task => {
+    if(task.status) {
+      $('#tasks').append(`
+        <a class="collection-item teal-text text-darken-4">
+          <div class="row">
+            <div class="col s1">
+              <i onclick="check('${task._id}')" class="check-circle material-icons grey-text">check_circle</i>
+            </div>
+            <div class="col s10 grey-text">
+              <span class="striked">${task.name}</span>
+            </div>
+            <div class="col s1">
+              <i onclick="remove('${task._id}')" class="check-circle material-icons grey-text">clear</i>
+            </div>
+          </div>
+        </a>
+      `)
+    } else {
+      $('#tasks').append(`
+        <a class="collection-item teal-text text-darken-4">
+          <div class="row">
+            <div class="col s1">
+              <i onclick="check('${task._id}')" class="check-circle material-icons teal-text text-darken-4">radio_button_unchecked</i>
+            </div>
+            <div href="#modal-update" onclick="showUpdate('${task._id}')" class="modal-trigger col s11 teal-text text-darken-4 clickable">
+              <span>${task.name}</span>
+              <span class="badge ${isToday(task.dueDate) && !isOverdue(task.dueDate) ? 'today-badge' : 'time-badge'} ${isOverdue(task.dueDate) ? 'overdue-badge' : ''}">${formatDate(task.dueDate)}</span>
+            </div>
+          </div>
+        </a>
+      `)
+    }
+    
+  })
+}
+
+append dipanggil oleh:
+getTasks = () => {
+  $.ajax({
+    url: `${baseUrl}/tasks`,
+    type: 'get',
+    headers: {
+      access_token: localStorage.getItem('access_token')
+    }
+  })
+  .done(appendTasks)
+  .fail(showAlert)
+}
+
+hubungan get tasks dg check adalah :
+
+check = (id) => {
+  $.ajax({
+    url: `${baseUrl}/tasks/${id}`,
+    type: 'patch',
+    data: {
+      status: true
+    },
+    headers: {
+      access_token: localStorage.getItem('access_token')
+    }
+  })
+    .done(_ => {
+      if($('#curr-project-id').val()) {
+        getProjectTasks($('#curr-project-id').val())
+      } else {
+        getTasks()
+      }
+    })
+    .fail(showAlert)
+}
+
+
+
+attached event di appended jquery

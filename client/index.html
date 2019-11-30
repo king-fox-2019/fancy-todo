@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="google-signin-client_id" content="239754148921-nlpf58ao2hn3gmba34aoj22s3jvlnjcg.apps.googleusercontent.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>next!</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web" >
+  <link href="https://fonts.googleapis.com/css?family=Berkshire+Swash&display=swap" rel="stylesheet">
+
+  <!-- import style.css -->
+  <link rel="stylesheet" href="css/font-awesome.css">
+  <!-- end import style.css -->
+  
+  
+  <!-- import materialize icon -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- end import materialize icon -->
+  
+  
+  
+  
+  <!-- import materialize cdn -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- end import materialize cdn -->
+  
+  <link rel="stylesheet" href="style.css">
+  
+</head>
+
+
+<body>
+
+  <!-- LOGIN PAGE -->
+
+ <!-- navbar -->
+ <nav>
+    <div class="nav blue darker-4">
+      <a href="" class="brand-logo"><i class="fas fa-angle-double-right"></i><B><i>next!</i></B></a>
+      <!-- right section  -->
+      <div class="right-section">
+      <ul class="right">
+        <!-- <li><a href="#"><i class="material-icons">search</i></a></li> -->
+        <li id="module-todo"><a href="" onclick="toProject(event)"><i class="material-icons">view_module</i></a></li>
+          <!-- google sign out -->
+        <li><a id="signout" class="signout" href="" onclick="signOut()"><i class="fas fa-sign-out-alt"> </i>&nbsp;&nbsp;&nbsp;</a></li>
+        <li id="hi">Hi, &nbsp;</li>
+        <li class="who-am-i"></li>
+        <li id="exclamation">&nbsp;!</li>
+      </ul>
+    </div>
+      <!-- end right section -->
+    </div>
+  </nav>
+<!-- end navbar -->
+<br>
+<br>
+
+<div class="login">
+
+ <div class="container ">
+
+  <!-- registration form -->
+    <div class="register-form" >
+    <div class="register-text row">
+        <div class="col reg">
+          <h4>/ &nbsp; register &nbsp; /</h4>
+          <h6>Organize it all with <B><i>next!</i></B></h6>
+          <img src="./img/register.svg" alt="register-img">
+        </div>
+      </div>
+
+    <div class="row">
+        <form id="register-form" class="col s12">
+          <div class="row">
+              <div class="input-field col s6">
+                  <i class="material-icons prefix">mail_outline</i>
+                  <input id="email-register" type="email" class="validate">
+                  <label for="email">Email</label>
+                  <span class="helper-text" data-error="incorrect email format" data-success="correct"></span>
+              </div>
+            <div class="input-field col s6">
+              <i class="material-icons prefix">lock_outline</i>
+              <input type="password" id="password-register"  class="validate">
+              <label for="password-register">Password</label>
+            </div>
+          </div>
+
+          <div class="row-submit-register">
+            <div style="margin-left: 20px; display: flex;" class="margin-top:40px" id="google-login">
+                <div style="margin-left: 10px !important;" class="g-signin2" data-onsuccess="onSignIn"></div>
+            </div>
+            <br>
+            <button class="btn-register  white-text btn-flat" type="submit">Register</button> 
+          </div>
+          <br>
+          <p>already have an account? Please proceed &nbsp;  <B onclick="toLogin()">login</B> &nbsp; instead</p> 
+
+        </form>
+      </div>
+    </div>
+  <!-- end registration form  -->
+
+
+
+  <!-- login form  -->
+  <div class="login-form hidden"  >
+  <div class="register-text row">
+      <div class="col log">
+        <h4>/ &nbsp; login &nbsp; /</h4>
+        <h6 onclick="toHomepage(event)">the <B><i>next!</i></B> thing to do is putting down those pile of stuffs</h6>
+        <img src="./img//login.svg" alt="login-img">
+      </div>
+
+    </div>
+
+  <div class="row">
+      <form id="login-form" class="col s12">
+        <div class="row">
+            <div class="input-field col s6">
+                <i class="material-icons prefix">mail_outline</i>
+                <input id="email-login" type="email" class="validate">
+                <label for="email">Email</label>
+                <span class="helper-text" data-error="incorrect email format" data-success="correct"></span>
+            </div>
+          <div class="input-field col s6">
+            <i class="material-icons prefix">lock_outline</i>
+            <input type="password" id="password-login"  class="validate">
+            <label for="password-login">Password</label>
+          </div>
+        </div>
+
+        <div class="row-submit-login">
+            <div style="margin-left: 20px; display: flex;" class="margin-top:40px" id="google-login">
+                <div style="margin-left: 10px !important;" class="g-signin2" data-onsuccess="onSignIn"></div>
+            </div>
+            <br>
+            <button class="btn-register  white-text btn-flat" type="submit">Log In</button>
+          </div>
+            <br>
+           <p>don't have any account yet? Please proceed &nbsp; <B onclick="toRegister()">register</B> &nbsp;  instead</p> 
+      </form>
+    </div>
+  </div>
+  <!-- end login form  -->
+</div>
+
+</div>
+ 
+  <!-- END LOGIN PAGE -->
+
+  <!-- HOME PAGE -->
+  <div class="homepage hidden" >
+
+
+<!-- main skeleton -->
+
+<div class="container">
+
+<div class="form-add-show">
+
+    <ul class="collection with-header">
+      <li class="collection-header"><p class="banner"><B>To-do List</B></p></li>
+      
+    </ul>
+
+  <div class="add-item">
+      <div class="row">
+        <div class="container">
+      <form id="addtodo" class="col s12">
+        <div class="row">
+          <div class="container">
+        <div class="input-field col s12">
+          <i class="material-icons prefix teal-text text-darken-2">add</i>
+          <input id="add-todo" type="text" >
+          <label for="add-todo">Add to-do</label>
+          </div>
+          <button type="submit" class="hidden"></button>
+        </div>
+        </div>
+      </form>
+    </div>
+    </div>
+    </div>
+
+    <div class="list">
+      <ul class="collapsible alltodos"></ul>      
+    </div>
+
+</div>
+
+
+<div class="form-update">
+  <div id="modal-update" class="modal z-depth-3">
+      
+      <!-- materialize form  -->
+      <div class="row" style="height: 300px;">
+          <div class="background-image"></div>
+          <div class="form-container">
+            <form  class="content col s12 update-todo" id="form-update-todo">
+              <div class="row">
+                  <div class="input-field col s12">
+                    <input id="update-todo-id" type="hidden">
+                    <label for="update-todo-id" class="label-update" style="display: none;">todoId</label>
+                  </div>
+                </div>
+              <div class="row">
+                  <div class="input-field col s12">
+                    <input id="update-todo-title" type="text" class="active">
+                    <label for="update-todo-title" class="label-update">Title</label>
+                  </div>
+                </div>
+              <div class="row">
+                  <div class="input-field col s12">
+                    <input id="update-todo-description" type="text" class="active">
+                    <label for="update-todo-description" class="label-update">Description</label>
+                  </div>
+                </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="update-todo-date" type="text" class="datepicker active">
+                  <label for="update-todo-date" >Date</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="update-todo-time" type="text" class="timepicker active">
+                  <label for="update-todo-time" class="timepicker label-update">Time</label>
+                </div>
+              </div>
+  
+              <div class="modal-footer" style="background-color: transparent !important;">
+                  <button class="modal-close waves-effect btn-flat" type="submit">Update</button>
+                <!-- <a class="modal-close waves-effect waves-green btn-flat">Update</a> -->
+              </div>
+  
+            </form>
+          </div>
+        </div>
+          <!-- materialize form  -->
+        
+        
+  </div>
+</div>
+<!-- end form modal update  -->
+
+</div> 
+<!-- end main skeleton  -->
+
+
+</div>
+<!-- END HOME PAGE -->
+
+
+<!-- PROJECT PAGE  -->
+<div class="projectpage hidden">
+
+  <div class="container project-container">
+    
+    <!-- remark  -->
+      <div class="row remark">      
+        <div class="row">
+          <a data-target="modal-add-project" onclick="showProjectForm(event)" class="btn-floating btn-large teal pulse modal-trigger"><i class="material-icons">add</i></a>
+          </div>
+        <div class="row">
+          <img src="./img/first-project.png" alt="add-first-project-img" class="project-logo">
+        </div>
+      </div>
+    <!-- end remark  -->
+
+    <div class="form-add-project">
+        <div id="modal-add-project" class="modal z-depth-3">
+            
+            <!-- materialize form  -->
+            <div class="row" style="height: 200px;">
+                <div class="background-image-project"></div>
+                <div class="form-container">
+                  <form  class="content col s12 update-add-project" id="form-update-add-project">
+                    <div class="row">
+                        <div class="input-field col s12">
+                          <input id="add-project-title" type="text">
+                          <label for="add-project-title" class="label-update">todoId</label>
+                        </div>
+                      </div>
+        
+                    <div class="modal-footer" style="background-color: transparent !important;">
+                        <button onclick="createProject(event)" class="modal-close waves-effect btn-flat" type="submit">Submit</button>
+                      <!-- <a class="modal-close waves-effect waves-green btn-flat">Update</a> -->
+                    </div>
+        
+                  </form>
+                </div>
+              </div>
+                <!-- materialize form  -->
+              
+              
+        </div>
+      </div>
+      <!-- end form modal update  -->
+
+      <!-- card  -->
+        <div class="project-cards">
+
+        </div>
+       
+      <!-- end card  -->
+      
+  </div>
+
+
+
+</div>
+
+<!-- END PROJECT PAGE  -->
+<script
+src="https://code.jquery.com/jquery-3.4.1.min.js"
+integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+crossorigin="anonymous"></script>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+            
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+
+  <script src="main.js"></script>
+
+ 
+
+</body>
+</html>
