@@ -1,0 +1,27 @@
+{
+  "name": "fancy-todo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "NODE_ENV=development node server/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/didadadida93/fancy-todo.git"
+  },
+  "keywords": [],
+  "author": "Didadadida93",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/didadadida93/fancy-todo/issues"
+  },
+  "homepage": "https://github.com/didadadida93/fancy-todo#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  }
+}
