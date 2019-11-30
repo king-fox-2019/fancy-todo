@@ -9,6 +9,7 @@ const mongoURI = process.env.MONGO_URI;
 const mongoose = require('mongoose');
 const cors = require('cors');
 const morgan = require('morgan');
+const errHandling = require('./middlewares/errHandling');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -30,7 +31,10 @@ app.get('/', (req, res)=> {
 })
 
 const userRoute = require('./routes/user');
+const todoRoute = require('./routes/todo');
 
 app.use('/user', userRoute);
+app.use('/todo', todoRoute);
 
+app.use(errHandling);
 app.listen(PORT, ()=> console.log(`Listening on port ${PORT}`))

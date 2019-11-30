@@ -1,7 +1,8 @@
 const Controller = require('../controllers/userController');
 const router = require('express').Router();
 
-router.get('/login', Controller.login);
+router.post('/login', Controller.login);
+router.post('/login-google', Controller.googleLogin);
 router.post('/', Controller.registerUser);
 
 
