@@ -3,6 +3,7 @@ let groupTodos = []
 let groupMembers = []
 let leaderId = ''
 let groupSocket = null
+let globalSocket = null
 
 // Group List Page
 function fetchGroup(access_token) {
@@ -83,6 +84,7 @@ function onCreateGroup(e) {
 // Group Page
 function fetchGroupDetails(access_token) {
   toast('Loading')
+  $('#form-invite-member').show()
   toTodoCardsSection()
   const groupId = localStorage.getItem('group_id')
   groupSocket = setGroupIoListener(groupId)
@@ -227,10 +229,18 @@ function toTodoCardsSection(e) {
 
 function toMemberListSection(e) {
   if (e) e.preventDefault()
-  $('#group-page #todo-cards-section').hide()
+  $('#group-page .group-section').hide()
   $('#group-page #member-list-section').show()
   $('#group-page .nav-link').removeClass('active')
   $('#group-page #group-nav-members').addClass('active')
+}
+
+function toGroupSettingSection(e) {
+  if (e) e.preventDefault()
+  $('#group-page .group-section').hide()
+  $('#group-page #group-setting-section').show()
+  $('#group-page .nav-link').removeClass('active')
+  $('#group-page #group-nav-setting').addClass('active')
 }
 
 function onGroupOpenCreateModal(e) {
@@ -524,6 +534,53 @@ function onKickMember(e) {
   })
 }
 
+function onRenameGroup(e) {
+  if (e) e.preventDefault()
+  $('#btn-rename-group').empty().append(`
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    Renaming...
+  `)
+  const renameGroup = $('#group-page #rename-group')
+  if (!renameGroup.val()) {
+    renameGroup
+      .addClass('is-invalid')
+      .focusin(() => renameGroup.removeClass('is-invalid'))
+    $('#btn-rename-group')
+      .empty()
+      .append('Rename Group')
+    return false
+  }
+  const access_token = localStorage.getItem('access_token')
+  const groupId = localStorage.getItem('group_id')
+  $.ajax(`${baseUrl}/groups/${groupId}`, {
+    method: 'PATCH',
+    headers: { access_token },
+    data: {
+      name: renameGroup.val()
+    }
+  })
+    .done(({ data }) => {
+      toast('Group renamed!', 3000)
+      $('#btn-rename-group')
+        .empty()
+        .append('Rename Group')
+      localStorage.setItem('group_name', data.name)
+      $('#group-page .jumbotron .container')
+        .empty()
+        .append(`<h1>${data.name}</h1>`)
+    })
+    .fail(({ responseJSON }) => {
+      toast(responseJSON, 5000)
+      $('#btn-rename-group')
+        .empty()
+        .append('Rename Group')
+    })
+    .always(() => {
+      renameGroup.val('')
+    })
+  return false
+}
+
 function setGroupIoListener(groupId) {
   const socket = io(`${baseUrl}/${groupId}`)
 
@@ -565,7 +622,6 @@ function setGlobalIoListener() {
   })
 
   socket.on('member-kicked', group => {
-    console.log(userId)
     if (
       group.members.map(member => member._id).includes(userId) ||
       userId == leaderId
@@ -573,9 +629,10 @@ function setGlobalIoListener() {
       groupMembers = group.members
       enlistGroupMembers()
     } else {
-      console.log('ke sini?')
       toast('You have been kicked from group ' + group.name, 3000)
       toGroupListPage()
     }
   })
+
+  return socket
 }

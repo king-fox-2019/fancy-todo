@@ -359,6 +359,15 @@
                 >Members</a
               >
             </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href=""
+                onclick="toGroupSettingSection(event)"
+                id="group-nav-setting"
+                >Setting</a
+              >
+            </li>
           </ul>
         </div>
 
@@ -429,6 +438,32 @@
             </button>
           </div>
           <div class="row" id="group-todo-cards"></div>
+        </div>
+
+        <!-- Group Setting Section -->
+        <div class="group-section container" id="group-setting-section">
+          <form
+            class="form-inline"
+            onsubmit="onRenameGroup(event)"
+            id="form-rename-group"
+            novalidate
+          >
+            <div class="form-group mx-sm-3 mb-2 d-flex justify-content-between">
+              <input
+                type="text"
+                class="form-control"
+                id="rename-group"
+                placeholder="Rename Group"
+              />
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary mb-2"
+              id="btn-rename-group"
+            >
+              Rename Group
+            </button>
+          </form>
         </div>
       </div>
       <!-- Group Page -->
