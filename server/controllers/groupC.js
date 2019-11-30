@@ -88,6 +88,7 @@ class GroupController {
       .save()
       .then(group => GroupController.populateLeaderMember(group))
       .then(group => {
+        req.io.of(`/${group.id}`).emit('group-renamed', group)
         res.status(200).json({
           message: 'Group name updated',
           data: {

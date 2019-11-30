@@ -85,6 +85,7 @@ function onCreateGroup(e) {
 function fetchGroupDetails(access_token) {
   toast('Loading')
   $('#form-invite-member').show()
+  $('#form-rename-group').show()
   toTodoCardsSection()
   const groupId = localStorage.getItem('group_id')
   groupSocket = setGroupIoListener(groupId)
@@ -112,7 +113,10 @@ function fetchGroupDetails(access_token) {
   })
     .done(({ data }) => {
       leaderId = data.leader._id
-      if (leaderId !== userId) $('#form-invite-member').hide()
+      if (leaderId !== userId) {
+        $('#form-invite-member').hide()
+        $('#form-rename-group').hide()
+      }
       groupMembers = data.members || []
       enlistGroupMembers()
       Swal.close()
@@ -608,6 +612,14 @@ function setGroupIoListener(groupId) {
       1
     )
     $(`#${deletedTodo._id}`).remove()
+  })
+
+  socket.on('group-renamed', renamedGroup => {
+    toast('Group renamed!', 3000)
+    localStorage.setItem('group_name', renamedGroup.name)
+    $('#group-page .jumbotron .container')
+      .empty()
+      .append(`<h1>${renamedGroup.name}</h1>`)
   })
 
   return socket
