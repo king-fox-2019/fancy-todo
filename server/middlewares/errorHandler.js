@@ -2,7 +2,7 @@ module.exports = (err, req, res, next) => {
   let status;
   let message;
   let errors = [];
-  console.log("error ==>>", err);
+  // console.log("error ==>>", err);
 
   if (err.name === "JsonWebTokenError" || err.name === "TokenExpiredError") {
     status = 401;

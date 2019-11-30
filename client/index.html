@@ -4,7 +4,307 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta
+      name="google-signin-client_id"
+      content="8070598710-i2etrm5l71mv7nhr8a5ncudrpfpahv9k.apps.googleusercontent.com"
+    />
+    <link rel="icon" href="./public/img/icon.jpeg" />
+    <!-- bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <!-- end bootstrap -->
+    <!-- css alert -->
+    <!-- CSS -->
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/alertifyjs@1.12.0/build/css/alertify.min.css"
+    />
+    <!-- Default theme -->
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/alertifyjs@1.12.0/build/css/themes/default.min.css"
+    />
+    <!-- Semantic UI theme -->
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/alertifyjs@1.12.0/build/css/themes/semantic.min.css"
+    />
+    <!-- Bootstrap theme -->
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/alertifyjs@1.12.0/build/css/themes/bootstrap.min.css"
+    />
+    <!-- end css alert -->
+    <!-- mycss -->
+    <link rel="stylesheet" href="./public/css/main.css" />
+    <!-- end mycss -->
     <title>Fancy Todo</title>
   </head>
-  <body></body>
+  <body>
+    <!-- landingpage without login -->
+    <div class="page-beforesignin" id="landing-page"></div>
+    <!-- enn landingpage -->
+    <!-- navbar -->
+    <nav
+      id="top-nav"
+      class="navbar navbar-expand-lg navbar-light bg-light shadow"
+    >
+      <a class="navbar-brand" href="#">DoList</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#"
+              >Home <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              List Menu
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Create Project</a>
+              <a class="dropdown-item" href="#">Add Todo</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+        </ul>
+        <button
+          id="btn-go-signin"
+          class="page-beforesignin btn-sm btn-outline-dark my-2 my-sm-0"
+          type="button"
+        >
+          SignIn/SignUp
+        </button>
+        <!--modal signin-->
+        <div
+          class="modal fade"
+          id="modal-signin"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Form SignIn</h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="signin-email"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter email"
+                    />
+                    <small id="emailHelp" class="form-text text-muted"
+                      >We'll never share your email with anyone else.</small
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="signin-password"
+                      placeholder="Password"
+                    />
+                  </div>
+                  <div class="form-check">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      id="sign-check"
+                    />
+                    <label class="form-check-label" for="exampleCheck1"
+                      >Check me out</label
+                    >
+                  </div>
+                  <button
+                    type="submit"
+                    id="btn-signin"
+                    class="btn btn-primary disabled"
+                  >
+                    SignIn
+                  </button>
+                  &nbsp; or &nbsp;
+                  <button class="g-signin2" data-onsuccess="onSignIn"></button>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  id="btn-go-signup"
+                  type="button"
+                  class="btn btn-warning mr-auto"
+                >
+                  SignUp
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--end modal signin-->
+        <!--modal signup-->
+        <div
+          class="modal fade"
+          id="modal-signup"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Form SignUp</h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="exampleInputName">Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="signup-name"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter Name"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="signup-email"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter email"
+                    />
+                    <small id="emailHelp" class="form-text text-muted"
+                      >We'll never share your email with anyone else.</small
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="signup-password"
+                      placeholder="Password"
+                    />
+                  </div>
+                  <button id="btn-signup" type="submit" class="btn btn-primary">
+                    SignUp
+                  </button>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  id="btn-backsignin"
+                >
+                  Back to SignIn
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end modal signup -->
+        <button
+          class="all-page btn btn-outline-dark my-2 my-sm-0"
+          type="button"
+          id="btn-signout"
+          style="display: none;"
+        >
+          SignOut
+        </button>
+      </div>
+    </nav>
+    <!-- end navbar -->
+
+    <!-- footer -->
+    <footer
+      class="navbar navbar-expand-sm navbar-light bg-light fixed-bottom shadow flex justify-content-center"
+      id="footer"
+    >
+      <p style="margin-top: 10px;">2019@Edwin Satya Yudistira</p>
+    </footer>
+    <!-- end footer -->
+
+    <!-- script -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.12.0/build/alertify.min.js"></script>
+    <!-- my script -->
+    <script src="./public/js/formLogin.js"></script>
+    <script src="./public/js/landingpage.js"></script>
+    <script src="./public/js/main.js"></script>
+    <!-- end my script -->
+    <!-- end script -->
+  </body>
 </html>
