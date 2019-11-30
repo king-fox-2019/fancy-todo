@@ -53,7 +53,7 @@ Register yourself to database, so you have access to all other endpoints.
 ##### Endpoint
 
 ```http
-POST /user/signup
+POST /signup
 ```
 
 ##### Body
@@ -136,6 +136,39 @@ GET /checksession
       "email": "dummy@mail.com",
       "iat": 1574667955
   }
+}
+```
+
+
+
+### Get All Users
+
+##### Endpoint
+
+```http
+GET /user
+```
+
+##### Header
+
+- access_token: String **Required**
+
+##### Response
+
+###### Status 200: OK
+
+```json
+{
+  "data": [
+    {
+      "username": "dummy",
+      "email": "dummy@mail.com"
+    },
+    {
+      "username": "dummy2",
+      "email": "dummy2@mail.com"
+    }
+  ]
 }
 ```
 
