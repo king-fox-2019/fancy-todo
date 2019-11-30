@@ -1,5 +1,5 @@
 {
-  "name": "fancy-todo-1",
+  "name": "fancy-todo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,22 +9,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/elizabethwidiasri/fancy-todo-1.git"
+    "url": "git+https://github.com/elizabethwidiasri/fancy-todo.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "eli",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/elizabethwidiasri/fancy-todo-1/issues"
+    "url": "https://github.com/elizabethwidiasri/fancy-todo/issues"
   },
-  "homepage": "https://github.com/elizabethwidiasri/fancy-todo-1#readme",
+  "homepage": "https://github.com/elizabethwidiasri/fancy-todo#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "google-auth-library": "^5.5.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.7.13",
+    "mongoose": "^5.7.7",
     "mongoose-unique-validator": "^2.0.3",
     "mongoose-validator": "^2.1.0"
   },
