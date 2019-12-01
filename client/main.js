@@ -459,6 +459,21 @@ function toProject(event) {
 }
 // end show project page
 
+// show project page
+// function toProjectCard(event) {
+//   console.log('prjcttttttttttttttttttt');
+//   event.preventDefault()
+//   $('.login').hide()
+//   $('.homepage').hide()
+//   $('.projectpage').hide()
+//   $('.project-cards').show()
+//   $('.fixed-action-btn').hide();
+
+//   fetchProject()
+// }
+// end show project page
+
+
 // show home page
 function toHomepage(event) {
   event.preventDefault()
@@ -503,8 +518,8 @@ function fetchProject() {
       $('.detailed-project').hide()
       $('.project-cards').empty()
       projects.forEach(project => {
-        console.log(project, 'dari for each fetch');
-        console.log(project._id, 'dr fetch nyari id prjct ada gakkk');
+        // console.log(project, 'dari for each fetch');
+        // console.log(project._id, 'dr fetch nyari id prjct ada gakkk');
         
         //   <i class="material-icons" style="color: orange;">delete</i>
 
@@ -513,7 +528,9 @@ function fetchProject() {
           <div class="col s4">
             <div class="card cyan darken-4">
               <div class="card-content white-text">
+                <div class="project-title">
                 <span style="font-size: 35px; margin-bottom: 30px;" class="card-title">${project.title}</span>
+                </div>
                 <p>I am a very simple card. I am good at containing small bits of information.
                 I am convenient because I require little markup to use effectively.</p>
               </div>
@@ -533,6 +550,7 @@ function fetchProject() {
       })
     } else {
       $('.remark').show()
+      $('.detailed-project').hide()
     }
   })
   .fail(err => {
@@ -580,7 +598,7 @@ function createProject(event) {
 }
 // end create project
 
-// update project 
+// detail project 
 function showDetailProject(id) {
   projectId = id
   console.log(id, `mau find one plssss ini project id`);
@@ -594,6 +612,7 @@ function showDetailProject(id) {
     }
   })
   .done(project => {
+    //onclick="showUpdateTitle() updateProject(${project._id})" 
     showProjectTodoList()
     console.log(`masuk find one`, project)
     $('.fixed-action-btn').hide();
@@ -601,7 +620,17 @@ function showDetailProject(id) {
     $('.detailed-project').show()
     $('.project-collection-header').empty()
     $('.project-collection-header').append(`
-    ${project.title}`)
+    <B><i>${project.title}</i></B>
+      <div class="project-edit">
+        <div style="padding-left: 20px; ">
+        <i data-target="modal-update" class="material-icons modal-trigger clickable">edit</i>
+        </div>
+        <div style="padding-right: 20px; ">
+        <i onclick="deleteProject('${project._id}')" class="material-icons clickable">delete</i>
+        </div>
+        
+      </div>
+    `)
   })
   .fail(err => {
     console.log(`failed to find project`);
@@ -611,8 +640,49 @@ function showDetailProject(id) {
     console.log(`complete`);
     
   })
+
+}
+// end detail project 
+
+ // delete project 
+function deleteProject(id) {
+  $.ajax({
+    url: `${baseURL}/project/${id}`,
+    method: 'DELETE',
+    headers : {
+      access_token: localStorage.getItem('jwtToken')
+    }
+  })
+  .done(() => {
+    M.toast({html: 'Project deleted!', classes: 'indigo lighten-2 rounded', displayLength: 2000, inDuration: 150, outDuration: 150});  
+    showProjectTodoList()
+    toProject(event)
+  })
+  .fail(errorHandler)
+  .always(() => {
+    console.log(`complete`);
+  })
+}
+  // end delete project 
+
+// show update title form
+// function showUpdateTitle() {
+//   data-target="modal-update"
+// }
+// end show update title form 
+
+// update project 
+function updateProject(id) {
+  $.ajax({
+    url: `${baseURL}/project/${id}`,
+    method: 'PATCH',
+    data: {
+      title : $
+    }
+  })
 }
 // end update project 
+
 
 // end functions
 

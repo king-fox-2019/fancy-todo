@@ -9,6 +9,7 @@ router.get('/', ProjectController.findAllProject)
 // owner
 router.use('/:id', projectAuthorAuthorization)
 router.get('/:id', ProjectController.findOneProject)
+router.patch('/:id', ProjectController.updateProject)
 router.patch('/:id/invite', ProjectController.inviteMember)//invite member
 router.patch('/:id/dismiss/userId', ProjectController.dismissMemberOrLeaveProject)
 router.delete('/:id', ProjectController.deleteProject)

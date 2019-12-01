@@ -259,3 +259,9 @@ img {
   margin-left: 12px;
   margin-right: 12px;
 }
+
+.project-edit {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
