@@ -8,6 +8,7 @@ const mongoose = require('mongoose')
 const routes = require('./routes')
 
 const errorHandler = require('./middlewares/errorHandler')
+const mongoURI = process.env.MONGO_URI
 
 const app = express()
 const port = process.env.PORT
@@ -20,7 +21,7 @@ app.use('/', routes)
 app.use(errorHandler)
 
 mongoose
-  .connect('mongodb://localhost:27017/fancy-todo2', {
+  .connect(mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false
