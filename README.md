@@ -520,9 +520,231 @@ Bad Request (400):
 | Routes         | HTTP | Headers | Body                                          | Description                                                        |
 |----------------|------|---------|-----------------------------------------------|--------------------------------------------------------------------|
 | /projects | POST | none    | name: string | Create a new project |
-| /projects/user | GET | none    |  | Fetch projects by user id |
-| /projects/:id | GET | none    |  | Fetch a project by id |
-| /projects/:id | DELETE | none    | access_token: string | Fetch a project by id |
+| /projects/user | GET | none    | none | Fetch projects by user id |
+| /projects/:id | GET | none    | none | Fetch a project by id |
+| /projects/:id | DELETE | none    | access_token: string | Delete a project |
 | /projects/:id | PUT | none    | access_token: string | Update project's name  |
 | /projects/:id/invite-member | POST | none    | access_token: string | Invite a collaborator to the project  |
 | /projects/:id/remove/:memberId | POST | none    | access_token: string | Remove a project member  |
+
+- - -
+## 1. Create a new project
+
+### POST /projects
+
+> ### Headers
+
+- access_token: string
+
+> ### Body
+
+None
+
+```js
+
+Success (200):
+
+[
+  {
+      "_id": "5dbf044d3a90a37243ac8389",
+      "title": "Finish assignment",
+      "description": "Fancy Todo",
+      "dueDate": "2019-12-04T00:00:00.000Z",
+      "completed": false,
+      "userId": "5dbeff1ef1cb6367533adad7",
+      "important": false,
+      "createdAt": "2019-12-03T16:46:05.321Z",
+      "updatedAt": "2019-12-03T16:46:05.321Z",
+      "__v": 0
+  },
+  {...},
+  {...}
+]
+
+Unauthorized (401):
+
+{
+    "messages": [
+        "Unauthorized access!"
+    ]
+}
+
+```
+
+## 2. Fetch projects by user id
+
+### GET /projects/user
+
+> ### Headers
+
+- access_token: string
+
+> ### Body
+
+- title: string
+- description: string
+- dueDate: string
+
+```js
+Successfully added a todo item (200):
+
+{
+    "_id": "5dbf055c3a90a37243ac838a",
+    "title": "Finish assignment",
+    "description": "Fancy Todo",
+    "dueDate": "2019-12-04T00:00:00.000Z",
+    "completed": false,
+    "userId": "5dbeff1ef1cb6367533adad7",
+    "important": false,
+    "createdAt": "2019-12-03T16:50:36.602Z",
+    "updatedAt": "2019-12-03T16:50:36.602Z",
+    "__v": 0
+}
+```
+
+## 3. Fetch a project by id
+
+### GET /projects/:id
+
+> ### Headers
+
+- access_token: string
+
+```js
+
+Success (200):
+
+{
+    "_id": "5dbf055c3a90a37243ac838a",
+    "title": "Finish assignment",
+    "description": "Fancy Todo",
+    "dueDate": "2019-12-04T00:00:00.000Z",
+    "completed": false,
+    "userId": "5dbeff1ef1cb6367533adad7",
+    "important": false,
+    "createdAt": "2019-12-03T16:50:36.602Z",
+    "updatedAt": "2019-12-03T16:50:36.602Z",
+    "__v": 0
+}
+```
+
+## 4. Delete a project by id
+
+### DELETE /projects/:id
+
+> ### Headers
+
+- access_token: string
+
+```js
+
+Success (200): //Note: the response is the item being found before deleted
+
+{
+    "_id": "5dbf055c3a90a37243ac838a",
+    "title": "Finish assignment",
+    "description": "Fancy Todo",
+    "dueDate": "2019-12-04T00:00:00.000Z",
+    "completed": false,
+    "userId": "5dbeff1ef1cb6367533adad7",
+    "important": false,
+    "createdAt": "2019-12-03T16:50:36.602Z",
+    "updatedAt": "2019-12-03T16:50:36.602Z",
+    "__v": 0
+}
+```
+
+## 5. Update project's name
+
+### PUT /projects/:id
+
+> ### Headers
+
+- access_token: string
+
+> ### Body
+
+- [title: string]
+- [description: string]
+- [dueDate: date]
+- [completed: boolean]
+- [important: boolean]
+
+```js
+
+Success (200): //Note: the response is the item being found before updated
+
+{
+    "_id": "5dbf055c3a90a37243ac838a",
+    "title": "Finish assignment",
+    "description": "Fancy Todo",
+    "dueDate": "2019-12-04T00:00:00.000Z",
+    "completed": false,
+    "userId": "5dbeff1ef1cb6367533adad7",
+    "important": false,
+    "createdAt": "2019-12-03T16:50:36.602Z",
+    "updatedAt": "2019-12-03T16:50:36.602Z",
+    "__v": 0
+}
+```
+
+## 6. Invite a collaborator to the project
+
+### POST /projects/:id/invite-member
+
+> ### Headers
+
+- access_token: string
+
+```js
+
+Success (200): //Note: the response is the item being found before updated
+
+{
+    "_id": "5dbf055c3a90a37243ac838a",
+    "title": "Finish assignment",
+    "description": "Fancy Todo",
+    "dueDate": "2019-12-04T00:00:00.000Z",
+    "completed": false,
+    "userId": "5dbeff1ef1cb6367533adad7",
+    "important": false,
+    "createdAt": "2019-12-03T16:50:36.602Z",
+    "updatedAt": "2019-12-03T16:50:36.602Z",
+    "__v": 0
+}
+```
+
+## 7. Remove a project member
+
+### POST /projects/:id/remove/:memberId
+
+> ### Headers
+
+- access_token: string
+
+```js
+
+Success (200): //Note: the response is the item being found before updated
+
+  {
+    "_id": "5dbf05db3a90a37243ac838b",
+    "title": "Finish assignment",
+    "dueDate": "2019-12-04T00:00:00.000Z",
+    "completed": false,
+    "userId": "5dbeff1ef1cb6367533adad7",
+    "important": false,
+    "createdAt": "2019-12-03T16:52:43.842Z",
+    "updatedAt": "2019-12-03T17:07:12.784Z",
+    "__v": 0,
+    "description": "Todoism"
+  }
+
+Bad Request (400):
+
+{
+    "messages": [
+        "Cannot read property 'important' of null"
+    ]
+}
+
+```
