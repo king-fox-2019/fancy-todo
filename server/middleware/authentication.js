@@ -12,7 +12,6 @@ module.exports = (req, res, next) => {
       .then(user => {
         if (user) {
           req.decoded = user
-          console.log(req.decoded)
           next()
         }
       })

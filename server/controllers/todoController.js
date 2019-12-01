@@ -7,14 +7,15 @@ class todoController {
   static create(req, res, next) {
     const { title, description, dueDate } = req.body
     Todo
-      .create({ title, description, dueDate })
+      .create({ title, description, dueDate, userId: req.decoded._id })
       .then(user => {
         let data = {
           id: user.id,
           description: user.description,
           title: user.title,
           dueDate: user.dueDate,
-          status: false
+          status: false,
+          userId: req.decoded._id
         }
         res.status(201).json(data)
       })
@@ -22,22 +23,27 @@ class todoController {
   }
 
   static read(req, res, next) {
-    if (req.query.title) {
-      let title = req.query.title
-      Todo
-        .find({ title: { $regex: `${title}` } })
-        .then(todo => {
-          res.status(200).json(todo)
-        })
-        .catch(next)
-    } else {
-      Todo
-        .find()
-        .then(todos => {
-          res.status(200).json(todos)
-        })
-        .catch(next)
+    let keys = ['status', 'title']
+    let value = {
+      userId: req.decoded._id
     }
+
+    keys.forEach(element => {
+      if(req.query[element]){
+        if(element == 'title'){
+          value[element] = { $regex: `${req.query[element]}`}  
+        } else {
+          value[element] = req.query[element]
+        }
+      }
+    })
+    
+    Todo
+      .find(value)
+    .then(todos => {
+        res.status(200).json(todos)
+      })
+      .catch(next)
   }
 
   static update(req, res, next) {
