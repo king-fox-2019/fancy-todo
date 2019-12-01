@@ -28,13 +28,15 @@ class ProjectController {
       .sort({ updatedAt: -1 }) //desc
       .populate('owner', '-password')
       .then(projects => {
-        console.log(projects, `apa hasilnya findall project`);
+        // console.log(projects, `apa hasilnya findall project`);
         
         res.status(200).json(projects)
       })
       .catch(next)
   }
   static findOneProject(req, res, next) {
+    console.log(`oneeeeeeeeeeeeeeeee`);
+    
     console.log(req.params.id, 'dr findOneProject')
     let projectId = req.params.id
     Project.findById(projectId)

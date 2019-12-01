@@ -1,6 +1,7 @@
 const baseURL = `http://localhost:3000`
-const updateId = ''
+let updateId = ''
 const colors = ['green lighten-3', 'teal lighten-3', 'lime lighten-3', 'amber lighten-2', 'deep-orange lighten-3', 'brown lighten-3', 'blue-grey lighten-1']
+let projectId = ''
 
 // created() section
 $(document).ready(function() {
@@ -17,6 +18,7 @@ $(document).ready(function() {
     $('.homepage').hide()
     toggleCornerOff()
   } else {
+    $('.fixed-action-btn').floatingActionButton();
     $('.login').hide()
     $('.homepage').show()
     whoAmI()
@@ -266,6 +268,75 @@ function showTodoList() {
 }
 // end fetch all todo
 
+// fetch all project todo
+function showProjectTodoList() {
+  console.log(`masuk show project to do list`);
+  
+  $.ajax({
+    url: `${baseURL}/project/${projectId}`,
+    method : `GET`,
+    headers : {
+      access_token: localStorage.getItem('jwtToken')
+    }
+  })
+  .done(project => {
+    $('.fixed-action-btn').hide();
+    console.log(project, 'dari show project todo list');
+    //${todo.dueDate}
+    $('.allProjectTodos').empty()
+    project.todos.forEach(todo => {
+      if (todo.status) {
+        $('.allProjectTodos').append(`
+
+        <li>
+          <div class="collapsible-header">
+            <div class="row">
+              <div class="col s1">
+                <div clickable  class="chip teal darken-2">
+                today
+                </div>
+              </div>
+              <div class="col s10">
+                <span  class="crossed">${todo.title}</span>
+              </div>
+              <div class="col s1">
+                <i class="clickable material-icons teal-text text-darken-2" onclick="removeProjectTodo('${todo._id}')">delete</i>
+              </div>
+            </div>
+          </div>
+          <div class="collapsible-body clickable" onclick="done('${todo._id}')" ><span>${todo.description}</span></div>
+        </li>
+
+      `)
+      } else 
+      $('.allProjectTodos').append(`
+
+        <li>
+          <div class="collapsible-header" >
+            <div class="row">
+              <div class="col s1">
+                <div class="chip teal lighten-3" onclick="doneProjectTodo('${todo._id}')">
+                today
+                </div>
+              </div>
+              <div class="col s10">
+                ${todo.title}
+              </div>
+              <div class="col s1">
+                <i data-target="modal-project-todo-update" class="material-icons teal-text text-darken-2 modal-trigger" onclick="showUpdateForm( '${todo._id}', '${todo.title}', '${todo.description ? todo.description : ''}', '${todo.dueDate}' )">edit</i>
+              </div>
+            </div>
+          </div>
+          <div class="collapsible-body"><span>${todo.description ? todo.description : 'This is a description generator. Click the edit icon to update! \n You might want to break down and specify the task, who does this task assign to, or change the deadline.'}</span></div>
+        </li>
+
+      `)
+    })
+  })
+  .fail(errorHandler)
+}
+// end fetch all project todo
+
 
 // todo finish
 function done(id) {
@@ -289,6 +360,29 @@ function done(id) {
 // end todo finish
 
 
+// project todo done 
+
+function doneProjectTodo(id) {
+  console.log('called done project todo')
+  $.ajax({
+    url: `${baseURL}/project/${projectId}/todos/${id}`,
+    method: 'PATCH',
+    data: {
+      status: true
+    },
+    headers: {
+      access_token: localStorage.getItem('jwtToken')
+    }
+  })
+    .done(todo => {
+      console.log(todo, "<<<<<<<<<<<<")
+      showProjectTodoList()
+    })
+    .fail(errorHandler)
+}
+
+// end project todo finish
+
 // delete todo
 function remove(id) {
   $.ajax({
@@ -309,6 +403,26 @@ function remove(id) {
 }
 // end delete todo
 
+// delete project todo
+function removeProjectTodo(id) {
+  $.ajax({
+    url: `${baseURL}/project/${projectId}/todo/${id}`,
+    method: `DELETE`,
+    headers : {
+      access_token: localStorage.getItem('jwtToken')
+    }
+  })
+  .done(() => {
+    M.toast({html: 'Todo deleted!', classes: 'indigo lighten-2 rounded', displayLength: 2000, inDuration: 150, outDuration: 150});  
+    showProjectTodoList()
+  })
+  .fail(errorHandler)
+  .always(() => {
+    console.log(`complete`);
+  })
+}
+// end delete project todo
+
 // show project page
 function toProject(event) {
   console.log('prjcttttttttttttttttttt');
@@ -317,6 +431,8 @@ function toProject(event) {
   $('.homepage').hide()
   $('.projectpage').show()
   $('.project-cards').hide()
+  $('.fixed-action-btn').hide();
+
   fetchProject()
 }
 // end show project page
@@ -340,6 +456,7 @@ function showProjectForm(event) {
   $('projectpage').show()
   $('.remark').hide()
   $('.project-cards').hide()
+
 }
 
 // end of show project 
@@ -355,30 +472,41 @@ function fetchProject() {
     }
   })
   .done(projects => {
+    
     console.log(projects, 'fetch project');
     if (projects.length > 0) {
+      $('.fixed-action-btn').show()
       $('.remark').hide()
       $('.project-cards').show()
+      $('.detailed-project').hide()
       $('.project-cards').empty()
       projects.forEach(project => {
         console.log(project, 'dari for each fetch');
+        console.log(project._id, 'dr fetch nyari id prjct ada gakkk');
         
+        //   <i class="material-icons" style="color: orange;">delete</i>
+
         $('.project-cards').append(`
-        <div class="row">
-          <div class="col s12 m6">
-            <div class="card blue-grey darken-1">
+        
+          <div class="col s4">
+            <div class="card cyan darken-4">
               <div class="card-content white-text">
-                <span class="card-title">${project.title}</span>
+                <span style="font-size: 35px; margin-bottom: 30px;" class="card-title">${project.title}</span>
                 <p>I am a very simple card. I am good at containing small bits of information.
                 I am convenient because I require little markup to use effectively.</p>
               </div>
               <div class="card-action">
-                <a href="#"><i class="fas fa-users"></i>&nbsp;5</a>
-                <a href="#"><i class="far fa-list-alt"></i>&nbsp;7</a>
+                <div>
+                  <a href="#"><i class="fas fa-users"></i>&nbsp;5</a>
+                  <a href="#"><i class="far fa-list-alt"></i>&nbsp;7</a>
+                </div>
+                <div>
+                  <i onclick="showDetailProject('${project._id}')" class="material-icons clickable" style="color: orange;">navigate_next</i>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        
         `)
       })
     } else {
@@ -430,7 +558,39 @@ function createProject(event) {
 }
 // end create project
 
-
+// update project 
+function showDetailProject(id) {
+  projectId = id
+  console.log(id, `mau find one plssss ini project id`);
+  
+  event.preventDefault()
+  $.ajax({
+    url: `${baseURL}/project/${id}`,
+    method: 'GET',
+    headers : {
+      access_token : localStorage.getItem('jwtToken')
+    }
+  })
+  .done(project => {
+    showProjectTodoList()
+    console.log(`masuk find one`, project)
+    $('.fixed-action-btn').hide();
+    $('.project-cards').hide()
+    $('.detailed-project').show()
+    $('.project-collection-header').empty()
+    $('.project-collection-header').append(`
+    ${project.title}`)
+  })
+  .fail(err => {
+    console.log(`failed to find project`);
+    
+  })
+  .always(() => {
+    console.log(`complete`);
+    
+  })
+}
+// end update project 
 
 // end functions
 
@@ -466,6 +626,36 @@ $('#addtodo').submit(e => {
   })
 })
 // end create todo
+
+// create project todo
+$('#addProjectTodo').submit(e => {
+  e.preventDefault()
+  $.ajax({
+    url: `${baseURL}/project/${projectId}/todos`,
+    method: `PATCH`,
+    data : {
+      title : $(`#add-project-todo`).val()
+    },
+    headers : {
+      access_token : localStorage.getItem('jwtToken')
+    }
+  })
+  .done(todo => {
+    console.log(todo, "ini project todo nyaaaaaaaaaaaaaa");
+    
+    console.log(`Adding new todo on your list`, todo);
+    $(`#add-project-todo`).val('')
+    showProjectTodoList()
+    
+  })
+  .fail(err => {
+    console.log(`Failed to add todo`, err);
+  })
+  .always(() => {
+    console.log(`complete`);
+  })
+})
+// end create project todo
 
 $('#form-update-todo').submit(function(event) {
   event.preventDefault()

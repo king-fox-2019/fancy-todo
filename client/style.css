@@ -62,6 +62,10 @@ h4 {
   max-width: 70%;
 }
 
+.project-collection {
+  max-width: 70%;
+}
+
 .collection-header {
   background-image: url(img/bg.jpg);
   background-repeat: no-repeat;
@@ -70,11 +74,27 @@ h4 {
   object-position: 50% 50;
 }
 
+.project-collection-header {
+  /* background-image: url(img/bg.jpg); */
+  background-color: #1d6868;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  object-fit: fill;
+  object-position: 50% 50;
+  font-size: 30px;
+  color: white;
+  height: 100px;
+}
+
 .banner {
   color: aliceblue;
 }
 
 .collection.with-header {
+  margin: auto;
+}
+
+.project-collection.with-header {
   margin: auto;
 }
 
@@ -140,7 +160,7 @@ img {
   z-index: 1;
   display: block;
   /* background-image: url('./img/ijo.jpg'); */
-  background-color: rgb(52, 131, 120);
+  background-color: rgb(174, 190, 189);
   /* background: rgb(14,51,44);
   background: rgb(39,148,127);
   background: rgb(39,148,127);
@@ -163,7 +183,14 @@ img {
 
 #modal-update {
   height: 550px;
-  /* border-radius: 45px; */
+  border-radius: 45px;
+  text-align: center;
+  box-shadow: none !important;
+}
+
+#modal-project-todo-update {
+  height: 550px;
+  border-radius: 45px;
   text-align: center;
   box-shadow: none !important;
 }
@@ -223,4 +250,12 @@ img {
 
 .background-image.project {
   height: 200px;
+}
+
+.card-action {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 12px;
+  margin-right: 12px;
 }
