@@ -40,7 +40,67 @@
     <div id="dashboard" style="display: none;">
       <h1>Welcome to dashboard</h1>
       <a href="#" id="logout">Logout</a>
+
+      <!-- todo lists -->
+      <div class="row row-cols-1 row-cols-md-3" id="todo-lists">
+
+      </div>
+      <!-- when empty -->
+      <div class="container" id="when-empty">
+
+      </div>
     </div>
+
+    <!-- modal for add new todo -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="form-todo">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Create new Todo</h4>
+          </div>
+          <div class="modal-body">
+            <div class="md-form mb-5">
+              <label>Title</label>
+              <input type="text" id="todo-title" class="form-control validate" />
+            </div>
+            <div clss="md-form mb-5">
+              <label>Description</label>
+              <textarea id="todo-description" class="form-control validate"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="create-todo">Create new Todo</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!-- modal for update todo -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="update-todo-form">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Update Todo</h4>
+          </div>
+          <div class="modal-body">
+            <div class="md-form mb-5">
+              <label>Title</label>
+              <input type="text" id="update-todo-title" class="form-control validate" />
+              <input type="text" hidden id="todo_id" />
+            </div>
+            <div clss="md-form mb-5">
+              <label>Description</label>
+              <textarea id="update-todo-description" class="form-control validate"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="update-todo">Update Todo</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
