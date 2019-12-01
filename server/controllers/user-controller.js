@@ -32,6 +32,26 @@ class UserController{
       })
       .catch(next)
   }
+
+  static googleLogin (request, response, next) {
+    const { google_token } = request.body
+    const { email, name } = request.payload
+    
+    User.findOne({ email })
+      .then(function (user) {
+        const password = email + 'bla'
+        if (!user) {
+          return User.create({ email, password, username: name })
+        } else {
+          return user
+        }
+      })
+      .then(function (user) {
+        const access_token = generateJWT({ id: user._id })
+        response.status(200).json({ access_token })
+      })
+      .catch(next)
+  }
 }
 
 

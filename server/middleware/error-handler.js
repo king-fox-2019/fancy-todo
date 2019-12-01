@@ -7,6 +7,8 @@ function errorHandler(err, request, response, next) {
     response.status(422).json({ errors: message })
   } else if (err.name === 'UserNotFound') {
     response.status(404).json({ error: err.message })
+  } else if (err.name === 'InvalidGoogleToken') {
+    response.status(422).json({ error: err.message })
   }
   else {
     response.status(500).json(err)

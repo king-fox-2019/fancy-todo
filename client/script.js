@@ -14,7 +14,13 @@ $(document).ready(function () {
 function loggingOut(e) {
   e.preventDefault()
 
+  var auth2 = gapi.auth2.getAuthInstance();
+  auth2.signOut().then(function () {
+    console.log('User signed out.');
+  });
+
   localStorage.removeItem('token')
+
   showLoginForm(e)
 }
 
@@ -301,5 +307,34 @@ function updatingTodo(e) {
     .always(function () {
       console.log('ajax done')
       $('.modal').modal('hide')
+    })
+}
+
+function onSignIn(googleUser) {
+  const id_token = googleUser.getAuthResponse().id_token
+
+  $.ajax({
+    url: 'http://localhost:3000/user/google-signin',
+    method: 'post',
+    data: {
+      google_token: id_token,
+    }
+  })
+    .done(function (result) {
+      localStorage.setItem('token', result.access_token)
+      $('#login-form').hide()
+      $('#register-form').hide()
+      $('#dashboard').show()
+      $('#todo-lists').empty()
+      $('#when-empty').empty()
+
+      fetchTodoData()
+    })
+    .fail(function (err) {
+      // console.log(err)
+      for (let keys in err) console.log(keys, err[keys])
+    })
+    .always(function () {
+      console.log('ajax google done')
     })
 }
