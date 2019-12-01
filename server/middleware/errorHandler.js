@@ -32,6 +32,12 @@ function errorHandler(err, req, res, next) {
                 res.status(403).json({ message })
                 break;
             }
+            case 'Empty': {
+                res.status(404).json({ message: err.message })
+            }
+            case 'unauthorizedUser': {
+                res.status(401).json({message: err.message})
+            }
             default:
                 let status = err.status || 500
                 let message = err.message || 'Internal Server Error'

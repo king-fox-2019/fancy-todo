@@ -1,15 +1,13 @@
 const { decodeToken } = require('../helpers/jwt')
-const User = require('../models/user')
+const User = require('../models/User')
 
 const authentication = (req, res, next) => {
     try {
-        req.loggedUser = decodeToken(req.headers.token)
-        console.log(req.loggedUser);
+        const user = decodeToken(req.headers.access_token)
         User.findOne({
-            email: req.loggedUser.email
+            email: user.email
         })
             .then(user => {
-                console.log(user);
                 if (user) next()
                 else throw new Error({ status: 401, message: 'Authentication Failed' })
             })
