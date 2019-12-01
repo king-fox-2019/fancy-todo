@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="944411590785-veao8btoe2q5kvq6h0bfndc9d5rd2bsb.apps.googleusercontent.com">
+    <link rel="stylesheet" href="./style/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
+    <title>Fancy To-DO</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link animated infinite tada" href="#" style="font-family: 'Lobster', cursive; font-size: 50px;">Fancy To-Do <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" style="display: none;">
+                <input class="form-control mr-sm-2" type="search" placeholder="Add To-DO" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add</button>
+            </form>
+            <button class="btn btn-outline-primary my-2 my-sm-0" id="logout-button" type="submit">Sign out</button>
+        </div>
+    </nav>
+    <div class="page-content page-container animated fadeInUp" id="page-content" style="display: none;">
+        <div class="padding">
+            <div class="row container d-flex justify-content-center">
+                <div class="col-lg-12">
+                    <div class="card px-3">
+                        <div class="card-body">
+                            <h4 class="card-title">Name</h4>
+                            <div class="add-items d-flex"> <input type="text"  id="title-todo" class="form-control todo-list-input" placeholder="What do you need to do today?" name="title"> <button class="add btn btn-primary font-weight-bold todo-list-add-btn" id="add-todo">Add</button> </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Description</label>
+                                        <input type="text"  class="form-control" id="inputDesc">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputPassword4">Due Date</label>
+                                    <input type="date" class="form-control" id="inputDate">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <section id="new-todo"></section>
+                    <hr>
+                    <section id="todos"></section>
+                </div>
+            </div>    
+        </div>
+    </div>
+    <!-- Register / Login Modal -->
+    <div class="modal fade animated flip" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Please login before using Fancy To-Do</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="accordion" id="accordionExample">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Sign-in
+                                    </button>
+                                </h2>
+                            </div>  
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Email address</label>
+                                            <input type="email" name="email" class="form-control" id="Email" aria-describedby="emailHelp">
+                                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Password</label>
+                                            <input type="password" name="password" class="form-control" id="Password">
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <button type="submit" id="signin-button" class="btn btn-primary">Submit</button><br>
+                                            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header" id="headingTwo">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Sign-up
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="Name">Full Name</label>
+                                            <input type="text" name="name" class="form-control" id="NameRegister">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Email address</label>
+                                            <input type="email" name="email" class="form-control" id="EmailRegister" aria-describedby="emailHelp">
+                                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Password</label>
+                                            <input type="password" name="password" class="form-control" id="PasswordRegister">
+                                        </div>
+                                            <button type="submit" id="register-button" class="btn btn-primary">Register</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous">
+    </script>
+    <script 
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" 
+        crossorigin="anonymous">
+    </script>
+    <script 
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" 
+        crossorigin="anonymous">
+    </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./script/main.js"></script>
+</body>
+</html>
