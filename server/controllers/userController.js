@@ -27,6 +27,7 @@ class userController {
     User
       .findOne(value)
       .then(userData => {
+        console.log(userData)
         if (userData) {
           let valid = comparePassword(req.body.password, userData.password)
           if (valid) {

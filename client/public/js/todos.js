@@ -24,16 +24,18 @@ function getAllTodos(){
           <br>
           <div class="row">
             <div class="col-6">
-              <a href="#" class="btn btn-${todo.status == true ? 'success btn-lg btn-sm disabled' : 'danger btn-lg btn-sm'}" role="button" aria-disabled="true">${todo.status == true ? 'completed' : 'uncompleted'}</a>
+              <button id="update-status-${todo._id}" value="${todo._id}" type="button" class="btn btn-${todo.status == true ? 'success btn-lg btn-sm disabled' : 'danger btn-lg btn-sm'}" role="button" aria-disabled="true" id="status-todo-${todo._id}">${todo.status == true ? 'completed' : 'uncompleted'}</button>
             </div>
             <div class="col">
               <a href="#" class="btn btn-outline-dark btn-lg btn-sm" role="button" aria-disabled="true" id="edit-todo-${todo._id}">Edit</a>
-              <a href="#" class="btn btn-outline-dark btn-lg btn-sm" role="button" aria-disabled="true" id="edit-todo-${todo._id}">Delete</a>
+              <a href="#" class="btn btn-outline-dark btn-lg btn-sm" role="button" aria-disabled="true" id="delete-todo-${todo._id}">Delete</a>
             </div>
           </div>
         </div>
       `)
       $(`#edit-todo-${todo._id}`).click(todo, editPageTodo)
+      $(`#delete-todo-${todo._id}`).click(todo, deleteTodo)
+      $(`#update-status-${todo._id}`).click(todo, statusTodo)
     });
     $('#value-data').show()
   })
@@ -57,7 +59,9 @@ function createTodo(e){
   .done(todo => {
     getAllTodos()
     $('#modal-create').modal('hide')
-    console.log(todo)
+    $('#create-title').val(''),
+    $('#create-description').val(''),
+    $('#create-dueDate').val('')
   })
   .fail(err => {
     console.log(err)
@@ -90,10 +94,46 @@ function editTodo(e){
   .done(todo => {
     getAllTodos()
     $('#modal-edit').modal('hide')
-    console.log(todo)
   })
   .fail(err => {
     console.log(err)
   })
+}
+
+function deleteTodo(e) {
+  if (e) e.preventDefault()
+  const id = e.data._id
+  $.ajax({
+    method: 'DELETE',
+    url: `http://localhost:3000/todos/${id}`,
+    headers: { access_token: localStorage.getItem('access_token') },
+  })
+  .done(todo => {
+    getAllTodos()
+    $('#modal-edit').modal('hide')
+  })
+  .fail(err => {
+      console.log(err)
+  })
+}
+
+function statusTodo(e) {
+  if (e) e.preventDefault()
+  const id = e.data._id
+  $.ajax({
+    method: 'PUT',
+    url: `http://localhost:3000/todos/${id}`,
+    headers: { access_token: localStorage.getItem('access_token') },
+    data: {
+      status: true
+    }
+  })
+    .done(todo => {
+      getAllTodos()
+      $('#modal-edit').modal('hide')
+    })
+    .fail(err => {
+      console.log(err)
+    })
 }
 
