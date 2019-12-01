@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { User, Todo } = require("../models");
+const { ObjectId } = require("mongodb");
 
 function authentication(req, res, next) {
   if (req.headers.access_token) {
@@ -15,14 +16,17 @@ function authentication(req, res, next) {
       })
       .catch(next)
   } else {
-    next({ status: 401, message: 'Ini?'})
+    next({ status: 401, message: 'Invalid access token -'})
   }
 }
 
 function authorization(req, res, next) {
   Todo.findById(req.params.todoId)
     .then(todo => {
-      if (todo.user_id === req.decoded._id) {
+      // console.log(todo.user_id == req.decoded._id, '-')
+      // console.log(req.decoded._id, '+')
+      if (todo.user_id == req.decoded._id) {
+        // console.log('sama kok')
         next();
       } else {
         throw { status: 403, message: "Forbidden access" };

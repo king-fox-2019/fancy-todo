@@ -15,12 +15,58 @@
     <a class="navbar-brand" href="#">Fancy Todo</a>
     <div class="navbar-collapse">
       <div class="navbar-nav">
+        <a id="uname">A</a>
         <a class="nav-item nav-link active" href="#">Home</a>
         <!-- <a class="nav-item nav-link" href="#">Features</a> -->
         <button class="btn btn-sm float-right" href="" onclick="signout(event)">Sign Out</button>
       </div>
     </div>
   </nav>
+  
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-6 border">
+        <!-- Main Todo -->
+        <div id="main-todo" class="all card card-body mt-3">
+          <div class="container">
+            <h2 class="title">Create New Task</h2>
+            <div class="col-md-12">
+              <form id="input-form" class="mb-4" onsubmit="createTodo(event)">
+                  <input id="todo-name" name="name" type="text" class="form-control mb-2 flex-fill" placeholder="E.g. Refactor code">
+                  <textarea id="todo-description" rows="5" name="description" type="textarea" class="form-control mb-2 flex-fill" placeholder="Write the description"></textarea>
+                  Due date: <input id="todo-due-date" name="due_date" type="date" class="form-control mb-2 flex-fill" placeholder="ya">
+                  <input type="submit" class="btn btn-primary" value="Submit">
+                </form>
+                <h2 class="title">Your List</h2>
+                <ul id="todo-list" class="list-group list-group-flush">
+                  
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End of Main Todo -->
+          
+      <div class="col-6 border">
+        <div id="desc-todo" class="all card card-body mt-3">
+          <div class="container">
+            <h2 class="title">Description</h2>
+            <div class="col-md-12">
+              <div class="todo-details card-body">
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      
+    </div>
+  </div>
 
   <!-- signin -->
   <div id="signin" class="all mt-5 container text-center justify-content-center border rounded-sm bg-light" style="width:30%; height:75vh">
@@ -69,72 +115,32 @@
     </div>
     <!-- End of Register -->
 
-    <!-- Main Todo -->
-    <div id="main-todo" class="card card-body">
-    <div class="all container">
-        <h2 class="title">Create New Task</h2>
-        <div class="row">
-          <div class="col-md-12">
-            <form id="input-form" class="mb-4 form-inline">
-              <input id="input-text" type="text" class="form-control mr-2 flex-fill" placeholder="E.g. Refactor code">
-              <input type="submit" class="btn btn-primary" value="Submit">
+    <!-- Edit -->
+    <div id="edit-todo" class="all card card-body mt-3">
+      <div class="container">
+        <h2 class="title">Edit Todo</h2>
+        <div class="col-md-12">
+          <form id="edit-form" class="mb-4" onsubmit="createTodo(event)">
+              <input id="edit-todo-name" name="name" type="text" class="form-control mb-2 flex-fill" placeholder="E.g. Refactor code">
+              <textarea id="edit-todo-description" rows="5" name="description" type="textarea" class="form-control mb-2 flex-fill" placeholder="Write the description"></textarea>
+              Due date: <input id="edit-todo-due-date" name="due_date" type="date" class="form-control mb-2 flex-fill" placeholder="ya">
+              <input type="submit" class="btn btn-primary" value="Save Edit">
             </form>
           </div>
         </div>
-        <h2 class="title">Your List</h2>    
-        <div class="card">
-          <ul id="task-list" class="list-group list-group-flush">
-            <li class="each-task list-group-item" data-id="1" onclick="showTodo(event)">
-              <div class="card-body">
-                <button class="checker btn btn-secondary btn-sm mr-2">Check</button>
-                <span class="todo-name">Name of todo</span>
-                <div class="info float-right buttons-action">
-                  <span class="badge badge-pill badge-danger">Overdue</span>
-                  <span class="due-date">Dec 25</span>
-                </div>     
-              </div>
-            </li>
-            <li class="each-task list-group-item">
-              <div class="card-body">
-                  <button class="checker btn btn-success btn-sm mr-2">Uncheck</button>
-                <span class="todo-name">Name of todo</span>
-                <div class="misc-info float-right buttons-action">
-                  <span class="badge badge-pill badge-primary">Queued</span>
-                  <span class="due-date">Dec 25</span>
-                </div>     
-              </div>
-            </div>
-          </li>
-        </ul>
       </div>
     </div>
-
-    <!-- End of Main Todo -->
+    <!-- End of edit -->
 
     <!-- Details Todo -->
 
-    <div class="all container" style="width: 65%">
-      <div class="card">
-        <div class="card-body">
-          <article class="todo-details">
-            <h4>Name of Task</h4>
-            <hr>
-            <p>Membuat masak asldknajsdn 'kjjbsdf ihuweh ,mjkerh </p>
-          </article>
-        </div>
-        <div class="actions buttons-action mx-auto">
-            <button class="btn btn-primary btn-sm check">Edit</button>
-            <button class="btn btn-danger btn-sm delete">Delete</button>
-          </div>
-      </div>
-
+    <div class="todo all container" 
+      style="width: 60%">
+      
     </div>
 
     <!-- End of Details Todo -->
 
-  <div id="tes">
-
-  </div>
 
 
   

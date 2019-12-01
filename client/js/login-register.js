@@ -21,9 +21,8 @@ function register(e) {
       password: $("#reg-password").val()
     }
   }).done(user => {
-    $("#register").hide();
-    $(".navbar").show();
-    $("#main-todo").show();
+    $(".all").hide();
+    $("#signin").show();
   }).fail(err => {
     console.log(err)
   })
@@ -42,6 +41,8 @@ function signin(e) {
   }).done(user => {
       localStorage.setItem('access_token', user.access_token);
       $("#signin").hide();
+      $(".navbar").show()
+      $("#main-todo").show()
       fetchTodos();
     })
     .fail(err => console.log(err))
@@ -67,11 +68,9 @@ function signout(e) {
   if (e) e.preventDefault();
   var auth2 = gapi.auth2.getAuthInstance()
   auth2.signOut().then(function() {
-    console.log('User signed out.')
+    localStorage.removeItem('access_token')
+    $(".all").hide()
+    $("")
+    $('#signin').show()
   })
-
-  console.log('logged out')
-  localStorage.removeItem('access_token')
-  $('.all').hide()
-  $('#signin').show()
 }
