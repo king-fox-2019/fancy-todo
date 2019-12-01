@@ -5,6 +5,8 @@
     <title>(Not so) Fancy Todo app</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="691380957469-7ci7chojdrrm440n37o98opokfabmv29.apps.googleusercontent.com">
   </head>
   <body>
     <h1 class="jumbotron">(Not so) Fancy Todo app</h1>
@@ -17,6 +19,7 @@
         <input type="password" class="form-control" id="login-password" placeholder="Password" required />
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       </form>
+      <div class="g-signin2" data-onsuccess="onSignIn"></div>
       <p>
         <a href="#" id="register">Register</a>
       </p>
