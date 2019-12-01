@@ -18,7 +18,7 @@ function createTodo(){
       $('#todo-title').val('')
       $('#todo-desc').val('')
       $('#todo-duedate').val('')
-      Swal.fire({
+      Toast.fire({
         icon: 'success',
         title: 'Created',
         text: 'Create Todo Success!'
@@ -33,7 +33,6 @@ function createTodo(){
       }else{
         message = err.responseJSON.message[0]
       }
-      console.log(err)
       Swal.fire({
         icon: 'error',
         title: 'Create Error',
@@ -114,7 +113,7 @@ function createTodo(){
         })
         .done(data => {
           getUserTodo()
-          Swal.fire({
+          Toast.fire({
             icon: 'success',
             title: 'Delete Todo',
             text: 'Delete Success!'
@@ -141,7 +140,7 @@ function createTodo(){
     })
     .done(data => {
       getUserTodo()
-      Swal.fire({
+      Toast.fire({
         icon: 'success',
         title: 'Task Done',
         text: 'Success!'
@@ -170,16 +169,14 @@ function createTodo(){
       }
     })
     .done(data => {
-      console.log(data)
       getUserTodo()
-      Swal.fire({
+      Toast.fire({
         icon: 'success',
         title: 'Update Content',
         text: `${data.message}`
       })
     })
     .fail(err => {
-      console.log(err)
       Swal.fire({
         icon: 'error',
         title: 'Update Content',

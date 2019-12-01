@@ -42,7 +42,7 @@ function addMember(id){
         }
     })
     .done(result => {
-        Swal.fire({
+        Toast.fire({
             icon: 'success',
             title: 'Add Member',
             text: 'Add Member Success!'
@@ -85,7 +85,6 @@ function kickMember(id, email){
                 })
             })
             .fail(err => {
-                console.log(err)
                 Swal.fire({
                     icon: 'error',
                     title: 'Kick Member',
