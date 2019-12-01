@@ -151,10 +151,16 @@ class ProjectController {
   }
 
   static updateProjectTodo(req, res, next) {
+    console.log(`UPDATEEEEEE`);
+    console.log(req.params.id, "todo id mo updateee");
+    console.log(req.body, "bawa apa aja mau updateee");
+    
     let { todoId } = req.params
     let { title, description, dueDate, status } = req.body
     Todo.findByIdAndUpdate(todoId, { $set: {title, description, dueDate, status }}, { new: true, omitUndefined: true})
       .then(todo => {
+        console.log(todo, 'dapet todo gakkkkk mo update plsssss');
+        
         res.status(200).json({ todo })
       })
       .catch(next)

@@ -136,6 +136,28 @@ function showUpdateForm(id, title, description, dueDate) {
 // end assign update id
 
 
+// assign update id for project todo
+function showProjectTodoUpdateForm(id, title, description, dueDate) {
+
+  console.log("rrrrrrrrrrrr");
+  console.log("a", description, "desccccccccc");
+  
+  // console.log(`${title}`);
+  $('.label-update').addClass('active')
+  
+  $('#update-project-todo-id').val(id)
+  $('#update-todo-title').val(title)
+  if ($('#update-todo-description').val(description)) {
+    $('#update-todo-description').val(description)
+  } else {
+    $('#update-todo-description').removeClass('active')
+  }
+  //nguli date ove here, modular method
+  $('#update-todo-date').val(dueDate)
+  $('#update-todo-time').val(dueDate)
+}
+// end assign update id for project todo
+
 // user who
 function whoAmI() {
   $('.who-am-i').empty()
@@ -323,7 +345,7 @@ function showProjectTodoList() {
                 ${todo.title}
               </div>
               <div class="col s1">
-                <i data-target="modal-project-todo-update" class="material-icons teal-text text-darken-2 modal-trigger" onclick="showUpdateForm( '${todo._id}', '${todo.title}', '${todo.description ? todo.description : ''}', '${todo.dueDate}' )">edit</i>
+                <i data-target="modal-project-todo-update" class="material-icons teal-text text-darken-2 modal-trigger" onclick="showProjectTodoUpdateForm( '${todo._id}', '${todo.title}', '${todo.description ? todo.description : ''}', '${todo.dueDate}' )">edit</i>
               </div>
             </div>
           </div>
@@ -657,6 +679,7 @@ $('#addProjectTodo').submit(e => {
 })
 // end create project todo
 
+// update todo 
 $('#form-update-todo').submit(function(event) {
   event.preventDefault()
   const updateId = $('#update-todo-id').val()
@@ -682,6 +705,35 @@ $('#form-update-todo').submit(function(event) {
     .fail(errorHandler)
 
 })
+// done update todo 
+
+
+// update project todo 
+$('#form-update-project-todo').submit(function(event) {
+  event.preventDefault()
+  const updateId = $('#update-project-todo-id').val()
+   $.ajax({
+    url: `${baseURL}/project/${projectId}/todos/${updateId}`,
+    method: 'PATCH',
+    data: {
+      title: $('#update-project-todo-title').val(),
+      description: $('#update-project-todo-description').val(),
+      date: $('#update-project-todo-date').val(),
+      time: $('#update-project-todo-time').val()
+    },
+    headers: {
+      access_token: localStorage.getItem('jwtToken')
+    }
+  })
+    .done(todo => {
+      console.log(todo, "hasil update");
+      M.toast({html: 'Update success!', classes: 'indigo lighten-2 rounded', displayLength: 2000, inDuration: 150, outDuration: 150});
+
+      showProjectTodoList()
+    })
+    .fail(errorHandler)
+
+})// end update project todo 
 
 // end ajax
 
