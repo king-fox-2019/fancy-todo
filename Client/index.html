@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+<!--     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+ -->
+    <link rel="stylesheet" href="./bootstrap.css">
+    <script src="./jquery.js"></script>
+    <script src='./main.js'></script>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <title>Fancy Todo</title>
+  </head>
+  <body>
+    <header>
+      <h1>
+        Fancy Todo
+      </h1> 
+      <a href='#'>
+        Register
+      </a>
+      <a href='#'>
+        Login
+      </a>
+    </header>
+    <section id="failMessage">
+    </section>
+    <section id="register">
+      <h4>Register</h4>
+      <form>
+        <section class="form-group">
+          <label for="emailReg">Email address</label>
+          <input type="email" class="form-control col-sm-3" id="emailReg">
+        </section>
+        <section class="form-group">
+          <label for="passwordReg">Password</label>
+          <input type="password" class="form-control col-sm-3" id="passwordReg">
+        </section>
+        <button type="submit" onclick="showTodo()" class="btn btn-primary">Register</button>
+      </form>
+    </section>
+    <section id="login">
+      <h4>Login</h4>
+      <form>
+        <section class="form-group">
+          <label for="emailLogin">Email address</label>
+          <input type="email" class="form-control col-sm-3" id="emailLogin">
+        </section>
+        <section class="form-group">
+          <label for="passwordLogin">Password</label>
+          <input type="password" class="form-control col-sm-3" id="passwordLogin">
+        </section>
+        <button type="submit" onclick="login()" class="btn btn-primary">Login</button>
+      </form>
+    </section>
+    <section id="content">
+      Your Todos      
+    </section>
+  </body>
+</html>
