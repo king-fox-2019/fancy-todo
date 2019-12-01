@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+   <!-- google sign in meta -->
+   <meta name="google-signin-client_id" content="500684335906-u91grae6g41ur59eh41o3n8bko39v5qq.apps.googleusercontent.com">
+   <title>Fancy Todo</title>
+
+   <!-- google sign in js-->
+   <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+   <!-- css -->
+   <link rel="stylesheet" href="./css/main.css">
+</head>
+<body class="paper-background">
+
+   <div id="front">
+      <div class="half-part" id="front-left">
+         
+      </div>
+      <div class="half-part paper-background" id="front-right">
+         <h1>Fancy Todo</h1>
+         <div id="sign-tab">
+            <div id="signin-tab" class="tab tab-selected">Sign In</div>
+            <div id="signup-tab" class="tab">Register</div>
+         </div>
+         <div id="signIn-box">
+            <form action="post" id="signIn-form">
+               <label for="email">Email</label>
+               <input type="email" name="email" id="input-email">
+               <label for="password">Password</label>
+               <input type="password" name="password" id="input-password">
+               <input type="submit" id="signIn-submit">
+            </form>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+         </div>
+      </div>
+   </div>
+
+   <div id="todo-main" class="hundred-vh">
+      <nav>
+         <h1 class="primary-color">Fancy Todo</h1>
+         <a id="g-signout2" class="primary-color" href="#" onclick="signOut();">Sign out</a>
+      </nav>
+      <div id="todo-container">
+         <div id="todo-control" class="half-part vertical-flex">
+            <div id="todo-control-box">
+               <form id="todo-control-box-form">
+                  <input type="hidden" name="todoId" id="todoId" value="">
+                  <label for="name">Todo name</label>
+                  <input type="text" id="todo-control-box-form-name" name="name">
+                  <label for="description">Todo description</label>
+                  <input type="text" id="todo-control-box-form-description" name="description">
+                  <label for="due_date">Due date</label>
+                  <input type="date" id="todo-control-box-form-due" name="due_date">
+                  <input type="submit" id="todo-control-box-form-submit">
+               </form>
+            </div>
+         </div>
+         <div id="todo-list" class="half-part vertical-flex">
+            <div id="todo-list-tabs" class="horizontal-tab-flex">
+               <div id="todo-list-tab-progress" class="tab tab-selected">In Progress</div>
+               <div id="todo-list-tab-done" class="tab">Done</div>
+            </div>
+            <div class="todo-list-items"></div>
+         </div>
+      </div>
+   </div>
+   
+
+   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+   <script src="./js/googleSign.js"></script>
+   <script src="js/main.js"></script>
+</body>
+</html>
