@@ -67,7 +67,7 @@ function pullTodoList() {
          todos.forEach((todo) => {
 
             $('.todo-box').data('todoId', todo._id)
-
+            
             $('.todo-list-items').append(`
             <div class="todo-box">
                <h3>${todo.name}</h3>
