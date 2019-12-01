@@ -19,6 +19,7 @@ $(document).ready(function() {
     toggleCornerOff()
   } else {
     $('.fixed-action-btn').floatingActionButton();
+    $('.fixed-action-btn').show();
     $('.login').hide()
     $('.homepage').show()
     whoAmI()
@@ -302,7 +303,7 @@ function showProjectTodoList() {
     }
   })
   .done(project => {
-    $('.fixed-action-btn').hide();
+    // $('.fixed-action-btn').hide();
     console.log(project, 'dari show project todo list');
     //${todo.dueDate}
     $('.allProjectTodos').empty()
@@ -449,11 +450,11 @@ function removeProjectTodo(id) {
 function toProject(event) {
   console.log('prjcttttttttttttttttttt');
   event.preventDefault()
+  $('.fixed-action-btn').show()
   $('.login').hide()
   $('.homepage').hide()
   $('.projectpage').show()
-  $('.project-cards').hide()
-  $('.fixed-action-btn').hide();
+  $('.project-cards').show()
 
   fetchProject()
 }
@@ -479,7 +480,9 @@ function toHomepage(event) {
   event.preventDefault()
   $('.login').hide()
   $('.homepage').show()
-  $('.projectpage').hiide()
+  $('.projectpage').hide()
+  $('.project-cards').hide()
+
   
 }
 // end show home page
@@ -490,13 +493,28 @@ function showProjectForm(event) {
   event.preventDefault()
   $('.login').hide()
   $('.homepage').hide()
-  $('projectpage').show()
+  $('.projectpage').show()
   $('.remark').hide()
   $('.project-cards').hide()
 
 }
 
 // end of show project 
+
+
+// show project inside
+
+function showProjectFormInside(event) {
+  event.preventDefault()
+  $('.login').hide()
+  $('.homepage').hide()
+  $('.projectpage').show()
+  $('.remark').hide()
+  $('.project-cards').show()
+  $('.form-add-project').show()
+}
+
+// end of show project inside
 
 // fetch project 
 
@@ -537,7 +555,7 @@ function fetchProject() {
               <div class="card-action">
                 <div>
                   <a href="#"><i class="fas fa-users"></i>&nbsp;5</a>
-                  <a href="#"><i class="far fa-list-alt"></i>&nbsp;7</a>
+                  <a href="#"><i class="far fa-list-alt"></i>&nbsp;${project.todos.length}</a>
                 </div>
                 <div>
                   <i onclick="showDetailProject('${project._id}')" class="material-icons clickable" style="color: orange;">navigate_next</i>
@@ -550,7 +568,9 @@ function fetchProject() {
       })
     } else {
       $('.remark').show()
+      $('.project-cards').hide()
       $('.detailed-project').hide()
+      $('.fixed-action-btn').hide()
     }
   })
   .fail(err => {
@@ -623,7 +643,7 @@ function showDetailProject(id) {
     <B><i>${project.title}</i></B>
       <div class="project-edit">
         <div style="padding-left: 20px; ">
-        <i data-target="modal-update" class="material-icons modal-trigger clickable">edit</i>
+        <i data-target="modal-update-project-title" class="material-icons modal-trigger clickable">edit</i>
         </div>
         <div style="padding-right: 20px; ">
         <i onclick="deleteProject('${project._id}')" class="material-icons clickable">delete</i>
@@ -707,6 +727,7 @@ $('#addtodo').submit(e => {
     
     console.log(`Adding new todo on your list`, todo);
     $(`#add-todo`).val('')
+    $(`#add-project-title`).val('')
     showTodoList()
     
   })

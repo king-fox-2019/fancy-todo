@@ -265,3 +265,8 @@ img {
   flex-direction: row;
   justify-content: space-between;
 }
+
+.fixed-action-btn {
+  margin-bottom: 40px;
+  margin-right: 40px;
+}

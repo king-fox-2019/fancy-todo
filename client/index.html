@@ -38,7 +38,7 @@
  <!-- navbar -->
  <nav>
     <div class="nav blue darker-4">
-      <a href="" class="brand-logo"><i class="fas fa-angle-double-right"></i><B><i>next!</i></B></a>
+      <a onclick="toHomepage(event)" class="brand-logo clickable"><i class="fas fa-angle-double-right"></i><B><i>next!</i></B></a>
       <!-- right section  -->
       <div class="right-section">
       <ul class="right">
@@ -314,158 +314,156 @@
        
 
         <!-- main skeleton -->
+        <div class="project-todo">
 
-<div class="project-todo">
-
-    <div class="form-add-show">
-    <!-- font-family: 'Vibes', cursive; -->
-        <ul class="project-collection with-header">
-          <li class="project-collection-header" style=" font-size: 35px; height: 120px; padding-top: 20px;">
-            <div>
-              <p class="banner" ></p>
-            </div>
-            
-          </li>
-          
-        </ul>
-    
-      <div class="add-item">
-          <div class="row">
-            <div class="container">
-          <form id="addProjectTodo" class="col s12">
-            <div class="row">
-              <div class="container">
-            <div class="input-field col s12">
-              <i class="material-icons prefix teal-text text-darken-2">add</i>
-              <input id="add-project-todo" type="text" >
-              <label for="add-project-todo">Add to-do</label>
+          <!-- one project  -->
+        <div class="form-add-show">
+        <!-- font-family: 'Vibes', cursive; -->
+          <ul class="project-collection with-header">
+            <li class="project-collection-header" style=" font-size: 35px; height: 120px; padding-top: 20px;">
+              <div>
+                <p class="banner" ></p>
               </div>
-              <button type="submit" class="hidden"></button>
-            </div>
-            </div>
-          </form>
-        </div>
-        </div>
-        </div>
-    
-        <div class="list">
-          <ul class="collapsible allProjectTodos"></ul>      
-        </div>
-    
-    </div>
-    
-    
-    <div class="form-project-todo-update">
-      <div id="modal-project-todo-update" class="modal z-depth-3">
-          
-          <!-- materialize form  -->
-          <div class="row" style="height: 300px;">
-              <div class="background-image"></div>
-              <div class="form-container">
-                <form  class="content col s12 update-todo" id="form-update-project-todo">
-                  <div class="row">
-                      <div class="input-field col s12">
-                        <input id="update-project-todo-id" type="hidden">
-                        <label for="update-project-todo-id" class="label-update" style="display: none;">todoId</label>
-                      </div>
-                    </div>
-                  <div class="row">
-                      <div class="input-field col s12">
-                        <input id="update-project-todo-title" type="text" class="active">
-                        <label for="update-project-todo-title" class="label-update">Title</label>
-                      </div>
-                    </div>
-                  <div class="row">
-                      <div class="input-field col s12">
-                        <input id="update-project-todo-description" type="text" class="active">
-                        <label for="update-project-todo-description" class="label-update">Description</label>
-                      </div>
-                    </div>
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <input id="update-project-todo-date" type="text" class="datepicker active">
-                      <label for="update-project-todo-date" >Date</label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <input id="update-project-todo-time" type="text" class="timepicker active">
-                      <label for="update-project-todo-time" class="timepicker label-update">Time</label>
-                    </div>
-                  </div>
-      
-                  <div class="modal-footer" style="background-color: transparent !important;">
-                      <button class="modal-close waves-effect btn-flat" type="submit">Update</button>
-                    <!-- <a class="modal-close waves-effect waves-green btn-flat">Update</a> -->
-                  </div>
-      
-                </form>
-              </div>
-            </div>
-              <!-- materialize form  -->
-            
-            
-      </div>
-    </div>
-    <!-- end form modal update  -->
-    
-    </div> 
-    <!-- end main skeleton  -->
-    
-
-    <!-- edit title  -->
-    
-    <div class="form-update-project-title">
-        <div id="modal-update-project-title" class="modal z-depth-3">
-            
-            <!-- materialize form  -->
-            <div class="row" style="height: 300px;">
-                <div class="background-image"></div>
-                <div class="form-container">
-                  <form  class="content col s12 update-todo" id="form-update-project-todo">
-                    <div class="row">
-                        <div class="input-field col s12">
-                          <input id="update-project-todo-id" type="hidden">
-                          <label for="update-project-todo-id" class="label-update" style="display: none;">todoId</label>
-                        </div>
-                      </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                          <input id="update-project-todo-title" type="text" class="active">
-                          <label for="update-project-todo-title" class="label-update">Title</label>
-                        </div>
-                      </div>
-                   
+            </li>
+          </ul>
         
-                    <div class="modal-footer" style="background-color: transparent !important;">
-                        <button class="modal-close waves-effect btn-flat" type="submit">Update</button>
-                      <!-- <a class="modal-close waves-effect waves-green btn-flat">Update</a> -->
-                    </div>
-        
-                  </form>
+          <div class="add-item">
+              <div class="row">
+                <div class="container">
+              <form id="addProjectTodo" class="col s12">
+                <div class="row">
+                  <div class="container">
+                <div class="input-field col s12">
+                  <i class="material-icons prefix teal-text text-darken-2">add</i>
+                  <input id="add-project-todo" type="text" >
+                  <label for="add-project-todo">Add to-do</label>
+                  </div>
+                  <button type="submit" class="hidden"></button>
                 </div>
-              </div>
-                <!-- materialize form  -->
-              
-              
+                </div>
+              </form>
+            </div>
+            </div>
+            </div>
+        
+            <div class="list">
+              <ul class="collapsible allProjectTodos"></ul>      
+            </div>
+        
         </div>
-      </div>
-    <!-- end edit title  -->
+        <!-- end one project  -->
+        
+        <!-- form modal update  -->
+        <div class="form-project-todo-update">
+          <div id="modal-project-todo-update" class="modal z-depth-3">
+              
+              <!-- materialize form  -->
+              <div class="row" style="height: 300px;">
+                  <div class="background-image"></div>
+                  <div class="form-container">
+                    <form  class="content col s12 update-todo" id="form-update-project-todo">
+                      <div class="row">
+                          <div class="input-field col s12">
+                            <input id="update-project-todo-id" type="hidden">
+                            <label for="update-project-todo-id" class="label-update" style="display: none;">todoId</label>
+                          </div>
+                        </div>
+                      <div class="row">
+                          <div class="input-field col s12">
+                            <input id="update-project-todo-title" type="text" class="active">
+                            <label for="update-project-todo-title" class="label-update">Title</label>
+                          </div>
+                        </div>
+                      <div class="row">
+                          <div class="input-field col s12">
+                            <input id="update-project-todo-description" type="text" class="active">
+                            <label for="update-project-todo-description" class="label-update">Description</label>
+                          </div>
+                        </div>
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <input id="update-project-todo-date" type="text" class="datepicker active">
+                          <label for="update-project-todo-date" >Date</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <input id="update-project-todo-time" type="text" class="timepicker active">
+                          <label for="update-project-todo-time" class="timepicker label-update">Time</label>
+                        </div>
+                      </div>
+          
+                      <div class="modal-footer" style="background-color: transparent !important;">
+                          <button class="modal-close waves-effect btn-flat" type="submit">Update</button>
+                        <!-- <a class="modal-close waves-effect waves-green btn-flat">Update</a> -->
+                      </div>
+          
+                    </form>
+                  </div>
+                </div>
+                  <!-- materialize form  -->
+                
+                
+          </div>
+        </div>
+        <!-- end form modal update  -->
+        
 
-<div class="fixed-action-btn">
-    <a class="btn-floating btn-large red">
-      <i class="large material-icons">mode_edit</i>
-    </a>
-    <ul>
-      <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
-      <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
-      <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-      <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
-    </ul>
-  </div>
+        </div> 
+        <!-- end main skeleton  -->
+          
+
+        <!-- edit title  -->
+        <div class="form-update-project-title">
+            <div id="modal-update-project-title" class="modal z-depth-3">
+                
+                <!-- materialize form  -->
+                <div class="row" style="height: 300px;">
+                    <div class="background-image"></div>
+                    <div class="form-container">
+                      <form  class="content col s12 update-todo" id="form-update-project-todo">
+                        <div class="row">
+                            <div class="input-field col s12">
+                              <input id="update-project-todo-id" type="hidden">
+                              <label for="update-project-todo-id" class="label-update" style="display: none;">todoId</label>
+                            </div>
+                          </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                              <input id="update-project-todo-title" type="text" class="active">
+                              <label for="update-project-todo-title" class="label-update">Title</label>
+                            </div>
+                          </div>
+                      
+            
+                        <div class="modal-footer" style="background-color: transparent !important;">
+                            <button class="modal-close waves-effect btn-flat" type="submit">Update</button>
+                          <!-- <a class="modal-close waves-effect waves-green btn-flat">Update</a> -->
+                        </div>
+            
+                      </form>
+                    </div>
+                  </div>
+                    <!-- materialize form  -->
+                  
+                  
+            </div>
+        </div>
+        <!-- end edit title  -->
+
+
       </div>
       <!-- end show one  -->
       
+
+        <!-- add project inside  -->
+        <div class="fixed-action-btn">
+          <a class="btn-floating btn-large teal">
+            <i data-target="modal-add-project" onclick="showProjectFormInside(event)" class="large material-icons modal-trigger">mode_edit</i>
+          </a>
+        </div>
+        <!-- end add project inside  -->
+
   </div>
 
 
