@@ -1,0 +1,8 @@
+#addTodo {
+  position: fixed;
+  width: 75%;
+  height: 1rem;
+  z-index: 10;
+  bottom: 5rem;
+  right: -53rem;
+}

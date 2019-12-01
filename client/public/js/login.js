@@ -11,9 +11,7 @@ function submitLogIn(e) {
     }
   })
     .done(user => {
-      console.log(user)
-      localStorage.setItem('token', user.token)
-      getAllTodos()
+      localStorage.setItem('access_token', user.access_token)
       showMainPage()
     })
     .fail(err => {

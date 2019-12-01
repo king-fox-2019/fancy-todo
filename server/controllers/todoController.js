@@ -7,14 +7,14 @@ class todoController {
   static create(req, res, next) {
     const { title, description, dueDate } = req.body
     Todo
-      .create({ title, description, dueDate, userId: req.decoded._id })
+      .create({ title, description, dueDate, userId: req.decoded._id, status: false })
       .then(user => {
         let data = {
           id: user.id,
           description: user.description,
           title: user.title,
           dueDate: user.dueDate,
-          status: false,
+          status: user.status,
           userId: req.decoded._id
         }
         res.status(201).json(data)

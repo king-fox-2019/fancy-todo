@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  if(localStorage.getItem('token')) showMainPage()
+  if(localStorage.getItem('access_token')) showMainPage()
   else showRegister()
   
 })
@@ -18,10 +18,11 @@ function showLogin(e){
 }
 
 function showMainPage(e){
-  if (localStorage.getItem('token')) {
+  if (localStorage.getItem('access_token')) {
     $('#login-page').hide()
     $('#register-page').hide()
     $('#main-page').show()
+    getAllTodos()
   } else {
     e.preventDefault()
     showRegister()
@@ -31,8 +32,13 @@ function showMainPage(e){
 function logout(e){
   if(e) {
     e.preventDefault()
-    localStorage.removeItem('token')
+    localStorage.removeItem('access_token')
     showRegister()
   }
+}
+
+function showCreateForm(e){
+  if (e) e.preventDefault()
+  $('#modal-create').modal('show')
 }
 

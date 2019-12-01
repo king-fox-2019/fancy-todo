@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="google-signin-client_id" content="94731643944-so2lil383llc7dtivmo9qunqltfpvjb4.apps.googleusercontent.com">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="./public/css/homepage.css">
     <title> Fancy Todo </title>
@@ -17,7 +18,7 @@
           <!-- <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" alt=""> -->
         </a>
         <form id="logout" onsubmit="logout(event)">
-            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Logout</button>
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Logout</button>
         </form>
       </nav>
     </div>
@@ -28,7 +29,7 @@
         <div class="card" style="width: 30rem;">
           <img class="card-img-top" src="" alt="Card image cap">
           <div class="card-body">
-            <form id="login" onsubmit="submitRegister(event)">
+            <form id="register" onsubmit="submitRegister(event)">
               <div class="form-group">
                 <label> Username </label>
                 <input type="text" class="form-control" id="username" aria-describedby="email">
@@ -73,8 +74,8 @@
               </div>
               <div class="row align-items-center">
                 <div class="col-sm-3">
-                  <button type="submit" class="btn btn-primary">Login</button>
-                </div>
+                  <button type="submit" class="btn btn-primary">Login</button> 
+                </div> 
                 <div class="col-sm">
                   <div class="g-signin2" data-onsuccess="onSignIn"></div>
                 </div>
@@ -86,65 +87,98 @@
     </div>
     <!-- FORM LOGIN END -->
 
-    <!-- DATA TODO-->
+    <!-- DATA TODO -->
     <div id="main-page">
-      <div class="d-flex flex-wrap p-5 justify-content-center">
-        <!-- <div class="card-columns"> -->
-          <div class="card p-3 w-25 m-3">
-            <blockquote class="blockquote mb-0 card-body">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-              <footer class="blockquote-footer">
-                <small class="text-muted">
-                  Someone famous in <cite title="Source Title">Source Title</cite>
-                </small>
-              </footer>
-            </blockquote>
+      <div class="d-flex flex-wrap p-5 justify-content-center" id="value-data">
+      <!-- APPEND VALUE DATA -->
+    </div>
+
+        <!-- BUTTON ADD TODO-->
+        <div id="addTodo">
+          <button type="button" class="btn btn-dark btn-lg border" onclick="showCreateForm(event)">+</button>
+        </div>
+        <!-- BUTTON ADD TODO END-->
+
+        <!-- MODAL ADD TODOS -->
+        <!-- Modal -->
+        <div class="modal fade" id="modal-create" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Create Todo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                    <div id="create-form">
+                      <div class="form-group">
+                        <label> Title </label>
+                        <input type="text" class="form-control" id="create-title" aria-describedby="title">
+                      </div>
+                      <div class="form-group">
+                        <label> Description </label>
+                        <textarea class="form-control"  id="create-description" rows="3"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label> Due Date </label>
+                        <input type="date" class="form-control" id="create-dueDate" aria-describedby="due-date">
+                      </div>
+                    </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-dark" onclick="createTodo(event)">Save</button>
+              </div>
+            </div>
           </div>
-          <div class="card p-3 w-25 m-3">
-            <blockquote class="blockquote mb-0 card-body">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-              <footer class="blockquote-footer">
-                <small class="text-muted">
-                  Someone famous in <cite title="Source Title">Source Title</cite>
-                </small>
-              </footer>
-            </blockquote>
+        </div>
+        <!-- MODAL ADD TODOS END -->
+
+        <!-- MODAL EDIT TODOS -->
+        <!-- Modal -->
+        <div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Edit Todo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div id="edit-form">
+                    <div class="form-group">
+                      <label> Title </label>
+                      <input type="text" class="form-control" id="edit-title" aria-describedby="title">
+                    </div>
+                    <div class="form-group">
+                      <label> Description </label>
+                      <textarea class="form-control" id="edit-description" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label> Due Date </label>
+                      <input type="date" class="form-control" id="edit-dueDate" aria-describedby="due-date">
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-dark" onclick="editTodo(event)" id="id-todo-edit">Save</button>
+              </div>
+            </div>
           </div>
-          <div class="card p-3 w-25 m-3">
-            <blockquote class="blockquote mb-0 card-body">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-              <footer class="blockquote-footer">
-                <small class="text-muted">
-                  Someone famous in <cite title="Source Title">Source Title</cite>
-                </small>
-              </footer>
-            </blockquote>
-          </div>
-          <div class="card p-3 w-25 m-3">
-            <blockquote class="blockquote mb-0 card-body">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-              <footer class="blockquote-footer">
-                <small class="text-muted">
-                  Someone famous in <cite title="Source Title">Source Title</cite>
-                </small>
-              </footer>
-            </blockquote>
-          </div>
-          <div class="card p-3 w-25 m-3">
-            <blockquote class="blockquote mb-0 card-body">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-              <footer class="blockquote-footer">
-                <small class="text-muted">
-                  Someone famous in <cite title="Source Title">Source Title</cite>
-                </small>
-              </footer>
-            </blockquote>
-          </div>
-        <!-- </div> -->
-      </div>
+        </div>
+        <!-- MODAL EDIT TODOS END -->
+
+        
 
       </div>
-    
+    <!-- DATA TODO END -->
+
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

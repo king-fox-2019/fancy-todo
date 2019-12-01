@@ -30,11 +30,11 @@ class userController {
         if (userData) {
           let valid = comparePassword(req.body.password, userData.password)
           if (valid) {
-            let token = generateToken({ id: userData.id })
+            let access_token = generateToken({ id: userData.id })
             let user = {
               username: userData.username,
               email: userData.email,
-              token
+              access_token
             }
             res.status(200).json(user)
           } else {

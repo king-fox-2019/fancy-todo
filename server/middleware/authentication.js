@@ -4,7 +4,7 @@ const { verifyToken } = require('../helpers/jwt')
 const { User } = require('../models')
 
 module.exports = (req, res, next) => {
-  let token = req.headers.token
+  let token = req.headers.access_token
   try {
     const decoded = verifyToken(token)
     User
