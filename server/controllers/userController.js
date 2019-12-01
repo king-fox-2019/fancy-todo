@@ -59,6 +59,36 @@ class UserController {
       })
       .catch(next);
   }
+
+  static googleSignin(req, res, next) {
+    User.findOne({
+      email: req.decoded.email
+    })
+      .then(response => {
+        if (response) {
+          return response;
+        } else {
+          return User.create({
+            name: req.decoded.name,
+            email: req.decoded.email,
+            password: process.env.DEFAULT_PASSWORD
+          });
+        }
+      })
+      .then(response => {
+        let payload = {
+          id: response._id,
+          name: response.name,
+          email: response.email
+        };
+        let token = getToken(payload);
+        res.status(201).json({
+          token,
+          message: "success signin via google"
+        });
+      })
+      .catch(next);
+  }
 }
 
 module.exports = UserController;

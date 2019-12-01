@@ -1,9 +1,5 @@
 function renderModalCreateTodo() {
   $("#modal-create-todo").modal("show");
-  $("#btn-create-todo").click(function(event) {
-    event.preventDefault();
-    createTodo();
-  });
 }
 
 function createTodo() {

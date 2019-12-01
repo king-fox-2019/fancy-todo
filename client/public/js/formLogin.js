@@ -62,8 +62,7 @@ function signUp(event) {
     });
 }
 
-function signIn(event) {
-  event.preventDefault();
+function signIn() {
   let email = $("#signin-email").val();
   let password = $("#signin-password").val();
   if ($("#sign-check").prop("checked")) {
@@ -108,10 +107,53 @@ function checked() {
   }
 }
 
+function onSignIn(googleUser) {
+  const id_token = googleUser.getAuthResponse().id_token;
+  $.ajax({
+    url: baseUrl + "/users/googlesignin",
+    method: "POST",
+    data: {
+      id_token
+    }
+  })
+    .done(response => {
+      localStorage.setItem("token", response.token);
+      $("#modal-signin").modal("hide");
+      $(".all-page").show();
+      $(".page-beforesignin").hide();
+      alertify.success(response.message);
+    })
+    .fail(err => {
+      // let msg = err.responseJSON.errors;
+      // let text = "";
+      // msg.forEach(element => {
+      //   text += element + ", ";
+      // });
+      alertify.error(err);
+    })
+    .always(_ => {});
+}
+
 function signOut() {
-  localStorage.removeItem("token");
-  $(".all-page").hide();
-  $(".page-beforesignin").show();
-  alertify.success("Have Nice Day");
-  checked();
+  if (gapi.auth2 !== undefined) {
+    let auth2 = gapi.auth2.getAuthInstance();
+    auth2
+      .signOut()
+      .then(() => {
+        localStorage.removeItem("token");
+        $(".all-page").hide();
+        $(".page-beforesignin").show();
+        alertify.success("Have Nice Day");
+        checked();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  } else {
+    localStorage.removeItem("token");
+    $(".all-page").hide();
+    $(".page-beforesignin").show();
+    alertify.success("Have Nice Day");
+    checked();
+  }
 }

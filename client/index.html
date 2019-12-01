@@ -169,7 +169,11 @@
                     SignIn
                   </button>
                   &nbsp; or &nbsp;
-                  <button class="g-signin2" data-onsuccess="onSignIn"></button>
+                  <button
+                    class="g-signin2"
+                    data-onsuccess="onSignIn"
+                    id="my-signin2"
+                  ></button>
                 </form>
               </div>
               <div class="modal-footer">
@@ -291,7 +295,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form>
+                <form id="btn-create-todo">
                   <div class="form-group">
                     <label for="exampleInputTodoName">Name</label>
                     <input
@@ -319,11 +323,7 @@
                       placeholder="Enter Todo Due Date"
                     />
                   </div>
-                  <button
-                    id="btn-create-todo"
-                    type="submit"
-                    class="btn btn-primary"
-                  >
+                  <button type="submit" class="btn btn-primary">
                     Save Todo
                   </button>
                 </form>

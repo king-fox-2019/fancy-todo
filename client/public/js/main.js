@@ -16,10 +16,12 @@ $(document).ready(function() {
     renderModalSignup();
   });
   $("#btn-signup").submit(function(event) {
-    signUp(event);
+    event.preventDefault();
+    signUp();
   });
   $("#btn-signin").submit(function(event) {
-    signIn(event);
+    event.preventDefault();
+    signIn();
   });
   $("#btn-signout").click(function() {
     signOut();
@@ -29,8 +31,9 @@ $(document).ready(function() {
   $("#btn-go-create-todo").click(function() {
     renderModalCreateTodo();
   });
-  // $("btn-create-todo").click(function(event) {
-  //   createTodo(event);
-  // });
+  $("#btn-create-todo").submit(function(event) {
+    event.preventDefault();
+    createTodo();
+  });
   //todo end
 });
