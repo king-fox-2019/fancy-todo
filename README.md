@@ -15,7 +15,7 @@ PORT="< port number >"
 JWT_SECTRE="< JSON Web Token Secret >"
 ```
 
-FIre up the server by typing this command on terminal
+Fire up the server by typing this command on terminal
 
 ```
 npm run dev
