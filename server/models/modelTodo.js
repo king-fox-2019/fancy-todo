@@ -5,7 +5,8 @@ const todoSchema = new Schema(
         name: String,
         description: String,
         status: String,
-        due_date: Date
+        due_date: Date,
+        user_id: {type: Schema.Types.ObjectId, ref: 'User'}
     }
 );
 
