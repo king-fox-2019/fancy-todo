@@ -295,12 +295,7 @@ function displayTodosMember(project) {
             <div class="d-flex justify-content-between bg-light p-1" >
             </div>
         </div>        
-        `)
-        console.log(member._id, project.user._id)
-        if (member._id == project.user._id) {
-            $(`#deleteMember${member._id}`).hide()
-            $(`#bg${member._id}`).css('color', 'red').css('background-color', '#DD2D4A')
-        } 
+        `)        
     });
 }
 
