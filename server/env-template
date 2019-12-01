@@ -1,0 +1,5 @@
+PORT=3000
+MONGO_URI="mongodb://localhost:27017/fancytodo"
+SECRET_KEY=1234
+Client_ID=86398874367-n5c7vtvso1ujvv831t7tahktq0101ni5.apps.googleusercontent.com
+Client_Secret=eMdcSs2ybdj9dTZU8GSCAHis
