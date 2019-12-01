@@ -8,11 +8,9 @@ class UserController{
 
     User.create({ username, email, password })
       .then(function (user) {
-        response.status(201).json({ username, email, password })
+        response.status(201).json({ message: 'success create new user' })
       })
-      .catch(function (err) {
-        response.status(500).json(err)
-      })
+      .catch(next)
   }
 
   static login (request, response, next) {
@@ -21,20 +19,18 @@ class UserController{
     User.findOne({ email })
       .then(function (user) {
         try {
-          if (!user) throw 'email or password wrong'
+          if (!user) throw { name:'UserNotFound', message: 'Email or Password wrong' }
           else {
             if (comparePassword(password, user.password)) {
               const access_token = generateJWT({ id: user._id })
               response.status(200).json({ access_token })
-            } else throw 'email or password wrong'
+          } else throw { name:'UserNotFound', message: 'Email or Password wrong' }
           }
         } catch (err) {
-          throw { message: err }
+          throw err
         }
       })
-      .catch(function (err) {
-        response.status(500).json(err)
-      })
+      .catch(next)
   }
 }
 

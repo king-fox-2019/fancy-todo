@@ -7,7 +7,7 @@ const emailRegex =  "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-
 const userSchema = new Schema({
   username: {
     type: String,
-    required: [true, 'username is required'],
+    required: [true, 'Username is required'],
     validate: [
       function validator(val) {
         return new Promise(function (resolve, reject) {
@@ -26,7 +26,7 @@ const userSchema = new Schema({
   },
   email: {
     type: String,
-    required: [true, 'email is required'],
+    required: [true, 'Email is required'],
     validate: [
       {
         validator(val) {
@@ -54,8 +54,8 @@ const userSchema = new Schema({
   },
   password: {
     type: String,
-    required: [true, 'password is required'],
-    minLength: [6, 'need at least 6 characters']
+    required: [true, 'Password is required'],
+    minlength: [6, 'Password need at least 6 characters']
   },
 })
 

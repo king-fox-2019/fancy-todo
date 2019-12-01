@@ -19,7 +19,7 @@ class TodoController {
       owner: request.user.id
     })
       .then(function (todo) {
-        response.status(201).json(todo)
+        response.status(201).json({ message: 'success create new todo' })
       })
       .catch(next)
   }
