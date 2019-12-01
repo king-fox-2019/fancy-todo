@@ -17,11 +17,9 @@ class UserController {
                 }
                 const token = jsonwebtoken.generateToken(payload)
                 res.status(201).json({token})
-                console.log(token)
             })
             .catch(err => {
                 res.json(err)
-                console.log(err)
             })
     }
     static login(req,res,next){
@@ -50,6 +48,28 @@ class UserController {
             })
             .catch((err)=>{
                 res.json(err)
+                console.log(err)
+            })
+    }
+    static googleLogin(req,res,next){
+        const condition = {
+            email : req.decoded.email
+        }
+        User
+            .findOne(condition)
+            .then((user) => {
+                if(user){
+                    const payload = {
+                        _id : user._id
+                    }
+                    const token = jsonwebtoken.generateToken(payload)
+                    res.status(200).json({token})
+                }
+                else{
+                    console.log(user,'================================================================')
+                }
+            })
+            .catch((err)=>{
                 console.log(err)
             })
     }

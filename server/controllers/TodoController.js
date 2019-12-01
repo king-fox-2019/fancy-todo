@@ -14,11 +14,11 @@ class TodoController {
             .create(values)
             .then((todo) => {
                 res.status(201).json(todo)
-                console.log(todo)
+                // console.log(todo)
             })
             .catch((err)=>{
                 console.log(err)
-                res.json(err)
+                res.status(400).json(err)
             })
     }
     static read(req,res,next){
@@ -39,7 +39,7 @@ class TodoController {
             .find(condition)
             .then((todos) => {
                 res.status(200).json(todos)
-                console.log(todos)
+                // console.log(todos)
             })
             .catch((err)=>{
                 res.json(err)
@@ -52,7 +52,7 @@ class TodoController {
         Todo
             .findByIdAndDelete(condition,{rawResult:true})
             .then((result)=>{
-                res.json(result)
+                res.status(200).json(result)
                 console.log(result)
             })
             .catch(next)
@@ -64,7 +64,8 @@ class TodoController {
             _id : req.params.id
         }
         const option = {
-            new : true
+            new : true,
+            omitUndefined : true
         }
         keys.forEach(key => {
             if(req.body[key]) values[key] = req.body[key]
@@ -74,40 +75,6 @@ class TodoController {
             .then((result)=>{
                 res.json(result)
                 console.log(result)
-            })
-            .catch(next)
-    }
-    static complete(req,res,next){
-        const values = {
-            status : "completed"
-        }
-        const condition = {
-            _id : req.params.id,
-        }
-        const option = {
-            new : true
-        }
-        Todo
-            .findByIdAndUpdate(condition,values,option)
-            .then((result)=>{
-                res.json(result)
-            })
-            .catch(next)
-    }
-    static uncomplete(req,res,next){
-        const values = {
-            status : "uncompleted"
-        }
-        const condition = {
-            _id : req.params.id,
-        }
-        const option = {
-            new : true
-        }
-        Todo
-            .findByIdAndUpdate(condition,values,option)
-            .then((result)=>{
-                res.json(result)
             })
             .catch(next)
     }
