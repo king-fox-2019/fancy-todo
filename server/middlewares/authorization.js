@@ -8,7 +8,7 @@ module.exports = (req,res,next) => {
         .then((todo) => {
             if(todo.UserId == req.payload._id) next()
             else{
-                console.log('salah idnya')
+                res.status(403).json({message : "Error forbidden"})
             }
         })
         .catch(()=>{

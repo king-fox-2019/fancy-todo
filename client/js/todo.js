@@ -1,4 +1,3 @@
-
 function getAllTodo(){
     const headers = {
         access_token : localStorage.getItem("access_token")
@@ -9,26 +8,53 @@ function getAllTodo(){
         headers
     })
         .done((todos)=>{
+            $("#todos").empty()
             todos.forEach(todo => {
                 $("#todos").append(`
-                <div class="card" style="width: 18rem;">
-                    <img src="https://miro.medium.com/max/1024/1*Er24qsvJdqLofK-sK0QzpA.jpeg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">${todo.name}</h5>
-                        <p class="card-text">Description : ${todo.description}</p>
-                        <p class="card-text">Status : ${todo.status}</p>
-                        <p class="card-text">Due Date : ${todo.dueDate}</p>
-                        <button type="button" id="edit-todo-page-${todo._id}" class="btn btn-primary">Edit</button>
-                        <button type="button" id="change-status-${todo._id}" class="btn btn-primary">${todo.status === "completed" ? "Uncomplete" : "Complete"}</button>
-                        <button type="button" id="delete-todo-${todo._id}" class="btn btn-primary">Delete</button>
-                    </div>
-                </div>
+			    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 d-flex justify-content-center">
+					<div class="box-part text-center border">
+                        <i style="color : #FEBD0A" class="fa ${todo.status === "completed" ? "fa-calendar-check" : "fa-calendar-times"} fa-3x mb-4" aria-hidden="true"></i>
+						<div class="title">
+							<h4>${todo.name}</h4>
+						</div>
+						<div class="text">
+							<span>${todo.description}</span>
+                        </div>
+                        <div class="text">
+							<span>${todo.status}</span>
+                        </div>
+                        <div class="text">
+							<span>${todo.dueDate.slice(0,"yyyy-mm-dd".length).split("-").reverse().join("-")}</span>
+                        </div>
+                        <div class="row justify-content-center">
+                            <button type="button" id="edit-todo-page-${todo._id}" class="mt-4 btn btn-outline-warning mr-1 col-5">Edit</button>
+                            <button type="button" id="delete-todo-${todo._id}" class="mt-4 btn btn-outline-warning ml-1 col-5">Delete</button>
+                        </div>
+                        <button type="button" id="change-status-${todo._id}" class="mt-2 btn-block btn btn-outline-warning">${todo.status === "completed" ? "Uncomplete" : "Complete"}</button>
+					 </div>
+				</div>
                 `)
                 $(`#edit-todo-page-${todo._id}`).click(todo,editPage)
                 $(`#change-status-${todo._id}`).click(todo,changeStatus)
                 $(`#delete-todo-${todo._id}`).click(todo,deleteTodo)
             });
         })
+}
+
+function editPage(e){
+    e.preventDefault()
+    const todo = e.data
+    $("#name-todo-edit").val(todo.name)
+    $("#description-todo-edit").val(todo.description)
+    $("#dueDate-todo-edit").val(todo.dueDate.slice(0,("yyyy-mm-dd").length))
+    $("#id-todo-edit").val(todo._id)
+    $("#edit-todo-modal").modal("show")
+}
+
+
+function createPage(){
+    event.preventDefault()
+    $("#create-todo-modal").modal("show")
 }
 
 function deleteTodo(e){
@@ -38,7 +64,6 @@ function deleteTodo(e){
     const headers = {
         access_token : localStorage.getItem("access_token")
     }
-    console.log('insecure di client')
     $.ajax({
         method : "DELETE",
         url : `http://localhost:3000/todos/${id}`,
@@ -71,23 +96,13 @@ function changeStatus(e){
         headers
     })
         .done((todo)=>{
-            // console.log(todo)
+            getAllTodo()
         })
         .fail((err)=>{
-            // console.log(err)
+            console.log(err)
         })
         .always()
 
-}
-
-function editPage(e){
-    e.preventDefault()
-    const todo = e.data
-    $("#name-todo-edit").val(todo.name)
-    $("#description-todo-edit").val(todo.description)
-    $("#dueDate-todo-edit").val(todo.dueDate.slice(0,("yyyy-mm-dd").length))
-    $("#id-todo-edit").val(todo._id)
-    $("#edit-todo-modal").modal("show")
 }
 
 function editTodo(){
@@ -99,7 +114,6 @@ function editTodo(){
         name : $("#name-todo-edit").val(),
         description : $("#description-todo-edit").val(),
         dueDate : $("#dueDate-todo-edit").val(),
-        // UserId :  
     }
     $.ajax({
         method : "PUT",
@@ -108,7 +122,8 @@ function editTodo(){
         headers
     })
         .done((todo) => {
-            console.log(todo)
+            $("#edit-todo-modal").modal("hide")
+            getAllTodo()
         })
         .fail((err) => {
             console.log(err)
@@ -119,9 +134,9 @@ function editTodo(){
 function createTodo(){
     event.preventDefault()
     const data = {
-        name : $("#name-todo").val(),
-        description : $("#description-todo").val(),
-        dueDate : $("#dueDate-todo").val()
+        name : $("#name-todo-create").val(),
+        description : $("#description-todo-create").val(),
+        dueDate : $("#dueDate-todo-create").val()
     }
     const headers = {
         access_token : localStorage.getItem("access_token")
@@ -133,22 +148,40 @@ function createTodo(){
         headers
     })
         .done((todo) => {
-            $("#result").append(`
-            <div class="card" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">${todo.name}</h5>
-                    <p class="card-text">Description : ${todo.description}</p>
-                    <p class="card-text">Status : ${todo.status}</p>
-                    <p class="card-text">Due Date : ${todo.dueDate}</p>
-                    <a href="" class="btn btn-primary">Edit</a>
-                    <a href="" class="btn btn-primary">Delete</a>
-                </div>
-            </div>
-            `)
+            $("#create-todo-modal").modal("hide")
+            getAllTodo()
+            $("#name-todo-create").val("")
+            $("#description-todo-create").val("")
+            $("#dueDate-todo-create").val("")
         })
         .fail((err)=>{
             console.log(err)
         })
         .always()
 }
+
+// function searchPage(){
+//     $("#form-search-modal").modal("show")
+// }
+
+// function searchTodo(){
+//     const todos = []
+//     const keys = ["name", "description","status"]
+//     keys.forEach(key => {
+//         const headers = {
+//             access_token : localStorage.getItem("access_token")
+//         }
+//         const data = {
+//             [key] : $("#form-search").val()
+//         }
+//         $.ajax({
+//             method : "GET",
+//             url : "http://localhost:3000/todos",
+//             headers,
+//             data
+//         })
+//             .done((result)=>{
+//                 todos.concat(result)
+//             })
+//     });
+// }

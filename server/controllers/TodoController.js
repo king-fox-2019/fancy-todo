@@ -2,7 +2,6 @@ const Todo = require('../models/todo')
 
 class TodoController {
     static create(req,res,next){
-        console.log(req.payload)
         const values = {
             name : req.body.name,
             description : req.body.description || "",
@@ -14,7 +13,6 @@ class TodoController {
             .create(values)
             .then((todo) => {
                 res.status(201).json(todo)
-                // console.log(todo)
             })
             .catch((err)=>{
                 console.log(err)
@@ -26,6 +24,7 @@ class TodoController {
         const condition = {
             "UserId" : req.payload._id
         }
+        console.log(req.body)
         keys.forEach(key => {
             if(req.query[key]){
                 if(key==="name" || key==="description"){
@@ -39,10 +38,11 @@ class TodoController {
             .find(condition)
             .then((todos) => {
                 res.status(200).json(todos)
-                // console.log(todos)
             })
             .catch((err)=>{
-                res.json(err)
+                console.log(err)
+                res.status(500).json({message : "Internal server error"})
+
             })
     }
     static delete(req,res,next){
@@ -53,10 +53,10 @@ class TodoController {
             .findByIdAndDelete(condition,{rawResult:true})
             .then((result)=>{
                 res.status(200).json(result)
-                console.log(result)
             })
             .catch((err)=>{
                 console.log(err)
+                res.status(500).json({message : "Internal server error"})
             })
     }
     static update(req,res,next){
@@ -75,10 +75,12 @@ class TodoController {
         Todo
             .findByIdAndUpdate(condition,values,option)
             .then((result)=>{
-                res.json(result)
-                console.log(result)
+                res.status(200).json(result)
             })
-            .catch(next)
+            .catch((err) => {
+                console.log(err)
+                res.status(500).json({message : "Internal server error"})
+            })
     }
 }
 

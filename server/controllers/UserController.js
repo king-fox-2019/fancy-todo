@@ -71,19 +71,17 @@ class UserController {
                             email : req.decoded.email,
                             password : passwordGenerator()
                     }
-                    User
+                    return User
                         .create(values)
-                        .then(user => {
-                            const payload = {
-                                _id : user._id
-                            }
-                            const token = jsonwebtoken.generateToken(payload)
-                            res.status(201).json({token})
-                        })
-                        .catch(err => {
-                            res.json(err)
-                        })
+                  
                 }
+            })
+            .then(user => {
+                const payload = {
+                    _id : user._id
+                }
+                const token = jsonwebtoken.generateToken(payload)
+                res.status(201).json({token})
             })
             .catch((err)=>{
                 res.status(500).json({message : "Internal server error"})

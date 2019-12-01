@@ -1,11 +1,11 @@
 const {OAuth2Client} = require('google-auth-library');
 
 function googleSignIn(req,res,next){
-    const client = new OAuth2Client("988198646150-rgj76pn8fvilqbcb8pkfgldos3o6ckp3.apps.googleusercontent.com");
+    const client = new OAuth2Client(process.env.CLIENT_ID);
         async function verify() {
         const ticket = await client.verifyIdToken({
             idToken: req.body.id_token,
-            audience: "988198646150-rgj76pn8fvilqbcb8pkfgldos3o6ckp3.apps.googleusercontent.com"
+            audience: process.env.CLIENT_ID
         });
         const payload = ticket.getPayload();
         req.decoded = payload
