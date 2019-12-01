@@ -1,5 +1,6 @@
 const Project = require('../models/Project')
 const Todo = require('../models/Todo')
+const User = require('../models/User')
 
 
 class ProjectController {
@@ -80,32 +81,43 @@ class ProjectController {
   }
 
   static inviteMember(req, res, next) {
+    console.log(`masuk inite memberrrrrrrrrr`);
+    
     let projectId = req.params.id
     let { email } = req.body
     let member
     User.findOne({ email })
       .then(user => {
+        console.log(user, 'siapa user nya dr invite memberrr. user tu apa  btw');
+        
         if (!user) {
           throw {status : 400, msg : 'user not found'}
+          
         } else {
           member = user
           return Project.findById(projectId)
         }
       })
       .then(project => {
+        console.log(project, 'project invite memberrrr');
+        
         if (!project) {
           throw { status : 404, msg : 'project not found'}
         } else {
           if (project.members.includes(member._id)) {
             throw { status : 400, msg : 'this user is already a member'}
           } else {
-            return Project.findByIdAndUpdate(projectId, { $push : { member : member._id}}, {new : true, runValidators: true, omitUndefined: true})
+            console.log('masukkk 109 otw project find by id and update isi memberrrnyaaa');
+            
+            return Project.findByIdAndUpdate(projectId, { $push : { members : member._id}}, {new : true, runValidators: true, omitUndefined: true})
               .populate('todos')
               .populate('members', '-password')
           }
         }
       })
       .then(project => {
+        console.log(project, 'apa gakkkk project invite memberrrrrrrrrrrrrr');
+        
         res.status(201).json(project)
       })
       .catch(next)

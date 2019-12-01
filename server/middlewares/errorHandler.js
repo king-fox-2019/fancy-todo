@@ -3,8 +3,8 @@ module.exports = (err, req, res, next) => {
   let message = []
 
   if (err.status) {
-    if (err.message) {
-      message.push(err.message)
+    if (err.message || err.msg) {
+      message.push(err.message || err.msg)
     }
     res.status(err.status).json({ message })
   } else {
