@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="google-signin-client_id"
+    content="548370348046-itof3f72mtaldfestbq25m2iga2sb7vh.apps.googleusercontent.com">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <link href="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.css"
+    rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="./style/style.css">
+  <title>Joy List</title>
+</head>
+
+<body>
+  <div style="margin: 0 auto">
+    <div class="container-fluid landingpage">
+
+      <div id="login-form-container" class="auth-container loginpage">
+
+        <form action="" id="login-form" class="auth-form">
+          <div style="height: 45vh; 
+                              display: flex; 
+                              flex-direction: column; 
+                              justify-content: center; 
+                              align-items: center;">
+            <h3 style="margin-bottom: 5px;"> <strong style="letter-spacing: 0.1em;  font-size: 20px;"> LIST
+                FIRST</strong> <strong style="color:rgb(253,173,0);">&</strong></h3>
+            <img src="https://afifahrahmak.github.io/image/justdoit.png" alt="Just Do It">
+            <p style="text-align:center; ">Welcome to <strong style="color:rgb(253,173,0);">JoyList</strong>.
+              <br> A better way to get work done <br /> and ... <strong> enjoy.</strong></p>
+          </div>
+          <div class="ui small input" style="width: 350px; margin:4px;">
+            <input required type="text" id="loginmail" placeholder="email" autocomplete="off">
+          </div>
+          <div class="ui small input" style="width: 350px; margin:4px;">
+            <input required type="password" id="loginpassword" placeholder="password">
+          </div>
+          <br>
+          <div class="auth-notifications" style="font-size: x-small;"></div>
+          <div class="buttongroup-horizontal">
+            <br>
+            <button class=" ui small teal button" style="height: 35px;" id="btn-login" type="submit">
+              sign in
+            </button>
+
+            <p></p>
+            <div class=" g-signin2" style="background-color: transparent;" data-onsuccess="onSignIn"></div>
+
+          </div>
+          <div class="ui horizontal divider" style="color: rgb(44, 44, 44); font-size: smaller; ">
+            Or
+          </div>
+          <div style="text-align: center;">
+            <strong> New to us? </strong> <a href="#" id="toRegister">Sign up</a>
+          </div>
+        </form>
+      </div>
+
+      <div id="signup-form-container" class="auth-container registerpage">
+        <form action="" id="signup-form" class="auth-form">
+          <img src="src/6.png" alt="landingpage-avatar" style="height: 35vh; margin-top:20px;">
+          <h3>Create a <strong style="color:rgb(253,173,0);">JoyList</strong> account !</h3>
+          <div class="auth-notifications"></div>
+          <div class="ui small input" style="width: 350px;margin: 3px;">
+            <input required type="text" id="regisname" placeholder="name" autocomplete="off">
+          </div>
+          <div class="ui small input" style="width: 350px; margin: 3px;">
+            <input required type="text" id="regismail" placeholder="email" autocomplete="off">
+          </div>
+          <div class="ui small input" style="width: 350px; margin: 3px;">
+            <input required type="password" id="regispassword" placeholder="password">
+          </div>
+          <br>
+          <button class="ui small teal button" style="background-color: ;" id="btn-register" type="submit">
+            sign up
+          </button>
+          <div class="ui horizontal divider" style="color: rgb(44, 44, 44); font-size: smaller; ">
+
+          </div>
+          <div style="text-align: center;">
+            <strong> Already have account? </strong> <a href="#" id="toLogin">Sign
+              in</a>
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+
+    <!-- ============================================= -->
+    <div class="mainpage ">
+
+      <div class="ui  grid" style="height: 100vh;">
+        <!-- side board ===================-->
+        <div class="ui  secondary vertical pointing fixed menu"
+          style="height: 100vh; border-right: 2px double rgb(58, 56, 56); ">
+
+
+          <!-- <hr /> -->
+          <div class="item" style="text-align: center;">
+            <div class="ui icon input">
+              <input type="text" placeholder="Search...">
+              <i class="search link icon"></i>
+            </div>
+          </div>
+
+          <div id="ava" class="item" style="text-align: center;" style="padding-left: 40px;"> </div>
+
+          <div class="item" style="text-align: center;" style="padding-left: 40px;">
+            <div class="header">...</div>
+            <div class="menu">
+              <a class="item" style="text-align: center;" id="myTodo">
+                <strong class="btnbasic ui tiny button" style="width: 100px; padding: 5px;"> Your
+                  List
+                </strong>
+              </a>
+              <a class="item" style="text-align: center;" id="projectTodo">
+                <strong class="btnbasic ui tiny button" style="width: 100px; padding: 5px;">
+                  Project's
+                </strong>
+              </a>
+              <!-- <a class="item" style="text-align: center;" id="myTodo">
+                <strong class="btnbasic ui tiny button" style="width: 100px; padding: 5px;">
+                  Notification
+                </strong>
+              </a> -->
+            </div>
+          </div>
+          <div class="item" style="text-align: center;" style="padding-left: 40px;">
+            <div class="header" style="text-align: center;">...</div>
+            <div class="menu">
+              <!-- <a class="item" style="text-align: center;" id="createProject">
+                <strong class="btnbasic ui tiny button" style="width: 100px; padding: 5px;"> New
+                  project
+                </strong>
+              </a> -->
+
+              <!-- <a class="item" style="text-align: center;" id="projectDetail">
+                <strong class="btnbasic ui tiny button" style="width: 100px; padding: 5px;"> detail
+                </strong>
+              </a> -->
+            </div>
+          </div>
+          <div id=weather style=" margin-bottom: 10px;"></div>
+
+        </div>
+        <!-- </div> -->
+
+        <!-- body todo page =============-->
+        <div class="ui fixed menu logo">
+          <!-- <div class="logo basic " style="margin: 0;"> </div> -->
+          <div class="content-nonblur basic">
+            <h1 style="border-top: 3px solid rgb(241, 206, 3);border-bottom: 3px solid rgb(241, 206, 3); width:150px; background-color: rgba(255, 255, 255, 0.993);
+            ">JOYLIST</h1>
+          </div>
+        </div>
+
+        <div class="fourteen wide column" id="wrap-main" style="padding-top: 15px !important; margin-left: 210px;">
+
+          <div id="personalPage">
+            <div class="basic" style="margin-top: 50px;">
+              <div id="note"></div>
+              <button class="addtodo btnbasic ui tiny button" id="showmodal">
+                <i class="large icon edit"></i>
+                <strong style="text-align: center;"> Add Todo </strong>
+              </button>
+              <br>
+            </div>
+
+            <div class="column basic">
+              <div class="ui segment " style="border: 2px dashed rgb(58, 56, 56); ">
+                <div id="todo" class="ui relaxed divided list">
+                  <br>
+                  <div style="width: 42.5vw" class="ui active centered inline loader"></div>
+                  <div id="deletesuccessnotif"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="projectPage">
+            <div class="basic" style="margin-top: 50px;">
+              <div id="note"></div>
+              <button class="addtodo btnbasic ui tiny button" onclick="TEST()">
+                <i class="icon mail"></i>
+                <strong style="text-align: center;"> Create Project</strong>
+              </button>
+              <br>
+            </div>
+
+            <div class="column basic">
+              <div class="ui segment " style="border: 2px dashed rgb(58, 56, 56); ">
+                <div id="projectlist" class="ui relaxed divided tiny selection list">
+                  <br>
+                  <div style="width: 42.5vw" class="ui active centered inline loader"></div>
+                  <div id="deletesuccessnotif"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="todoInProject">
+            <div class="basic" style="margin-top: 50px;">
+              <div id="note"></div>
+              <button class="addtodo btnbasic ui tiny button" id="showModalcreateTodoproject">
+                <i class="large icon edit"></i>
+                <strong style="text-align: center;"> new project's list </strong>
+              </button>
+              <div id="btn-add-todo-project"></div>
+
+              <br>
+            </div>
+
+            <div class="column basic">
+              <div class="ui segment " style="border: 2px dashed rgb(58, 56, 56); ">
+                <div id="todolistproject" class="ui relaxed divided list">
+                  <br>
+                  <div style="width: 42.5vw" class="ui active centered inline loader"></div>
+                  <div id="deletesuccessnotif"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- modal form todo -->
+          <div class="ui small modal test">
+            <div class="ui middle aligned center aligned hmm" style="background-color: transparent;">
+              <!-- <div class="column"> -->
+              <div class=" basic" style="margin-top: 30px;; ">
+                <h1 style="
+                border-top: 3px solid rgb(5, 5, 5);
+                border-bottom: 3px solid rgb(14, 14, 13); 
+                background-color: rgba(255, 255, 255, 0.993);
+                font-size: 13px;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+                "> List it! get your work done today! </h1>
+              </div>
+              <br>
+              <form class="ui tiny form " style="width:300px; height:300px; margin:0 40px 10px 40px;">
+                <div class="ui segment">
+                  <div class="two fields" style="margin-bottom: 0px;">
+                    <div class=" field">
+                      <label>Title</label>
+                      <div class="ui small input">
+                        <input required type="text" name="title" placeholder="title" id="titletodo">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label>Due date</label>
+                      <div class="ui calendar" id="duedate">
+                        <div class="ui small  left icon input">
+                          <i class="calendar icon"></i>
+                          <input required type="text" placeholder="Date" id="duedatetodo" value="mm/dd/yyyy">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field" style="margin-top: 0px;">
+                    <label>Description</label>
+                    <div class="ui small left icon input">
+                      <textarea rows="3" name="description" placeholder="description" id="descriptiontodo"></textarea>
+                    </div>
+                  </div>
+                  <div class="actions" style="text-align: center;">
+                    <div class="ui tiny icon button" id="btn-add-todo"
+                      style="color: black; background-color: rgb(255, 183, 0);">
+                      save <i class="checkmark icon"> </i>
+                    </div>
+                    <div class="ui black tiny deny button">
+                      cancel
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <!-- </div> -->
+            </div>
+          </div>
+          <!-- end modal form todo -->
+
+          <!-- modal form update -->
+          <div class="ui small modal" id="updateTodo">
+            <div class="ui middle aligned center aligned hmm" style="background-color: transparent;">
+              <!-- <div class="column"> -->
+              <div class=" basic" style="margin-top: 30px;; ">
+                <h1 style="
+                border-top: 3px solid rgb(5, 5, 5);
+                border-bottom: 3px solid rgb(14, 14, 13); 
+                background-color: rgba(255, 255, 255, 0.993);
+                font-size: 13px;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+                "> Got some changes? </h1>
+              </div>
+              <br>
+              <form class="ui tiny form " style="width:300px; height:300px; margin:0 40px 10px 40px;">
+                <div class="ui segment">
+                  <div class="two fields" style="margin-bottom: 0px;">
+                    <div class=" field">
+                      <label>Title</label>
+                      <div class="ui small input">
+                        <input required type="text" name="title" placeholder="title" id="updatetitletodo">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label>Due date</label>
+                      <div class="ui calendar" id="duedate1">
+                        <div class="ui small  left icon input">
+                          <i class="calendar icon"></i>
+                          <input required type="date" placeholder="Date" id="updateduedatetodo">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field" style="margin-top: 0px;">
+                    <label>Description</label>
+                    <div class="ui small left icon input">
+                      <textarea rows="3" name="description" placeholder="description"
+                        id="updatedescriptiontodo"></textarea>
+                    </div>
+                  </div>
+                  <div class="actions" style="text-align: center;">
+                    <div class="ui tiny icon button" id="btn-update-todo"
+                      style="color: black; background-color: rgb(255, 183, 0);">
+                      save <i class="checkmark icon"> </i>
+                    </div>
+                    <div class="ui black tiny deny button">
+                      cancel
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <!-- </div> -->
+            </div>
+          </div>
+          <!-- end modal update todo -->
+
+
+
+          <div id="ADDPROJECT">
+            <div class="ui small modal" id="AddProject">
+              <div class="ui middle aligned center aligned hmm" style="background-color: transparent;">
+                <div class=" basic" style="margin-top: 30px;; ">
+                  <h1 class="atas"> Lets collaborate with anyone </h1>
+                </div>
+                <br>
+                <form class=" ui tiny form " style=" width:300px; height:300px; margin:0 40px 10px 40px;">
+                  <div class="ui segment">
+                    <div class=" field">
+                      <label>Name</label>
+                      <div class="ui small input">
+                        <input required type="text" name="name" placeholder="project name" id="nameproject">
+                      </div>
+                    </div>
+                    <div class="field" style="margin-top: 0px;">
+                      <label>Description</label>
+                      <div class="ui small left icon input">
+                        <textarea rows="2" name="projectdescription" placeholder="description"
+                          id="projectdescription"></textarea>
+                      </div>
+                    </div>
+                    <div class="field" style="margin-top: 0px;">
+                      <label>Member</label>
+                      <div class="ui multiple search selection dropdown" multiple="multiple">
+                        <input type="hidden" name="pendingmember" id="pendingmember">
+                        <i class="dropdown icon"></i>
+                        <div class="default text apalah">Select Member</div>
+                        <!-- str members element -->
+                      </div>
+                    </div>
+                    <div class="actions" style="text-align: center;">
+                      <div class="ui tiny icon button" id="btn-create-project"
+                        style="color: black; background-color: rgb(255, 183, 0);">
+                        create <i class="checkmark icon"> </i>
+                      </div>
+                      <div class="ui black tiny deny button">
+                        cancel
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- modal form todo PROJECT -->
+          <div class="ui small modal testproject">
+            <div class="ui middle aligned center aligned hmm" style="background-color: transparent;">
+              <!-- <div class="column"> -->
+              <div class=" basic" style="margin-top: 30px;; ">
+                <h1 style="
+                  border-top: 3px solid rgb(5, 5, 5);
+                  border-bottom: 3px solid rgb(14, 14, 13); 
+                  background-color: rgba(255, 255, 255, 0.993);
+                  font-size: 13px;
+                  letter-spacing: 0.12em;
+                  text-transform: uppercase;
+                  "> Lets collaborate ! get your project list! </h1>
+              </div>
+              <br>
+              <form class="ui tiny form " style="width:300px; height:300px; margin:0 40px 10px 40px;">
+                <div class="ui segment">
+                  <div class="two fields" style="margin-bottom: 0px;">
+                    <div class=" field">
+                      <label>Title</label>
+                      <div class="ui small input">
+                        <input required type="text" name="title" placeholder="title" id="titletodoproject">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label>Due date</label>
+                      <div class="ui calendar" id="duedateProject1">
+                        <div class="ui small  left icon input">
+                          <i class="calendar icon"></i>
+                          <input required type="text" placeholder="Date" id="duedatetodoproject" value="mm/dd/yyyy">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field" style="margin-top: 0px;">
+                    <label>Description</label>
+                    <div class="ui small left icon input">
+                      <textarea rows="3" name="description" placeholder="description"
+                        id="descriptiontodoproject"></textarea>
+                    </div>
+                  </div>
+                  <div class="actions" style="text-align: center;">
+                    <div class="ui tiny icon button" id="btn-add-todoproject"
+                      style="color: black; background-color: rgb(255, 183, 0);">
+                      save <i class="checkmark icon"> </i>
+                    </div>
+                    <div class="ui black tiny deny button">
+                      cancel
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <!-- </div> -->
+            </div>
+          </div>
+          <!-- end modal form todo -->
+
+          <!-- modal form update todo PROJECT-->
+          <div class="ui small modal" id="updateTodoproject">
+            <div class="ui middle aligned center aligned hmm" style="background-color: transparent;">
+              <!-- <div class="column"> -->
+              <div class=" basic" style="margin-top: 30px;; ">
+                <h1 style="
+                  border-top: 3px solid rgb(5, 5, 5);
+                  border-bottom: 3px solid rgb(14, 14, 13); 
+                  background-color: rgba(255, 255, 255, 0.993);
+                  font-size: 13px;
+                  letter-spacing: 0.12em;
+                  text-transform: uppercase;
+                  "> Got some changes? </h1>
+              </div>
+              <br>
+              <form class="ui tiny form " style="width:300px; height:300px; margin:0 40px 10px 40px;">
+                <div class="ui segment">
+                  <div class="two fields" style="margin-bottom: 0px;">
+                    <div class=" field">
+                      <label>Title</label>
+                      <div class="ui small input">
+                        <input required type="text" name="title" placeholder="title" id="updatetitletodoproject">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label>Due date</label>
+                      <div class="ui calendar" id="duedate2">
+                        <div class="ui small  left icon input">
+                          <i class="calendar icon"></i>
+                          <input required type="date" placeholder="Date" id="updateduedatetodoproject">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field" style="margin-top: 0px;">
+                    <label>Description</label>
+                    <div class="ui small left icon input">
+                      <textarea rows="3" name="description" placeholder="description"
+                        id="updatedescriptiontodoproject"></textarea>
+                    </div>
+                  </div>
+                  <div class="actions" style="text-align: center;">
+                    <div class="ui tiny icon button" type="submit" id="btn-update-todoproject"
+                      style="color: black; background-color: rgb(255, 183, 0);">
+                      save <i class="checkmark icon"> </i>
+                    </div>
+                    <div class="ui black tiny deny button">
+                      cancel
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <!-- </div> -->
+            </div>
+          </div>
+          <!-- end modal update todo -->
+
+          <!-- <div class="ui tiny cards" style="width:250px;" id="invitations">
+            <div class="tiny card" style="font-size: 11px;">
+              <div class="tiny content">
+                <img class=" right floated tiny ui image" src="/images/avatar/large/jenny.jpg">
+                <div class="tiny header">
+                  Jenny Hess
+                </div>
+                <div class=" tiny meta">
+                  New Member
+                </div>
+                <div class="tiny description" style="word-wrap:break-word;">
+                  Jenny wants to add you to the group <b>best friends</b>
+                </div>
+              </div>
+              <div class=" tiny extra content" style="text-align: center;">
+                <div class="ui tiny two buttons" style="width:160px">
+                  <div class="ui green button" style=" width: 80px;">Approve</div>
+                  <div class="ui red button" style=" width: 80px;">Decline</div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+
+
+          <!-- <div class="column">
+            <div class="ui segment">
+              <h1 class="yourtodolist">List Project To Do</h1>
+              <div id="btn-add-todo-project"></div>
+              <div id="todolistproject"></div>
+            </div>
+          </div> -->
+
+        </div>
+      </div>
+
+      <!-- tutup mainpage -->
+    </div>
+    <!-- tutup mainpage -->
+
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+  <script
+    src="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/semantic/dist/semantic.min.js"></script> -->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="./script/script.js"></script>
+  <script src="./script/route.js"></script>
+  <script src="./script/welcome.js"></script>
+  <script src="./script/login.js"></script>
+  <script src="./script/todolist.js"></script>
+  <script src="./script/project.js"></script>
+
+</body>
+
+</html>
