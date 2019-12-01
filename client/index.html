@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>To-Do Web Apps</title>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="style.css" rel="stylesheet">
+
+    <link href="css/style.css" rel="stylesheet">
+    <!-- animate css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <!-- google Oauth -->
+    <meta name="google-signin-client_id" content="1022858583945-39qk9pff5ufum61l2qdpkqmndr2cbl8b.apps.googleusercontent.com">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+  
+
+    
+</head>
+
+<body id='body'>
+    <!--Navbar-->
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="height: 100px;background-color: rgb(29, 29, 29);">
+        <!-- Navbar brand -->
+        <!-- <a class="navbar-brand" href="#">Now or Later</a> -->
+        <a class='navbar-brand menu-toggle' href='#'>
+          <img href="#menu-toggle" class="logo menu-toggle" style="width:150px" src="./img/todos-logo.png" alt="todo's logo"/>
+        </a>
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+          aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+          
+        </button>
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+          <!-- Links -->
+          <ul class="navbar-nav mr-auto">           
+          </ul>
+          <!-- Links -->
+          
+            <a id ="signout-button" href="#" style="color: white; display:none" onclick="signOut();">Sign out</a>
+          
+        <!-- Collapsible content -->
+      </nav>
+      <!--/.Navbar-->
+
+
+<div class="view full-page-intro" id='full-page-intro' style="background-image: url('./img/background-images.jpeg');background-size:cover;height: calc(100vh - 100px);margin-top:100px">
+
+<!--------------------------------------- 0pening page ----------------------------------------------->
+
+    <div id = "opening-page" class ="container" style="align-content: center;margin-top: 10rem; display:flex; align-items: center; justify-content: space-around;;">
+
+        <!-- quotes -->
+        
+
+          
+          <div id = 'opening-quotes' class="col-md-6 col-xl-5 mb-4" style="margin-right: 20%;">
+              <h1 class="display-4 font-weight-bold" style="color: white;">Helps you to organize things</h1>
+              <hr class="hr-light">
+              <strong style="color:rgb(255, 255, 255);">Your To-Do-List assistant. Let us help you to get deadline or plans or schedule organized so you never gonna missed a thing again!</strong>
+              <br>
+              <br>
+              <p style="color:rgb(255, 255, 255);">have a google acount?</p>
+              <div id= "google-signin" class="g-signin2" data-onsuccess="onSignIn"></div>
+            </div>      
+            
+          
+        <!-- quotes -->   
+
+<!---------------------------------------login----------------------------------------------->
+
+                <div id = "login-page" class="col-md-6 mb-4 white-text text-center text-md-left" style="display: block;">
+                    <div class="card" style="width: 40rem;">
+                      <div class="card-body" style="padding: 4rem;">
+                          <h3 class="dark-grey-text text-center">
+                            <strong>Have a schedule?</strong>
+                          </h3>
+                          <hr>
+
+
+                        <form id = "login-form">
+                        <div class="md-form">
+                            <i class="fas fa-user prefix grey-text"></i>
+                            <input type="email" id= "emailLogin" class="form-control">
+                        <label for="form3">email</label>
+                        </div>
+                        <div class="md-form">
+                            <i class="fas fa-envelope prefix grey-text"></i>
+                            <input type="password" id= "passwordLogin"  class="form-control">
+                            <label for="form2">password</label>
+                        </div>
+                        
+                        </form>
+                          <div class="text-center">
+                              <div style="width: 100%; display: table;margin-top: 30px;">
+                                    <div style="display: table-row; align-items: center;" >
+                                    
+                                    <button id = "login-button" class="btn btn-indigo" value="Submit">sign in</button>
+                                    <button id = "register-form" class="btn btn-green" value="Submit">register</button>
+                                       
+                                    </div>
+                                </div>
+                          </div>
+                        </form>           
+                    </div>
+                </div>
+            </div>
+
+<!---------------------------------------registration----------------------------------------------->
+
+            <div id = "register-page" class="col-md-6 mb-4 white-text text-center text-md-left" style="display: none;">
+                    <div class="card" style="width: 40rem;">
+                      <div class="card-body" style="padding: 4rem;">
+                          <h3 class="dark-grey-text text-center">
+                            <strong>Register now</strong>
+                          </h3>
+                          <hr>
+
+                        <form id = "register-form">
+                        <div class="md-form">
+                            <i class="fas fa-user-check prefix grey-text"></i>
+                            <input type="text" id= "nameRegister" class="form-control">
+                        <label for="form3">name</label>
+                        </div>
+                        <div class="md-form">
+                                <i class="far fa-envelope prefix grey-text"></i>
+                            <input type="text" id= "emailRegister"  class="form-control">
+                            <label for="form2">email</label>
+                        </div>
+                        <div class="md-form">
+                                <i class="fas fa-unlock-alt prefix grey-text"></i>
+                                <input type="password" id= "passwordRegister" class="form-control">
+                                <label for="form2">password</label>
+                        </div>
+                        </form>
+                          <div class="text-center">
+                              <div style="width: 100%; display: table;margin-top: 30px;">
+                                    <div style="display: table-row; align-items: center;" >
+                                    <button id = "register-button" class="btn btn-green" value="Submit">register now</button>
+                                    <button id = "back-to-login-button" class="btn btn-blue" value="Submit">back to Login</button>
+                                       
+                                    </div>
+                                </div>
+                          </div>
+                        </form>           
+                    </div>
+                </div>
+            </div> 
+            
+            <!---------------------------------------registration----------------------------------------------->
+    </div>  
+  </div>
+  <!---------------------------------------opening end----------------------------------------------->    
+  
+  <div id="wrapper" style="margin-top:100px;display:flex">
+    
+<!---------------------------------------nav-bar----------------------------------------------->    
+
+            <div id="sidebar-wrapper">
+                <ul class="sidebar-nav">
+                    <li class="sidebar-profile">
+                        <!-- <a href="#">
+                            <img src="https://topgear.com.my/sites/default/files/default_images/avatar-default.png" alt="Avatar" class="avatar">
+                            Dwitama alfred
+                        </a> -->
+                    </li>
+                    <li style="margin-top:20px">
+                        <h6 style="color:rgb(119, 119, 119)">Navigation</h6>
+                    </li>
+                    <li>
+                        <a id="show-personal-page" href="#"><i class="fas fa-user" style="margin-right:10px"></i>Personal</a>
+                    </li>
+                    <li>
+                        <a id="show-group-page" href="#"><i class="fas fa-users" style="margin-right:10px"></i>Projects</a>
+                    </li>
+                    <div class="div" id="side-bar-option">  
+                      <li style="margin-top:20px">
+                          <h6 style="color:rgb(119, 119, 119)">Filter</h6>
+                      </li>
+                      <li>
+                          <a id="add-button-show" href="#"><i class="fas fa-plus-circle" style="margin-right:10px"></i>Add Todo</a>
+                      </li>
+                      <li>
+                          <a id="add-project-modal" href="#"><i class="fas fa-plus-circle" style="margin-right:10px"></i>Add Project</a>
+                      </li>
+                      <li>
+                          <a href="#"><i class="fas fa-running" style="margin-right:10px"></i>On Progress</a>
+                      </li>
+                      <li>
+                          <a href="#"><i class="fas fa-check" style="margin-right:10px"></i>Done</a>
+                      </li>
+                      <li>
+                          <a href="#"><i class="fas fa-star" style="margin-right:10px"></i>Starred</a>
+                      </li>
+                    </div>
+                </ul>
+            </div>
+
+<!--------------------------------------card todo----------------------------------------------> 
+    
+            <!-- Page Content -->
+            <div id="page-content-wrapper-personal" style="width:100%;height: calc(100vh - 100px);overflow:scroll;">
+              <div class="todo-page" style="display:flex; flex-direction:row;width:100%;">
+
+                <div id="todolist" style="width:100%">
+                </div>
+                
+              </div>
+            </div>
+
+
+
+            <div id="page-content-wrapper-project" style="width:50%;height: calc(100vh - 100px);overflow:scroll;display: none;">
+               <div class="project-page" style="display:flex; flex-direction:column;width:100%;">
+            </div>
+
+
+            </div>
+
+            
+             
+            <div id="page-content-wrapper-project-todo" style="width:50%;height: calc(100vh - 100px);overflow:scroll;display: none;">
+                <div class="header-project" style="color:white;margin-left:10%;margin-top:50px;margin-right:10%">
+                  <!-- <h1 style="font-weight: 100;margin-bottom:50px;">Project To do :</h1> -->
+                </div>
+
+                <div class="project-todos">
+
+                    <!-- <div class="promoting-card" style="background: linear-gradient(90deg, rgba(255,118,79,1) 0%, rgba(255,154,101,1) 100%)">
+                        <div class="card-body d-flex flex-row" style="padding-bottom:0px;display:flex;justify-content: space-between;">
+                            <div style="display: flex;">
+                                <a href="#" >
+                                <i class="fas fa-star"  style="font-size:50px; margin-right:20px; color: rgb(189, 77, 62);"></i>
+                                </a>
+                                <div class="task-title">
+                                <h3 class="card-title font-weight-bold mb-2" style="color: white;" >title</h3>
+                                <p class="card-text" style="color: white;font-size:18px"><i class="far fa-clock pr-2"></i>deadline</p>
+                                </div>
+                            </div>
+                            <div>
+                                <a style="background: transparent; border: none; " onclick="deleteTodo('${todos[i]._id}')">
+                                <i class="fas fa-times" id="edit-button" style="font-size:40px;color:white;"></i>
+                                </a>
+                            </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="bottom" style="display:flex; justify-content: space-between;align-items: center;">
+                                    <div class="bottom-right">
+                                    <button type="button" onclick="updateStatus('${todos[i]._id}')" class="btn btn-outline-light">done</button>
+                                    <button type="button" data-toggle="modal" data-target="#editTodo" onclick="toogleUpdate('${todos[i]._id}')" class="btn btn-outline-light">edit</button>
+                                    </div>
+                                    <div class="bottom-left">
+                                    <div class="assignee">
+                                        <div id="members" style="width: 50px;height: 50px; margin: 5px; background-size: cover; background-position: top center;border-radius: 50%; background-image: url('https://www.wowkeren.com/display/images/photo/2019/06/22/00261332.jpg?w=780&q=90');"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                </div>
+
+             </div>
+           
+
+<!--------------------------------------add form----------------------------------------------> 
+
+            <div id="page-content-right" style="background: rgb(17, 17, 17); height:calc(100vh - 100px);width: 0%;right:0%; position: absolute;z-index: 0;display: flex;">              
+              <form id = "add-todo-form" style="color:white;width:0px;top:35%;right:25%;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                    
+                    
+                    <h1 id="add-todo-title" style="font-size: 0px;margin-bottom:30px;">HAVE SOMETHING TO DO?</h1>
+                    <div class="md-form">
+                        <i class="fas fa-tasks prefix grey-text"></i>
+                        <input style="font-size: 25px;color: rgb(113, 113, 113);" type="text" id= "add-title-todo" class="form-control">
+                    <label for="form3">Title</label>
+                    </div>
+                    
+                    <div class="md-form">
+                        <i class="far fa-calendar-alt prefix grey-text"></i>
+                        <input style="font-size: 25px;color: rgb(113, 113, 113);" placeholder="Selected date" type="date" id="add-date-todo" class="form-control datepicker">
+                        <label for="date-picker-example">Deadline</label>
+                      </div>
+                      <button type="button" id="button-submit-addTodo" value="submit" style="opacity: 0;" class="btn btn-primary">Add todo</button>
+                </form>
+            </div>
+
+<!---------------------------------------edit-modal-----------------------------------------------> 
+
+<div class="modal fade" id="editTodo" tabindex="-1" role="dialog" aria-labelledby="editTodoTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Todo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            
+            <input type="text" class="form-control" id="todo-id" style="display: none;">
+            <input type="text" class="form-control" id="project-title" style="display: none;">
+            <label for="recipient-name" class="col-form-label">Title</label>
+            <input type="text" class="form-control" id="edit-title-todo"> 
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Date</label>
+            <input type="date" class="form-control" id="edit-date-todo">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="button-submit-editTodo" value="submit" data-dismiss="modal" class="btn btn-primary">Update Todo</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!---------------------------------------edit-project-todo-modal-----------------------------------------------> 
+
+<div class="modal fade" id="editTodoProject" tabindex="-1" role="dialog" aria-labelledby="editTodoTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Project Todo</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              
+              <input type="text" class="form-control" id="todo-project-id" style="display: none;">
+              <input type="text" class="form-control" id="project-title" style="display: none;">
+              <input type="text" class="form-control" id="project-description" style="display: none;">
+              <input type="text" class="form-control" id="project-members" style="display: none;">
+              <input type="text" class="form-control" id="todo-project-id-value" style="display: none;">
+              
+              <label for="recipient-name" class="col-form-label">Title</label>
+              <input type="text" class="form-control" id="edit-title-todo-project"> 
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">Date</label>
+              <input type="date" class="form-control" id="edit-date-todo-project">
+            </div>
+            <div class="form-group" id="member-group-todo-project">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" id="button-submit-edit-project-todo" value="submit" data-dismiss="modal" class="btn btn-primary">Update Todo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!---------------------------------------add-project-modal-----------------------------------------------> 
+
+<div class="modal fade" id="modalAddProjectForm" tabindex="-1" role="dialog" aria-labelledby="editTodoTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Project</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              
+              <input type="text" class="form-control" id="todo-project-id" style="display: none;">
+              <input type="text" class="form-control" id="project-title" style="display: none;">
+              <input type="text" class="form-control" id="todo-project-id-value" style="display: none;">
+              
+              <label for="recipient-name" class="col-form-label">Title</label>
+              <input type="text" class="form-control" id="add-project-title" placeholder="Project title..."> 
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">Description</label>
+              <input type="text" class="form-control" id="add-project-description" placeholder="Project details..."> 
+            </div>
+            <label for="message-text" class="col-form-label">Members</label>
+            <input id="add-project-members" type="text" value="" data-role="tagsinput" placeholder="member@mail.com " />
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" id="button-submit-create-project" value="submit" data-dismiss="modal" class="btn btn-primary">add Project</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!---------------------------------------add-project-todo-modal-----------------------------------------------> 
+
+    <div class="modal fade" id="addTodoProject" tabindex="-1" role="dialog" aria-labelledby="addTodoProject" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Todo to your Project</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <input type="text" class="form-control" id="project-id" style="display: none;">
+                
+                <label for="recipient-name" class="col-form-label">Title</label>
+                <input type="text" class="form-control" id="add-title-todo-project"> 
+              </div>
+              <div class="form-group">
+                <label for="message-text" class="col-form-label">Date</label>
+                <input type="date" class="form-control" id="add-date-todo-project">
+              </div>
+              <div class="form-group" id="project-members-append">
+                
+              </div>
+          </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" id="button-submit-add-project-todo" value="submit" data-dismiss="modal" class="btn btn-primary">Add Todo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!---------------------------------------edit-project-modal-----------------------------------------------> 
+
+    <div class="modal fade" id="modalEditProjectForm" tabindex="-1" role="dialog" aria-labelledby="editTodoTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit Project</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                
+                
+                <input type="text" class="form-control" id="edit-projectId" style="display: none;">
+                <input type="text" class="form-control" id="edit-project-members" style="display: none;">
+                
+                <label for="recipient-name" class="col-form-label">Title</label>
+                <input type="text" class="form-control" id="edit-project-title" placeholder="Project title..."> 
+              </div>
+              <div class="form-group">
+                <label for="message-text" class="col-form-label">Description</label>
+                <input type="text" class="form-control" id="edit-project-description" placeholder="Project details..."> 
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" id="button-submit-edit-project" value="submit" data-dismiss="modal" class="btn btn-primary">Update Project</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script src="tags.js"></script>
+<script src="mainFunctions.js"></script>
+<script src="commands.js"></script>
+<!-- sweet alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!-- google Oauth -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<!-- JQuery -->
+<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="js/mdb.min.js"></script>
+
+</html>
+
+
