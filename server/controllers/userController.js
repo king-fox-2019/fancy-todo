@@ -51,6 +51,7 @@ class UserController {
               let token = getToken(payload);
               res.status(200).json({
                 token,
+                user: payload.name,
                 message: "success signin"
               });
             }
@@ -84,6 +85,7 @@ class UserController {
         let token = getToken(payload);
         res.status(201).json({
           token,
+          user: payload.name,
           message: "success signin via google"
         });
       })

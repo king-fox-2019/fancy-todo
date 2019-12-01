@@ -1,3 +1,15 @@
+$(document).ready(function() {
+  if (localStorage.getItem("user")) {
+    renderUserSignin();
+  }
+});
+
+function renderUserSignin() {
+  $("#user-nav-signin").append(`
+      <p>${localStorage.getItem("user")}</p>
+  `);
+}
+
 function renderModalSignin() {
   $("#modal-signin").modal("show");
   $("#modal-signup").modal("hide");
@@ -75,11 +87,18 @@ function signIn() {
       }
     })
       .done(response => {
-        $("#modal-signin").modal("hide");
         localStorage.setItem("token", response.token);
+        localStorage.setItem("user", response.user);
+        $("#user-nav-signin").append(`
+          <p>${localStorage.getItem("user")}</p>
+        `);
+        $("#modal-signin").modal("hide");
         $(".all-page").show();
         $(".page-beforesignin").hide();
         alertify.success(response.message);
+        setTimeout(() => {
+          alertify.message("Welcome, " + response.user);
+        }, 3000);
       })
       .fail(err => {
         let msg = err.responseJSON.errors;
@@ -118,32 +137,35 @@ function onSignIn(googleUser) {
   })
     .done(response => {
       localStorage.setItem("token", response.token);
+      localStorage.setItem("user", response.user);
+      $("#user-nav-signin").append(`
+        <p>${localStorage.getItem("user")}</p>
+      `);
       $("#modal-signin").modal("hide");
       $(".all-page").show();
       $(".page-beforesignin").hide();
       alertify.success(response.message);
+      setTimeout(() => {
+        alertify.message("Welcome, " + response.user);
+      }, 3000);
     })
     .fail(err => {
-      // let msg = err.responseJSON.errors;
-      // let text = "";
-      // msg.forEach(element => {
-      //   text += element + ", ";
-      // });
-      alertify.error(err);
+      alertify.error(err, ", failed signin via google");
     })
     .always(_ => {});
 }
 
 function signOut() {
+  $("#user-nav-signin").empty();
   if (gapi.auth2 !== undefined) {
     let auth2 = gapi.auth2.getAuthInstance();
     auth2
       .signOut()
       .then(() => {
+        alertify.success("Have Nice Day, " + localStorage.getItem("user"));
         localStorage.removeItem("token");
         $(".all-page").hide();
         $(".page-beforesignin").show();
-        alertify.success("Have Nice Day");
         checked();
       })
       .catch(err => {

@@ -38,3 +38,26 @@ body {
   filter: blur(25px);
   transition: 2s;
 }
+
+#user-login {
+  margin: 0;
+  height: auto;
+  width: 200px;
+}
+
+#circle-on {
+  background: greenyellow;
+  border-radius: 100%;
+  border: 1px green solid;
+  width: 15px;
+  height: 15px;
+}
+
+#user-nav-signin {
+  height: 30px;
+  margin-left: 5px;
+}
+
+#user-nav-signin p {
+  font-size: 22px;
+}
