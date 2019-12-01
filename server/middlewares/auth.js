@@ -81,22 +81,29 @@ const memberAuthorization = (req, res, next) => {
     console.log(project, `project masuk find project di member auth`);
       if (!project) {
         throw {status : 404, msg : 'project not found'}
-      } else if (project.author === req.loggedUser._id) {
+      } else if (String(project.author) === String(req.loggedUser._id)) {
           next()
       } else {
         console.log(project.members, "ada members gakkk mau for each di member auth");
         
-        project.members.forEach(member => {
-          console.log(member , '==', req.loggedUser._id);
-          console.log(String(member) == String(req.loggedUser._id));
+        if (project.members.includes(req.loggedUser._id)) {
+          next()
+        } else {
+          throw { status: 403, msg : 'you are not authorized to perform this task'}
+        }
+
+
+        // project.members.forEach(member => {
+        //   console.log(member , '==', req.loggedUser._id);
+        //   console.log(String(member) == String(req.loggedUser._id));
           
 
-          if (String(member) === String(req.loggedUser._id)) {
-            next()
-          } else {
-            throw { status: 403, msg : 'you are not authorized to perform this task'}
-          }
-        })
+        //   if (String(member) === String(req.loggedUser._id)) {
+        //     next()
+        //   } else {
+        //     throw { status: 403, msg : 'you are not authorized to perform this task'}
+        //   }
+        // })
       }
     })
     .catch(next)
