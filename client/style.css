@@ -270,3 +270,8 @@ img {
   margin-bottom: 40px;
   margin-right: 40px;
 }
+
+.members {
+  width: 50vw;
+  margin: auto;
+}

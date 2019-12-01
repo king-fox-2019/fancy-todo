@@ -354,6 +354,13 @@ function showProjectTodoList() {
         </li>
 
       `)
+     
+    })
+    $(`.member-list`).empty()
+    project.members.forEach(member => {
+      $(`.member-list`).append(`
+      <h4>${member.email}</h4>
+      `)
     })
   })
   .fail(errorHandler)
@@ -640,7 +647,9 @@ function showDetailProject(id) {
     $('.detailed-project').show()
     $('.project-collection-header').empty()
     $('.project-collection-header').append(`
-    <B><i>${project.title}</i></B>
+      <B><i>${project.title}</i></B>
+           
+      </div>
       <div class="project-edit">
         <div style="padding-left: 20px; ">
         <i data-target="modal-update-project-title" class="material-icons modal-trigger clickable">edit</i>
@@ -770,6 +779,36 @@ $('#addProjectTodo').submit(e => {
 })
 // end create project todo
 
+// add member to project 
+$('#inviteMember').submit(e => {
+  e.preventDefault()
+  $.ajax({
+    url: `${baseURL}/project/${projectId}/invite`,
+    method: 'PATCH',
+    data: {
+      email : $('#add-member').val()
+    },
+    headers : {
+      access_token : localStorage.getItem('jwtToken')
+    }
+  })
+  .done(member => {
+    console.log(member, 'mambernya dapet gak niiiii mo masukin ke projecttt');
+    $('#add-member').val('')
+    showProjectTodoList()
+  })
+  .fail(errorHandler)
+  .always(() => {
+    console.log(`complete`);
+  })
+})
+// end add member to project
+
+
+// show member list
+
+// end show member list
+
 // update todo 
 $('#form-update-todo').submit(function(event) {
   event.preventDefault()
@@ -858,14 +897,15 @@ console.log(`${dt.getDate()} ${dt.toLocaleString('id-ID', {month: 'short'})} ${d
           displayLength: 2000,
           inDuration: 150,
           outDuration: 150});
-      } else {
-        M.toast({
-          html: `${err.responseJSON}`,
-          classes: 'orange darken-2 rounded',
-          displayLength: 2000,
-          inDuration: 150,
-          outDuration: 150});
-      }
+      } 
+      // else {
+      //   M.toast({
+      //     html: `${err.responseJSON}`,
+      //     classes: 'orange darken-2 rounded',
+      //     displayLength: 2000,
+      //     inDuration: 150,
+      //     outDuration: 150});
+      // }
     }
   }
   // end client err-toast
