@@ -307,4 +307,6 @@ body {
 .project-details-card {
 	background-color: #dbcaa8;
 	box-shadow: 3px 1px 24px 9px rgba(235,221,134,1);
+	border-radius: 14px 14px 14px 14px;
+
 }

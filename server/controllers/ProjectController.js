@@ -1,6 +1,7 @@
 const Project = require('../models/project')
 const User = require('../models/user')
 const Todo = require('../models/todo')
+const mailSender = require('../helpers/nodeMailer')
 
 class ProjectController {
   static create(req, res, next) {
@@ -75,6 +76,7 @@ class ProjectController {
         }
       })
       .then(result => {
+        mailSender(foundUser.email)
         res.status(200).json(result)
       })
       .catch(next)

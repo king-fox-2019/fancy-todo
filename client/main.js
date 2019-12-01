@@ -278,9 +278,6 @@ function updateStatusTodo(todoId, todoStatus) {
     })
 }
 
-function showAddTask() {
-  $('#addNewTask').modal('show')
-}
 
 function addTask() {
   $.ajax({
@@ -329,15 +326,16 @@ function getProjectsNameAndOwner() {
     }
   })
     .done(projects => {
+      $('#projectList').empty()
       for (let i = 0; i < projects.length; i++) {
         $('#projectList').append(`
-          <div class="container" onclick="showProjectDetails('${projects[i]._id}')">
+          <div class="container" onclick="showProjectDetails('${projects[i]._id}')" style="cursor: pointer;">
             <div class="row">
               <div class="col s12 mt-2">
                 <h1>${projects[i].name}</h1>
               </div>
             </div>
-
+            <hr>
             <div class="row">
               <div class="col s12">
                 <h3>Project Leader: ${projects[i].owner.email}</h3>
@@ -381,18 +379,13 @@ function showProjectDetails(id) {
       $('.project-details-page').show()
 
       $('.project-name-and-owner').append(`
-      <button data-target="modal4 addNewTaskToProject" class="waves-effect waves-light btn modal-trigger">
-        <i class="material-icons right">add_circle</i> New Project Todo
-      </button>
-      <button data-target="modal5 addMemberToProject" class="waves-effect waves-light btn modal-trigger">
-        <i class="material-icons right">add_circle</i> Add a Member
-      </button>
           <div class="container">
             <div class="row">
               <div class="col s12">
               <h1> ${project.name} </h1>
               </div>
             </div>
+            <hr>
             <div class="row">
               <div class="col s12">
               <h3>Project Leader: ${project.owner.email} </h3>
@@ -503,8 +496,7 @@ function addProjectTask() {
   })
   .fail(err => {
     console.log(err);
-    console.log(err.responseJSON.errors)
-    let errors = err.responseJSON.errors
+    let errors = err.responseJSON.message
     Swal.fire({
       type: 'error',
       title: 'Oops...',
@@ -675,16 +667,49 @@ function deleteProjectTodo(event, projectId, todoId) {
       text: errors
     })
   })
-
 }
 
-
-
-
-
-
-
-
+function deleteProject() {
+  let projectId = localStorage.getItem('project-id')
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  })
+    .then(result => {
+      if(result.value) {
+        $.ajax({
+          url: `http://localhost:3000/projects/${projectId}`,
+          method: 'DELETE',
+          headers: {
+            token: localStorage.getItem('token')
+          }
+        })
+          .done(() => {
+            switchToProjectPage()
+            Swal.fire('Deleted!', 'Your project has been deleted.', 'success')
+          })
+          .fail(err => {
+            console.log(err);
+            console.log(err.responseJSON.message)
+            let errors = err.responseJSON.message
+            Swal.fire({
+              type: 'error',
+              title: 'Oops...',
+              text: errors
+            })
+          })
+      }
+    })
+    .catch(err => {
+      console.log(err)
+      Swal.fire('error', 'internal server error', 'error')
+    })
+}
 
 function generateQuote() {
   $.ajax({
@@ -698,7 +723,7 @@ function generateQuote() {
       console.log(quote);
       $('#quote').empty()
       $('#quote').append(`
-        <div id="quote-card" class="row">
+        <div class="row">
           <div class="col s12 m6">
             <div class="card blue-grey darken-1">
               <div class="card-content white-text">
@@ -747,6 +772,7 @@ function switchToTodoPage() {
   $('.todo-page').show()
   $('.project-list-page').hide()
   $('.project-details-page').hide()
+  showTodo()
 }
 
 const switchers = [...document.querySelectorAll('.switcher')]

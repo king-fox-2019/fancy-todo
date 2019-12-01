@@ -44,7 +44,7 @@ function projectOwnerAuthorization(req, res, next) {
             if(data.owner == req.loggedUser.id) {
                 next()
             } else {
-                next({ status: 401, message: "Project Owner authorization failed"})
+                next({ status: 401, message: "Project Owner authorization failed, only Project Leader can do such action"})
             }
         })
         .catch(next)
