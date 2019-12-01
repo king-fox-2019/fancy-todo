@@ -5,7 +5,7 @@ const User = require('../models/User')
 
 class ProjectController {
   static createProject(req, res, next) {
-    console.log(`masuk create project`);
+    // console.log(`masuk create project`);
     
     let author = req.loggedUser._id
     let { title  } = req.body
@@ -14,15 +14,15 @@ class ProjectController {
         return Project.findByIdAndUpdate(project._id, { $addToSet: { members: author }}, { new: true, omitUndefined: true }) //make the author also as members
       })
       .then(project => {
-        console.log(project, 'create project');
-        
+        // console.log(project, 'create project');
+        console.log(project, '`BALIKAN CREATE PROJECT');
         res.status(201).json(project)
       })
       .catch(next)
   }
 
   static findAllProject(req, res, next) {
-    console.log(`masuk findall project`);
+    // console.log(`masuk findall project`);
     
     let author = req.loggedUser._id
     Project.find({ members : author })
@@ -30,31 +30,36 @@ class ProjectController {
       .populate('owner', '-password')
       .then(projects => {
         // console.log(projects, `apa hasilnya findall project`);
-        
+        console.log(projects, '`BALIKAN FIND ALL PROJECT');
+
         res.status(200).json(projects)
       })
       .catch(next)
   }
   static findOneProject(req, res, next) {
-    console.log(`oneeeeeeeeeeeeeeeee`);
+    // console.log(`oneeeeeeeeeeeeeeeee`);
     
-    console.log(req.params.id, 'dr findOneProject')
+    // console.log(req.params.id, 'dr findOneProject')
     let projectId = req.params.id
     Project.findById(projectId)
       .populate({ path: 'todos', populate: { path: 'author', select: '-password'}})
       .populate('members', '-password')
       .then(project => {
+        console.log(project, '`BALIKAN FIND ONE PROJECT');
+
         res.status(200).json(project)
       })
       .catch(next)
   }
   
   static updateProject(req, res, next) {
-    console.log(req.params.id, 'dr update project')
+    // console.log(req.params.id, 'dr update project')
     let projectId = req.params.id
     const { title } = req.body
     Project.findByIdAndUpdate(projectId, { $set: { title }}, { new: true, runValidators: true, omitUndefined: true })
       .then(project => {
+        console.log(project, '`BALIKAN UPDATE PROJECT');
+
         res.status(200).json(project)
       })
       .catch(next)
@@ -81,14 +86,14 @@ class ProjectController {
   }
 
   static inviteMember(req, res, next) {
-    console.log(`masuk inite memberrrrrrrrrr`);
+    // console.log(`masuk inite memberrrrrrrrrr`);
     
     let projectId = req.params.id
     let { email } = req.body
     let member
     User.findOne({ email })
       .then(user => {
-        console.log(user, 'siapa user nya dr invite memberrr. user tu apa  btw');
+        // console.log(user, 'siapa user nya dr invite memberrr. user tu apa  btw');
         
         if (!user) {
           throw {status : 400, msg : 'user not found'}
@@ -99,7 +104,7 @@ class ProjectController {
         }
       })
       .then(project => {
-        console.log(project, 'project invite memberrrr');
+        // console.log(project, 'project invite memberrrr');
         
         if (!project) {
           throw { status : 404, msg : 'project not found'}
@@ -107,7 +112,7 @@ class ProjectController {
           if (project.members.includes(member._id)) {
             throw { status : 400, msg : 'this user is already a member'}
           } else {
-            console.log('masukkk 109 otw project find by id and update isi memberrrnyaaa');
+            // console.log('masukkk 109 otw project find by id and update isi memberrrnyaaa');
             
             return Project.findByIdAndUpdate(projectId, { $push : { members : member._id}}, {new : true, runValidators: true, omitUndefined: true})
               .populate('todos')
@@ -116,7 +121,8 @@ class ProjectController {
         }
       })
       .then(project => {
-        console.log(project, 'apa gakkkk project invite memberrrrrrrrrrrrrr');
+        // console.log(project, 'apa gakkkk??? project invite memberrrrrrrrrrrrrr');
+        console.log(project, `BALIKAN INVITE MEMBER`);
         
         res.status(201).json(project)
       })
@@ -141,6 +147,8 @@ class ProjectController {
         }
       })
       .then(project => {
+        console.log(project, `BALIKAN DISMISS MEMBER OR LEAVE PROJECT`);
+        
         res.status(200).json(project)
       })
       .catch(next)
@@ -157,21 +165,24 @@ class ProjectController {
           .populate('members', '-password')
       })
       .then(project => {
+        console.log(project, `BALIKAN ADD PROJECT TODO`);
+        
         res.status(201).json(project)
       })
       .catch(next)
   }
 
   static updateProjectTodo(req, res, next) {
-    console.log(`UPDATEEEEEE`);
-    console.log(req.params.id, "todo id mo updateee");
-    console.log(req.body, "bawa apa aja mau updateee");
+    // console.log(`UPDATEEEEEE`);
+    // console.log(req.params.id, "todo id mo updateee");
+    // console.log(req.body, "bawa apa aja mau updateee");
     
     let { todoId } = req.params
     let { title, description, dueDate, status } = req.body
     Todo.findByIdAndUpdate(todoId, { $set: {title, description, dueDate, status }}, { new: true, omitUndefined: true})
       .then(todo => {
-        console.log(todo, 'dapet todo gakkkkk mo update plsssss');
+        // console.log(todo, 'dapet todo gakkkkk mo update plsssss');
+        console.log(todo, `AAAAAAAAA BALIKAN UPDATE PROJECT TODO`);
         
         res.status(200).json({ todo })
       })

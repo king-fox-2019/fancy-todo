@@ -245,12 +245,12 @@ function showTodoList() {
         <li>
           <div class="collapsible-header">
             <div class="row">
-              <div class="col s1">
+              <div class="col s2">
                 <div clickable  class="chip teal darken-2">
-                today
+                personal
                 </div>
               </div>
-              <div class="col s10">
+              <div class="col s9">
                 <span  class="crossed">${todo.title}</span>
               </div>
               <div class="col s1">
@@ -268,12 +268,12 @@ function showTodoList() {
         <li>
           <div class="collapsible-header" >
             <div class="row">
-              <div class="col s1">
+              <div class="col s2">
                 <div class="chip teal lighten-3" onclick="done('${todo._id}')">
-                today
+                personal
                 </div>
               </div>
-              <div class="col s10">
+              <div class="col s9">
                 ${todo.title}
               </div>
               <div class="col s1">
@@ -316,7 +316,7 @@ function showProjectTodoList() {
             <div class="row">
               <div class="col s1">
                 <div clickable  class="chip teal darken-2">
-                today
+                group
                 </div>
               </div>
               <div class="col s10">
@@ -339,7 +339,7 @@ function showProjectTodoList() {
             <div class="row">
               <div class="col s1">
                 <div class="chip teal lighten-3" onclick="doneProjectTodo('${todo._id}')">
-                today
+                group
                 </div>
               </div>
               <div class="col s10">
@@ -359,7 +359,7 @@ function showProjectTodoList() {
     $(`.member-list`).empty()
     project.members.forEach(member => {
       $(`.member-list`).append(`
-      <h4>${member.email}</h4>
+      <p>${member.email}</p>
       `)
     })
   })
@@ -556,8 +556,8 @@ function fetchProject() {
                 <div class="project-title">
                 <span style="font-size: 35px; margin-bottom: 30px;" class="card-title">${project.title}</span>
                 </div>
-                <p>I am a very simple card. I am good at containing small bits of information.
-                I am convenient because I require little markup to use effectively.</p>
+                <p>“Focus on being productive instead of busy.” <br>
+                – Tim Ferriss</p>
               </div>
               <div class="card-action">
                 <div>
@@ -651,10 +651,10 @@ function showDetailProject(id) {
            
       </div>
       <div class="project-edit">
-        <div style="padding-left: 20px; ">
+        <div style="padding-left: 20px; margin-top: 1px;">
         <i data-target="modal-update-project-title" class="material-icons modal-trigger clickable">edit</i>
         </div>
-        <div style="padding-right: 20px; ">
+        <div style="padding-right: 20px; margin-top: 1px;">
         <i onclick="deleteProject('${project._id}')" class="material-icons clickable">delete</i>
         </div>
         
@@ -890,7 +890,7 @@ console.log(`${dt.getDate()} ${dt.toLocaleString('id-ID', {month: 'short'})} ${d
         inDuration: 150,
         outDuration: 150});
     } else {
-      if (err.responseJSON.message ) {
+      if (err.responseJSON.message) {
         M.toast({
           html: err.responseJSON.message.join('<br>'),
           classes: 'indigo lighten-2 rounded',
@@ -898,14 +898,14 @@ console.log(`${dt.getDate()} ${dt.toLocaleString('id-ID', {month: 'short'})} ${d
           inDuration: 150,
           outDuration: 150});
       } 
-      // else {
-      //   M.toast({
-      //     html: `${err.responseJSON}`,
-      //     classes: 'orange darken-2 rounded',
-      //     displayLength: 2000,
-      //     inDuration: 150,
-      //     outDuration: 150});
-      // }
+      else {
+        M.toast({
+          html: `${err.responseJSON}`,
+          classes: 'orange darken-2 rounded',
+          displayLength: 2000,
+          inDuration: 150,
+          outDuration: 150});
+      }
     }
   }
   // end client err-toast
