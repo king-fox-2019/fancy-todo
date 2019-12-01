@@ -11,7 +11,7 @@ function authorization(req,res,next){
             req.project = project
             next()
         }else{
-            next({
+            throw({
                 status: 403,
                 message: 'You dont have permission to do action!'
             })

@@ -50,7 +50,7 @@ class MemberController {
                     $pull : { members : user._id}
                 })
             }else{
-                next({
+                throw({
                     status: 400,
                     message: 'There is no user with that email'
                 })

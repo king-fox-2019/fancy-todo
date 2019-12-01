@@ -4,22 +4,22 @@ const Authenticate = require('../middlewares/authenticate')
 const Authorization = require('../middlewares/authorizationProject')
 const AuthorizationTask = require('../middlewares/authorizationTask')
 
-// create task
-router.post('/:id', Authenticate, TaskController.createTask)
+// create task (id project)
+router.post('/:id', Authenticate, Authorization,TaskController.createTask)
 
-// get all task for project
-router.get('/:id', Authenticate, TaskController.getAllTask)
+// get all task for project (id project)
+router.get('/:id', Authenticate, Authorization,TaskController.getAllTask)
 
-// get one task
+// get one task (id task)
 router.get('/:id/detail', Authenticate, AuthorizationTask,TaskController.getOneTask)
 
-// update status task
+// update status task (id task)
 router.put('/:id', Authenticate, AuthorizationTask, TaskController.updateStatusTask)
 
-//edit task
+//edit task (id task)
 router.patch('/:id', Authenticate, AuthorizationTask, TaskController.editTask)
 
-// delete task
+// delete task (id task)
 router.delete('/:id', Authenticate, AuthorizationTask, TaskController.deleteTask)
 
 module.exports = router

@@ -5,13 +5,8 @@ function authorization(req,res,next){
         _id: req.params.id
     })
     .then(project => {
-        if(project.creator == req.decoded.id){
+        if(project.creator == req.decoded.id || project.members.includes(req.decoded.id)){
             next()
-        }else if(project.members.includes(req.decoded.id)){
-            next({
-                status: 403,
-                message: 'Only Creator can do that action'
-            })
         }else{
             next({
                 status: 403,

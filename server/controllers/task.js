@@ -40,14 +40,26 @@ class TaskController{
     }
 
     static updateStatusTask(req,res,next){
-        Todo.findOneAndUpdate({
+        Todo.findOne({
             _id: req.params.id
-        },
-        {
-            status: "Done"
-        },
-        {
-            new: true
+        })
+        .then(todo => {
+            if(todo.status == 'Done'){
+                throw({
+                    status: 400,
+                    message: 'Task has been done!'
+                })
+            }else{
+                return Todo.findOneAndUpdate({
+                    _id: req.params.id
+                },
+                {
+                    status: "Done"
+                },
+                {
+                    new: true
+                })
+            }
         })
         .then(result => {
             res.status(200).json({
@@ -70,7 +82,7 @@ class TaskController{
                     _id: req.project._id
                 },
                 {
-                    $pull: { task : req.params.task}
+                    $pull: { task : req.params.id}
                 },
                 {
                     new: true
@@ -118,7 +130,7 @@ class TaskController{
         })
         .then(task => {
             res.status(200).json({
-                message: 'Updata Task Success',
+                message: 'Update Task Success',
                 projectId: task.projectId
             })
         })

@@ -92,7 +92,6 @@ class TodoController{
     }
 
     static deleteTodo(req,res,next){
-        console.log('masuk delete')
         Todo.deleteOne({
             _id: req.params.id
         })
