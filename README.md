@@ -9,7 +9,7 @@ Before use the application make sure that you register to the website and login 
 - BASE URL
 
 ```http
-http://localhost:3000
+http://localhost:PORT
 ```
 
 
