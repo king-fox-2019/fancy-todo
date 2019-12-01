@@ -10,7 +10,7 @@ https://lavishtodo.docs.apiary.io
 # Lavish Todo Api Documentation
 
 FORMAT: 1A
-HOST: http://localhost:3000/
+HOST: http://lavishtodo.hoandreasm.xyz/
 
 # Lavish Todo
 

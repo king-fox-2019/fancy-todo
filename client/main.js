@@ -16,7 +16,7 @@ $(document).ready(function () {
 function onSignIn(googleUser) {
   let id_token = googleUser.getAuthResponse().id_token;
   $.ajax({
-    url: "http://localhost:3000/users/googleSignIn",
+    url: "http://34.87.90.178/users/googleSignIn",
     method: 'POST',
     data: {
       token: id_token
@@ -42,7 +42,7 @@ function onSignIn(googleUser) {
 function signIn(event) {
   event.preventDefault()
   $.ajax({
-    url: "http://localhost:3000/users/login",
+    url: "http://34.87.90.178/users/login",
     method: "POST",
     data: {
       email: $('#login-email').val(),
@@ -72,7 +72,7 @@ function signIn(event) {
 function signUp(event) {
   event.preventDefault()
   $.ajax({
-    url: "http://localhost:3000/users/register",
+    url: "http://34.87.90.178/users/register",
     method: "POST",
     data: {
       email: $('#signup-email').val(),
@@ -111,7 +111,7 @@ function signOut() {
 
 function showTodo() {
   $.ajax({
-    url: 'http://localhost:3000/todos/',
+    url: 'http://34.87.90.178/todos/',
     method: "GET",
     headers: {
       token: localStorage.getItem('token')
@@ -162,7 +162,7 @@ function showTodo() {
 
 function deleteTodo(id) {
   $.ajax({
-    url: `http://localhost:3000/todos/${id}`,
+    url: `http://34.87.90.178/todos/${id}`,
     method: "DELETE",
     headers: {
       token: localStorage.getItem('token')
@@ -193,7 +193,7 @@ let todoData = null // buat tampung id dari pas manggil modal
 function showUpdateWindow(id) {
   todoData = id
   $.ajax({
-    url: `http://localhost:3000/todos/${id}`,
+    url: `http://34.87.90.178/todos/${id}`,
     method: "GET",
     headers: {
       token: localStorage.getItem('token')
@@ -209,7 +209,7 @@ function showUpdateWindow(id) {
 function updateTodo(id) {
   id = todoData
   $.ajax({
-    url: `http://localhost:3000/todos/${id}`,
+    url: `http://34.87.90.178/todos/${id}`,
     method: 'PUT',
     headers: {
       token: localStorage.getItem('token')
@@ -249,7 +249,7 @@ function updateStatusTodo(todoId, todoStatus) {
     editStatus = false
   }
   $.ajax({
-    url: `http://localhost:3000/todos/${todoId}`,
+    url: `http://34.87.90.178/todos/${todoId}`,
     method: 'PATCH',
     headers: {
       token: localStorage.getItem('token')
@@ -281,7 +281,7 @@ function updateStatusTodo(todoId, todoStatus) {
 
 function addTask() {
   $.ajax({
-    url: `http://localhost:3000/todos`,
+    url: `http://34.87.90.178/todos`,
     method: 'POST',
     headers: {
       token: localStorage.getItem('token')
@@ -319,7 +319,7 @@ function addTask() {
 
 function getProjectsNameAndOwner() {
   $.ajax({
-    url: 'http://localhost:3000/projects',
+    url: 'http://34.87.90.178/projects',
     method: "GET",
     headers: {
       token: localStorage.getItem('token')
@@ -360,7 +360,7 @@ function getProjectsNameAndOwner() {
 
 function showProjectDetails(id) {
   $.ajax({
-    url: `http://localhost:3000/projects/${id}`,
+    url: `http://34.87.90.178/projects/${id}`,
     method: "GET",
     headers: {
       token: localStorage.getItem('token')
@@ -434,7 +434,7 @@ function showProjectDetails(id) {
 
 function addNewProject() {
   $.ajax({
-    url: `http://localhost:3000/projects`,
+    url: `http://34.87.90.178/projects`,
     method: 'POST',
     headers: {
       token: localStorage.getItem('token')
@@ -469,7 +469,7 @@ function addNewProject() {
 function addProjectTask() {
   let projectId = localStorage.getItem('project-id')
   $.ajax({
-    url: `http://localhost:3000/projects/${projectId}/todos/`,
+    url: `http://34.87.90.178/projects/${projectId}/todos/`,
     method: 'PATCH',
     headers: {
       token: localStorage.getItem('token')
@@ -508,7 +508,7 @@ function addProjectTask() {
 function addMemberToProject() {
   let projectId = localStorage.getItem('project-id')
   $.ajax({
-    url: `http://localhost:3000/projects/${projectId}/`,
+    url: `http://34.87.90.178/projects/${projectId}/`,
     method: 'PATCH',
     headers: {
       token: localStorage.getItem('token')
@@ -547,7 +547,7 @@ function showUpdateProjectTaskWindow(id) {
 
   projectTodoData = id
   $.ajax({
-    url: `http://localhost:3000/todos/${id}`,
+    url: `http://34.87.90.178/todos/${id}`,
     method: "GET",
     headers: {
       token: localStorage.getItem('token')
@@ -564,7 +564,7 @@ function updateProjectTodo(id) {
   let projectId = localStorage.getItem('project-id')
   id = projectTodoData
   $.ajax({
-    url: `http://localhost:3000/projects/${projectId}/todos/${id}`,
+    url: `http://34.87.90.178/projects/${projectId}/todos/${id}`,
     method: 'PATCH',
     headers: {
       token: localStorage.getItem('token')
@@ -608,7 +608,7 @@ function updateStatusProjectTodo(todoId, todoStatus) {
   }
   $.ajax({
     // /:id/todos/:todoId/status
-    url: `http://localhost:3000/projects/${projectId}/todos/${todoId}/status`,
+    url: `http://34.87.90.178/projects/${projectId}/todos/${todoId}/status`,
     method: 'PATCH',
     headers: {
       token: localStorage.getItem('token')
@@ -642,7 +642,7 @@ function updateStatusProjectTodo(todoId, todoStatus) {
 function deleteProjectTodo(event, projectId, todoId) {
   event.preventDefault()
   $.ajax({
-    url: `http://localhost:3000/projects/${projectId}/todos/${todoId}`,
+    url: `http://34.87.90.178/projects/${projectId}/todos/${todoId}`,
     method: 'DELETE',
     headers: {
       token: localStorage.getItem('token')
@@ -683,7 +683,7 @@ function deleteProject() {
     .then(result => {
       if(result.value) {
         $.ajax({
-          url: `http://localhost:3000/projects/${projectId}`,
+          url: `http://34.87.90.178/projects/${projectId}`,
           method: 'DELETE',
           headers: {
             token: localStorage.getItem('token')
@@ -713,7 +713,7 @@ function deleteProject() {
 
 function generateQuote() {
   $.ajax({
-    url: `http://localhost:3000/quote/`,
+    url: `http://34.87.90.178/quote/`,
     method: "GET",
     headers: {
       token: localStorage.getItem('token')
@@ -739,7 +739,7 @@ function generateQuote() {
 
 function summonShibe() {
   $.ajax({
-    url: `http://localhost:3000/shibe`,
+    url: `http://34.87.90.178/shibe`,
     method: "GET",
     headers: {
       token: localStorage.getItem('token')
