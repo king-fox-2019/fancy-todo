@@ -11,9 +11,11 @@ The port can be added to the .env file, we use port 3000 as the default.
 
 ## Register User
 
-**Endpoint** : `/user/register`
-**Method** : `POST`
-**Request** : 
+**Endpoint** : `/user/register`  
+
+**Method** : `POST`  
+
+**Request** :   
 
 - Data Parameters
 
@@ -65,9 +67,11 @@ The port can be added to the .env file, we use port 3000 as the default.
 
 ## Login User
 
-**Endpoint** : `/user/login`
-**Method** : `POST`
-**Request** : 
+**Endpoint** : `/user/login`  
+
+**Method** : `POST`  
+
+**Request** :   
 
 - Data Parameters
 
@@ -108,9 +112,11 @@ The port can be added to the .env file, we use port 3000 as the default.
 
 ## Create Todo
 
-**Endpoint** : `/todos`
-**Method** : `POST`
-**Request** : 
+**Endpoint** : `/todos`  
+
+**Method** : `POST`  
+
+**Request** :   
 
 - Data Parameters
 	
@@ -180,9 +186,11 @@ The port can be added to the .env file, we use port 3000 as the default.
 
 ## Read Todo
 
-**Endpoint** : `/todos`
-**Method** : `GET`
-**Request** : 
+**Endpoint** : `/todos`  
+
+**Method** : `GET`  
+
+**Request** :   
 
 - Query Parameters
 
@@ -231,9 +239,11 @@ The port can be added to the .env file, we use port 3000 as the default.
 
 ## Update Todo
 
-**Endpoint** : `/todos/:id`
-**Method** : `PUT`
-**Request** : 
+**Endpoint** : `/todos/:id`  
+
+**Method** : `PUT`  
+
+**Request** :   
 
 - Url Parameters
 
@@ -287,9 +297,11 @@ The port can be added to the .env file, we use port 3000 as the default.
 
 ## Delete Todo
 
-**Endpoint** : `/todos/:id`
-**Method** : `DELETE`
-**Request** : 
+**Endpoint** : `/todos/:id`  
+
+**Method** : `DELETE`  
+
+**Request** :   
 
 - Url Parameters
 
