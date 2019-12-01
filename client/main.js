@@ -706,8 +706,16 @@ function updateProject(id) {
     url: `${baseURL}/project/${id}`,
     method: 'PATCH',
     data: {
-      title : $
+      title : $('#update-project-todo-title').val()
+    },
+    headers: {
+      access_token: localStorage.getItem('jwtToken')
     }
+  })
+  .done(project => {
+    console.log(project, 'ke update gak nii title project nyaaaa');
+    // showProjectTodoList()
+    $('.detailed-project').show()
   })
 }
 // end update project 
@@ -840,6 +848,7 @@ $('#form-update-todo').submit(function(event) {
 
 // update project todo 
 $('#form-update-project-todo').submit(function(event) {
+  
   event.preventDefault()
   const updateId = $('#update-project-todo-id').val()
    $.ajax({

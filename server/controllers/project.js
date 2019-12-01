@@ -15,7 +15,7 @@ class ProjectController {
       })
       .then(project => {
         // console.log(project, 'create project');
-        console.log(project, '`BALIKAN CREATE PROJECT');
+        // console.log(project, '`BALIKAN CREATE PROJECT');
         res.status(201).json(project)
       })
       .catch(next)
@@ -30,7 +30,7 @@ class ProjectController {
       .populate('owner', '-password')
       .then(projects => {
         // console.log(projects, `apa hasilnya findall project`);
-        console.log(projects, '`BALIKAN FIND ALL PROJECT');
+        // console.log(projects, '`BALIKAN FIND ALL PROJECT');
 
         res.status(200).json(projects)
       })
@@ -45,7 +45,7 @@ class ProjectController {
       .populate({ path: 'todos', populate: { path: 'author', select: '-password'}})
       .populate('members', '-password')
       .then(project => {
-        console.log(project, '`BALIKAN FIND ONE PROJECT');
+        // console.log(project, '`BALIKAN FIND ONE PROJECT');
 
         res.status(200).json(project)
       })
@@ -53,12 +53,14 @@ class ProjectController {
   }
   
   static updateProject(req, res, next) {
-    // console.log(req.params.id, 'dr update project')
+    console.log(req.params.id, 'dr update project')
+    console.log(req.body.title, 'bawa apa ni yg mau di update');
+    
     let projectId = req.params.id
     const { title } = req.body
     Project.findByIdAndUpdate(projectId, { $set: { title }}, { new: true, runValidators: true, omitUndefined: true })
       .then(project => {
-        console.log(project, '`BALIKAN UPDATE PROJECT');
+        console.log(project, 'BALIKAN UPDATE PROJECT');
 
         res.status(200).json(project)
       })
@@ -122,7 +124,7 @@ class ProjectController {
       })
       .then(project => {
         // console.log(project, 'apa gakkkk??? project invite memberrrrrrrrrrrrrr');
-        console.log(project, `BALIKAN INVITE MEMBER`);
+        // console.log(project, `BALIKAN INVITE MEMBER`);
         
         res.status(201).json(project)
       })
@@ -147,7 +149,7 @@ class ProjectController {
         }
       })
       .then(project => {
-        console.log(project, `BALIKAN DISMISS MEMBER OR LEAVE PROJECT`);
+        // console.log(project, `BALIKAN DISMISS MEMBER OR LEAVE PROJECT`);
         
         res.status(200).json(project)
       })
@@ -165,7 +167,7 @@ class ProjectController {
           .populate('members', '-password')
       })
       .then(project => {
-        console.log(project, `BALIKAN ADD PROJECT TODO`);
+        // console.log(project, `BALIKAN ADD PROJECT TODO`);
         
         res.status(201).json(project)
       })
@@ -182,7 +184,7 @@ class ProjectController {
     Todo.findByIdAndUpdate(todoId, { $set: {title, description, dueDate, status }}, { new: true, omitUndefined: true})
       .then(todo => {
         // console.log(todo, 'dapet todo gakkkkk mo update plsssss');
-        console.log(todo, `AAAAAAAAA BALIKAN UPDATE PROJECT TODO`);
+        // console.log(todo, `BALIKAN UPDATE PROJECT TODO`);
         
         res.status(200).json({ todo })
       })
