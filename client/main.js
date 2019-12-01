@@ -406,7 +406,7 @@ function remove(id) {
 // delete project todo
 function removeProjectTodo(id) {
   $.ajax({
-    url: `${baseURL}/project/${projectId}/todo/${id}`,
+    url: `${baseURL}/project/${projectId}/todos/${id}`,
     method: `DELETE`,
     headers : {
       access_token: localStorage.getItem('jwtToken')
