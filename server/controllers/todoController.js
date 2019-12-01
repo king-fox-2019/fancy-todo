@@ -1,6 +1,8 @@
 'use strict';
 const {  Todo  } = require('../models');
 const jwt = require('jsonwebtoken');
+const prettier = require('prettier');
+
 
 class TodoControler {
     static createTodo(req, res, next) {
@@ -58,5 +60,6 @@ class TodoControler {
     }
 
  };
+
 
 module.exports = TodoControler;
