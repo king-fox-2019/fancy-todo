@@ -1,0 +1,22 @@
+/* #accordion {
+  -webkit-box-shadow: 2px 3px 12px -1px rgba(0,0,0,0.2);
+  -moz-box-shadow: 2px 3px 12px -1px rgba(0,0,0,0.2);
+  box-shadow: 2px 3px 12px -1px rgba(0,0,0,0.2);
+  margin-bottom: 1%;
+} */
+
+.project-collapse {
+  padding-top: 3%;
+  padding-bottom: 1%;
+  /* border: 1px solid black; */
+  /* background-image: url("../../images/my-project-upper.jpg"); */
+}
+
+.project-actions {
+  padding-bottom: 2%;
+}
+
+.squiggly {
+  width: 100%;
+  max-height: 50px;
+}
