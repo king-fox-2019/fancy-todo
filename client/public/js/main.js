@@ -2,10 +2,11 @@ const baseUrl = "http://localhost:3000";
 
 $(document).ready(function() {
   //form signin/signup
+
   if (localStorage.getItem("token")) {
+    // $("#user-nav-signin").empty();
     $(".all-page").show();
     $(".page-beforesignin").hide();
-    $("#user-nav-signin").empty();
     $("#quote-page").empty();
     getQuote();
     getTodo();
@@ -40,4 +41,13 @@ $(document).ready(function() {
     createTodo();
   });
   //todo end
+  //project
+  $("#btn-go-create-project").click(function() {
+    renderModalCreateProject();
+  });
+  $("#btn-create-project").submit(function(event) {
+    event.preventDefault();
+    createProject();
+  });
+  //end project
 });

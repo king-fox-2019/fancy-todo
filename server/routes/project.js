@@ -24,8 +24,9 @@ router.patch(
 router.patch("/member/:edit/:idProject", ProjectController.accOrDec); //acc or decline
 
 //crud in project
+router.get("/", ProjectController.getAllProject);
 router.get(
-  "/:idProject",
+  "/search/:idProject",
   authorizationCrudProject,
   ProjectController.seeProject
 );

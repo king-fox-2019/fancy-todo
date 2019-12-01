@@ -138,9 +138,9 @@ function onSignIn(googleUser) {
     .done(response => {
       localStorage.setItem("token", response.token);
       localStorage.setItem("user", response.user);
-      $("#user-nav-signin").append(`
-        <p>${localStorage.getItem("user")}</p>
-      `);
+      // $("#user-nav-signin").append(`
+      //   <p>${localStorage.getItem("user")}</p>
+      // `);
       $("#modal-signin").modal("hide");
       $(".all-page").show();
       $(".page-beforesignin").hide();

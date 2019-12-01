@@ -326,7 +326,7 @@
                     />
                   </div>
                   <button type="submit" class="btn btn-primary">
-                    Save Todo
+                    Create Todo
                   </button>
                 </form>
               </div>
@@ -343,6 +343,68 @@
           </div>
         </div>
         <!-- end modal create todo -->
+        <!-- modal create project -->
+        <div
+          class="modal fade"
+          id="modal-create-project"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Form Create Project
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="btn-create-project">
+                  <div class="form-group">
+                    <label for="exampleInputTodoName">Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="createProject-name"
+                      placeholder="Enter Project Name"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputTodoDescription">Description</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="createProject-description"
+                      placeholder="Enter Project Description"
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-primary">
+                    Create project
+                  </button>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  id="close-modal-createproject"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end modal create project -->
         <div
           class="all-page"
           id="user-login"
@@ -397,6 +459,9 @@
             <!-- todo page -->
             <div id="todo-content"></div>
             <!-- end todo page -->
+            <!-- project page -->
+            <div id="project-page"></div>
+            <!-- end project page -->
           </div>
         </div>
       </div>
@@ -441,6 +506,7 @@
     <!-- my script -->
     <script src="./public/js/formLogin.js"></script>
     <script src="./public/js/todo.js"></script>
+    <script src="./public/js/project.js"></script>
     <script src="./public/js/landingpage.js"></script>
     <script src="./public/js/main.js"></script>
     <!-- end my script -->

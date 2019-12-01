@@ -1,6 +1,7 @@
 const Project = require("../models/project");
 const User = require("../models/user");
 const Todo = require("../models/todo");
+const ObjectId = require("mongoose").Types.ObjectId;
 
 class ProjectController {
   //ADMIN
@@ -155,6 +156,30 @@ class ProjectController {
   //END MEMBER
 
   //CRUD in PROJECT
+  static getAllProject(req, res, next) {
+    Project.find({
+      admin: req.decoded.id
+    })
+      .then(response => {
+        if (response.length != 0) {
+          console.log("masuk ke admin");
+          res.status(200).json(response);
+        } else {
+          let id = new ObjectId(req.decoded.id);
+          console.log("masuk ke member");
+          return Project.find({
+            member: {
+              $in: [id]
+            }
+          });
+        }
+      })
+      .then(response => {
+        res.status(200).json(response);
+      })
+      .catch(next);
+  }
+
   static seeProject(req, res, next) {
     let idProject = req.params.idProject;
     Project.findById(idProject)
