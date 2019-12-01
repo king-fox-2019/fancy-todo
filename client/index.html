@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="google-signin-client_id" content="102251408893-pvmd48oa2bdcc7msd7olg8ltndfb7jo4.apps.googleusercontent.com">
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/login.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Google OAuth -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div id="notlogin">
+      <!-- login & register -->
+      <div class="wrap_bg">
+        <div id="main" class="login_wrap singUpActive">
+          <div class="login_question_wrap">
+            <div class="question_singUp ">
+              <h2 class="title" style="color: skyblue;">New to us?</h2>
+              <p style="color: white; font-weight: 900; font-size: larger;">
+                Create an account and get things done!
+              </p>
+              <a
+                href="javascript:void(0)"
+                id="signUpBtn"
+                class="btn_rounded"
+                style="color: rgb(255, 255, 255); padding: 7px; border: 2px solid skyblue"
+                ><strong>
+                  SIGN UP
+                </strong></a
+              >
+            </div>
+            <div class="question_login ">
+              <h2 class="title" style="color: skyblue;">Have an account?</h2>
+              <p style="color: white; font-weight: 900; font-size: larger;">
+                Get things done today!
+              </p>
+              <a href="javascript:void(0)" id="loginBtn" class="btn btn_rounded"
+                ><strong
+                  style="color: rgb(255, 253, 246); padding: 7px; border: 2px solid skyblue"
+                >
+                  sign in
+                </strong></a
+              >
+            </div>
+            <div class="action_singUp">
+              <form id="form-signup">
+                <fieldset>
+                  <h1 class="title" style="text-align: center; color: black;">
+                    Create an Account
+                  </h1>
+                  <div class="input_block">
+                    <div class="input_wrap">
+                      <input
+                        type="text"
+                        id="nameRegister"
+                        class="input"
+                        placeholder="Full Name"
+                      />
+                      <!-- <label for="sing_name" class="label_name"></label> -->
+                    </div>
+                    <div class="input_wrap">
+                      <input
+                        type="text"
+                        id="emailRegister"
+                        class="input"
+                        placeholder="Email"
+                      />
+                      <!-- <label for="sing_email" class="label_mail"></label> -->
+                    </div>
+                    <div class="input_wrap">
+                      <input
+                        type="password"
+                        id="passwordRegister"
+                        class="input"
+                        placeholder="Password"
+                      />
+                      <!-- <label for="sing_pass" class="label_pass"></label> -->
+                    </div>
+                  </div>
+                  <div class="row center">
+                    <input
+                      type="submit"
+                      value="Sign Up"
+                      id="btn-register"
+                      class="btn btn_red"
+                    />
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+            <div class="action_login">
+              <form id="form-login">
+                <fieldset>
+                  <legend
+                    class="title"
+                    style="text-align: center; color: black;"
+                  >
+                    Lets Get Busy!
+                  </legend>
+                  <div class="input_block">
+                    <div class="input_wrap">
+                      <input
+                        type="text"
+                        id="emailLogin"
+                        class="input"
+                        placeholder="Email"
+                      />
+                      <!-- <label for="sing_pass" class="label_mail"></label> -->
+                    </div>
+                    <div class="input_wrap">
+                      <input
+                        type="password"
+                        id="passwordLogin"
+                        class="input"
+                        placeholder="Password"
+                      />
+                      <!-- <label for="sing_pass" class="label_pass"></label> -->
+                    </div>
+                  </div>
+                  <div class="row center">
+                    <input
+                      type="submit"
+                      value="Login"
+                      id="btn-login"
+                      class="btn btn_red"
+                    />
+                    <div
+                      class="g-signin2"
+                      data-onsuccess="onSignIn"
+                      style="margin-left:20px"
+                    ></div>
+                  </div>
+                  <!-- <a href="#" class="forgotPass">Forgot password?</a> -->
+                </fieldset>
+              </form>
+            </div>
+          </div>
+          <div class="login_action_wrap "></div>
+        </div>
+      </div>
+    </div>
+    <div class="container" id="home">
+      <div class="box box-aqua">
+        <div class="box-header ui-sortable-handle" style="cursor: move;">
+          <i class="ion ion-clipboard"></i>
+          <h3 class="box-title">To Do List</h3>
+        </div>
+        <div class="container">
+          <div class="box-body">
+            <ul class="todo-list ui-sortable" id="listTodo">
+            </ul>
+          </div>
+        </div>
+        <div class="box-footer clearfix no-border">
+          <button id="btn-add" type="button" class="btn btn-primary pull-right">
+            <i class="fa fa-plus"></i> Add item
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="container" id="addtodo">
+      <form action="" method="POST">
+        <div class="form-group">
+          <label for="title">Add activity:</label>
+          <input type="text" class="form-control" id="title" />
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <input type="text" class="form-control" id="description" />
+        </div>
+        <div class="form-group">
+          <label for="dueDate">Due Date:</label>
+          <input
+            type="date"
+            data-provide="datepicker"
+            class="form-control"
+            id="dueDate"
+          />
+        </div>
+        <button id="createTodo" type="button" class="btn btn-primary pull-right">
+          <i class="fa fa-plus"></i> Add item
+        </button>
+      </form>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.js"
+      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/login.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
