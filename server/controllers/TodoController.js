@@ -55,7 +55,9 @@ class TodoController {
                 res.status(200).json(result)
                 console.log(result)
             })
-            .catch(next)
+            .catch((err)=>{
+                console.log(err)
+            })
     }
     static update(req,res,next){
         const keys = Object.keys(req.body)

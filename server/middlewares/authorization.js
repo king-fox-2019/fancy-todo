@@ -11,4 +11,7 @@ module.exports = (req,res,next) => {
                 console.log('salah idnya')
             }
         })
+        .catch(()=>{
+            res.status(404).json({Name : "NotFound", Message : "Error not found"})
+        })
     }

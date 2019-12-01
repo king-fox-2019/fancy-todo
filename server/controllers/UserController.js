@@ -1,6 +1,7 @@
 const User = require('../models/user')
 const jsonwebtoken = require('../helpers/jsonwebtoken')
 const bcrypt = require('../helpers/bcrypt')
+const passwordGenerator = require('../helpers/passwordGenerator')
 
 class UserController {
     static register(req,res,next){
@@ -38,17 +39,16 @@ class UserController {
                         const token = jsonwebtoken.generateToken(payload)
                         res.status(200).json({token})
                     }else{
-                        console.log(user)
-                        res.status(401).json("password salah")
+                        res.status(400).json({message : "Wrong password"})
                     }
                 }
                 else{
-                    res.status(401).json("user not found")
+                    res.status(400).json({message : "User not found"})
                 }
             })
             .catch((err)=>{
-                res.json(err)
                 console.log(err)
+                res.status(500).json({message : "Internal server error"})
             })
     }
     static googleLogin(req,res,next){
@@ -66,11 +66,27 @@ class UserController {
                     res.status(200).json({token})
                 }
                 else{
-                    console.log(user,'================================================================')
+                    const values = {
+                            name : req.decoded.name,
+                            email : req.decoded.email,
+                            password : passwordGenerator()
+                    }
+                    User
+                        .create(values)
+                        .then(user => {
+                            const payload = {
+                                _id : user._id
+                            }
+                            const token = jsonwebtoken.generateToken(payload)
+                            res.status(201).json({token})
+                        })
+                        .catch(err => {
+                            res.json(err)
+                        })
                 }
             })
             .catch((err)=>{
-                console.log(err)
+                res.status(500).json({message : "Internal server error"})
             })
     }
 }
