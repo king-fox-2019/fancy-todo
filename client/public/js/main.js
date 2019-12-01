@@ -5,6 +5,10 @@ $(document).ready(function() {
   if (localStorage.getItem("token")) {
     $(".all-page").show();
     $(".page-beforesignin").hide();
+    $("#user-nav-signin").empty();
+    $("#quote-page").empty();
+    getQuote();
+    getTodo();
   } else {
     $(".all-page").hide();
     $(".page-beforesignin").show();

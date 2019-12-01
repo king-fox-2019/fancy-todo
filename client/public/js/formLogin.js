@@ -41,8 +41,7 @@ function renderModalSignup() {
   });
 }
 
-function signUp(event) {
-  event.preventDefault();
+function signUp() {
   let name = $("#signup-name").val();
   let email = $("#signup-email").val();
   let password = $("#signup-password").val();
@@ -95,6 +94,8 @@ function signIn() {
         $("#modal-signin").modal("hide");
         $(".all-page").show();
         $(".page-beforesignin").hide();
+        getQuote();
+        getTodo();
         alertify.success(response.message);
         setTimeout(() => {
           alertify.message("Welcome, " + response.user);
@@ -118,7 +119,6 @@ function signIn() {
 }
 
 function checked() {
-  // console.log($("#sign-check").prop("checked"));
   if ($("#sign-check").prop("checked")) {
     $("#btn-signin-check").removeClass("disabled");
   } else {
@@ -144,6 +144,8 @@ function onSignIn(googleUser) {
       $("#modal-signin").modal("hide");
       $(".all-page").show();
       $(".page-beforesignin").hide();
+      // getQuote();
+      getTodo();
       alertify.success(response.message);
       setTimeout(() => {
         alertify.message("Welcome, " + response.user);
@@ -164,6 +166,7 @@ function signOut() {
       .then(() => {
         alertify.success("Have Nice Day, " + localStorage.getItem("user"));
         localStorage.removeItem("token");
+        localStorage.removeItem("user");
         $(".all-page").hide();
         $(".page-beforesignin").show();
         checked();
@@ -173,6 +176,7 @@ function signOut() {
       });
   } else {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     $(".all-page").hide();
     $(".page-beforesignin").show();
     alertify.success("Have Nice Day");

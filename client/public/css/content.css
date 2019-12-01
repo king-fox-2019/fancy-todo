@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400i&display=swap");
+
+#content-page {
+  font-family: "Montserrat", sans-serif;
+  width: 100%;
+  height: 100vh;
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  justify-content: center;
+}
+
+#content-page-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 90%;
+  margin-top: 15px;
+}
+
+#menu-side {
+  width: 100px;
+}
+
+#main-content {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+#list-menu-side {
+}
+
+#quote-page {
+  height: 18%;
+}
+
+#list-content {
+  overflow: scroll;
+}
+
+#list-content button {
+  cursor: pointer;
+}

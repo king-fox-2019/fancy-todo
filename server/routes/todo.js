@@ -9,6 +9,6 @@ router.get("/", TodoController.read);
 router.delete("/:id", authorizationTodo, TodoController.remove);
 router.patch("/:id", authorizationTodo, TodoController.update);
 router.put("/:id", authorizationTodo, TodoController.updateAll);
-router.get("/:id", authorizationTodo, TodoController.readOne);
+router.get("/search/:id", authorizationTodo, TodoController.readOne);
 
 module.exports = router;

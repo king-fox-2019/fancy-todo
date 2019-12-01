@@ -1,4 +1,6 @@
 const Todo = require("../models/todo");
+const axios = require("axios");
+const randomNumber = require("../helpers/randomNumber");
 
 class TodoController {
   static create(req, res, next) {
@@ -98,6 +100,18 @@ class TodoController {
         res.status(200).json({
           response
         });
+      })
+      .catch(next);
+  }
+
+  static getQuote(req, res, next) {
+    axios({
+      url: "https://type.fit/api/quotes",
+      method: "GET"
+    })
+      .then(({ data }) => {
+        let randomQuote = data[randomNumber()];
+        res.status(200).json(randomQuote);
       })
       .catch(next);
   }

@@ -41,6 +41,8 @@
     <!-- end css alert -->
     <!-- mycss -->
     <link rel="stylesheet" href="./public/css/main.css" />
+    <link rel="stylesheet" href="./public//css/todo.css" />
+    <link rel="stylesheet" href="./public/css/content.css" />
     <!-- end mycss -->
     <title>Fancy Todo</title>
   </head>
@@ -361,10 +363,54 @@
     </nav>
     <!-- end navbar -->
 
+    <!-- content page -->
+    <div class="all-page content-page" id="content-page">
+      <div class="row" id="content-page-wrapper">
+        <div class="col-2" id="menu-side">
+          <div class="list-group" id="list-menu-side">
+            <button
+              type="button"
+              class="list-group-item list-group-item-action active"
+            >
+              ToDo List
+            </button>
+            <button
+              class="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Project List
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>
+        </div>
+        <div class="" id="main-content">
+          <div class="" id="quote-page"></div>
+          <div class="col" id="list-content">
+            <!-- todo page -->
+            <div id="todo-content"></div>
+            <!-- end todo page -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal update todo -->
+    <div id="renderModalUpdate"></div>
+    <!-- end modal update todo -->
+    <!-- end content page -->
+
     <!-- footer -->
     <footer
       class="navbar navbar-expand-sm navbar-light bg-light fixed-bottom shadow flex justify-content-center"
       id="footer"
+      style="opacity: 0.8;"
     >
       <p style="margin-top: 10px;">2019@Edwin Satya Yudistira</p>
     </footer>
