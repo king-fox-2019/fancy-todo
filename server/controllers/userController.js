@@ -56,12 +56,14 @@ class UserController {
             .catch(next)
     }
     static login(req, res, next) {
+        console.log(req.body)
         User
             .findOne({ email: req.body.email })
             .then(user=> {
                 if(!user) {
                     res.status(404).json('Your email hasn\'t resgistered yet.')
                 } else {
+                    console.log('masuk else?')
                     bcrypt.compare(req.body.password, user.password, (err, status)=> {
                         if(err) {
                             res.status(500).json(err)
@@ -72,6 +74,7 @@ class UserController {
                             }
                             else {
                                 const token = jwt.sign({ id:user.id, name: user.name }, process.env.JWT_SECRET)
+                                console.log('masuk')
                                 res.status(202).json(token)
                             }
                         }

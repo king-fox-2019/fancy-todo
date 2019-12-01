@@ -54,7 +54,7 @@ function addTodo() {
     })
         .done(result=> {
             $('#new-todo').empty().append(`
-            <div class="card" id="element-${result._id}">
+            <div class="card animated flash" id="element-${result._id}">
                 <div class="card-header" style="font-family: 'Indie Flower', cursive; font-size: 20px;">
                     ${result.name} <span id="success-${result._id}"></span>
                 </div>

@@ -13,6 +13,5 @@ module.exports = (err, req, res, next) => {
         code: status,
         message: message
     }
-    console.log("errHandling", errorData)
     res.status(status).json(errorData)
 }

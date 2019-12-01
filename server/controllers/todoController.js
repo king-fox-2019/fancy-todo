@@ -1,9 +1,6 @@
 'use strict';
 const {  Todo  } = require('../models');
 const jwt = require('jsonwebtoken');
-const fs = require('fs');
-const readline = require('readline');
-const {  google  } = require('googleapis');
 
 class TodoControler {
     static createTodo(req, res, next) {
@@ -47,7 +44,10 @@ class TodoControler {
                 console.log(decoded)
                 Todo
                     .find({userId: decoded.id})
-                    .populate('userId')
+                    .populate({
+                        path: 'userId',
+                        select: '-_id -password'
+                    })
                     .then(todos=> {
                         console.log(todos)
                         res.status(200).json(todos)
