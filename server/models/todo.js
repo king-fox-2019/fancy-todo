@@ -3,10 +3,15 @@ const Schema = mongoose.Schema
 
 
 const todoSchema = new Schema({
-  title: String,
+  title: {
+    type: String,
+    required: [true, 'Title todo is required'],
+    maxLength: [25, 'Max length of title is 25'],
+  },
   description: String,
-  userId: {
+  owner: {
     type: Schema.Types.ObjectId,
+    required: [true, 'Owner Id is required for creating todo'],
     ref: 'User'
   },
 })
@@ -15,4 +20,4 @@ const todoSchema = new Schema({
 const Todo = mongoose.model('Todo', todoSchema)
 
 
-module.exposrt = todoSchema
+module.exports = Todo

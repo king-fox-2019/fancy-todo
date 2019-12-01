@@ -14,6 +14,9 @@ mongoose.connect('mongodb://localhost:27017/fancytodo', {
 })
 
 app.use('/', routes)
+app.use(function (err, request, response, next) {
+  response.status(500).json(err)
+})
 
 
 app.listen(port, () => console.log('Listening on port', port))

@@ -1,5 +1,5 @@
 const { User } = require('../models')
-const { comparePassword } = require('../helpers')
+const { comparePassword, generateJWT } = require('../helpers')
 
 
 class UserController{
@@ -24,7 +24,8 @@ class UserController{
           if (!user) throw 'email or password wrong'
           else {
             if (comparePassword(password, user.password)) {
-              response.status(200).json({ message: 'success login' })
+              const access_token = generateJWT({ id: user._id })
+              response.status(200).json({ access_token })
             } else throw 'email or password wrong'
           }
         } catch (err) {
