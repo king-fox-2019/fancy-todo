@@ -1,5 +1,5 @@
 module.exports = (err, req, res, next) => {
-    console.log(err.code, '****************************')
+    console.log(err, '****************************')
     let status, message;
     if (err.name) {
         switch (err.name) {

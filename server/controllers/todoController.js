@@ -11,6 +11,7 @@ class todoController {
     }
     
     static showTodos(req, res, next) {
+      console.log('showTodos')
       Todo.find({})
         .then(todos => {
           res.status(200).json(todos);

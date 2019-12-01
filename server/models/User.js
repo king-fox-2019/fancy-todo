@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require('mongoose-unique-validator');
+const { hashPassword } = require("../helpers/bcrypt");
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -16,7 +17,20 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "password must be filled out"]
+  },
+  gSignIn: {
+    type: Boolean,
+    default: false
   }
+});
+
+userSchema.pre("save", function(next) {
+  if (this.gSignIn) {
+    this.password = Math.floor(Math.random() * 99999999);
+  } else {
+    this.password = hashPassword(this.password);
+  };
+  next();
 });
 
 userSchema.plugin(uniqueValidator, { type: 'mongoose-unique-validator' });
