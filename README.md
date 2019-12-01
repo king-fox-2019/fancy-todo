@@ -15,7 +15,7 @@ PORT="< port number >"
 JWT_SECTRE="< JSON Web Token Secret >"
 ```
 
-Fire up the server by typing this command on terminal
+FIre up the server by typing this command on terminal
 
 ```
 npm run dev
@@ -89,16 +89,16 @@ npm run dev
   	name: name example,
   	description: description example,
   	due_date: yyyy/dd/mm
-},
+  },
   headers: {
   	token
   }
   ```
-  
+
   * Success response: 
-  
+
     * Code: 201
-  
+
       ```
       {
           "_id": "5de3c39ab1559c04f8785586",
@@ -110,29 +110,29 @@ npm run dev
           "__v": 0
       }
       ```
-  
+
       
-  
+
   * Error response:
-  
+
     * Code: 400
-  
+
       ```
       {
           "code": 400,
           "message": "You have to login first!"
       }
       ```
-  
+
     * Code: 500
-  
+
       ```
       {
       	"code": 500,
       	"message": "internal server error"
       }
       ```
-  
+
 * **Show Todo **
 
   > GET /todo
