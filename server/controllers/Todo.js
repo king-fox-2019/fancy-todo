@@ -26,13 +26,14 @@ class TodoController {
 
     static addTodo(req, res, next) {
       
-        const {name, description} = req.body
+        const {name, description, due_date} = req.body
         const { id:owner } = decodeToken(req.headers.access_token)
         
         Todo.create({
             name,
             description,
-            owner
+            owner,
+            due_date
         })
             .then(todo => {
                 res.status(201).json(todo)

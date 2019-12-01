@@ -1,0 +1,148 @@
+* {
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    list-style: none;
+}
+
+body {
+    background-color: #e3e3e3;
+    background-color:silver;
+    background-image:
+    radial-gradient(circle at 100% 150%, silver 24%, white 24%, white 28%, silver 28%, silver 36%, white 36%, white 40%, transparent 40%, transparent),
+    radial-gradient(circle at 0    150%, silver 24%, white 24%, white 28%, silver 28%, silver 36%, white 36%, white 40%, transparent 40%, transparent),
+    radial-gradient(circle at 50%  100%, white 10%, silver 10%, silver 23%, white 23%, white 30%, silver 30%, silver 43%, white 43%, white 50%, silver 50%, silver 63%, white 63%, white 71%, transparent 71%, transparent),
+    radial-gradient(circle at 100% 50%, white 5%, silver 5%, silver 15%, white 15%, white 20%, silver 20%, silver 29%, white 29%, white 34%, silver 34%, silver 44%, white 44%, white 49%, transparent 49%, transparent),
+    radial-gradient(circle at 0    50%, white 5%, silver 5%, silver 15%, white 15%, white 20%, silver 20%, silver 29%, white 29%, white 34%, silver 34%, silver 44%, white 44%, white 49%, transparent 49%, transparent);
+    background-size: 100px 50px;
+}
+
+#login-wrapper {
+    width: 320px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    /* padding: 0 1rem; */
+    /* border: 1px solid #000; */
+    height: 100vh;
+    justify-content: center;
+    position: relative;
+}
+
+#login, #register{
+    padding: 3rem 1rem;
+    
+    background: #2193b0;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #2193b0, #6dd5ed);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #2193b0, #6dd5ed); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    border-radius: 4px;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2)
+}
+
+#login label, #add-todo label {
+    width: 100px;
+}
+
+#login input[type='text'], #add-todo input[type="text"], #add-todo input[type="date"] {
+    padding: 0 1rem;
+    border: none;
+    height: 2.4rem;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #6e6e6e;
+    border: 1px solid #3e3e3e;
+}
+
+#login input, #login button {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+#register {
+    position: absolute;
+    width: 100%;
+    left:0;
+    padding: 3rem 1rem;
+    display: none;
+}
+
+#register label {
+    width: 100px;
+}
+#register input, #register button {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+#home {
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+nav {   
+    display: flex;
+    flex-direction: row;
+    height: 3rem;
+    background-color: #37cbec;
+    padding: 0 2rem;
+    margin-bottom: 2rem;
+    /* align-items: center; */
+}
+
+.nav-name, nav a {
+    font-size: 1.2rem;
+    line-height: 3rem;
+    padding: 0 1rem;
+    color: #fff;
+    display: block;
+    text-decoration: none;
+}
+
+nav a {
+    background-color: #dd3333;
+    margin-left: auto;
+}
+
+nav a:hover{
+    background-color: #b62525;
+    transition: 0.4s background-color;
+    color: #fff;
+
+}
+
+.jumbotron {
+    width: 600px;
+    margin: 1rem auto;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.4);
+    background-color: #ebebeb;
+}
+
+#addTodoButton {
+    width: 100%;
+}
+
+
+#todo-list {
+    padding: 0;
+}
+
+#todo-list li {
+    left: 0;
+    line-height: 2rem;
+    padding: 1rem 2rem;
+}
+
+#todo-list label{
+    font-size: 1.2rem;
+    line-height: 2rem;
+    margin: 0 1rem;
+}
+
+#todo-list li:nth-child(odd) {
+    background-color: #f3f3f3;
+}
+
+#todo-list input[type="checkbox"] {
+    height: 1rem;
+    width: 1rem;
+}
