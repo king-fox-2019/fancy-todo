@@ -8,7 +8,7 @@ const mongoose = require('mongoose')
 const routes = require('./routes')
 
 const errorHandler = require('./middlewares/errorHandler')
-const mongoURI = process.env.MONGO_URI
+const mongoURI = process.env.MONGO_URI_ATLAS
 
 const app = express()
 const port = process.env.PORT
