@@ -33,6 +33,7 @@ function logout(e){
   if(e) {
     e.preventDefault()
     localStorage.removeItem('access_token')
+    signOut()
     showRegister()
   }
 }

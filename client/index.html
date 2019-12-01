@@ -15,11 +15,8 @@
     <div id="navbar">
       <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand" href="#" onclick="showMainPage(event)"> Fancy Todo
-          <!-- <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" alt=""> -->
         </a>
-        <form id="logout" onsubmit="logout(event)">
-            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Logout</button>
-        </form>
+        <form id="logout" onsubmit="logout(event)"><button class="btn btn-outline-light my-2 my-sm-0" type="submit">Logout</button></form>
       </nav>
     </div>
 
@@ -27,7 +24,6 @@
     <div id="register-page">
       <div class="d-flex p-5 justify-content-center" id="form-login">
         <div class="card" style="width: 30rem;">
-          <img class="card-img-top" src="" alt="Card image cap">
           <div class="card-body">
             <form id="register" onsubmit="submitRegister(event)">
               <div class="form-group">
@@ -61,7 +57,6 @@
     <div id="login-page">
       <div class="d-flex p-5 justify-content-center" id="form-login">
         <div class="card" style="width: 30rem;">
-          <img class="card-img-top" src="" alt="Card image cap">
           <div class="card-body">
             <form id="login" onsubmit="submitLogIn(event)">
               <div class="form-group">
@@ -185,6 +180,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="public/js/register.js"></script>
     <script src="public/js/login.js"></script>
+    <script src="public/js/googleSignIn.js"></script>
     <script src="public/js/todos.js"></script>
     <script src="public/js/main.js"></script>
   </body>
