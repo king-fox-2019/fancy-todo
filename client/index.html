@@ -8,6 +8,8 @@
     <meta name="google-signin-client_id"
         content="86398874367-n5c7vtvso1ujvv831t7tahktq0101ni5.apps.googleusercontent.com">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="styles/style.css" !important>
@@ -16,7 +18,6 @@
 
 <body>
     <!-- <h1>Tes page</h1> -->
-
     <div class="login-form form">
         <form action="/examples/actions/confirmation.php" method="post">
             <h2 class="text-center">Sign in</h2>
@@ -59,9 +60,11 @@
     </div>
     <!-- isi html mulai dari sini -->
     <div id="inner-html">
-        <h1>hello</h1>
-        <a href="" onclick="signOut();">Sign out</a>
+        <a href="" onclick="signOut();" id="sign-out">Sign out</a>
+        <div id="left-bar"></div>
+        <div id="right-bar"></div>
 
+        <h1>hello</h1>
     </div>
 
 

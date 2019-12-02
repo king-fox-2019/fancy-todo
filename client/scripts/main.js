@@ -108,7 +108,7 @@ function changeForm() {
             } else {
                 $(this).addClass('hidden');
             }
-            // console.log('hallo');   
+            // console.log('hallo');
         })
     })
 }
@@ -139,5 +139,6 @@ function signOut() {
         console.log('User signed out.');
         $(`.form`).show()
         $('#inner-html').hide()
+        localStorage.clear()
     });
 }
