@@ -1,6 +1,7 @@
 `use strict`
 const { Schema, model } = require('mongoose')
 const Todo = require('../models/todo')
+const moment = require('moment')
 
 const projectSchema = new Schema({
     title : {
@@ -13,7 +14,8 @@ const projectSchema = new Schema({
     },
     dueDate : {
         type : Date,
-        required : [true, 'please fill the due date']
+        required : [true, 'please fill the due date'],
+        min :[new Date, `you can't pick time earlier than ${moment(new Date).format("dddd, MMMM Do YYYY, h:mm:ss a")}`]
     },
     members : [{
         type : Schema.Types.ObjectId,

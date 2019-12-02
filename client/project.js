@@ -40,7 +40,7 @@ function prepareFormAddMember(projectId) {
             event.preventDefault()
             let email = $('#search-member-input').val()
             $.ajax({
-                url : `http://localhost:3000/search/${email}`,
+                url : `http://35.240.216.157/search/${email}`,
                 method : 'GET',
                 headers : {
                     token: localStorage.getItem('token')
@@ -74,7 +74,7 @@ function prepareFormAddMember(projectId) {
 
 function addMemberToProject(userId, projectId) {
     $.ajax({
-        url : `http://localhost:3000/project/${projectId}/member`,
+        url : `http://35.240.216.157/project/${projectId}/member`,
         method : 'PUT',
         headers : {
             token: localStorage.getItem('token')
@@ -103,7 +103,7 @@ function viewProject() {
     $('#todo').hide()
     $('#project').show() 
     $.ajax({
-        url : `http://localhost:3000/project/all`,
+        url : `http://35.240.216.157/project/all`,
         method : 'GET',
         headers : {
             token: localStorage.getItem('token')
@@ -111,7 +111,9 @@ function viewProject() {
     })
     .then(projects => {        
         $('#project-container').empty()
-        displayProjects(projects)
+        if (projects.length > 0) {
+            displayProjects(projects)
+        }
         prepareFormProject() 
     })
     .fail(err => {
@@ -167,7 +169,7 @@ function addProjectTodo(id) {
     let dueDate = $('#input_date').val()
     let time = $('#input_time').val()
     $.ajax({
-        url : `http://localhost:3000/project/${id}/todo`,
+        url : `http://35.240.216.157/project/${id}/todo`,
         method : 'PUT',
         headers : {
             token: localStorage.getItem('token')
@@ -299,9 +301,6 @@ function displayTodosMember(project) {
     });
 }
 
-
-
-
 function displayTodosProject(project) {
     project.todos.forEach(todo => {
         $(`#project-todos-container${project._id}`).append(
@@ -333,7 +332,7 @@ function displayTodosProject(project) {
 
 function updateTodoProject(todoId, projectId) {
     $.ajax({
-        url : `http://localhost:3000/todo/${todoId}`,
+        url : `http://35.240.216.157/todo/${todoId}`,
         method : 'GET',                
         headers : {
             token: localStorage.getItem('token')
@@ -364,7 +363,7 @@ function updateTodoProject(todoId, projectId) {
           })
           .then (function (input) {
             $.ajax({
-                url : `http://localhost:3000/project/${projectId}/update/todo/${todoId}`,
+                url : `http://35.240.216.157/project/${projectId}/update/todo/${todoId}`,
                 method : 'PUT',   
                 data : {
                     title : input.value.title,
@@ -404,7 +403,7 @@ function doneTodoProject(todoId, projectId, status) {
         update = true
     }
     $.ajax({
-        url: `http://localhost:3000/project/${projectId}/update/status/${todoId}`,
+        url: `http://35.240.216.157/project/${projectId}/update/status/${todoId}`,
         method: 'patch',
         headers: {
             token: localStorage.getItem('token')
@@ -452,7 +451,7 @@ function deleteProjectMember(memberId, projectId) {
         if (result.value) {
             $.ajax({
                 method: 'PUT',
-                url: `http://localhost:3000/project/${projectId}/remove/member/${memberId}`,
+                url: `http://35.240.216.157/project/${projectId}/remove/member/${memberId}`,
                 headers: {
                     token: localStorage.getItem('token')
                 }
@@ -493,7 +492,7 @@ function deleteTodoProject(todoId, projectId) {
         if (result.value) {
             $.ajax({
                 method: 'PUT',
-                url: `http://localhost:3000/project/${projectId}/delete/todo/${todoId}`,
+                url: `http://35.240.216.157/project/${projectId}/delete/todo/${todoId}`,
                 headers: {
                     token: localStorage.getItem('token')
                 }
@@ -522,7 +521,7 @@ function deleteTodoProject(todoId, projectId) {
 
 function updateProject(id){
     $.ajax({
-        url : `http://localhost:3000/project/${id}`,
+        url : `http://35.240.216.157/project/${id}`,
         method : 'GET',                
         headers : {
             token: localStorage.getItem('token')
@@ -553,7 +552,7 @@ function updateProject(id){
           })
           .then (function (input) {
             $.ajax({
-                url : `http://localhost:3000/project/${id}`,
+                url : `http://35.240.216.157/project/${id}`,
                 method : 'PUT',   
                 data : {
                     title : input.value.title,
@@ -600,7 +599,7 @@ function deleteProject(id) {
         if (result.value) {
             $.ajax({
                 method: 'DELETE',
-                url: `http://localhost:3000/project/${id}`,
+                url: `http://35.240.216.157/project/${id}`,
                 headers: {
                     token: localStorage.getItem('token')
                 }
@@ -634,7 +633,7 @@ function addProject(event) {
     let dueDate = $('#input_date').val()
     let time = $('#input_time').val()
     $.ajax({
-        url : `http://localhost:3000/project`,
+        url : `http://35.240.216.157/project`,
         method : 'POST',
         headers : {
             token: localStorage.getItem('token')

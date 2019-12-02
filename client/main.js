@@ -33,7 +33,7 @@ function viewAll() {
     $('#project').hide()
     $('#todo').show()
     $.ajax({
-        url : `http://localhost:3000/todo/all`,
+        url : `http://35.240.216.157/todo/all`,
         method : 'GET',
         headers : {
             token: localStorage.getItem('token')
@@ -61,7 +61,7 @@ function viewTodoToday(data) {
     $('#project').hide()
     $('#todo').show()
     $.ajax({
-        url : `http://localhost:3000/todo`,
+        url : `http://35.240.216.157/todo`,
         method : 'GET',
         headers : {
             token: localStorage.getItem('token')
@@ -140,7 +140,7 @@ function onSignIn(googleUser) {
     $('#user-email').append(`<li class="list-group-item pl-1" id="user-title"><i class="fa fa-user-o mr-2"></i>${profile.ig}</li>`)
     $('#user-email').append(`<li class="list-group-item pl-1" id="user-title">${profile.U3}</li>`)
     $.ajax({
-        url : `http://localhost:3000/login-google`,
+        url : `http://35.240.216.157/login-google`,
         method : "POST",
         data : {
             google_token : id_token
@@ -192,7 +192,7 @@ function registerMember(event) {
         let password = $('#password').val()
         let username = $('#username').val()
         $.ajax({
-            url : `http://localhost:3000/register`,
+            url : `http://35.240.216.157/register`,
             method : 'POST',
             data : {
                 email : email,
@@ -221,7 +221,7 @@ function loginMember(event) {
     let email = $('#email_login').val()
     let password = $('#password_login').val()
     $.ajax({
-        url : `http://localhost:3000/login`,
+        url : `http://35.240.216.157/login`,
         method : 'POST',
         data : {
             email : email,
@@ -250,7 +250,7 @@ function loginMember(event) {
 function updateTodo(id, day){
     let todo_id = id
     $.ajax({
-        url : `http://localhost:3000/todo/${todo_id}`,
+        url : `http://35.240.216.157/todo/${todo_id}`,
         method : 'GET',                
         headers : {
             token: localStorage.getItem('token')
@@ -281,7 +281,7 @@ function updateTodo(id, day){
           })
           .then (function (input) {
             $.ajax({
-                url : `http://localhost:3000/todo/${todo._id}`,
+                url : `http://35.240.216.157/todo/${todo._id}`,
                 method : 'PUT',   
                 data : {
                     title : input.value.title,
@@ -332,7 +332,7 @@ function deleteTodo(id, day) {
         if (result.value) {
             $.ajax({
                 method: 'DELETE',
-                url: `http://localhost:3000/todo/${todo_id}`,
+                url: `http://35.240.216.157/todo/${todo_id}`,
                 headers: {
                     token: localStorage.getItem('token')
                 }
@@ -370,7 +370,7 @@ function addTodo(event) {
     let dueDate = $('#input_date').val()
     let time = $('#input_time').val()
     $.ajax({
-        url : `http://localhost:3000/todo`,
+        url : `http://35.240.216.157/todo`,
         method : 'POST',
         headers : {
             token: localStorage.getItem('token')
@@ -462,7 +462,7 @@ function doneTodo(id, status, day) {
         update = true
     }
     $.ajax({
-        url: `http://localhost:3000/todo/${id}/status`,
+        url: `http://35.240.216.157/todo/${id}/status`,
         method: 'patch',
         headers: {
             token: localStorage.getItem('token')
@@ -514,6 +514,38 @@ const empty_todo =
     </div>
 </li>` 
 const addTodoForm =
+`<li>
+    <div class="d-flex border rounded bg-white py-3">
+        <form id="todo_form" class="col-sm-8 offset-2 border border-info rounded p-2">
+                <h2 class="text-center">Form Add Todo</h2>
+            <div class="form-row align-items-center pl-1">
+                <div class="col-sm-12 my-2">
+                    <label for="input_title">Title</label>
+                    <input type="text" class="form-control" required id="input_title" placeholder="Please fill the title">
+                </div>
+                <div class="col-sm-12 my-2">
+                    <label for="input_description">Description</label>
+                    <textarea class="form-control" required id="input_description" placeholder="Please fill your the discription"></textarea>
+                </div>
+                <div class="col-sm-12 my-1">
+                    <label for="input_date">Date</label>
+                    <input type="date" class="form-control" required id="input_date" placeholder="input date">
+                </div>   
+                <div class="col-sm-12 my-1">
+                    <label for="input_time">Time</label>
+                    <input type="time" class="form-control" required id="input_time" placeholder="input time">
+                </div>                                
+                <div class="col-auto my-1 pt-0 pb-0">
+                    <button type="submit" class="btn ">Add</button>
+                    <button class="btn " id="CencelForm" >Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</li> `
+
+
+const editTodoForm =
 `<li>
     <div class="d-flex border rounded bg-white py-3">
         <form id="todo_form" class="col-sm-8 offset-2 border border-info rounded p-2">
