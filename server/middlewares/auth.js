@@ -48,7 +48,6 @@ function authorizationAdmin(req, res, next) {
           message: "Project is Not Found"
         };
       } else {
-        // let id = new ObjectId(req.decoded.id);
         if (response.admin == req.decoded.id) {
           next();
         } else {
@@ -64,10 +63,12 @@ function authorizationAdmin(req, res, next) {
 
 function authorizationCrudProject(req, res, next) {
   let id = new ObjectId(req.decoded.id);
+  console.log(req.params);
   Project.findOne({
     _id: req.params.idProject
   })
     .then(response => {
+      // console.log(response);
       if (!response) {
         throw {
           status: 404,

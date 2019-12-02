@@ -266,7 +266,74 @@ class ProjectController {
       })
       .catch(next);
   }
+
+  static getOneTodo(req, res, next) {
+    let idProject = req.params.idProject;
+    let idTodo = req.params.idTodo;
+    Project.findById({
+      _id: idProject
+    })
+      .populate("todo")
+      .then(response => {
+        if (!response) {
+          throw {
+            status: 404,
+            message: "Project not found"
+          };
+        } else {
+          let todos = response.todo;
+          todos.forEach(todo => {
+            if (todo._id == idTodo) {
+              res.status(200).json(todo);
+            }
+          });
+        }
+      })
+      .catch(next);
+  }
   //end crud
+
+  static updateAll(req, res, next) {
+    let idTodo = req.params.idTodo;
+    const { name, description, due, status } = req.body;
+    Todo.findByIdAndUpdate(idTodo, { name, description, due, status })
+      .then(response => {
+        res.status(200).json({
+          response,
+          message: "success update todo project"
+        });
+      })
+      .catch(next);
+  }
+
+  static updateStatus(req, res, next) {
+    console.log("masuk");
+    let idTodo = req.params.idTodo;
+    const { status } = req.body;
+    Todo.findByIdAndUpdate(idTodo, { status })
+      .then(response => {
+        console.log(response);
+        res.status(200).json({
+          response,
+          message: "success update todo project"
+        });
+      })
+      .catch(next);
+  }
+
+  static removeTodoProject(req, res, next) {
+    Todo.deleteOne({
+      _id: req.params.idTodo
+    })
+      .then(response => {
+        res.status(200).json({
+          message: "Success delete todo in project!"
+        });
+      })
+      .catch(err => {
+        next(err);
+      });
+  }
 }
 
 module.exports = ProjectController;

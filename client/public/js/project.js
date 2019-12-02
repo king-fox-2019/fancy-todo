@@ -149,7 +149,8 @@ function seeProject(id) {
           alertify.message("No Have Todo in this project");
         }, 2000);
       } else {
-        response.todo.forEach(e => {
+        let todos = response.todo;
+        todos.forEach(e => {
           let status = "";
           if (e.status) {
             status = "done";
@@ -165,7 +166,7 @@ function seeProject(id) {
             <div class="card bg-light mb-3" style="max-width: 18rem;">
             <div class="card-header" style="display:flex; justify-content: space-between;">
                 ${e.name}
-                <button type="button" onclick="unDone('${e._id}')" class="btn-sm btn-success ml-5">
+                <button type="button" onclick="unDoneProject('${response._id}','${e._id}')" class="btn-sm btn-success ml-5">
                   unDone
                 </button>
               </div>
@@ -177,10 +178,10 @@ function seeProject(id) {
                 <h5 class="card-title">Status : ${status}</h5>
               </div>
               <div class="card-footer" style="display:flex; justify-content:space-between;">
-                <button type="button" onclick="showModalUpdateProjectTodo('${e._id}')" class="btn-sm btn-warning">
+                <button type="button" onclick="showModalUpdateProjectTodo('${response._id}','${e._id}')" class="btn-sm btn-warning">
                   Update
                 </button>
-                <button type="button" onclick="deleteProjectTodo('${e._id}')" class="btn-sm btn-danger ml-5">
+                <button type="button" onclick="deleteProjectTodo('${response._id}','${e._id}')" class="btn-sm btn-danger ml-5">
                   Delete
                 </button>
               </div>
@@ -193,7 +194,7 @@ function seeProject(id) {
             <div class="card bg-light mb-3" style="max-width: 18rem;">
             <div class="card-header" style="display:flex; justify-content: space-between;">
                 ${e.name}
-                <button type="button" onclick="done('${e._id}')" class="btn-sm btn-success ml-5">
+                <button type="button" onclick="doneProject('${response._id}','${e._id}')" class="btn-sm btn-success ml-5">
                   done
                 </button>
               </div>
@@ -205,10 +206,10 @@ function seeProject(id) {
                 <h5 class="card-title">Status : ${status}</h5>
               </div>
               <div class="card-footer" style="display:flex; justify-content:space-between;">
-                <button type="button" onclick="showModalUpdateProjectTodo('${e._id}')" class="btn-sm btn-warning">
+                <button type="button" onclick="showModalUpdateProjectTodo('${response._id}', '${e._id}')" class="btn-sm btn-warning">
                   Update
                 </button>
-                <button type="button" onclick="deleteProjectTodo('${e._id}')" class="btn-sm btn-danger ml-5">
+                <button type="button" onclick="deleteProjectTodo('${response._id}','${e._id}')" class="btn-sm btn-danger ml-5">
                   Delete
                 </button>
               </div>
@@ -482,6 +483,7 @@ function kickMember(id) {
 }
 
 function kickMemberFromProject(id) {
+  console.log(id);
   let token = localStorage.getItem("token");
   let email = $("#email-kick-member").val();
   $.ajax({
@@ -549,8 +551,7 @@ function createProjectTodo(id) {
     }
   })
     .done(response => {
-      getProject();
-      // seeProject();
+      seeProject(id);
       $("#modal-create-todo-project").modal("hide");
       alertify.success(response.message);
     })
@@ -593,4 +594,225 @@ function DeleteProject(id) {
       alertify.error(text);
     })
     .always(_ => {});
+}
+
+function showModalUpdateProjectTodo(idProject, idTodo) {
+  let token = localStorage.getItem("token");
+  $.ajax({
+    url: baseUrl + `/projects/todo/${idProject}/${idTodo}`,
+    method: "GET",
+    headers: {
+      token
+    }
+  })
+    .done(response => {
+      $("#renderModalUpdateProjectTodo").append(`
+      <div
+        class="modal fade"
+        id="modal-update-project-todo"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Form Update Todo
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="btn-update-todo">
+                <div class="form-group">
+                  <label for="exampleInputTodoName">Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="updateTodo-project-name"
+                    value="${response.name}"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputTodoDescription">Description</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="updateTodo-project-description"
+                    value="${response.description}"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputDueDate">Due Date</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="updateTodo-project-due"
+                    value="${response.due}"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputDone">Status</label>
+                  <div class="radio">
+                    <label><input id="updateTodo-project-status-done" type="radio" name="optradio" checked>Done</label>
+                  </div>
+                  <div class="radio">
+                    <label><input id="updateTodo-project-status-undone" type="radio" name="optradio">UnDone</label>
+                  </div>
+                </div>
+                <button type="submit" onclick="updateProjectTodo('${response._id}', '${idProject}')" class="btn btn-primary">
+                  update Todo
+                </button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                id="close-modal-updatetodo"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      `);
+    })
+    .fail(err => {
+      let msg = err.responseJSON.errors;
+      let text = "";
+      msg.forEach(element => {
+        text += element + ", ";
+      });
+      alertify.error(text);
+    })
+    .always(_ => {
+      $("#modal-update-project-todo").modal("show");
+    });
+}
+
+function updateProjectTodo(idTodo, idProject) {
+  let token = localStorage.getItem("token");
+  let name = $("#updateTodo-project-name").val();
+  let description = $("#updateTodo-project-description").val();
+  let due = $("#updateTodo-project-due").val();
+  let status;
+  if ($("#updateTodo-project-status-done").prop("checked")) {
+    status = true;
+  } else if ($("#updateTodo-project-status-undone").prop("checked")) {
+    status = false;
+  }
+  console.log(status);
+  // console.log(idTodo, idProject);
+  $.ajax({
+    url: baseUrl + `/projects/todo/${idProject}/${idTodo}`,
+    method: "PUT",
+    data: {
+      name,
+      description,
+      due,
+      status
+    },
+    headers: {
+      token
+    }
+  })
+    .done(response => {
+      alertify.success(response.message);
+      $("#modal-update-project-todo").modal("hide");
+      seeProject(idProject);
+    })
+    .fail(err => {
+      let msg = err.responseJSON.errors;
+      let text = "";
+      msg.forEach(element => {
+        text += element + ", ";
+      });
+      alertify.error(text);
+    })
+    .always(_ => {});
+}
+
+function unDoneProject(idProject, idTodo) {
+  $.ajax({
+    url: baseUrl + `/projects/status/${idProject}/${idTodo}`,
+    method: "PATCH",
+    data: {
+      status: false
+    },
+    headers: {
+      token: localStorage.getItem("token")
+    }
+  })
+    .done(response => {
+      alertify.success(response.message);
+      seeProject(idProject);
+    })
+    .fail(err => {
+      let msg = err.responseJSON.errors;
+      let text = "";
+      msg.forEach(element => {
+        text += element + ", ";
+      });
+      alertify.error(text);
+    })
+    .always(_ => {});
+}
+
+function doneProject(idProject, idTodo) {
+  $.ajax({
+    url: baseUrl + `/projects/status/${idProject}/${idTodo}`,
+    method: "PATCH",
+    data: {
+      status: true
+    },
+    headers: {
+      token: localStorage.getItem("token")
+    }
+  })
+    .done(response => {
+      alertify.success(response.message);
+      seeProject(idProject);
+    })
+    .fail(err => {
+      let msg = err.responseJSON.errors;
+      let text = "";
+      msg.forEach(element => {
+        text += element + ", ";
+      });
+      alertify.error(text);
+    })
+    .always(_ => {});
+}
+
+function deleteProjectTodo(idProject, idTodo) {
+  $.ajax({
+    url: baseUrl + `/projects/${idProject}/${idTodo}`,
+    method: "DELETE",
+    headers: {
+      token: localStorage.getItem("token")
+    }
+  })
+    .done(response => {
+      alertify.success(response.message);
+      seeProject(idProject);
+    })
+    .fail(err => {
+      let msg = err.responseJSON.errors;
+      let text = "";
+      msg.forEach(element => {
+        text += element + ", ";
+      });
+      alertify.error(text);
+    });
 }

@@ -36,5 +36,26 @@ router.post(
   authorizationCrudProject,
   ProjectController.addTodo
 );
+router.get(
+  "/todo/:idProject/:idTodo",
+  authorizationCrudProject,
+  ProjectController.getOneTodo
+);
+router.put(
+  "/todo/:idProject/:idTodo",
+  authorizationCrudProject,
+  ProjectController.updateAll
+);
+router.patch(
+  "/status/:idProject/:idTodo",
+  authorizationCrudProject,
+  ProjectController.updateStatus
+);
+
+router.delete(
+  "/:idProject/:idTodo",
+  authorizationCrudProject,
+  ProjectController.removeTodoProject
+);
 
 module.exports = router;
