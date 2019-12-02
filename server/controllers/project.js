@@ -61,7 +61,6 @@ class ProjectController {
     Project.findByIdAndUpdate(projectId, { $set: { title }}, { new: true, runValidators: true, omitUndefined: true })
       .then(project => {
         console.log(project, 'BALIKAN UPDATE PROJECT');
-
         res.status(200).json(project)
       })
       .catch(next)

@@ -561,7 +561,7 @@ function fetchProject() {
               </div>
               <div class="card-action">
                 <div>
-                  <a href="#"><i class="fas fa-users"></i>&nbsp;5</a>
+                  <a href="#"><i class="fas fa-users"></i>&nbsp;${project.members.length}</a>
                   <a href="#"><i class="far fa-list-alt"></i>&nbsp;${project.todos.length}</a>
                 </div>
                 <div>
@@ -701,12 +701,13 @@ function deleteProject(id) {
 // end show update title form 
 
 // update project 
-function updateProject(id) {
+function updateProject(event) {
+  event.preventDefault()
   $.ajax({
-    url: `${baseURL}/project/${id}`,
+    url: `${baseURL}/project/${projectId}`,
     method: 'PATCH',
     data: {
-      title : $('#update-project-todo-title').val()
+      title : $('#update-project-title').val()
     },
     headers: {
       access_token: localStorage.getItem('jwtToken')
@@ -715,7 +716,13 @@ function updateProject(id) {
   .done(project => {
     console.log(project, 'ke update gak nii title project nyaaaa');
     // showProjectTodoList()
-    $('.detailed-project').show()
+    // $('.detailed-project').show()
+    showDetailProject(project._id)
+  })
+  .fail(errorHandler)
+  .always(() => {
+    console.log(`complete`);
+    
   })
 }
 // end update project 

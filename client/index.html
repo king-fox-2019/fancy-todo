@@ -469,22 +469,22 @@
                     <div class="background-image"></div>
                     <div class="form-container">
                       <form  class="content col s12 update-todo" id="form-update-project-todo">
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="input-field col s12">
                               <input id="update-project-todo-id" type="hidden">
                               <label for="update-project-todo-id" class="label-update" style="display: none;">todoId</label>
                             </div>
-                          </div>
+                          </div> -->
                         <div class="row">
                             <div class="input-field col s12">
-                              <input id="update-project-todo-title" type="text" class="active">
-                              <label for="update-project-todo-title" class="label-update">Title</label>
+                              <input id="update-project-title" type="text" class="active">
+                              <label for="update-project-title" class="label-update">Project Title</label>
                             </div>
                           </div>
                       
             
                         <div class="modal-footer" style="background-color: transparent !important;">
-                            <button class="modal-close waves-effect btn-flat" type="submit">Update</button>
+                            <button onclick="updateProject(event)" class="modal-close waves-effect btn-flat" type="submit">Update</button>
                           <!-- <a class="modal-close waves-effect waves-green btn-flat">Update</a> -->
                         </div>
             
