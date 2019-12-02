@@ -8,7 +8,7 @@ function sendEmail(email,task,description,dueDate){
         requireTLS: true,
         auth:{
             user: 'fancytodoapp@gmail.com',
-            pass: process.env.EMAIL
+            pass: 'F@ncyTodo123'
         }
     })
 
