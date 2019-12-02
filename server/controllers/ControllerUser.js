@@ -66,7 +66,7 @@ class ControllerUser {
                             response._id,
                             response.email,
                             response.role
-                        )
+                        ), email: response.email
                     });
                 } else {
                     throw errMessage;
@@ -80,6 +80,48 @@ class ControllerUser {
             });
         })
     };
+
+    static loginGoogle(req, res) {
+        let email = req.body.email;
+        let userName = req.body.userName;
+        User.findOne({
+            email: email
+        }).then(response => {
+            if (response){
+                res.status(200).json({
+                    token: createJWToken(
+                        response._id,
+                        response.email,
+                        response.role
+                    ), email: response.email
+                });
+            } else {
+                let password = Math.random().toString(36).substring(7);
+                User.create({
+                    userName: userName,
+                    email: email,
+                    password: createBCryptHash(password),
+                    role: "User"
+                }).then(response => {
+                    res.status(200).json({
+                        token: createJWToken(
+                            response._id,
+                            response.email,
+                            response.role
+                        ), email: response.email
+                    });
+                }).catch(err => {
+                    res.status(500).json({
+                        message: err
+                    });
+                })
+            }
+        }).catch(err => {
+            res.status(500).json({
+                message: err
+            });
+        })
+    }
 
 }
 
