@@ -53,6 +53,12 @@ $(document).ready(function() {
     event.preventDefault();
     createProject();
   });
+  $("#close-modal-project-createtodo").click(function() {
+    $("#modal-create-todo-project").modal("hide");
+    $("#createTodo-project-name").val("");
+    $("#createTodo-project-description").val("");
+    $("#createTodo-project-due").val("");
+  });
   //end project
   //menu side
   $("#btn-listtodo").click(function() {

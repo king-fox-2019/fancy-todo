@@ -228,6 +228,7 @@ class ProjectController {
     let idProject = req.params.idProject;
     Project.findById(idProject)
       .populate("member")
+      .populate("todo")
       .then(response => {
         res.status(200).json(response);
         // console.log(response);

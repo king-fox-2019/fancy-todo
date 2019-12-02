@@ -115,6 +115,7 @@ function getInvitation() {
 
 function seeProject(id) {
   $("#dropdown-project").empty();
+  $("#project-todo").empty();
   $("#todo-content").hide();
   $(".project-content").show();
   let token = localStorage.getItem("token");
@@ -128,6 +129,9 @@ function seeProject(id) {
     .done(response => {
       // console.log(response);
       $("#dropdown-project").append(`
+      <a class="dropdown-item" onclick="DeleteProject('${response._id}')" href="#"
+        >Delete Project</a
+      >
       <a class="dropdown-item" onclick="addMember('${response._id}')" href="#"
         >Add Member</a
       >
@@ -135,10 +139,86 @@ function seeProject(id) {
         >Kick Member</a
       >
       <div class="dropdown-divider"></div>
-      <a id="btn-go-create-todo" class="dropdown-item" href="#"
+      <a class="dropdown-item" onclick="goCreateTodo('${response._id}')" href="#"
         >Add Todo</a
       >
       `);
+      //todo
+      if (response.todo.length == 0) {
+        setTimeout(() => {
+          alertify.message("No Have Todo in this project");
+        }, 2000);
+      } else {
+        response.todo.forEach(e => {
+          let status = "";
+          if (e.status) {
+            status = "done";
+          } else {
+            status = "unDone";
+          }
+          let date = new Date(e.due);
+          let resultDate = `${date.getDate()} - ${date.getMonth()} - ${date.getFullYear()}`;
+          if (!e.description) e.description = " ";
+          if (e.status) {
+            $("#project-todo").append(`
+            <div class="col-4">
+            <div class="card bg-light mb-3" style="max-width: 18rem;">
+            <div class="card-header" style="display:flex; justify-content: space-between;">
+                ${e.name}
+                <button type="button" onclick="unDone('${e._id}')" class="btn-sm btn-success ml-5">
+                  unDone
+                </button>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">${e.description}</h5>
+                <p class="card-text">
+                  Due Date : ${resultDate}
+                </p>
+                <h5 class="card-title">Status : ${status}</h5>
+              </div>
+              <div class="card-footer" style="display:flex; justify-content:space-between;">
+                <button type="button" onclick="showModalUpdateProjectTodo('${e._id}')" class="btn-sm btn-warning">
+                  Update
+                </button>
+                <button type="button" onclick="deleteProjectTodo('${e._id}')" class="btn-sm btn-danger ml-5">
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+            `);
+          } else {
+            $("#project-todo").append(`
+            <div class="col-4">
+            <div class="card bg-light mb-3" style="max-width: 18rem;">
+            <div class="card-header" style="display:flex; justify-content: space-between;">
+                ${e.name}
+                <button type="button" onclick="done('${e._id}')" class="btn-sm btn-success ml-5">
+                  done
+                </button>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">${e.description}</h5>
+                <p class="card-text">
+                  Due Date : ${resultDate}
+                </p>
+                <h5 class="card-title">Status : ${status}</h5>
+              </div>
+              <div class="card-footer" style="display:flex; justify-content:space-between;">
+                <button type="button" onclick="showModalUpdateProjectTodo('${e._id}')" class="btn-sm btn-warning">
+                  Update
+                </button>
+                <button type="button" onclick="deleteProjectTodo('${e._id}')" class="btn-sm btn-danger ml-5">
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+            `);
+          }
+        });
+      }
+      //end todo
     })
     .fail(err => {
       let msg = err.responseJSON.errors;
@@ -441,4 +521,76 @@ function closeAddMember() {
 function closeKickMember() {
   $("#email-kick-member").val("");
   $("#modal-kick-member").modal("hide");
+}
+
+function goCreateTodo(id) {
+  $("#modal-create-todo-project").modal("show");
+  $("#btn-create-todo-project").submit(function(event) {
+    event.preventDefault();
+    createProjectTodo(id);
+  });
+}
+
+function createProjectTodo(id) {
+  let token = localStorage.getItem("token");
+  let name = $("#createTodo-project-name").val();
+  let description = $("#createTodo-project-description").val();
+  let due = $("#createTodo-project-due").val();
+  $.ajax({
+    url: baseUrl + `/projects/addTodo/${id}`,
+    method: "POST",
+    data: {
+      name,
+      description,
+      due
+    },
+    headers: {
+      token
+    }
+  })
+    .done(response => {
+      getProject();
+      // seeProject();
+      $("#modal-create-todo-project").modal("hide");
+      alertify.success(response.message);
+    })
+    .fail(err => {
+      let msg = err.responseJSON.errors;
+      let text = "";
+      msg.forEach(element => {
+        text += element + ", ";
+      });
+      alertify.error(text);
+    })
+    .always(_ => {
+      $("#createTodo-project-name").val("");
+      $("#createTodo-project-description").val("");
+      $("#createTodo-project-due").val("");
+    });
+}
+
+function DeleteProject(id) {
+  let token = localStorage.getItem("token");
+  $.ajax({
+    url: baseUrl + `/projects/${id}`,
+    method: "DELETE",
+    headers: {
+      token
+    }
+  })
+    .done(response => {
+      alertify.success(response.message);
+      getProject();
+      $(".project-content").hide();
+      $("#todo-content").show();
+    })
+    .fail(err => {
+      let msg = err.responseJSON.errors;
+      let text = "";
+      msg.forEach(element => {
+        text += element + ", ";
+      });
+      alertify.error(text);
+    })
+    .always(_ => {});
 }

@@ -43,6 +43,7 @@
     <link rel="stylesheet" href="./public/css/main.css" />
     <link rel="stylesheet" href="./public//css/todo.css" />
     <link rel="stylesheet" href="./public/css/content.css" />
+    <link rel="stylesheet" href="./public/css/project.css" />
     <!-- end mycss -->
     <title>Fancy Todo</title>
   </head>
@@ -362,6 +363,79 @@
           </div>
         </div>
         <!-- end modal create todo -->
+
+        <!-- modal create todo in project -->
+        <div
+          class="modal fade"
+          id="modal-create-todo-project"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Form Create Todo
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="btn-create-todo-project">
+                  <div class="form-group">
+                    <label for="exampleInputTodoName">Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="createTodo-project-name"
+                      placeholder="Enter Todo Name"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputTodoDescription">Description</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="createTodo-project-description"
+                      placeholder="Enter Todo Description"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputDueDate">Due Date</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="createTodo-project-due"
+                      placeholder="Enter Todo Due Date"
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-primary">
+                    Create Todo
+                  </button>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  id="close-modal-project-createtodo"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- modal end create todo in project -->
+
         <!-- modal create project -->
         <div
           class="modal fade"
@@ -500,7 +574,11 @@
             <div id="todo-content" style="display: none;"></div>
             <!-- end todo page -->
             <!-- project page -->
-            <div class="project-content" style="display: none;">
+            <div
+              class="project-content"
+              id="project-todo"
+              style="display: none;"
+            >
               <!-- <nav class="nav nav-pills nav-fill">
                 <a class="nav-item nav-link active" href="#">Active</a>
                 <a class="nav-item nav-link" href="#">Link</a>

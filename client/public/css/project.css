@@ -1,13 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400i&display=swap");
 
-#todo-content {
+#project-todo {
   font-family: "Montserrat", sans-serif;
   padding: 15px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-}
-
-#btn-listtodo:hover {
-  cursor: pointer;
 }
