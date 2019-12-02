@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="todos">
+        <!-- Todos -->
+        <div class="row">
+            <div class="col">
+                <h4 class="header-box m-3">Todos</h4>
+            </div>
+            <div class="col d-flex flex-row-reverse">
+                <button class="btn-box" data-toggle="modal" data-target="#addTodoModal" style="width: 25%;">
+                    <span>Add Todo</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="todos">
+            <table class="table table-borderless mt-5">
+                <thead>
+                    <tr>
+                        <th scope="col">STATUS</th>
+                        <th scope="col">NAME</th>
+                        <th scope="col">DESCRIPTION</th>
+                        <th scope="col">DUE DATE</th>
+                        <th scope="col">CREATED BY</th>
+                        <th scope="col">ACTION</th>
+                        <th scope="col">ACTION</th>
+                    </tr>
+                </thead>
+                <tbody id="all-todos">
+                </tbody>
+            </table>
+        </div>
+    
+        <div class="modal fade" id="addTodoModal" tabindex="-1" role="dialog" aria-labelledby="addTodoModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Todo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="add-todo-form">
+                            <fieldset class="forms add-todo-form">
+                                <div class="field-wrapper">
+                                    <label>Name</label>
+                                    <input type="text" value="" placeholder="Enter name" id="inputTodoName" name="name" required/>
+                                </div>
+                                <div class="field-wrapper">
+                                    <label>Description</label>
+                                    <input type="text" value="" placeholder="Enter description" id="inputTodoDescription" name="description" required/>
+                                </div>
+                                <div class="field-wrapper">
+                                    <label>Due Date</label>
+                                    <input type="text" placeholder="Enter Due Date" id="inputDate" name="dueDate" autocomplete="off"/>
+                                </div>
+                                <button class="btn-box"><span>Create Todo</span></button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="editTodoModal" tabindex="-1" role="dialog" aria-labelledby="editTodoModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editTodoModal">Edit Todo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" id="edit-todo-form">
+                            <fieldset class="forms add-todo-form">
+                                <div class="field-wrapper">
+                                    <label>Name</label>
+                                    <input type="text" placeholder="Enter name" id="editTodoName" name="name" required/>
+                                </div>
+                                <div class="field-wrapper">
+                                    <label>Description</label>
+                                    <input type="text" placeholder="Enter description" id="editTodoDescription" name="description" required/>
+                                </div>
+                                <div class="field-wrapper">
+                                    <label>Due Date</label>
+                                    <input type="text" placeholder="Enter Due Date" id="editDate" name="dueDate" autocomplete="off"/>
+                                </div>
+                                <button class="btn-box" type="submit"><span>Edit Todo</span></button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../scripts/todos.js"></script>
+</body>
+</html>
