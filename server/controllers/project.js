@@ -8,7 +8,7 @@ class ProjectController {
 
   static create(req, res, next) {
     let { name, description } = req.body
-    console.log(name, description)
+    // console.log(name, description)
     let creator = req.loggedUser.id
     Project.create({ name, description, creator })
       .then(created => {
@@ -27,8 +27,8 @@ class ProjectController {
   }
 
   static allUser(req, res, next) {
-    // console.log('masuk hmmmm oy');
-    User.find()
+    console.log(req.loggedUser.id);
+    User.find({ "_id": { $ne: req.loggedUser.id } })
       .then(data => {
         console.log(data);
         res.status(200).json(data)
@@ -83,7 +83,7 @@ class ProjectController {
   }
 
   static acceptProject(req, res, next) {
-    console.log(req.loggedUser.id);
+    // console.log(req.loggedUser.id);
     Project.findByIdAndUpdate(
       { _id: req.params.projectId },
       {
@@ -146,8 +146,14 @@ class ProjectController {
   static findAll(req, res, next) {
     let { id } = req.loggedUser
     Project.find({ $or: [{ 'creator': id }, { 'members': id }] })
-      .populate(['members', 'pendingMembers', 'todos', 'creator'])
+      .populate([
+        { path: 'members', select: "-password" },
+        'pendingMembers',
+        'todos',
+        { path: 'creator', select: "-password" }
+      ])
       .then(projects => {
+        console.log(projects);
         res.status(200).json(projects)
       })
       .catch(next)
@@ -156,8 +162,13 @@ class ProjectController {
   static findOne(req, res, next) {
     let id = req.params.projectId
     Project.findById(id)
-      .populate(['members', 'todos', 'creator'])
+      .populate([
+        { path: 'members', select: "-password" },
+        'todos',
+        { path: 'creator', select: "-password" }
+      ])
       .then(project => {
+        console.log(project);
         if (!project) throw ({ status: 404, message: 'Project not found' })
         else res.status(200).json(project)
       })

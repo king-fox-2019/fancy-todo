@@ -186,6 +186,8 @@ function createproject1() {
               }
             })
               .done(data => {
+                $('#projectlist').empty()
+                projectList()
                 resolve(data)
               })
               .fail(err => {
@@ -206,6 +208,8 @@ function createproject1() {
             }
           })
             .done(data => {
+              $('#projectlist').empty()
+              projectList()
               resolve(data)
             })
             .fail(err => {
