@@ -55,3 +55,48 @@ function login(){
     })
   })
 }
+
+function getAllUser(){
+  $.ajax({
+    url: 'http://localhost:3000/user',
+    method: 'GET',
+    headers:{
+      access_token: localStorage.getItem('token')
+    }
+  })
+  .done(users => {
+    $('#list-user').empty()
+    $('#list-user').append(`
+      <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Join At</th>
+        </tr>
+      </thead>
+      <tbody id="detail-table">
+      </tbody>
+    </table>
+    `)
+    $('#detail-table').empty()
+    users.forEach((user,index) => {
+      $('#detail-table').append(`
+        <tr>
+          <th scope="row">${index+1}</th>
+          <td>${user.username}</td>
+          <td>${user.email}</td>
+          <td>${moment(user.createdAt).format('LL')}</td>
+        </tr>
+      `)
+    });
+  })
+  .fail(err => {
+    Swal.fire({
+      icon: 'error',
+      title: 'Get All User',
+      text: `${err.responseJSON.message}`
+    })
+  })
+}
