@@ -42,9 +42,9 @@ $('#update-todo').submit(function(e){
   let user = localStorage.id
   let token = localStorage.access_token
   $.ajax({
-    url:`http://localhost:3000/todo/${user}`,
+    url:`http://localhost:3000/todo/${id}`,
     method:'put',
-    data:{ id, title, description, dueDate },
+    data:{ title, description, dueDate },
     headers: { token },
   }).done( data => {
     $('#alert').append(`
@@ -152,9 +152,8 @@ $(document).on('click','.delete', function(){
   let user = localStorage.id
   let token = localStorage.access_token
   $.ajax({
-    url:`http://localhost:3000/todo/${user}`,
+    url:`http://localhost:3000/todo/${id}`,
     method:'delete',
-    data:{ id },
     headers: { token },
   }).done( data => {
     $('#alert').append(`
@@ -293,9 +292,9 @@ $(document).on('click','.check', function(){
   let user = localStorage.id
   let token = localStorage.access_token
   $.ajax({
-    url:`http://localhost:3000/todo/${user}`,
+    url:`http://localhost:3000/todo/${id}`,
     method:'patch',
-    data:{ id, status },
+    data:{ status },
     headers: { token },
   }).done( data => {
     

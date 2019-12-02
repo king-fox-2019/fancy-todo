@@ -1,4 +1,5 @@
 const {verify} = require('../helpers/token')
+const Todo = require('../models/Todo')
 function authenticate(req,res,next){
     let token = req.headers.token
     if (token) {
@@ -15,13 +16,26 @@ function authenticate(req,res,next){
 }
 
 function authorize(req, res, next){
-    let currentId = req.params.user
-    let userId = req.id
-    if(currentId == userId){
-        next()
-    }else{
-        throw { code: 401, msg: 'You are not able to see the todo list of this user' }
-    }
+    let currentId
+    let TodoId = req.params.id
+    let user = req.params.user
+    Todo.findOne({_id:TodoId})
+        .then( todo => {
+            if(todo){
+                user = todo.user
+            }
+        }).catch(next)
+        .finally(() => {
+            if(user){
+                currentId = user
+            }
+            let userId = req.id
+            if(currentId == userId){
+                next()
+            }else{
+                next({ code: 401, msg: 'You are not authorized' })
+            }
+        })
 }
 
 module.exports = { authenticate , authorize }

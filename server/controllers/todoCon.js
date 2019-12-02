@@ -2,9 +2,11 @@ const Todo = require('../models/Todo')
 class TodoController{
     static TodoPerson(req, res, next){
         const {user} = req.params
-        Todo.find({user}).then(todo => {
+        Todo.find({user})
+        .then(todo => {
             res.status(200).json(todo)
-        }).catch(next)
+        })
+        .catch(next)
     }
     static addTodo(req, res, next){
         const {user} = req.params
@@ -15,22 +17,21 @@ class TodoController{
         }).catch(next)
     }
     static deleteTodo(req, res, next){
-        const {user} = req.params
-        const {id} = req.body      
+        const {id} = req.params     
         Todo.deleteOne({_id : id}).then(todo =>{
             res.status(200).json(todo)
         }).catch(next)
     }
     static updateTodo(req, res, next){
-        const {user} = req.params
-        const {id, title, description, dueDate} = req.body      
+        const {id} = req.params
+        const {title, description, dueDate} = req.body      
         Todo.updateOne({_id : id}, {title, description, dueDate}).then(data=>{
             res.status(200).json(data)
         }).catch(next)
     }
     static checkTodo(req, res,next){
-        const {user} = req.params
-        const {id, status} = req.body      
+        const {id} = req.params
+        const {status} = req.body      
         Todo.updateOne({_id : id}, {status}).then(data=>{
             res.status(200).json(data)
         }).catch(next)
