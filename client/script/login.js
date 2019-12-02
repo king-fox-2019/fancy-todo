@@ -137,7 +137,7 @@ function islogin() {
     toDoList()
     projectList()
     setAvatar()
-    // getWeather()
+    getWeather()
     welcome()
     $('.usertoken').append(`<p>${localStorage.getItem('name')}</p>`)
     $('#todolist').show()
@@ -174,7 +174,7 @@ function setAvatar() {
 function getWeather() {
   $.ajax({
     method: 'get',
-    // url: `https://api.weatherbit.io/v2.0/current?lat=-6.258407&lon=106.781166&key=82ff47dc6ed4480ea25799d00911aa63`
+    url: `https://api.weatherbit.io/v2.0/current?lat=-6.258407&lon=106.781166&key=82ff47dc6ed4480ea25799d00911aa63`
     // url: `https://api.weatherbit.io/v2.0/current?city=Bandung,ID&key=82ff47dc6ed4480ea25799d00911aa63`
   })
     .done(weather => {
