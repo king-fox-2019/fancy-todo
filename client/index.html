@@ -91,13 +91,32 @@
               <a id="btn-go-create-project" class="dropdown-item" href="#"
                 >Create Project</a
               >
+              <div class="dropdown-divider"></div>
               <a id="btn-go-create-todo" class="dropdown-item" href="#"
                 >Create Todo</a
               >
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
             </div>
           </li>
+          <!-- nav project -->
+          <li class="nav-item dropdown project-content" style="display: none;">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Project Menu
+            </a>
+            <div
+              class="dropdown-menu"
+              id="dropdown-project"
+              aria-labelledby="navbarDropdown"
+            ></div>
+          </li>
+          <!-- end nav -->
         </ul>
         <button
           id="btn-go-signin"
@@ -433,23 +452,44 @@
             <button
               type="button"
               class="list-group-item list-group-item-action active"
+              id="btn-listtodo"
             >
               ToDo List
             </button>
-            <button
-              class="btn btn-secondary dropdown-toggle"
-              type="button"
-              id="dropdownMenuButton"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Project List
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Project List
+              </button>
+              <div
+                class="dropdown-menu"
+                id="dropdown-menu-project"
+                aria-labelledby="dropdownMenuButton"
+              ></div>
+            </div>
+            <hr />
+            <div class="dropdown">
+              <button
+                class="btn btn-success dropdown-toggle"
+                type="button"
+                id="dropdownMenuButtonInvitation"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                invitation
+              </button>
+              <div
+                class="dropdown-menu"
+                id="dropdown-menu-invitation"
+                aria-labelledby="dropdownMenuButtonInvitation"
+              ></div>
             </div>
           </div>
         </div>
@@ -457,10 +497,17 @@
           <div class="" id="quote-page"></div>
           <div class="col" id="list-content">
             <!-- todo page -->
-            <div id="todo-content"></div>
+            <div id="todo-content" style="display: none;"></div>
             <!-- end todo page -->
             <!-- project page -->
-            <div id="project-page"></div>
+            <div class="project-content" style="display: none;">
+              <!-- <nav class="nav nav-pills nav-fill">
+                <a class="nav-item nav-link active" href="#">Active</a>
+                <a class="nav-item nav-link" href="#">Link</a>
+                <a class="nav-item nav-link" href="#">Link</a>
+                <a class="nav-item nav-link disabled" href="#">Disabled</a>
+              </nav> -->
+            </div>
             <!-- end project page -->
           </div>
         </div>
@@ -469,6 +516,15 @@
     <!-- modal update todo -->
     <div id="renderModalUpdate"></div>
     <!-- end modal update todo -->
+    <!-- modal acc/dec invt -->
+    <div id="renderModalInvitation"></div>
+    <!-- end modal acc/dec -->
+    <!-- modal add member -->
+    <div id="renderModalAddMember"></div>
+    <!-- end modal add member -->
+    <!-- modal kick member -->
+    <div id="renderModalKickMember"></div>
+    <!-- end modal kick member -->
     <!-- end content page -->
 
     <!-- footer -->

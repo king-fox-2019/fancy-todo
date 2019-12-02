@@ -5,13 +5,17 @@ $(document).ready(function() {
 
   if (localStorage.getItem("token")) {
     // $("#user-nav-signin").empty();
+    $("#todo-content").show();
     $(".all-page").show();
     $(".page-beforesignin").hide();
     $("#quote-page").empty();
     getQuote();
     getTodo();
+    getProject();
+    getInvitation();
   } else {
     $(".all-page").hide();
+    $(".project-content").hide();
     $(".page-beforesignin").show();
   }
   $("#btn-go-signin").click(function() {
@@ -50,4 +54,11 @@ $(document).ready(function() {
     createProject();
   });
   //end project
+  //menu side
+  $("#btn-listtodo").click(function() {
+    getTodo();
+    $("#todo-content").show();
+    $(".project-content").hide();
+  });
+  //end menu side
 });

@@ -1,6 +1,7 @@
 const { verifyToken } = require("../helpers/jwt");
 const Todo = require("../models/todo");
 const Project = require("../models/project");
+const ObjectId = require("mongoose").Types.ObjectId;
 
 function authentication(req, res, next) {
   try {
@@ -47,6 +48,7 @@ function authorizationAdmin(req, res, next) {
           message: "Project is Not Found"
         };
       } else {
+        // let id = new ObjectId(req.decoded.id);
         if (response.admin == req.decoded.id) {
           next();
         } else {
@@ -61,6 +63,7 @@ function authorizationAdmin(req, res, next) {
 }
 
 function authorizationCrudProject(req, res, next) {
+  let id = new ObjectId(req.decoded.id);
   Project.findOne({
     _id: req.params.idProject
   })
@@ -71,24 +74,23 @@ function authorizationCrudProject(req, res, next) {
           message: "Project is Not Found"
         };
       } else {
-        if (response.admin == req.decoded.id) {
-          next();
-        } else if (response.member) {
-          let findMember = response.member.filter(member => {
-            return member === req.decoded.id;
-          });
-          if (findMember.length != 0) {
-            next();
-          } else {
-            throw {
-              status: 404,
-              message: "You not a member in this project"
-            };
+        return Project.findOne({
+          member: {
+            $in: [id]
           }
-        }
+        });
       }
     })
-    .then(response => {})
+    .then(response => {
+      if (response) {
+        next();
+      } else {
+        throw {
+          status: 404,
+          message: "You not a member in this project"
+        };
+      }
+    })
     .catch(next);
 }
 

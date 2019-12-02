@@ -21,6 +21,7 @@ router.patch(
 ); //add member / kick member
 
 //member
+router.get("/invitation", ProjectController.invitation);
 router.patch("/member/:edit/:idProject", ProjectController.accOrDec); //acc or decline
 
 //crud in project

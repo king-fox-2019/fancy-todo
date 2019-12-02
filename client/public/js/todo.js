@@ -89,7 +89,7 @@ function getTodo() {
       if (response.length == 0) {
         setTimeout(() => {
           alertify.message("No Have Todo");
-        }, 4000);
+        }, 3000);
       } else {
         response.forEach(e => {
           let status = "";

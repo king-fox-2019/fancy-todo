@@ -96,6 +96,8 @@ function signIn() {
         $(".page-beforesignin").hide();
         getQuote();
         getTodo();
+        getProject();
+        getInvitation();
         alertify.success(response.message);
         setTimeout(() => {
           alertify.message("Welcome, " + response.user);
@@ -138,14 +140,16 @@ function onSignIn(googleUser) {
     .done(response => {
       localStorage.setItem("token", response.token);
       localStorage.setItem("user", response.user);
-      // $("#user-nav-signin").append(`
-      //   <p>${localStorage.getItem("user")}</p>
-      // `);
+      $("#user-nav-signin").append(`
+        <p>${localStorage.getItem("user")}</p>
+      `);
       $("#modal-signin").modal("hide");
       $(".all-page").show();
       $(".page-beforesignin").hide();
-      // getQuote();
+      getQuote();
       getTodo();
+      getProject();
+      getInvitation();
       alertify.success(response.message);
       setTimeout(() => {
         alertify.message("Welcome, " + response.user);
@@ -169,6 +173,7 @@ function signOut() {
         localStorage.removeItem("user");
         $(".all-page").hide();
         $(".page-beforesignin").show();
+        $(".project-content").hide();
         checked();
       })
       .catch(err => {
@@ -178,6 +183,7 @@ function signOut() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     $(".all-page").hide();
+    $(".project-content").hide();
     $(".page-beforesignin").show();
     alertify.success("Have Nice Day");
     checked();

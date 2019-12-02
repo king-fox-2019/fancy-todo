@@ -10,12 +10,13 @@ class ProjectController {
     Project.create({
       name,
       description,
-      admin: req.decoded.id
+      admin: req.decoded.id,
+      member: [req.decoded.id]
     })
       .then(response => {
         res.status(201).json({
           response,
-          messsage: "success create project"
+          message: "success create project"
         });
       })
       .catch(next);
@@ -35,28 +36,29 @@ class ProjectController {
 
   static editMember(req, res, next) {
     let idProject = req.params.idProject;
+    let idMember;
     if (req.params.edit === "add") {
-      let idMember;
       const { email } = req.body;
       User.findOne({
         email
       })
         .then(response => {
-          //response user
+          // console.log(response);
           if (!response) {
             throw {
               status: 404,
               message: "User not found"
             };
           } else {
-            idMember = response._id;
+            idMember = new ObjectId(response._id);
             return Project.findOne({
-              pendingMember: response._id
+              pendingMember: {
+                $in: [idMember]
+              }
             });
           }
         })
         .then(response => {
-          //respone project
           if (response) {
             throw {
               status: 400,
@@ -86,21 +88,47 @@ class ProjectController {
         })
         .catch(next);
     } else {
-      const { memberId } = req.body;
-      Project.findByIdAndUpdate(
-        idProject,
-        {
-          $pull: {
-            member: memberId
-          }
-        },
-        { new: true }
-      )
+      const { email } = req.body;
+      User.findOne({
+        email
+      })
         .then(response => {
-          res.status(200).json({
-            response,
-            message: "success kick member from this project"
-          });
+          // console.log(response);
+          if (!response) {
+            throw {
+              status: 404,
+              message: "User not found"
+            };
+          } else {
+            idMember = new ObjectId(response._id);
+            return Project.findByIdAndUpdate(
+              {
+                _id: idProject
+              },
+              {
+                $pull: {
+                  member: idMember
+                }
+              },
+              {
+                new: true
+              }
+            );
+          }
+        })
+        .then(response => {
+          // console.log(response);
+          if (response) {
+            res.status(200).json({
+              response,
+              message: "success kick member from project"
+            });
+          } else {
+            throw {
+              status: 400,
+              message: "user not in project"
+            };
+          }
         })
         .catch(next);
     }
@@ -153,29 +181,45 @@ class ProjectController {
       });
     }
   }
+
+  static invitation(req, res, next) {
+    let id = new ObjectId(req.decoded.id);
+    Project.find({
+      pendingMember: {
+        $in: [id]
+      }
+    })
+      .then(response => {
+        if (response.length > 0) {
+          res.status(200).json(response);
+        } else {
+          throw {
+            status: 404,
+            message: "no have invitation project"
+          };
+        }
+      })
+      .catch(next);
+  }
   //END MEMBER
 
   //CRUD in PROJECT
   static getAllProject(req, res, next) {
+    let id = new ObjectId(req.decoded.id);
     Project.find({
-      admin: req.decoded.id
+      member: {
+        $in: [id]
+      }
     })
       .then(response => {
-        if (response.length != 0) {
-          console.log("masuk ke admin");
+        if (response.length > 0) {
           res.status(200).json(response);
         } else {
-          let id = new ObjectId(req.decoded.id);
-          console.log("masuk ke member");
-          return Project.find({
-            member: {
-              $in: [id]
-            }
-          });
+          throw {
+            status: 400,
+            message: "No have Project"
+          };
         }
-      })
-      .then(response => {
-        res.status(200).json(response);
       })
       .catch(next);
   }
@@ -186,6 +230,7 @@ class ProjectController {
       .populate("member")
       .then(response => {
         res.status(200).json(response);
+        // console.log(response);
       })
       .catch(next);
   }
