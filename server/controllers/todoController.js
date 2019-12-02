@@ -29,6 +29,13 @@ class TodoController {
         })
         .populate('userId')
         .populate('assignee')
+        .populate({
+            path: "projectId",
+            populate: {
+                path: "members",
+                select : ["name", "profilePicture"]
+            }
+        })
         .then(todos => {
             res.status(200).json(todos)
         })
@@ -157,6 +164,13 @@ class TodoController {
         })
         .populate('userId')
         .populate('assignee')
+        .populate({
+            path: "projectId",
+            populate: {
+                path: "members",
+                select : ["name", "profilePicture","email"]
+            }
+        })
         .then(todos => {
             res.status(200).json(todos)
         })
@@ -170,6 +184,13 @@ class TodoController {
         })
         .populate('userId')
         .populate('assignee')
+        .populate({
+            path: "projectId",
+            populate: {
+                path: "members",
+                select : ["name", "profilePicture","email"]
+            }
+        })
         .then(todos => {
             res.status(200).json(todos)
         })
@@ -183,6 +204,13 @@ class TodoController {
         })
         .populate('userId')
         .populate('assignee')
+        .populate({
+            path: "projectId",
+            populate: {
+                path: "members",
+                select : ["name", "profilePicture","email"]
+            }
+        })
         .then(todos => {
             res.status(200).json(todos)
         })

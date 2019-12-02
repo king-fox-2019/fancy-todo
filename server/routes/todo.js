@@ -16,7 +16,7 @@ function authorization(req,res,next){
 
 router.use(authentication)
 
-router.get('/',TodoController.findAll)
+router.get('/personal',TodoController.findAll)
 router.get('/onProgress',TodoController.findOnProgress)
 router.get('/starred',TodoController.findStarred)
 router.get('/done',TodoController.findDone)

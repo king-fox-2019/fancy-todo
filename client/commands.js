@@ -149,6 +149,8 @@ let addButton = 'show';
 
 $('#show-personal-page').click((e) => {
     e.preventDefault()
+    $('#todolist').empty()
+    generateTodo()
     $("#page-content-wrapper-personal").show()
     $("#page-content-wrapper-project").hide()
     $("#page-content-wrapper-project-todo").hide()
@@ -167,6 +169,7 @@ $('#show-personal-page').click((e) => {
     $('#button-submit-addTodo').animate({
         opacity: '-=1'
     })
+    $("#add-todo-form").hide()
     addButton = 'show';
 })
 
@@ -192,6 +195,7 @@ $('#show-group-page').click((e) => {
     $('#button-submit-addTodo').animate({
         opacity: '-=1'
     })
+    $("#add-todo-form").hide()
     addButton = 'show';
     
 })
@@ -215,6 +219,7 @@ $("#add-button-show").click(function() {
         $('#button-submit-addTodo').animate({
             opacity: '+=1'
         })
+        $("#add-todo-form").show()
     } else {
         
         $("#page-content-wrapper-personal").animate({
@@ -232,6 +237,7 @@ $("#add-button-show").click(function() {
         $('#button-submit-addTodo').animate({
             opacity: '-=1'
         })
+        $("#add-todo-form").hide()
         addButton = 'show';
     }
 })
