@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="google-signin-client_id"
+        content="86398874367-n5c7vtvso1ujvv831t7tahktq0101ni5.apps.googleusercontent.com">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="styles/style.css" !important>
+    <title>Fancy To-Do</title>
+</head>
+
+<body>
+    <!-- <h1>Tes page</h1> -->
+    <div class="login-form form">
+        <form action="/examples/actions/confirmation.php" method="post">
+            <h2 class="text-center">Sign in</h2>
+            <div class="form-group">
+                <input type="email" class="form-control email_login" placeholder="Email" required="required">
+                <span class="email_valid"></span>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control password_login" placeholder="Password" required="required">
+                <span class="password_valid"></span>
+            </div>
+            <div class="form-group submit-btn">
+                <input type="submit" class="btn btn-primary btn-block" value="Sign in" />
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            </div>
+        </form>
+        <p class="text-center"><button class="sign-btn" onclick="changeForm()">Create an Account</button></p>
+    </div>
+
+    <div class="register-form form hidden">
+        <form action="/examples/actions/confirmation.php" method="post">
+            <h2 class="text-center">Sign up</h2>
+            <div class="form-group">
+                <input type="text" class="form-control username_register" placeholder="Username" required="required">
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control email_register" placeholder="Email" required="required">
+                <span class="email_valid"></span>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control password_register" placeholder="Password"
+                    required="required">
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary btn-block" value="Sign up" />
+            </div>
+        </form>
+        <p class="text-center">Already have account? <button class="sign-btn" onclick="changeForm()">Sign in</button>
+        </p>
+    </div>
+    <!-- isi html mulai dari sini -->
+    <div id="inner-html">
+        <a href="" onclick="signOut();" id="sign-out">Sign out</a>
+        <div id="left-bar"></div>
+        <div id="right-bar"></div>
+
+        <h1>hello</h1>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="./scripts/main.js"></script>
+</body>
+
+</html>
