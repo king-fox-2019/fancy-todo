@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+    <body>
+        <section class="container logged-out sign-form">
+            <div class="row p-2 animated slideInDown fadeOutUp register">
+                <div class="col-sm-6 p-5 register-form">
+                    <section class="main">  
+                        <form method="POST" id="register-form" class="animated slideInDown">
+                            <fieldset class="forms">
+                                <legend>Register</legend>
+                                <div class="field-wrapper">
+                                    <label>Name</label>
+                                    <input type="text" value="" placeholder="Angela" id="inputName" name="name"/>
+                                </div>
+                                <div class="field-wrapper">
+                                    <label>Email</label>
+                                    <input type="text" value="" placeholder="angela@mail.com" id="inputEmail" name="email"/>
+                                </div>
+                                <div class="field-wrapper">
+                                    <label>Password</label>
+                                    <input type="password" value="" placeholder="password" id="inputPassword" name="password"/>
+                                </div>
+                                <div class="field-wrapper">
+                                    <label>Confirm Password</label>
+                                    <input type="password" value="" placeholder="confirm password" id="inputConfirmPassword"/>
+                                </div>
+                                <button class="btn-box"><span>Register</span></button>
+                            </fieldset>
+                        </form>
+                    </section>
+                </div>
+                <div class="col-sm-6 p-5 d-flex flex-column justify-content-center align-items-center">
+                    <h3>Already have an account?</h3>
+                    <button id="login-now" class="btn-box btn-box-dark btn-size">
+                        <span>Login now</span>
+                    </button>
+                    <p>OR</p>
+                    <button class="g-signin2 btn-size" data-onsuccess="onSignIn"></button>
+                </div>
+            </div>
+    
+            <div class="row p-2 animated slideInDown fadeOutUp login">
+                <div class="col-sm-6 p-5 d-flex flex-column justify-content-center align-items-center">
+                    <h3>Don't have an account?</h3>
+                    <button id="register-now" class="btn-box btn-box-dark btn-size">
+                        <span>Register now</span>
+                    </button>
+                    <p>OR</p>
+                    <button class="g-signin2 btn-size" data-onsuccess="onSignIn"></button>
+                </div>
+                <div class="col-sm-6 p-5">
+                    <section class="main">  
+                        <form method="POST" id="login-form" class="animated slideInDown">
+                            <fieldset class="forms">
+                                <legend>Login</legend>
+                                <div class="field-wrapper">
+                                    <label>Email</label>
+                                    <input type="text" value="" placeholder="angela@mail.com" id="loginEmail" name="email"/>
+                                </div>
+                                <div class="field-wrapper">
+                                    <label>Password</label>
+                                    <input type="password" value="" placeholder="password" id="loginPassword" name="password"/>
+                                </div>
+                                <button class="btn-box"><span>Login</span></button>
+                            </fieldset>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </section>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <script src="../scripts/login.js"></script>
+    </body>
+</html>

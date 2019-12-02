@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <div id="projects">
+            <!-- Projects -->
+            <div class="row">
+                <div class="col">
+                    <h4 class="header-box m-3">Projects</h4>
+                </div>
+                <div class="col d-flex flex-row-reverse">
+                    <button class="btn-box add-project-btn" data-toggle="modal" data-target="#addProjectModal" style="width: 50%;">
+                        <span style="font-size: 12px;">Add Project</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="all-projects" class="row my-4"></div>
+
+            <!-- Add Project -->
+            <div class="modal fade" id="addProjectModal" tabindex="-1" role="dialog" aria-labelledby="addProjectModal" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add Project</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" id="add-project-form">
+                                <fieldset class="forms add-todo-form">
+                                    <div class="field-wrapper">
+                                        <label>Name</label>
+                                        <input type="text" value="" placeholder="Enter name" id="inputProjectName" name="name" required/>
+                                    </div>
+                                    <div class="field-wrapper">
+                                        <label>Invite Members</label>
+
+                                        <input type="hidden" id="members" name="members">
+                                        <div id="members-added"></div>
+                                        
+                                        <input type="text" value="" placeholder="Enter emails of the people you want to invite!" id="inviteMembers" autocomplete="off"/>
+                                    </div>
+                                    <button class="btn-box" type="submit"><span>Create Project</span></button>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="../scripts/home.js"></script>
+</body>
+</html>
