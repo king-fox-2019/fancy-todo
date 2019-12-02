@@ -27,8 +27,8 @@ There is two routes on the app
 
 #### User routes
 `POST /user/register`  
-| Authenticate | Authorized |
-|--------------|------------|
+| Authenticate | Authorized |  
+|--------------|------------|  
 | No           | No         |
 
 ###### Params
@@ -55,8 +55,8 @@ There is two routes on the app
 ```
 ---
 `POST /user/login`  
-| Authenticate | Authorized |
-|--------------|------------|
+| Authenticate | Authorized |  
+|--------------|------------|  
 | No           | No         |
 
 ###### Params
@@ -78,8 +78,8 @@ There is two routes on the app
 ```
 ---
 `POST /user/googleLogin`  
-| Authenticate | Authorized |
-|--------------|------------|
+| Authenticate | Authorized |  
+|--------------|------------|  
 | No           | No         |
 
 ###### Params
@@ -102,8 +102,8 @@ There is two routes on the app
 
 #### Todo routes
 `GET /todo/`  
-| Authenticate | Authorized |
-|--------------|------------|
+| Authenticate | Authorized |  
+|--------------|------------|  
 | Yes          | No         |
 
 ###### Params
@@ -140,8 +140,8 @@ There is two routes on the app
 ```
 ---
 `POST /todo/`  
-| Authenticate | Authorized |
-|--------------|------------|
+| Authenticate | Authorized |  
+|--------------|------------|  
 | Yes          | No         |
 
 ###### Params
@@ -168,8 +168,8 @@ There is two routes on the app
 ```
 ---
 `PUT /todo/<todo id>`  
-| Authenticate | Authorized |
-|--------------|------------|
+| Authenticate | Authorized |  
+|--------------|------------|  
 | Yes          | Yes        |
 
 ###### Params
@@ -194,8 +194,8 @@ There is two routes on the app
 ```
 ---
 `PATCH /todo/<todo id>`  
-| Authenticate | Authorized |
-|--------------|------------|
+| Authenticate | Authorized |  
+|--------------|------------|  
 | Yes          | Yes        |
 
 ###### Params
@@ -220,8 +220,8 @@ There is two routes on the app
 ```
 ---
 `DELETE /todo/<todo id>`  
-| Authenticate | Authorized |
-|--------------|------------|
+| Authenticate | Authorized |  
+|--------------|------------|  
 | Yes          | Yes        |
 
 ###### Params
