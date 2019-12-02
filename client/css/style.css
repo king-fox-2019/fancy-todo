@@ -1,0 +1,47 @@
+body {
+    background-image: url("/css/todo-background-img.jpg");
+}
+
+thead {
+    font-family: 'Rancho', cursive;
+}
+
+#home {
+    border: 1px solid black;
+    border-radius: 25px;
+    margin-top : 10%;
+    font-family: 'Rancho', cursive;
+    background: rgba(0, 0, 0, 0.35);
+}
+
+#login {
+    margin-left: 35%
+}
+
+.g-signin2 {
+    margin-left: 12%;
+}
+
+.modal {
+    width: 40%
+}
+
+#table-head {
+    font-size: 22px;
+}
+
+#todoList {
+    font-size: 12px;
+}
+
+.title {
+    min-width: 100px;
+}
+
+.description {
+    width: 250px;
+}
+
+h4, h6 {
+    font-family: 'Rancho', cursive; 
+}
