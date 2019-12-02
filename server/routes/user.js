@@ -1,9 +1,13 @@
 const router = require('express').Router()
 const UserController = require('../controllers/user')
+const Authenticate = require('../middlewares/authenticate')
 const GoogleVerify = require('../middlewares/googleVerify')
 
 // get all user
 router.get('/', UserController.getAllUser);
+
+//search user
+router.get('/search', Authenticate, UserController.searchUser);
 
 // register
 router.post('/register', UserController.registerUser);

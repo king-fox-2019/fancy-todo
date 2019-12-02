@@ -1,6 +1,7 @@
 $(document).ready(function(){
   if(localStorage.getItem('token')){
     isLogin(true)
+    getUserLogin()
     getUserTodo()
   }else{
     isLogin(false)
@@ -136,4 +137,27 @@ function setToRegister(){
 function showRegister(){
   $('#register').show('fast')
   $('#main-look').hide('fast')
+}
+
+function getUserLogin(){
+  $.ajax({
+    url: 'http://localhost:3000/user/search',
+    method: 'GET',
+    headers:{
+      access_token: localStorage.getItem('token')
+    }
+  })
+  .done(user => {
+    $('#active-user').empty()
+    $('#active-user').append(`
+      <p>${user.username}</p>
+    `)
+  })
+  .fail(err => {
+    Swal.fire({
+      icon: 'error',
+      title: 'Search User',
+      text: `${err.responseJSON.message}`
+    })
+  })
 }

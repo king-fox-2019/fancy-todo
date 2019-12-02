@@ -113,8 +113,13 @@
             <div onclick="isLogin(true)" id="back-home">
                 <a class="navbar-brand"><i class="fab fa-servicestack mr-3"></i>DO LIST</a>
             </div>
-            <div>
-                <button class="btn btn-outline-primary" onclick="signOut()">Sign Out</button>
+            <div class="d-flex">
+                <div class="d-flex align-items-center">
+                    <div class="content-title mr-3" id="active-user"></div>
+                </div>
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-outline-primary" onclick="signOut()">Sign Out</button>
+                </div>
             </div>
         </nav>
 

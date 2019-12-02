@@ -141,6 +141,18 @@ class UserController{
             next(err)
         })
     }
+
+    static searchUser(req,res,next){
+        User.findOne({
+            _id: req.decoded.id
+        })
+        .then(user => {
+            res.status(200).json(user)
+        })
+        .catch(err => {
+            next(err)
+        })
+    }
 }
 
 module.exports = UserController

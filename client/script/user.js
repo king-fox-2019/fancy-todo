@@ -40,6 +40,10 @@ function login(){
     $('#front-page').hide()
     $('#main-page').show()
     localStorage.setItem('token', data.token)
+    $('#active-user').empty()
+    $('#active-user').append(`
+      <p>${data.user.username}</p>
+    `)
     getUserTodo()
     Swal.fire({
       icon: 'success',
