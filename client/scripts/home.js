@@ -88,6 +88,7 @@ function showProjects(){
 		}
     })
     .done( datas => {
+        $('#all-projects').empty();
         loggedInEmail = datas[0].owner.email;
         for (let project in datas) {
             $('#all-projects').append(`

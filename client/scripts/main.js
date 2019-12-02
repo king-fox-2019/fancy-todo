@@ -37,8 +37,8 @@ $.when($.ready)
 });
 
 
-const BASE_URL="http://localhost:3000";
-// const BASE_URL="http://fancytodoserver.angelavanessa.com";
+// const BASE_URL="http://localhost:3000";
+const BASE_URL="http://fancytodoserver.angelavanessa.com";
 
 let todoId, currentProjSettings;
 
@@ -281,33 +281,44 @@ function showSuccessMessage(str) {
 }
 
 function logOut() {
-    // signOut();
     event.preventDefault();
     localStorage.removeItem('jwt_token');
     localStorage.removeItem('project');
+    localStorage.removeItem('email');
+    localStorage.removeItem('calendar');
     $.router.go("login");
 }
 
+function onLoad() {
+    gapi.load('auth2', function() {
+      gapi.auth2.init();
+    });
+}
+
 function onSignIn(googleUser) {
-    // var id_token = googleUser.getAuthResponse().id_token;
-    // $.ajax(`${BASE_URL}/gSignIn`, {
-    //     method: "POST",
-    //     data: {
-    //         id_token
-    //     }
-    // })
-    // .done( data => {
-    //     localStorage.setItem('jwt_token', data.token);
-    //     return;   
-    // })
-    // .fail( err => {
-    //     console.log(err)
-    // })
+    var id_token = googleUser.getAuthResponse().id_token;
+    $.ajax(`${BASE_URL}/gSignIn`, {
+        method: "POST",
+        data: {
+            id_token
+        }
+    })
+    .done( data => {
+        localStorage.setItem('email', data.email);
+        localStorage.setItem('jwt_token', data.token);
+        $.router.go("home");
+        return;   
+    })
+    .fail( err => {
+        console.log(err)
+    })
 }
 
 function signOut() {
+    onLoad()
     var auth2 = gapi.auth2.getAuthInstance();
+    
     auth2.signOut().then(function () {
-      console.log('User signed out.');
+      logOut()
     });
 }

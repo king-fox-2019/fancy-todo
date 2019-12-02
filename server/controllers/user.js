@@ -102,6 +102,7 @@ class UserController {
 				User.findOne({ email: payload.email }).then(user => {
 					if (user) {
 						res.status(200).json({
+                            email: user.email,
                             token : jwt({id: user.id, email: user.email})
 						});
 					} else {
