@@ -4,8 +4,8 @@ const todoController = require("../controllers/todoController");
 const { authentication, authorization } = require("../middlewares/auth")
 
 todo.use(authentication)
-todo.post("/", todoController.addTodo);
 todo.get("/", todoController.showTodos);
+todo.post("/", todoController.addTodo);
 
 todo.get("/:todoId", authorization, todoController.showTodo);
 todo.put("/:todoId", authorization, todoController.editTodo);

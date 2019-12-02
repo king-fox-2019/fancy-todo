@@ -15,7 +15,6 @@
     <a class="navbar-brand" href="#">Fancy Todo</a>
     <div class="navbar-collapse">
       <div class="navbar-nav">
-        <a id="uname">A</a>
         <a class="nav-item nav-link active" href="#">Home</a>
         <!-- <a class="nav-item nav-link" href="#">Features</a> -->
         <button class="btn btn-sm float-right" href="" onclick="signout(event)">Sign Out</button>
@@ -51,7 +50,7 @@
       <div class="col-6 border">
         <div id="desc-todo" class="all card card-body mt-3">
           <div class="container">
-            <h2 class="title">Description</h2>
+            <h2 id="details-title">Details</h2>
             <div class="col-md-12">
               <div class="todo-details card-body">
                 
@@ -71,9 +70,6 @@
   <!-- signin -->
   <div id="signin" class="all mt-5 container text-center justify-content-center border rounded-sm bg-light" style="width:30%; height:75vh">
       <form id="signin-form" onsubmit="signin(event)">
-        <a href="#">
-          Logo
-        </a>
         <h1 class="h3 mb-3 font-weight-normal">Login</h1>
         <input id="signin-email" name="email" type="email" class="form-control mb-2" placeholder="Email address" required autofocus/>
         <input id="signin-password"name="password" type="password" class="form-control mb-2" placeholder="Password" required/>
@@ -99,7 +95,6 @@
   <!-- Register -->
   <div id="register" class="all mt-5 container text-center justify-content-center border rounded-sm bg-light" style="width:30%; height:75vh">
       <form id="register-form" onsubmit="register(event)">
-        <a id="logo" href="#">Logo</a>
           <h1 class="h3 mb-3 font-weight-normal">Register</h1>
           <input id="reg-username" name="username" type="text" class="form-control mb-2" placeholder="Username" required>
           <input id="reg-email" name="email" type="email" class="form-control mb-2" placeholder="Email address" required autofocus>
@@ -115,23 +110,7 @@
     </div>
     <!-- End of Register -->
 
-    <!-- Edit -->
-    <div id="edit-todo" class="all card card-body mt-3">
-      <div class="container">
-        <h2 class="title">Edit Todo</h2>
-        <div class="col-md-12">
-          <form id="edit-form" class="mb-4" onsubmit="createTodo(event)">
-              <input id="edit-todo-name" name="name" type="text" class="form-control mb-2 flex-fill" placeholder="E.g. Refactor code">
-              <textarea id="edit-todo-description" rows="5" name="description" type="textarea" class="form-control mb-2 flex-fill" placeholder="Write the description"></textarea>
-              Due date: <input id="edit-todo-due-date" name="due_date" type="date" class="form-control mb-2 flex-fill" placeholder="ya">
-              <input type="submit" class="btn btn-primary" value="Save Edit">
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- End of edit -->
-
+  
     <!-- Details Todo -->
 
     <div class="todo all container" 

@@ -23,10 +23,7 @@ function authentication(req, res, next) {
 function authorization(req, res, next) {
   Todo.findById(req.params.todoId)
     .then(todo => {
-      // console.log(todo.user_id == req.decoded._id, '-')
-      // console.log(req.decoded._id, '+')
       if (todo.user_id == req.decoded._id) {
-        // console.log('sama kok')
         next();
       } else {
         throw { status: 403, message: "Forbidden access" };

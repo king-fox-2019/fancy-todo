@@ -21,7 +21,7 @@ function showTodos(todos) {
       `<li class="each-task list-group-item">
         <div class="card-body">
           <button id="check-${todo._id}" class="checker btn btn-success btn-sm mr-2" onclick="check('${todo._id}', $(this).text())">Check</button>
-          <span class="todo-name">${todo.name}</span>
+          <span id="name-${todo._id}" class="todo-name">${todo.name}</span>
           <br>
           <div class="info float-left buttons-action">
             <span class="to-details checker btn btn-info btn-sm mr-2" onclick="showTodo('${todo._id}')">Details</span>
@@ -39,6 +39,7 @@ function showTodos(todos) {
 // ----------------------------
 
 function showTodo(todoId) {
+  $(".todo-details").show()
   let params = {};
   $.ajax({
     method: "get",
@@ -46,10 +47,11 @@ function showTodo(todoId) {
     headers: { access_token: localStorage.getItem('access_token') }
   })
   .done(result => {
+      $("#details-title").text(result.name)
       params.name = result.name,
       params.description = result.description,
       params.due_date = result.due_date.slice(0, 10)
-
+      console.log(params.name)
     $(".todo-details").html(
       `<article>
       <p>${result.description}</p>
@@ -92,20 +94,24 @@ function createTodo(e) {
 }
 
 function check(todoId, t) {
+  $(".todo-details").show()
   let status;
   let selectCheck = `#check-${todoId}`;
-  let selectStat = `#status-${todoId}`
+  let selectStat = `#status-${todoId}`;
+  let selectName = `#name-${todoId}`
   if (t === "Check") {
     $(`${selectCheck}`).text("Uncheck");
     $(`${selectCheck}`).removeClass("btn-success").addClass("btn-secondary");
     $(`${selectStat}`).text("Done")
     $(`${selectStat}`).removeClass("badge-warning").addClass("badge-success")
+    $(`${selectName}`).css("text-decoration", "line-through")
     status = "Done";
   } else if (t = "Uncheck") {
     $(`${selectCheck}`).text("Check")
     $(`${selectCheck}`).removeClass("btn-secondary").addClass("btn-success");
     $(`${selectStat}`).text("Queued")
-    $(`${selectStat}`).removeClass("badge-success ").addClass("badge-warning")
+    $(`${selectStat}`).removeClass("badge-success ").addClass("badge-warning");
+    $(`${selectName}`).css("text-decoration", "none")
     status = "Queued"
   }
 
@@ -124,6 +130,8 @@ function check(todoId, t) {
 }
 
 function showEdit(todoId, name, description, due_date) {
+  console.log(due_date, '<<')
+  $(".todo-details").show()
   $(".todo-details").html(
     `
     <div id="edit-todo" class="all card card-body mt-3">
@@ -131,9 +139,9 @@ function showEdit(todoId, name, description, due_date) {
         <h2 class="title">Edit Todo</h2>
         <div class="col-md-12">
           <form id="edit-form" class="mb-4" onsubmit="createTodo(event)">
-              <input id="edit-todo-name" name="name" type="text" class="form-control mb-2 flex-fill" value="${name}">
-              <textarea id="edit-todo-description" rows="5" name="description" type="textarea" class="form-control mb-2 flex-fill" >${description}</textarea>
-              Due date: <input id="edit-todo-due-date" name="due_date" type="date" class="form-control mb-2 flex-fill" value="${due_date}">
+              <input id="edit-name-${todoId}" name="name" type="text" class="form-control mb-2 flex-fill" value="${name}">
+              <textarea id="edit-description-${todoId}" rows="5" name="description" type="textarea" class="form-control mb-2 flex-fill" >${description}</textarea>
+              Due date: <input id="edit-due-date-${todoId}" name="due_date" type="date" class="form-control mb-2 flex-fill" value="${due_date}">
               <input type="submit" class="btn btn-primary" value="Save Edit" onclick="edit('${todoId}')">
             </form>
           </div>
@@ -150,17 +158,19 @@ function edit(todoId) {
     method: "patch",
     url: `${baseUrl}/todo/${todoId}`,
     data: {
-      name: $("#edit-todo-name").val(),
-      description: $("#edit-todo-description").val(),
-      due_date: $("#edit-todo-due-date").val()
+      name: $(`#edit-name-${todoId}`).val(),
+      description: $(`#edit-description-${todoId}`).val(),
+      due_date: $(`#edit-due-date-${todoId}`).val()
     },
     headers: { access_token: localStorage.getItem('access_token') }
   })
   .done(result => {
-    console.log(result)
+    fetchTodos()
+    $(".todo-details").hide()
+    $("#desc-todo h2").text('Saved!')
   })
   .fail(err => {
-    console.log(err)
+    console.log(err, '<<')
   })
 }
 
@@ -171,8 +181,9 @@ function deleteTodo(todoId) {
     headers: { access_token: localStorage.getItem('access_token') }
   })
   .done(result => {
-    console.log(result)
     fetchTodos()
+    $(".todo-details").hide()
+    $("#desc-todo h2").text('Deleted!')
   })
   .fail(err =>  {
     console.log(err)

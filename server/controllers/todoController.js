@@ -3,10 +3,8 @@ const { ObjectId } = require("mongodb");
 
 class todoController {
     static addTodo(req, res, next) {
-      console.log(req.decoded, '<<<<<<<<')
       const { name, description, status, due_date } = req.body;
       const user_id  = req.decoded._id;
-      console.log(user_id, 'loh kok')
       Todo.create({ name, description, status, due_date, user_id })
         .then(todo => {
           res.status(200).json(todo);
@@ -42,6 +40,8 @@ class todoController {
       const update = {};
       const todoId = req.params.todoId;
       const { name, description, status, due_date } = req.body;
+      console.log("^^^^^^^^^^^^^^^")
+      console.log(todoId, req.body)
       if (name) update.name = name;
       if (description) update.description = description;
       if (status) update.status = status;
@@ -49,16 +49,17 @@ class todoController {
       Todo.findByIdAndUpdate(todoId, update)
         .then(todo => {
           res.status(200).json({ message: 'Updated' })
-        }).catch(next);
+        })
+        .catch(err => {
+          console.log(err)
+        });
 
     }
 
     static deleteTodo(req, res, next) {
       const todoId = req.params.todoId;
-      console.log(todoId, '||||||')
       Todo.deleteOne({ _id: todoId })
         .then(response => {
-          console.log(response, '<<<')
           res.status(200).json({ message: 'Deleted' })
         })
         .catch(next)
