@@ -105,8 +105,7 @@ body :
  {
     "_id": "5dbd527e90191c715d019075",
     "email": "nath@mail.com",
-    "password": "$2a$10$H0L2B1BYVXzyqwrqURr4y.QoCViLpQqlmUkvxTH1NplyINw.8wcOq",
-    "__v": 0
+    "password": "$2a$10$H0L2B1BYVXzyqwrqURr4y.QoCViLpQqlmUkvxTH1NplyINw.8wcOq"
 }
 ```
 
@@ -165,8 +164,7 @@ body :
             "title": "call a prince",
             "description": "ask the price to bring you some snacks!",
             "userId": "5dbd527e90191c715d019075",
-            "dueDate": "2019-11-02T17:00:00.000Z",
-            "__v": 0
+            "dueDate": "2019-11-02T17:00:00.000Z"
         },
         {
             "Status": false,
@@ -174,8 +172,7 @@ body :
             "title": "fitting the dress",
             "description": "make sure the waist section is looking good",
             "userId": "5dbd527e90191c715d019075",
-            "dueDate": "2019-10-02T17:00:00.000Z",
-            "__v": 0
+            "dueDate": "2019-10-02T17:00:00.000Z"
         },
         {
             "Status": false,
@@ -183,8 +180,7 @@ body :
             "title": "buy sheet mask at watson",
             "description": "colagen mask 10pcs, brightening mask 11pcs",
             "userId": "5dbd527e90191c715d019075",
-            "dueDate": "2019-11-14T17:00:00.000Z",
-            "__v": 0
+            "dueDate": "2019-11-14T17:00:00.000Z"
         }
     ]
 }
@@ -211,8 +207,7 @@ body :
         "title": "attend maxwell bday party",
         "description": "9 oct 2019, Saturday 8pm, Rosovelt Street",
         "userId": "5dbd3f33e57986668543b7d1",
-        "dueDate": "2019-11-07T17:00:00.000Z",
-        "__v": 0
+        "dueDate": "2019-11-07T17:00:00.000Z"
     }
 }
 
@@ -248,8 +243,7 @@ body :
     "title": "repair the plumbing",
     "description": "follow the red sign",
     "userId": "5dbd3f33e57986668543b7d1",
-    "dueDate": "2020-02-29T17:00:00.000Z",
-    "__v": 0
+    "dueDate": "2020-02-29T17:00:00.000Z"
 }
 
 ```
@@ -273,8 +267,7 @@ body :
     "title": "attend maxwell bday party",
     "description": "9 oct 2019, Saturday 8pm, Rosovelt Street",
     "userId": "5dbd3f33e57986668543b7d1",
-    "dueDate": "2019-11-07T17:00:00.000Z",
-    "__v": 0
+    "dueDate": "2019-11-07T17:00:00.000Z"
 }
 
 ```
@@ -311,8 +304,7 @@ body :
         "title": "repair the plumbing",
         "description": "follow the red sign and remove the rust",
         "userId": "5dbd3f33e57986668543b7d1",
-        "dueDate": "2019-12-08T17:00:00.000Z",
-        "__v": 0
+        "dueDate": "2019-12-08T17:00:00.000Z"
     }
 }
 
@@ -322,7 +314,7 @@ body :
 
 # **Project**
 
-> CREATE PTOJECT
+> CREATE PROJECT
 
 - **URL**
 `http://localhost:3000/project`
@@ -443,12 +435,14 @@ body :
 {
     members:
     [ { _id: 5de3e799f9efe123451514b6,
-        email: 'monica@mail.com',
-        __v: 0 },
-        { _id: 5dddfa557341c81e883bfc89,
-        email: 'rachel@mail.com',
-        __v: 0 },
-        { _id: 5dda3f068634a2187e955ae1, email: 'nath@mail.com', __v: 0 } ],
+        email: 'monica@mail.com'
+      },
+      { _id: 5dddfa557341c81e883bfc89,
+        email: 'rachel@mail.com'
+      },
+      { _id: 5dda3f068634a2187e955ae1,
+        email: 'nath@mail.com'
+      } ],
     todos:
     [ { status: true,
         _id: 5de3f5c5f9efe123451514c5,
@@ -490,17 +484,17 @@ body :
 	- **content example :**
 
 ```
- {
 {
-    "todo": {
-        "Status": false,
-        "_id": "5dbd627c62811e05b0453fed",
-        "title": "repair the plumbing",
-        "description": "follow the red sign and remove the rust",
-        "userId": "5dbd3f33e57986668543b7d1",
-        "dueDate": "2019-12-08T17:00:00.000Z",
-        "__v": 0
-    }
+   members:
+   [ 5de3e799f9efe123451514b6,
+     5dddfa557341c81e883bfc89,
+     5dda3f068634a2187e955ae1 ],
+  todos: [ 5de3f5c5f9efe123451514c5, 5de42695f9efe123451514c6 ],
+  _id: 5de3ef18f9efe123451514c1,
+  title: 'Polar Express',
+  author: 5de3e799f9efe123451514b6,
+  createdAt: 2019-12-01T16:49:28.650Z,
+  updatedAt: 2019-12-02T02:59:53.648Z 
 }
 
 ```
@@ -523,7 +517,7 @@ body :
 ```
 {
 
-message : 'project deleted
+message : 'Project deleted'
 }
 
 
@@ -548,12 +542,12 @@ message : 'project deleted
 ```
 { 
     members:
-    [ { _id: 5de3e799f9efe123451514b6,
-        email: 'monica@mail.com',
-        __v: 0 },
-        { _id: 5dddfa557341c81e883bfc89,
-        email: 'rachel@mail.com',
-        __v: 0 } ],
+    [{ _id: 5de3e799f9efe123451514b6,
+        email: 'monica@mail.com'
+      },
+      { _id: 5dddfa557341c81e883bfc89,
+        email: 'rachel@mail.com'
+      }],
     todos: [],
     _id: 5de4327608d53e50ca2e08f0,
     title: 'Replace Cover Glass',
@@ -618,11 +612,9 @@ message : ' you are kicked out
 { 
     members:
    [ { _id: 5de3e799f9efe123451514b6,
-       email: 'monica@mail.com',
-       __v: 0 },
+       email: 'monica@mail.com'},
      { _id: 5dddfa557341c81e883bfc89,
-       email: 'rachel@mail.com',
-       __v: 0 } ],
+       email: 'rachel@mail.com'}],
   todos:
    [ { status: false,
        _id: 5de43c506c53d35d12c0b1c1,
@@ -671,11 +663,11 @@ message : ' you are kicked out
 ```
 { members:
    [ { _id: 5de3e799f9efe123451514b6,
-       email: 'monica@mail.com',
-       __v: 0 },
+       email: 'monica@mail.com'
+     },
      { _id: 5dddfa557341c81e883bfc89,
-       email: 'rachel@mail.com',
-       __v: 0 } ],
+       email: 'rachel@mail.com'
+      } ],
   todos:
    [ { status: false,
        _id: 5de43c506c53d35d12c0b1c1,
@@ -721,8 +713,8 @@ message : ' you are kicked out
         "title": "repair the plumbing",
         "description": "follow the red sign and remove the rust",
         "userId": "5dbd3f33e57986668543b7d1",
-        "dueDate": "2019-12-08T17:00:00.000Z",
-        "__v": 0
+        "dueDate": "2019-12-08T17:00:00.000Z"
+        
     }
 }
 

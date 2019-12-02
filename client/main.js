@@ -357,10 +357,16 @@ function showProjectTodoList() {
      
     })
     $(`.member-list`).empty()
-    project.members.forEach(member => {
-      $(`.member-list`).append(`
-      <p>${member.email}</p>
-      `)
+    project.members.forEach((member, i) => {
+      if (i === 0) {
+        $(`.member-list`).append(`
+        <p>${member.email} &nbsp; (project author) </p>
+        `)
+      } else {
+        $(`.member-list`).append(`
+        <p>${member.email}</p>
+        `)
+      }
     })
   })
   .fail(errorHandler)
