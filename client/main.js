@@ -79,22 +79,25 @@ function signUp(event) {
       password: $('#signup-password').val()
     }
   })
-    .done(user => {
-      console.log(user)
+    .done(token => {
+      console.log(token)
+      localStorage.setItem('token', token.token)
       Swal.fire({
         type: 'success',
-        title: 'Registration successful',
+        title: 'Registration successful, welcome!',
         showConfirmButton: false,
         timer: 1500
       })
+      showTodo()
+      $('.homepage').show()
+      $('.login').hide()
     })
     .fail(err => {
       console.log(err)
       Swal.fire({
         type: 'error',
         title: 'Oops...',
-        text: 'The email that you use is already registered in our database, please use other email.',
-        footer: '<a href>Why do I have this issue?</a>'
+        text: 'The email that you use is already registered in our database, please use other email.'
       })
     })
 
@@ -329,20 +332,20 @@ function getProjectsNameAndOwner() {
       $('#projectList').empty()
       for (let i = 0; i < projects.length; i++) {
         $('#projectList').append(`
-          <div class="container" onclick="showProjectDetails('${projects[i]._id}')" style="cursor: pointer;">
-            <div class="row">
+          
+            <div class="row" onclick="showProjectDetails('${projects[i]._id}')" style="cursor: pointer;">
               <div class="col s12 mt-2">
-                <h1>${projects[i].name}</h1>
+                <h3>${projects[i].name}</h3>
               </div>
             </div>
             <hr>
             <div class="row">
               <div class="col s12">
-                <h3>Project Leader: ${projects[i].owner.email}</h3>
+                <h4>Project Leader: ${projects[i].owner.email}</h4>
               </div>
             </div>
   
-          </div>
+          
           <hr>
         `)
       }
@@ -379,7 +382,6 @@ function showProjectDetails(id) {
       $('.project-details-page').show()
 
       $('.project-name-and-owner').append(`
-          <div class="container">
             <div class="row">
               <div class="col s12">
               <h1> ${project.name} </h1>
@@ -390,7 +392,6 @@ function showProjectDetails(id) {
               <div class="col s12">
               <h3>Project Leader: ${project.owner.email} </h3>
               </div>
-            </div>
         `)
 
       for(let j = 0; j < project.members.length; j++) {

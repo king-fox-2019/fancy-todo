@@ -106,8 +106,10 @@
         </div>
 
         <div class="collection">
-          <a onclick="switchToTodoPage()" class="collection-item white-text blue-grey lighten-2" style="cursor: pointer;">Todo List</a>
-          <a onclick="switchToProjectPage()" class="collection-item blue-grey-text" style="cursor: pointer;">Project List</a>
+          <a onclick="switchToTodoPage()" class="collection-item white-text blue-grey lighten-2"
+            style="cursor: pointer;">Todo List</a>
+          <a onclick="switchToProjectPage()" class="collection-item blue-grey-text" style="cursor: pointer;">Project
+            List</a>
         </div>
 
       </div>
@@ -159,48 +161,50 @@
         <!------------------------------------- END OF PROJECT LIST PAGE --------------------------------------------------------->
 
         <div class="project-details-page" style="margin-top: 50px;">
+          <!----------------------------------------------------------------------------------------------------->
 
           <div class="project-details-card">
-            <div class="project-name-and-owner">
+            <div class="container">
+              <div class="project-name-and-owner">
 
-            </div>
-            <hr>
-            <div>
+              </div>
+              <hr>
+              <div>
+                <div class="row">
+                  <div class="col s4">
+                    <h3> Member List </h3>
+                  </div>
+                  <div class="col s8" id="project-members">
+
+                  </div>
+                </div>
+              </div>
+              <hr>
+
               <div class="row">
-                <div class="col s4">
-                  <h3> Member List </h3>
-                </div>
-                <div class="col s8" id="project-members">
-
-                </div>
-              </div>
-            </div>
-            <hr>
-
-            <div class="row">
-              <div class="col s12">
-                <div class='project-action-buttons'>
-                  <button data-target="modal4 addNewTaskToProject" class="waves-effect waves-light btn modal-trigger">
-                    <i class="material-icons right">add_circle</i> New Project Todo
-                  </button>
-                  <button data-target="modal5 addMemberToProject" class="waves-effect waves-light btn modal-trigger">
-                    <i class="material-icons right">add_circle</i> Add a Member
-                  </button>
-                  <button class="waves-effect waves-light btn" onclick="deleteProject()">
-                    <i class="material-icons right">new_releases</i> Delete Project
-                  </button>
+                <div class="col s12">
+                  <div class='project-action-buttons'>
+                    <button data-target="modal4 addNewTaskToProject" class="waves-effect waves-light btn modal-trigger">
+                      <i class="material-icons right">add_circle</i> New Project Todo
+                    </button>
+                    <button data-target="modal5 addMemberToProject" class="waves-effect waves-light btn modal-trigger">
+                      <i class="material-icons right">add_circle</i> Add a Member
+                    </button>
+                    <button class="waves-effect waves-light btn" onclick="deleteProject()">
+                      <i class="material-icons right">new_releases</i> Delete Project
+                    </button>
+                  </div>
                 </div>
               </div>
+              <hr>
+
+              <h3> Project Todo List: </h3>
+              <div class="project-todos row">
+
+              </div>
             </div>
-            <hr>
-
-            <h3> Project Todo List: </h3>
-            <div class="project-todos">
-
-            </div>
-
           </div>
-
+          <!----------------------------------------------------------------------------------------------------->
         </div>
 
       </div>
