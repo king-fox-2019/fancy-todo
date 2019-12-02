@@ -127,6 +127,67 @@ class TodoController {
         })
         .catch(next)
     }
+
+    static updateStarred(req,res,next){
+        Todo.findOne({
+            _id: req.params.id
+        })
+        .then(todo => {
+            console.log(todo)
+            if(todo.starred == true){
+                return Todo.findOneAndUpdate({ _id : req.params.id},{ 
+                    starred : false
+                },{new: true})
+            }else{
+                return Todo.findOneAndUpdate({ _id : req.params.id},{ 
+                    starred : true
+                },{new: true})
+            }
+        })
+        .then(todo => {
+            res.status(201).json(todo)
+        })
+        .catch(next)
+    }
+
+    static findOnProgress(req,res,next){
+        Todo.find({
+            assignee : req.loggedUser.id,
+            status : false
+        })
+        .populate('userId')
+        .populate('assignee')
+        .then(todos => {
+            res.status(200).json(todos)
+        })
+        .catch(next)
+    }
+
+    static findDone(req,res,next){
+        Todo.find({
+            assignee : req.loggedUser.id,
+            status : true
+        })
+        .populate('userId')
+        .populate('assignee')
+        .then(todos => {
+            res.status(200).json(todos)
+        })
+        .catch(next)
+    }
+
+    static findStarred(req,res,next){
+        Todo.find({
+            assignee : req.loggedUser.id,
+            starred : true
+        })
+        .populate('userId')
+        .populate('assignee')
+        .then(todos => {
+            res.status(200).json(todos)
+        })
+        .catch(next)
+    }
 }
 
 module.exports = TodoController

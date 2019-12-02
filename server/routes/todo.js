@@ -17,10 +17,14 @@ function authorization(req,res,next){
 router.use(authentication)
 
 router.get('/',TodoController.findAll)
+router.get('/onProgress',TodoController.findOnProgress)
+router.get('/starred',TodoController.findStarred)
+router.get('/done',TodoController.findDone)
 router.post('/',TodoController.create)
 router.get('/:id',TodoController.findOne)
 router.delete('/:id',authorization,TodoController.delete)
 router.put('/:id',authorization,TodoController.update)
 router.patch('/:id/status',authorization,TodoController.updateStatus)
+router.patch('/:id/starred',authorization,TodoController.updateStarred)
 
 module.exports = router

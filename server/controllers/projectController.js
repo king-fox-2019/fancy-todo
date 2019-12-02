@@ -380,6 +380,7 @@ class ProjectController {
     }
 
     static leaveGroup(req,res,next){
+        // console.log('from ;eave group')
         Project.findOne({
             _id : req.params.id
         })
@@ -393,8 +394,13 @@ class ProjectController {
                     {new: true})
             }
         })
-        .then(project => {
-            res.status(201).json({message : `you left the group ${project.title}, you can ask the owner to re-invited you later`})
+        .then((project) => {
+            return Todo.deleteMany({
+                assignee : req.loggedUser.id
+            })
+        })
+        .then((todo)=>{
+            res.status(201).json({message : `you left the group, you can ask the owner to re-invited you later`})
         })
         .catch(err => {
             res.status(403).json({message : `you're not allowed to leave the group`})
