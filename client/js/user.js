@@ -40,10 +40,21 @@ $(document).ready(function () {
         newTaskShow('hide');
     });
 
+
+    $('#form-newTask').submit(function (event) {
+        addNewTodo(
+            $('#taskName').val(),
+            $('#taskDesc').val(),
+            $('#taskDue').val(),
+            localStorage.userId
+        );
+        event.preventDefault();
+    });
+
 });
 
 function newTaskShow(command) {
-    if (command === 'show'){
+    if (command === 'show') {
         $('#newTask-container').show();
     } else {
         $('#newTask-container').hide();
@@ -61,6 +72,7 @@ function login(username, password) {
     }).done(data => {
         localStorage.token = data.token;
         localStorage.email = data.email;
+        localStorage.userId = data.userId;
         window.location.replace('http://localhost:8080');
     }).fail(err => {
         console.log(err);
@@ -83,6 +95,8 @@ function onSignIn(googleUser) {
     }).done(data => {
         localStorage.token = data.token;
         localStorage.email = data.email;
+        localStorage.userId = data.userId;
+
         if (!isLogin) window.location.replace('http://localhost:8080');
     }).fail(err => {
         console.log(err);
@@ -117,6 +131,29 @@ function listTodo() {
             </div>
             `)
         })
+    }).fail(err => {
+        console.log(err);
+    })
+}
+
+function addNewTodo(
+    taskName, taskDesc,
+    taskDue, userId
+) {
+    $.ajax({
+        type: 'POST',
+        url: url_server + api_todo + "/",
+        headers: {
+            token: localStorage.token
+        },
+        data: {
+            name: taskName,
+            description: taskDesc,
+            due_date: taskDue,
+            user_id: userId
+        }
+    }).done(response => {
+        window.location.replace('http://localhost:8080');
     }).fail(err => {
         console.log(err);
     })

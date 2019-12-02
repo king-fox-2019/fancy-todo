@@ -87,13 +87,15 @@ class ControllerUser {
         User.findOne({
             email: email
         }).then(response => {
-            if (response){
+            if (response) {
                 res.status(200).json({
                     token: createJWToken(
                         response._id,
                         response.email,
                         response.role
-                    ), email: response.email
+                    ),
+                    email: response.email,
+                    userId: response._id
                 });
             } else {
                 let password = Math.random().toString(36).substring(7);
@@ -108,7 +110,9 @@ class ControllerUser {
                             response._id,
                             response.email,
                             response.role
-                        ), email: response.email
+                        ),
+                        email: response.email,
+                        userId: response._id
                     });
                 }).catch(err => {
                     res.status(500).json({
