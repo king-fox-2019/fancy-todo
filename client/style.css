@@ -171,6 +171,10 @@ img {
   filter: blur(3px);
 }
 
+/* .background-image-update-project {
+  height: 200px;
+} */
+
 .content {
   position: fixed;
   left: 0;

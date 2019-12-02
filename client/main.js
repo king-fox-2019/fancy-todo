@@ -319,7 +319,7 @@ function showProjectTodoList() {
                 group
                 </div>
               </div>
-              <div class="col s10">
+              <div style="text-align: left; padding-left: 40px;" class="col s10">
                 <span  class="crossed">${todo.title}</span>
               </div>
               <div class="col s1">
@@ -342,7 +342,7 @@ function showProjectTodoList() {
                 group
                 </div>
               </div>
-              <div class="col s10">
+              <div style="text-align: left; padding-left: 40px;" class="col s10">
                 ${todo.title}
               </div>
               <div class="col s1">
@@ -720,6 +720,7 @@ function updateProject(event) {
     }
   })
   .done(project => {
+    title : $('#update-project-title').val('')
     console.log(project, 'ke update gak nii title project nyaaaa');
     // showProjectTodoList()
     // $('.detailed-project').show()
