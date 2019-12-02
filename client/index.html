@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="google-signin-client_id" content="363312962120-8816i0cd9scie6fhe1f2u36kn1aq8pn2.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./helpers/toast/jquery.toast.min.css">
+    <title>Vrello</title>
+</head>
+<body>
+
+    <!-- navbar -->
+    <div id="navbar" style="width: 101%;">
+        <div class="navbar bg-info">
+            <ul class="nav justify-content-end">
+                 <li class="nav-item">
+                    <a class="nav-link active" href="#"><span style="color: black">Vrello</span></a>
+                </li>
+            </ul>
+            <ul class="nav justify-content-end" style="margin-right: 75px;">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span style="color: black">Profile</span></a>
+                        <div class="dropdown-menu">
+                            <button class="dropdown-item" onclick="showEditProfileForm()">Edit Profile</button>
+                            <button class="dropdown-item" onclick="showProjectInvitation()">Project Invitation</button>
+                            <button class="dropdown-item" onclick="showCreateProjectForm()">Create Project</button>
+                            <button class="dropdown-item" onclick="logout()">Logout</button>
+                            <div class="dropdown-divider"></div>
+                            <button class="dropdown-item" onclick="deleteAccount()">Terminated Account</a>
+                            </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- signup -->
+    <div id="signupPage">
+            <div id="navbar" style="width: 101%;">
+                    <div class="navbar bg-info">
+                        <ul class="nav justify-content-end">
+                             <li class="nav-item">
+                                <a class="nav-link active" href="#"><span style="color: black">Vrello</span></a>
+                            </li>
+                        </ul>
+                    </div>
+            </div>
+            <div class="container mt-5">
+                <br>
+                <br>
+                <br>
+                <h2 style="text-align: center;"> Sign Up </h2>
+                <br>
+                <form style="max-width: 40%; margin: auto;" id="register">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" id="name">                      
+                    </div>
+                    <div class="form-group">
+                      <label>Email address</label>
+                      <input type="email" class="form-control" id="email">                      
+                      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                      <label>Password</label>
+                      <input type="password" class="form-control" id="passwordSignup">
+                      <small id="emailHelp" class="form-text text-muted">Minimal 6 characters.</small>          
+                    </div>
+                    <button onclick="signup(event)" type="submit" class="btn btn-info">Submit</button>
+                </form>
+                <br>
+                <p style="text-align: center;">Already have an account? <button onclick="showSigninPage()">Sign In</button>  </p>
+            </div>
+    </div>
+
+    <!-- signin -->
+    <div id="signinPage">
+            <div id="navbar" style="width: 101%;">
+                    <div class="navbar bg-info">
+                        <ul class="nav justify-content-end">
+                             <li class="nav-item">
+                                <a class="nav-link active" href="#"><span style="color: black">Vrello</span></a>
+                            </li>
+                        </ul>
+                    </div>
+            </div>
+            <div class="container mt-5">
+                <br>
+                <br>
+                <br>
+                <h2 style="text-align: center;"> Sign In </h2>
+                <br>
+                <form style="max-width: 40%; margin: auto;">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Name/Email</label>
+                      <input type="text" class="form-control" id="identity">                      
+                      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Password</label>
+                      <input type="password" class="form-control" id="password">
+                    </div>
+                    <button onclick="signin(event)" type="submit" class="btn btn-info">Submit</button>
+                </form>
+                <br>
+                <p style="text-align: center;">Don't have an account? <button onclick="showSignupPage()">Sign Up</button> </p>
+                <br>
+                <div class="container" style="display: flex; justify-content: center;">
+                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                </div>
+            </div>
+    </div>
+
+    <!-- home page -->
+    <div id="homepage">
+        <div class="row" style="height: 100vh;">
+            <div class="col-2 mt-5" id="mainMenu">
+                <button id="myTodosTab" class="ml-3 mt-5" onclick="showHomepage()">My Todo List</button>
+                <div id="projectName"></div>
+            </div>
+            <div class="col-10">
+                <div id="myTodoList" class="mt-3">
+                    <h2>My Todo List</h2>
+                    <div class="container" style="display: flex; justify-content: flex-end;">
+                    <button data-toggle="modal" data-target="#modalAddTodo" id="buttonModal" class="btn btn-light"><i class="fa fa-plus">Add</i></button>          
+                    </div>
+                    <br>
+                    <div id="myTodos" class="card-deck" style="margin: 50px"></div>
+                </div>
+                <div id="myProjectTodoList" class="mt-3">
+                    <div class="row">
+                        <div class="col-10">
+                                <h2 id="projectDetail"></h2>
+                                <div id="todosProject" class="card-deck" style="margin: 50px; margin-top: 0px;" ></div>
+                        </div>
+                        <div class="col-2 mt-5" id="projectAction" ></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="editEverything" style="width: 60%; margin: auto;"></div>
+    <div id="projectInvitationPage" style="width: 80%; margin: auto;"></div>
+    <!-- add todo modal -->
+    <div class="modal fade" id="modalAddTodo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="margin-top:200px">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Todo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <form id="add">
+            <div class="modal-body">
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" class="form-control" id="title">                      
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input type="text" class="form-control" id="description">                      
+                    </div>
+                    <div class="form-group">
+                        <label>Due Date</label>
+                        <input type="date" class="form-control" id="dueDate">
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button onclick="addTodo()" type="submit" class="btn btn-info" data-dismiss="modal">Submit</button>
+            <div>
+            </form>
+        </div>
+    </div>
+    </div>
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+    <script src="./helpers/toast/jquery.toast.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js" integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P" crossorigin="anonymous"></script>
+    <script src="./js/todo.js"></script>
+    <script src="./js/project.js"></script>
+    <script src="./js/main.js" ></script>
+    <script src="./js/reglog.js"></script>
+    <style>
+        body {
+    font-style: 'Open Sans',sans-serif;
+    background:url(https://images.unsplash.com/photo-1518655048521-f130df041f66?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80) no-repeat center;
+    background-size: 100%;;
+    }
+    </style>
+</body>
+</html>
