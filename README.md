@@ -11,7 +11,7 @@
 
 ## A. Getting Started
 
-You can start using this API by connecting to: http://localhost:3000
+You can start using this API by connecting to: http://34.87.22.254/
 
 As for the available routes and methods, please check down below.
 
