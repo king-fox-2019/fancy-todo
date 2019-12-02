@@ -5,6 +5,8 @@
 
 Hi! This is a fancy to do web app. Let's get organized!
 
+deploy link : http://nextfancytodo.elizabethwidiasri.online/
+
 # **Error**
 
 - **code**  : 400
