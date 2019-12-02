@@ -27,9 +27,9 @@ There is two routes on the app
 
 #### User routes
 `POST /user/register`  
-Authenticate | Authorized  
------------- | ----------
-No | No
+| Authenticate | Authorized |
+|--------------|------------|
+| No           | No         |
 
 ###### Params
 1. `username`: type `String` `required`
@@ -55,9 +55,9 @@ No | No
 ```
 ---
 `POST /user/login`  
-Authenticate | Authorized  
------------- | ----------
-No | No
+| Authenticate | Authorized |
+|--------------|------------|
+| No           | No         |
 
 ###### Params
 1. `email`: type `String` `required`
@@ -78,9 +78,9 @@ No | No
 ```
 ---
 `POST /user/googleLogin`  
-Authenticate | Authorized  
------------- | ----------
-No | No
+| Authenticate | Authorized |
+|--------------|------------|
+| No           | No         |
 
 ###### Params
 1. `google_token`: type `String` `required`
@@ -102,9 +102,9 @@ No | No
 
 #### Todo routes
 `GET /todo/`  
-Authenticate | Authorized  
------------- | ----------
-Yes | No
+| Authenticate | Authorized |
+|--------------|------------|
+| Yes          | No         |
 
 ###### Params
 1. `access_token`: type `String` `required`
@@ -140,9 +140,9 @@ Yes | No
 ```
 ---
 `POST /todo/`  
-Authenticate | Authorized  
------------- | ----------
-Yes | No
+| Authenticate | Authorized |
+|--------------|------------|
+| Yes          | No         |
 
 ###### Params
 1. `access_token`: type `String` `required`
@@ -168,9 +168,9 @@ Yes | No
 ```
 ---
 `PUT /todo/<todo id>`  
-Authenticate | Authorized  
------------- | ----------
-Yes | Yes
+| Authenticate | Authorized |
+|--------------|------------|
+| Yes          | Yes        |
 
 ###### Params
 1. `access_token`: type `String` `required`
@@ -194,9 +194,9 @@ Yes | Yes
 ```
 ---
 `PATCH /todo/<todo id>`  
-Authenticate | Authorized  
------------- | ----------
-Yes | Yes
+| Authenticate | Authorized |
+|--------------|------------|
+| Yes          | Yes        |
 
 ###### Params
 1. `access_token`: type `String` `required`
@@ -220,9 +220,9 @@ Yes | Yes
 ```
 ---
 `DELETE /todo/<todo id>`  
-Authenticate | Authorized  
------------- | ----------
-Yes | Yes
+| Authenticate | Authorized |
+|--------------|------------|
+| Yes          | Yes        |
 
 ###### Params
 1. `access_token`: type `String` `required`
