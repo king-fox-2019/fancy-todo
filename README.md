@@ -28,7 +28,7 @@ There is two routes on the app
 #### User routes
 `POST /user/register`  
 Authenticate | Authorized  
--------------|-----------  
+------------ | ----------
 No | No
 
 ###### Params
@@ -56,7 +56,7 @@ No | No
 ---
 `POST /user/login`  
 Authenticate | Authorized  
--------------|-----------  
+------------ | ----------
 No | No
 
 ###### Params
@@ -79,7 +79,7 @@ No | No
 ---
 `POST /user/googleLogin`  
 Authenticate | Authorized  
--------------|-----------  
+------------ | ----------
 No | No
 
 ###### Params
@@ -103,7 +103,7 @@ No | No
 #### Todo routes
 `GET /todo/`  
 Authenticate | Authorized  
--------------|-----------  
+------------ | ----------
 Yes | No
 
 ###### Params
@@ -141,7 +141,7 @@ Yes | No
 ---
 `POST /todo/`  
 Authenticate | Authorized  
--------------|-----------  
+------------ | ----------
 Yes | No
 
 ###### Params
@@ -169,7 +169,7 @@ Yes | No
 ---
 `PUT /todo/<todo id>`  
 Authenticate | Authorized  
--------------|-----------  
+------------ | ----------
 Yes | Yes
 
 ###### Params
@@ -195,7 +195,7 @@ Yes | Yes
 ---
 `PATCH /todo/<todo id>`  
 Authenticate | Authorized  
--------------|-----------  
+------------ | ----------
 Yes | Yes
 
 ###### Params
@@ -221,7 +221,7 @@ Yes | Yes
 ---
 `DELETE /todo/<todo id>`  
 Authenticate | Authorized  
--------------|-----------  
+------------ | ----------
 Yes | Yes
 
 ###### Params
