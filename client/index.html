@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- google signIn -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="691380957469-7ci7chojdrrm440n37o98opokfabmv29.apps.googleusercontent.com">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+    <!-- font family -->
+    <link href="https://fonts.googleapis.com/css?family=Sulphur+Point&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Carter+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Merienda+One&display=swap" rel="stylesheet">
+    <title>TodoList</title>
+  </head>
+<body>
+
+<!-- navbar bar -->
+<nav class="navbar navbar-light p-0 text-light" style="background-color: black">
+    <a class="navbar-brand ml-1" style=" font-weight: bold; font-size: 200%; font-family: 'Titillium Web', sans-serif;
+    ">TodoList</a>
+    <form class="form-inline" >
+        <div class="d-flex justify-content-between">
+            <button id="login-button" class="btn btn-warning pl-3" >login</button> 
+            <button id="register-button"  class="btn btn-warning ml-3 mr-5">Register</button>      
+            <button id="logout-button" style="display: none;"  class="btn btn-warning ml-3 mr-5">Logout</button>      
+        </div> 
+    </form>
+</nav>
+
+
+<!-- login -->
+<div class="container" id="loginForm" style="display: none">
+        <div class="row justify-content-center mt-5">
+            <div class="col-8">
+                <form id="login">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" id="email_login" aria-describedby="emailHelp" placeholder="Enter email">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="password_login" placeholder="Password">
+                    </div>        
+                    <button type="submit" class="btn btn-primary btn-block"> Submit</button>
+                </form>
+            </div>
+        </div>
+</div>
+
+<!-- register and login withGoogle -->
+<div class="container" id="registerForm">
+    <article class="card-body mx-auto" style="max-width: 400px;">
+        <h4 class="card-title mt-3 text-center">Create Account</h4>
+        <p class="text-center">Get started with your free account</p>
+        <div id="google" class="g-signin2 pl-3 mr-3" data-onsuccess="onSignIn" style="margin-left: 100px;"></div>     
+        <p class="divider-text text-center mt-3">
+            OR
+        </p>
+
+            <!-- form register -->
+        <form id="register">            
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                 </div>
+                <input name="" id="email" class="form-control" placeholder="Email address" type="email">
+            </div> <!-- form-group// -->          
+            
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                </div>
+                <input id="password" class="form-control" placeholder="Create password" type="password">
+            </div> <!-- form-group// -->                                                 
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block"> Create Account  </button>
+            </div> <!-- form-group// -->      
+            <p  class="text-center">Have an account? <a id="toLoginPage" href="">Log In</a> </p>                                                                 
+        </form>
+    </article>
+</div> 
+
+<!-- main -->
+<div class="container" id="mainPage">
+    <div class="row mt-5">
+        <div class="col-4 border">
+            <div id="profile"></div>
+        </div>
+  
+        <div class="col-4 border">
+            <br>
+            <button class="btn btn-outline-success my-2 my-sm-0" onclick="addTodo(event)">
+                Add Todo List
+            </button>
+            <br />
+            <br>
+            My TodoList :
+            <div id="myTodo"></div>
+        </div>
+  
+        <div class="col-4 border" id='detail'></div>
+    </div>
+</div>
+    
+     
+        
+        
+        
+        
+</body>
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+    </script>   
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="./index.js"></script>
+
+</html>
