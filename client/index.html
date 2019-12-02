@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
+  <link href="https://unpkg.com/nes.css@1.0.0/css/nes.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/nes.css/css/nes.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/nes.css/css/nes-core.min.css" rel="stylesheet" />
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-client_id"
+    content="838217479257-qk4tn685u58me7l5p2rm2s69lu755fcd.apps.googleusercontent.com">
+  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css"
+    integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
+  <link rel="stylesheet" href="./styles/style.css" !important>
+  <title>Fancy To Do</title>
+</head>
+
+<body>
+  
+    <div class="login-box">
+        <div class="lb-header">
+          <a href="#" class="active" id="login-box-link">Log In</a>
+          <a href="#" id="signup-box-link">Register</a>
+        </div>
+        <div class="social-login">
+          <div class="g-signin2" data-onsuccess="onSignIn" id="sign-in" class="btntbnlogin"></div>
+          <a href="#" onclick="signOut();">Sign out</a>
+        </div>
+        <form class="email-login">
+          <div class="u-form-group">
+            <input type="email" id="login-email" placeholder="Email"/>
+          </div>
+          <div class="u-form-group">
+            <input type="password" id="login-password" placeholder="Password"/>
+          </div>
+          <div class="u-form-group">
+            <button id="login-btn">Log in</button>
+          </div>
+        </form>
+        <form class="email-signup">
+          <div class="u-form-group">
+            <input type="text" id="register-name" placeholder="Name"/>
+          </div>
+          <div class="u-form-group">
+            <input type="email" id="register-email" placeholder="Email"/>
+          </div>
+          <div class="u-form-group">
+            <input type="password" id="register-password" placeholder="Password"/>
+          </div>
+          <div class="u-form-group">
+            <button id="register-btn">Register</button>
+          </div>
+        </form>
+      </div>
+
+    <div class="cont_principal">
+        <div class="cont_centrar">
+        
+          <div class="cont_todo_list_top">
+          <div class="cont_titulo_cont">
+            <a href="#" onclick="signOut();">Sign out</a>
+            <h3>THINGS TO DO</h3>
+          </div>
+        <div class="cont_add_titulo_cont"><a href="#e" onclick="add_new()"><i class="material-icons">&#xE145;</i></a>
+            </div>
+         
+        <!--   End cont_todo_list_top  -->  </div>
+        <div class="cont_crear_new">
+          <table class="table">
+        <tr>
+          <th>Tag</th>
+          <th>Task</th>
+         <th>Deadline</th>
+            </tr>
+            <tr>
+            <td><select name="" id="action_select">
+            <option value="STUDY">STUDY</option>
+            <option value="WORK">WORK</option>
+            <option value="SPORT">SPORT</option>
+            <option value="HOUSEHOLD">HOUSEHOLD</option> 
+            <option value="OTHERS">OTHERS</option> 
+              </select>
+              </td>
+
+               <td>
+        <input type="text" class="input_title_desc" />      
+              </td>
+
+              <td>
+        <input type="date" class="input_description_title" id="date_select" />
+              </td>
+            </tr>
+        <tr>
+           <th class="titl_description" >Description</th>
+            </tr>
+        <tr>
+        
+          <td colspan="3">
+          <input type="text" class="input_description" required />
+          </td>
+            </tr>
+            <tr>
+            <td colspan="3">
+          <button class="btn_add_fin">ADD</button>
+          </td>
+            </tr>
+          </table>
+
+          </div>
+          
+        <div class="cont_princ_lists">
+        <ul>
+          <li class="list_study li_num_0_1">
+          <div class="col_md_1_list">
+            <p>STUDY</p>
+            </div>
+        <div class="col_md_2_list">
+            <h4>BUY COFFEE BEANS</h4>
+        <p>DODIDONE COFFEE STORE</p>
+            </div>
+            <div class="col_md_3_list">
+        <div class="cont_text_date">
+        <p>TODAY</p>      
+              </div>    
+        <div class="cont_btns_options">
+          <ul>
+         
+            <li><a href="#" onclick="finish_action('0','0_1');"><i class="material-icons">&#xE5CA;</i></a></li>
+          </ul>    
+              </div>
+            </div>
+          </li>
+        <!-- <li class="list_work"></li>
+          <li class="list_sport"></li>
+          <li class="list_household"></li>
+          <li class="list_others"></li>
+         -->  </ul>
+        <!--   End cont_todo_list_top  -->   </div>
+          
+          
+          <!--   End cont_central  -->
+          </div>
+        </div>
+  </body>
+
+<script
+  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+  crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js"
+  integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P"
+  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+  integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+  crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js"
+  integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P"
+  crossorigin="anonymous"></script>
+<script src="./scripts/main.js"></script>
+</html>
+    
+
+
+
+
+
+
+
+
+
