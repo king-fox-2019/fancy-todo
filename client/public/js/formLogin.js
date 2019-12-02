@@ -98,6 +98,7 @@ function signIn() {
         getTodo();
         getProject();
         getInvitation();
+        $("#todo-content").show();
         alertify.success(response.message);
         setTimeout(() => {
           alertify.message("Welcome, " + response.user);
@@ -150,6 +151,7 @@ function onSignIn(googleUser) {
       getTodo();
       getProject();
       getInvitation();
+      $("#todo-content").show();
       alertify.success(response.message);
       setTimeout(() => {
         alertify.message("Welcome, " + response.user);
