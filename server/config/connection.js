@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
-
+const mongoUri = process.env.MONGO_URI;
+console.log(mongoUri);
 module.exports = () => {
   mongoose.connect(
-    `mongodb://localhost:27017/${process.env.DB_NAME}-${process.env.NODE_ENV}`,
+    mongoUri,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -11,13 +12,9 @@ module.exports = () => {
     },
     err => {
       if (err) {
-        console.log(
-          `Failed to Connect : ${process.env.DB_NAME}-${process.env.NODE_ENV}`
-        );
+        console.log(`Failed to Connect : ${mongoUri}`);
       } else {
-        console.log(
-          `Connected to : ${process.env.DB_NAME}-${process.env.NODE_ENV}`
-        );
+        console.log(`Connected to : ${mongoUri}`);
       }
     }
   );
