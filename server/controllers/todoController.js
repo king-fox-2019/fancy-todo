@@ -9,7 +9,7 @@ class todoController{
         if (moment(dueDate).isBefore(new Date)) {
             throw ({
                 status : 400,
-                message : `you can't pick time earlier than ${moment(new Date).format("dddd, MMMM Do YYYY, h:mm:ss a")}`
+                message : `you can't pick time earlier than ${moment().format("dddd, MMMM Do YYYY, h:mm:ss a")}`
             })
         }
         Todo.
@@ -34,7 +34,6 @@ class todoController{
                 user : req.user._id
             }).populate('user',"-password").sort({dueDate : 1})
             .then(todos => {
-                console.log(todos, 'ini todos ================================================')
                 let data = todos.filter(todo => {
                     return moment(new Date()).isSame(todo.dueDate, 'day')
                 })                    
@@ -44,7 +43,6 @@ class todoController{
     }
 
     static findAll(req, res, next) {     
-        console.log('masuk findall', req.user.id)   
         Todo.
             find({
                 user : req.user.id
@@ -56,7 +54,6 @@ class todoController{
     }
 
     static findOne(req, res, next) {
-        console.log('masuk find one')
         Todo.
             findById(req.params.id).populate('user',"-password")
             .then(todo => {      
@@ -98,7 +95,7 @@ class todoController{
         if (moment(dueDate).isBefore(new Date)) {
             throw ({
                 status : 400,
-                message : `you can't pick time earlier than ${moment(new Date).format("dddd, MMMM Do YYYY, h:mm:ss a")}`
+                message : `you can't pick time earlier than ${moment().format("dddd, MMMM Do YYYY, h:mm:ss a")}`
             })
         }
         Todo.findOneAndUpdate({ _id : req.params.id}, {title, dueDate, description}, {new : true, runValidators: true})

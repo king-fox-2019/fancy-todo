@@ -11,7 +11,7 @@ class projectController {
         if (moment(dueDate).isBefore(new Date)) {
             throw ({
                 status : 400,
-                message : `you can't pick time earlier than ${moment(new Date).format("dddd, MMMM Do YYYY, h:mm:ss a")}`
+                message : `you can't pick time earlier than ${moment().format("dddd, MMMM Do YYYY, h:mm:ss a")}`
             })
         }
         Project.findOneAndUpdate({ _id : req.params.id}, {title, dueDate, description}, {new : true, runValidators: true})
@@ -60,7 +60,7 @@ class projectController {
         if (moment(dueDate).isBefore(new Date)) {
             throw ({
                 status : 400,
-                message : `you can't pick time earlier than ${moment(new Date).format("dddd, MMMM Do YYYY, h:mm:ss a")}`
+                message : `you can't pick time earlier than ${moment().format("dddd, MMMM Do YYYY, h:mm:ss a")}`
             })
         }
         Todo.findOneAndUpdate({
@@ -130,7 +130,7 @@ class projectController {
         if (moment(dueDate).isBefore(new Date)) {
             throw ({
                 status : 400,
-                message : `you can't pick time earlier than ${moment(new Date).format("dddd, MMMM Do YYYY, h:mm:ss a")}`
+                message : `you can't pick time earlier than ${moment().format("dddd, MMMM Do YYYY, h:mm:ss a")}`
             })
         }
         Todo.
@@ -170,7 +170,7 @@ class projectController {
         if (moment(dueDate).isBefore(new Date)) {
             throw ({
                 status : 400,
-                message : `you can't pick time earlier than ${moment(new Date).format("dddd, MMMM Do YYYY, h:mm:ss a")}`
+                message : `you can't pick time earlier than ${moment().format("dddd, MMMM Do YYYY, h:mm:ss a")}`
             })
         }
         Project.create({

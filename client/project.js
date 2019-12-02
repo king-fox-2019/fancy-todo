@@ -220,7 +220,6 @@ function prepareFormProject() {
     `)  
     $('#add-project').click(function(event){
         event.preventDefault()
-        console.log('ini')
         $('#project-container').empty()    
         $('#project-container').append(addProjectForm)
         $('#project_form').submit(addProject)
@@ -316,7 +315,7 @@ function displayTodosProject(project) {
                 <div>${todo.description}</div>
             </li> 
             <div class="d-flex justify-content-between bg-light p-1" >
-                <button class='btn' onclick="doneTodoProject('${todo._id}','${project._id}', '${todo.status}')"><i class="glyphicon glyphicon-ok id="${todo._id}"></i></button>                         
+                <button class='btn' onclick="doneTodoProject('${todo._id}','${project._id}', '${todo.status}')"><i class="glyphicon glyphicon-ok" id="ok${todo._id}"></i><i class="fa fa-times" id="no${todo._id}"></i></button>                         
                 <button class='btn' onclick="updateTodoProject('${todo._id}','${project._id}')"><div class="glyphicon glyphicon-edit" id="${todo._id}"></div></button> 
                 <button class='btn' onclick="deleteTodoProject('${todo._id}','${project._id}')"><div class="glyphicon glyphicon-trash" id="${todo._id}" ></div></button> 
             </div>
@@ -324,8 +323,12 @@ function displayTodosProject(project) {
         `)
         if (todo.status == false) {
             $(`#bg${todo._id}`).css('color', 'red').css('background-color', '#DD2D4A')
+            $(`#ok${todo._id}`).show()
+            $(`#no${todo._id}`).hide()
         } else {
             $(`#bg${todo._id}`).css('background-color', '#3DA35D').css('color', '#3E8914')
+            $(`#ok${todo._id}`).hide()
+            $(`#no${todo._id}`).show()
         }
     });
 }
@@ -339,7 +342,7 @@ function updateTodoProject(todoId, projectId) {
         }
     })
     .then(function (todo) {     
-        console.log(todo)           
+        console.log(new Date(todo.dueDate))
         Swal.fire({
             title: 'Update Todo Form',
             html:
@@ -348,9 +351,9 @@ function updateTodoProject(todoId, projectId) {
               `<label for="description">please input description</label>` +
               `<input id="description" class="swal2-input" value= "${todo.description}">` +                  
               `<label for="input_date">Date</label>
-                <input type="date" class="form-control" required id="input_date" placeholder="input date" value= "${todo.dueDate}">
+                <input type="date" class="form-control" required id="input_date" placeholder="input date" value= "${todo.dueDate.slice(0, 'yyyy-mm-dd'.length)}">
                 <label for="input_time">Time</label>
-                <input type="time" class="form-control" required id="input_time" placeholder="input time">`,
+                <input type="time" class="form-control" required id="input_time" placeholder="input time" value= "${new Date(todo.dueDate).getHours()}:${new Date(todo.dueDate).getMinutes()}">`,
             focusConfirm: false,
             preConfirm: () => {
               return {
@@ -528,7 +531,6 @@ function updateProject(id){
         }
     })
     .then(function (project) {     
-        console.log(project)           
         Swal.fire({
             title: 'Update Project Form',
             html:
@@ -537,9 +539,9 @@ function updateProject(id){
               `<label for="description">please input description</label>` +
               `<input id="description" class="swal2-input" value= "${project.description}">` +                  
               `<label for="input_date">Date</label>
-                <input type="date" class="form-control" required id="input_date" placeholder="input date" value= "${todo.dueDate}">
+                <input type="date" class="form-control" required id="input_date" placeholder="input date" value="${project.dueDate.slice(0, 'yyyy-mm-dd'.length)}">
                 <label for="input_time">Time</label>
-                <input type="time" class="form-control" required id="input_time" placeholder="input time">`,
+                <input type="time" class="form-control" required id="input_time" placeholder="input time" value = "${new Date(project.dueDate).getHours()}:${new Date(project.dueDate).getMinutes()}">`,
             focusConfirm: false,
             preConfirm: () => {
               return {
@@ -586,7 +588,6 @@ function updateProject(id){
 
 
 function deleteProject(id) {  
-    console.log('ketrigger')          
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",

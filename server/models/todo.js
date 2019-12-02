@@ -10,7 +10,7 @@ const todoSchema = new Schema({
     dueDate : {
         type : Date,
         required : [true, 'you must fill the due date'],
-        min :[new Date, `you can't pick time earlier than ${moment(new Date).format("dddd, MMMM Do YYYY, h:mm:ss a")}`]
+        min :[new Date, `you can't pick time earlier than ${moment().format("dddd, MMMM Do YYYY, h:mm:ss a")}`]
     },
     status : {
         type : Boolean,

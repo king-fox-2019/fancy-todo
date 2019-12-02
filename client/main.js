@@ -7,7 +7,6 @@ $(document).ready( () => {
     $('#register').submit(registerMember)
     $('#login').submit(loginMember)
     $('#add-button').click(function(event){
-        console.log('ini')
         $('#todo_form').show()
         $('#empty-todo').hide()
     })
@@ -110,7 +109,6 @@ function prepareForm(day) {
               
     $('#add-button').click(function(event){
         event.preventDefault()
-        console.log('ini')
         $('#todo-container').empty()    
         $('#todo-container').append(addTodoForm)
         $('#todo_form').submit(addTodo)        
@@ -135,7 +133,6 @@ function setUser(user) {
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
     var id_token = googleUser.getAuthResponse().id_token;
-    console.log(profile)    
     $('#user-email').empty()
     $('#user-email').append(`<li class="list-group-item pl-1" id="user-title"><i class="fa fa-user-o mr-2"></i>${profile.ig}</li>`)
     $('#user-email').append(`<li class="list-group-item pl-1" id="user-title">${profile.U3}</li>`)
@@ -167,7 +164,6 @@ function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
         ceckStatus()   
-        console.log('User signed out.');
     });
 }
 
@@ -256,8 +252,7 @@ function updateTodo(id, day){
             token: localStorage.getItem('token')
         }
     })
-    .done(function (todo) {     
-        console.log(todo)           
+    .done(function (todo) {    
         Swal.fire({
             title: 'Update Todo Form',
             html:
@@ -266,9 +261,9 @@ function updateTodo(id, day){
               `<label for="description">please input description</label>` +
               `<input id="description" class="swal2-input" value= "${todo.description}">` +
               `<label for="input_date">Date</label>
-                <input type="date" class="form-control" required id="input_date" placeholder="input date" value= "${todo.dueDate}">
+                <input type="date" class="form-control" required id="input_date" placeholder="input date" value="${todo.dueDate.slice(0, 'yyyy-mm-dd'.length)}">
                 <label for="input_time">Time</label>
-                <input type="time" class="form-control" required id="input_time" placeholder="input time">`,
+                <input type="time" class="form-control" required id="input_time" placeholder="input time" value = "${new Date(todo.dueDate).getHours()}:${new Date(todo.dueDate).getMinutes()}">`,
             focusConfirm: false,
             preConfirm: () => {
               return {
@@ -318,7 +313,6 @@ function updateTodo(id, day){
 }
 
 function deleteTodo(id, day) {  
-    console.log('ketrigger')          
     let todo_id = id                       
     Swal.fire({
         title: 'Are you sure?',
@@ -370,7 +364,7 @@ function addTodo(event) {
     let dueDate = $('#input_date').val()
     let time = $('#input_time').val()
     $.ajax({
-        url : `http://35.240.216.157/todo`,
+        url : `http://localhost:3000/todo`,
         method : 'POST',
         headers : {
             token: localStorage.getItem('token')
@@ -422,7 +416,7 @@ function displayTodos(todos, day) {
                 <div>Description : ${todo.description}</div>
                 <div class="d-flex flex-column">
                     <div class="ml-4">
-                        <button class='btn' id="${todo._id}" onclick="doneTodo('${todo._id}','${todo.status}', '${day}')"><i class="glyphicon glyphicon-ok id="${todo._id}"></i></button>                         
+                        <button class='btn' id="${todo._id}" onclick="doneTodo('${todo._id}','${todo.status}', '${day}')"><i class="glyphicon glyphicon-ok" id="ok${todo._id}"></i><i class="fa fa-times" id="no${todo._id}"></i></button>                         
                         <button class='btn' onclick="updateTodo('${todo._id}', '${day}')"><div class="glyphicon glyphicon-edit" id="${todo._id}"></div></button> 
                         <button class='btn' onclick="deleteTodo('${todo._id}', '${day}')"><div class="glyphicon glyphicon-trash" id="${todo._id}" ></div></button> 
                     </div>
@@ -432,14 +426,14 @@ function displayTodos(todos, day) {
         `)
         if (todo.status == false) {
             $(`#bg${todo._id}`).css('background-color', '#DD2D4A').css('color', '#DD2D4A')
+            $(`#ok${todo._id}`).show()
+            $(`#no${todo._id}`).hide()
         } else {
             $(`#bg${todo._id}`).css('background-color', 'green').css('color', 'green')
+            $(`#ok${todo._id}`).hide()
+            $(`#no${todo._id}`).show()
         }
-    });
-    // $('#click_advance').click(function() {
-    //     $('#display_advance').toggle('1000');
-    //     $("i", this).toggleClass("icon-circle-arrow-up icon-circle-arrow-down");
-    // });
+    });    
 }
 
 function toLogin(event) {

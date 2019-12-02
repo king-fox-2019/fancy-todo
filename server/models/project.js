@@ -15,7 +15,7 @@ const projectSchema = new Schema({
     dueDate : {
         type : Date,
         required : [true, 'please fill the due date'],
-        min :[new Date,`you can't pick time earlier than ${moment(new Date).format("dddd, MMMM Do YYYY, h:mm:ss a")}`]
+        min :[new Date,`you can't pick time earlier than ${moment().format("dddd, MMMM Do YYYY, h:mm:ss a")}`]
     },
     members : [{
         type : Schema.Types.ObjectId,
