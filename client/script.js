@@ -1,4 +1,5 @@
 const BaseUrl = 'http://localhost:3000'
+// const BaseUrl = 'http://minipc-fancytodo.anggabanny.online' //Deploy
 $(document).ready(e=>{
     $("#emailForm").val(''),
     $('#passwordForm').val('')
