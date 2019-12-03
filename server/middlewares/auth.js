@@ -73,7 +73,10 @@ const memberAuthorization = (req, res, next) => {
   console.log(req.params.id, 'params projectId di member auth');
   
   let projectId = req.params.id
-  Project.findById(projectId)
+  Project.find({
+    _id : projectId,   // <<<<<<< 
+    members: req.loggedUser._id // <<<<<<<
+  })
   
   .then(project => {
     console.log(project.author, 'punya siapa project nya? summon author di member auth');

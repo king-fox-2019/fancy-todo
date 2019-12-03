@@ -1,4 +1,4 @@
-const baseURL = `http://localhost:3000`
+const baseURL = `http://35.197.151.159`
 let updateId = ''
 const colors = ['green lighten-3', 'teal lighten-3', 'lime lighten-3', 'amber lighten-2', 'deep-orange lighten-3', 'brown lighten-3', 'blue-grey lighten-1']
 let projectId = ''
@@ -187,7 +187,7 @@ function onSignIn(googleUser) {
   let id_token = googleUser.getAuthResponse().id_token
 
   $.ajax({
-    url: `http://localhost:3000/user/google-signin`,
+    url: `${baseURL}/user/google-signin`,
     method: `POST`,
     data : {
       idToken : id_token
