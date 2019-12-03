@@ -9,7 +9,7 @@ const cors = require('cors')
 const app = express()
 const PORT = process.env.PORT 
 
-mongoose.connect('mongodb://localhost:27017/next!', { useNewUrlParser: true,  useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false })
+mongoose.connect('mongodb+srv://eliwidiasri:postgres@cluster0-32dcr.gcp.mongodb.net/nextfancytodo?retryWrites=true&w=majority', { useNewUrlParser: true,  useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false })
   .then(() => {
     console.log(`Server connected`)
   })
