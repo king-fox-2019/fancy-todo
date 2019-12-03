@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="google-signin-client_id"
+    content="280016603197-co68c1rgvdcqh75gfbaqc3l8e7l2it0p.apps.googleusercontent.com">
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" -->
+  <!-- integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <title>Lavish Todo</title>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+</head>
+
+<body>
+  <div class="login">
+    <div id="login" class="sign-in-up form">
+      <section class="forms-section">
+        <h1 class="section-title">Lavish Todo</h1>
+        <div class="forms">
+          <div class="form-wrapper is-active">
+            <button type="button" class="switcher switcher-login">
+              Login
+              <span class="underline"></span>
+            </button>
+            <form class="form form-login" id="form-login" onsubmit="signIn(event)">
+              <fieldset>
+                <legend>Please, enter your email and password for login.</legend>
+                <div class="input-block">
+                  <label for="login-email">E-mail</label>
+                  <input id="login-email" type="email" required>
+                </div>
+                <div class="input-block">
+                  <label for="login-password">Password</label>
+                  <input id="login-password" type="password" required>
+                </div>
+              </fieldset>
+              <button id="loginButton" type="submit" class="btn-login">Login</button>
+              <center>or
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+              </center>
+            </form>
+          </div>
+          <div class="form-wrapper">
+            <button type="button" class="switcher switcher-signup">
+              Sign Up
+              <span class="underline"></span>
+            </button>
+            <form class="form form-signup" id="form-signup" onsubmit="signUp(event)">
+              <fieldset>
+                <legend>Please, enter your email, password and password confirmation for sign up.
+                </legend>
+                <div class="input-block">
+                  <label for="signup-email">E-mail</label>
+                  <input id="signup-email" type="email" required>
+                </div>
+                <div class="input-block">
+                  <label for="signup-password">Password</label>
+                  <input id="signup-password" type="password" required>
+                </div>
+              </fieldset>
+              <button id="signUpButton" type="submit" class="btn-signup">Continue</button>
+              <center>or
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+              </center>
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <!-- -------------------- END OF LOGIN PAGE -------------------- -->
+
+  <div class="homepage">
+    <header>
+      <nav class="blue-grey darken-2">
+        <div class="nav-wrapper">
+          <a onclick="switchToTodoPage()" class="brand-logo" style="cursor: pointer;">Lavish Todo</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a onclick="signOut()">Logout</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <div class="row mt-2">
+      <div class="col s3">
+        <div class="row">
+          <div>
+            <button data-target="modal1 addNewTask" class="waves-effect waves-light btn modal-trigger">
+              <i class="material-icons right">add_circle</i> New Todo
+            </button>
+          </div>
+          <br>
+          <div>
+            <button data-target="modal3 createNewProject" class="waves-effect waves-light btn modal-trigger">
+              <i class="material-icons right">add_circle</i> New Project
+            </button>
+          </div>
+        </div>
+
+        <div class="collection">
+          <a onclick="switchToTodoPage()" class="collection-item white-text blue-grey lighten-2"
+            style="cursor: pointer;">Todo List</a>
+          <a onclick="switchToProjectPage()" class="collection-item blue-grey-text" style="cursor: pointer;">Project
+            List</a>
+        </div>
+
+      </div>
+
+      <div class="col s9">
+
+        <div class="todo-page">
+          <div class="row" style="display: flex; align-items: center; justify-content: center;">
+            <div class="col s8">
+              <div id="todoList"></div>
+            </div>
+
+            <div class="col s4">
+              <div style="height: 400px; overflow: scroll;">
+                <div style="display: flex; align-items: center; justify-content: center;">
+                  <button class="waves-effect waves-light btn" onclick="generateQuote()">Get Inspired</button>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: center;">
+                  <div id="quote"></div>
+                </div>
+              </div>
+
+              <div style="height: 400px; overflow: scroll;">
+                <div style="display: flex; align-items: center; justify-content: center;">
+                  <button class="waves-effect waves-light btn" onclick="summonShibe()">Get Awwed</button>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: center;">
+                  <div id="shibe"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!------------------------------------- END OF TODO PAGE --------------------------------------------------------->
+
+        <div class="project-list-page">
+
+          <div class="row">
+            <div class="col s12">
+
+              <div id="projectList" class="project-card" style="margin-top: 50px;">
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+        <!------------------------------------- END OF PROJECT LIST PAGE --------------------------------------------------------->
+
+        <div class="project-details-page" style="margin-top: 50px;">
+          <!----------------------------------------------------------------------------------------------------->
+
+          <div class="project-details-card">
+            <div class="container">
+              <div class="project-name-and-owner">
+
+              </div>
+              <hr>
+              <div>
+                <div class="row">
+                  <div class="col s4">
+                    <h3> Member List </h3>
+                  </div>
+                  <div class="col s8" id="project-members">
+
+                  </div>
+                </div>
+              </div>
+              <hr>
+
+              <div class="row">
+                <div class="col s12">
+                  <div class='project-action-buttons'>
+                    <button data-target="modal4 addNewTaskToProject" class="waves-effect waves-light btn modal-trigger">
+                      <i class="material-icons right">add_circle</i> New Project Todo
+                    </button>
+                    <button data-target="modal5 addMemberToProject" class="waves-effect waves-light btn modal-trigger">
+                      <i class="material-icons right">add_circle</i> Add a Member
+                    </button>
+                    <button class="waves-effect waves-light btn" onclick="deleteProject()">
+                      <i class="material-icons right">new_releases</i> Delete Project
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <hr>
+
+              <h3> Project Todo List: </h3>
+              <div class="project-todos row">
+
+              </div>
+            </div>
+          </div>
+          <!----------------------------------------------------------------------------------------------------->
+        </div>
+
+      </div>
+
+      <!------------------------------------- END OF PROJECT DETAILS PAGE --------------------------------------------------------->
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+  <!--------------------------------------------- MODALS --------------------------------------------------------->
+  <div id="modal1 addNewTask" class="modal">
+    <div class="modal-content">
+      <div class="row">
+        <form class="col s12">
+          <h4> Post a New Todo </h4>
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea id="newTitle" class="materialize-textarea"></textarea>
+              <label for="title">Title</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea id="newDescription" class="materialize-textarea"></textarea>
+              <label for="description">Description</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <input type="text" placeholder="Due Date" id="newDueDate" class="datepicker">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button onclick="addTask()" class="modal-close waves-effect waves-green btn-flat">Post</button>
+    </div>
+  </div>
+
+  <div id="modal2 updateTask" class="modal">
+    <div class="modal-content">
+      <div class="row">
+        <form class="col s12">
+          <h4> Update a Task </h4>
+          <div class="row">
+            <div class="input-field col s12">
+              <input placeholder="" id="updateTitle" type="text" class="validate">
+              <label for="title">Title</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input placeholder="" id="updateDescription" type="text" class="validate">
+              <label for="description">Description</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <input type="text" placeholder="Due Date" id="updateDueDate" class="datepicker">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button onclick="updateTodo()" class="modal-close waves-effect waves-green btn-flat">Save changes</button>
+    </div>
+  </div>
+
+  <div id="modal3 createNewProject" class="modal">
+    <div class="modal-content">
+      <div class="row">
+        <form class="col s12">
+          <h4> Create a New Project </h4>
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea id="newProjectName" class="materialize-textarea"></textarea>
+              <label for="projectName">Project Name</label>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button onclick="addNewProject()" class="modal-close waves-effect waves-green btn-flat">Create</button>
+    </div>
+  </div>
+
+  <div id="modal4 addNewTaskToProject" class="modal">
+    <div class="modal-content">
+      <div class="row">
+        <form class="col s12">
+          <h4> Post a New Todo </h4>
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea id="newTodoProjectTitle" class="materialize-textarea"></textarea>
+              <label for="title">Title</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea id="newTodoProjectDescription" class="materialize-textarea"></textarea>
+              <label for="description">Description</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <input type="text" placeholder="Due Date" id="newTodoProjectDueDate" class="datepicker">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button onclick="addProjectTask()" class="modal-close waves-effect waves-green btn-flat">Post</button>
+    </div>
+  </div>
+
+  <div id="modal5 addMemberToProject" class="modal">
+    <div class="modal-content">
+      <div class="row">
+        <form class="col s12">
+          <h4> Add a New Member to Project </h4>
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea id="memberEmail" class="materialize-textarea"></textarea>
+              <label for="memberEmail">Member's email</label>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button onclick="addMemberToProject()" class="modal-close waves-effect waves-green btn-flat">Invite</button>
+    </div>
+  </div>
+
+  <div id="modal6 updateProjectTask" class="modal">
+    <div class="modal-content">
+      <div class="row">
+        <form class="col s12">
+          <h4> Update a Task </h4>
+          <div class="row">
+            <div class="input-field col s12">
+              <input placeholder="" id="updateProjectTitle" type="text" class="validate">
+              <label for="title">Title</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input placeholder="" id="updateProjectDescription" type="text" class="validate">
+              <label for="description">Description</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <input type="text" placeholder="Due Date" id="updateProjectDueDate" class="datepicker">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button onclick="updateProjectTodo()" class="modal-close waves-effect waves-green btn-flat">Save changes</button>
+    </div>
+  </div>
+
+  </div>
+  <!-- -------------------- END OF HOMEPAGE -------------------- -->
+
+
+
+  <!-- Compiled and minified JavaScript -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <script src="https://kit.fontawesome.com/8b51b67b1f.js"></script>
+
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="main.js"></script>
+</body>
+
+</html>
