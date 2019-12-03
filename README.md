@@ -1,5 +1,3 @@
-# fancy-todo
-
 # mongoose-crud
 
 # INTRODUCTION !
@@ -14,40 +12,39 @@ jika tidak maka kamu akan melihat error dengan status code `500` ``` CANNOT GET 
 ## 1. User Router
 |Method|USER|<i>detail</i>|<i>Details Status</i>|<i>Authentication</i>|<i>Authorization</i>|<i>Verify Google</i>|
 |-|-|-|-|-|-|-|
-|`GET`|`/user`|Get all Users| [ℹ️details](#user) | <p align="center">❌</p>|<p align="center">❌</p>|<p align="center">❌</p>
-|`GET`|`/user/invitation`|View Invitation Project on User| [ℹ️details](#user) | <p align="center">✔️</p>|<p align="center">❌</p>|<p align="center">❌</p>
-|`POST`|`/user/:idproject/invitation`|Accept Invitation Project on User| [ℹ️details](#user) |<p align="center">✔️</p>|<p align="center">❌</p>|<p align="center">❌</p>
-|`POST`|`/user/signup`|Create User| [ℹ️details](#user) |<p align="center">❌</p>|<p align="center">❌</p>|<p align="center">❌</p>
-|`POST`|`/user/signin`|Login User| [ℹ️details](#user) |<p align="center">❌</p>|<p align="center">❌</p>|<p align="center">❌</p>
-|`POST`|`/user/signinGoogle`|Login With Google Signin| [ℹ️details](#user) |<p align="center">❌</p>|<p align="center">❌</p>|<p align="center">✔️</p>
-|`DELETE`|`/user/:id`|Delete User| [ℹ️details](#user) |<p align="center">❌</p>|<p align="center">❌</p>|<p align="center">❌</p>
+|`GET`|`/user`|Get all Users| [ℹ️details](#user-route) | <p align="center">❌</p>|<p align="center">❌</p>|<p align="center">❌</p>
+|`GET`|`/user/invitation`|View Invitation Project on User| [ℹ️details](#user-route) | <p align="center">✔️</p>|<p align="center">❌</p>|<p align="center">❌</p>
+|`POST`|`/user/:idproject/invitation`|Accept Invitation Project on User| [ℹ️details](#user-route) |<p align="center">✔️</p>|<p align="center">❌</p>|<p align="center">❌</p>
+|`POST`|`/user/signup`|Create User| [ℹ️details](#user-route) |<p align="center">❌</p>|<p align="center">❌</p>|<p align="center">❌</p>
+|`POST`|`/user/signin`|Login User| [ℹ️details](#user-route) |<p align="center">❌</p>|<p align="center">❌</p>|<p align="center">❌</p>
+|`POST`|`/user/signinGoogle`|Login With Google Signin| [ℹ️details](#user-route) |<p align="center">❌</p>|<p align="center">❌</p>|<p align="center">✔️</p>
+|`DELETE`|`/user/:id`|Delete User| [ℹ️details](#user-route) |<p align="center">❌</p>|<p align="center">❌</p>|<p align="center">❌</p>
 
 
 ## 2. Todos Router
 |Method|route|<i>detail</i>|<i>Details Status</i>|<i>Authentication</i>|<i>Authorization</i>|
 |-|-|-|-|-|-| 
-|`GET`|`/todo`|Get all Todos| [ℹ️details](#books) | <p align="center">✔️</p>|<p align="center">❌</p>
-|`GET`|`/todo/:title`|Find Todos with title parameter| [ℹ️details](#books) |<p align="center">✔️</p>|<p align="center">❌</p>
-|`POST`|`/todo`|Create a Todo| [ℹ️details](#books) |<p align="center">✔️</p>|<p align="center">❌</p>
-|`POST`|`/todo/:id`|Create Todos on your Project| [ℹ️details](#books) |<p align="center">✔️</p>|<p align="center">❌</p>
-|`PUT`|`/todo/:id`|Update Todo with all parameters| [ℹ️details](#books) |<p align="center">✔️</p>|<p align="center">✔️</p>
-|`PATCH`|`/todo/:id`|Update Todo with status parameter| [ℹ️details](#books) |<p align="center">✔️</p>|<p align="center">✔️</p>
-|`DELETE`|`/todo/:id`|Delete Todo| [ℹ️details](#books) |<p align="center">✔️</p>|<p align="center">✔️</p>
+|`GET`|`/todo`|Get all Todos| [ℹ️details](#todo-route) | <p align="center">✔️</p>|<p align="center">❌</p>
+|`POST`|`/todo`|Create a Todo| [ℹ️details](#todo-route) |<p align="center">✔️</p>|<p align="center">❌</p>
+|`POST`|`/todo/:id`|Create Todos on your Project| [ℹ️details](#todo-route) |<p align="center">✔️</p>|<p align="center">❌</p>
+|`PUT`|`/todo/:id`|Update Todo with all parameters| [ℹ️details](#todo-route) |<p align="center">✔️</p>|<p align="center">✔️</p>
+|`PATCH`|`/todo/:id`|Update Todo with status parameter| [ℹ️details](#todo-route) |<p align="center">✔️</p>|<p align="center">✔️</p>
+|`DELETE`|`/todo/:id`|Delete Todo| [ℹ️details](#todo-route) |<p align="center">✔️</p>|<p align="center">✔️</p>
 
 
 
 ## 3. Project Router
 |Method|route|<i>detail</i>|<i>Details Status</i>|<i>Authentication</i>|<i>Authorization</i>|
 |-|-|-|-|-|-| 
-|`GET`|`/project`|Get All Project| [ℹ️details](#books) | <p align="center">✔️</p>|<p align="center">❌</p>
-|`GET`|`/project/members`|Find your status Member on Project| [ℹ️details](#books) | <p align="center">✔️</p>|<p align="center">❌</p>
-|`GET`|`/project/cancel/:id`|Cancel Invite Project| [ℹ️details](#books) | <p align="center">✔️</p>|<p align="center">❌</p>
-|`GET`|`/project/:id`|Get all Project With User Id| [ℹ️details](#books) | <p align="center">✔️</p>|<p align="center">❌</p>
-|`POST`|`/project`|Create Project| [ℹ️details](#books) | <p align="center">✔️</p>|<p align="center">❌</p>
-|`POST`|`/project/:id`|Invite User on Project| [ℹ️details](#books) | <p align="center">✔️</p>|<p align="center">❌</p>
-|`PUT`|`/project/:id`|Update Project With All Params| [ℹ️details](#books) | <p align="center">✔️</p>|<p align="center">✔️</p>
-|`PATCH`|`/project/:id`|Update Project With Name Params| [ℹ️details](#books) | <p align="center">✔️</p>|<p align="center">✔️</p>
-|`DELETE`|`/project/:id`|Delete Project| [ℹ️details](#books) | <p align="center">✔️</p>|<p align="center">✔️</p>
+|`GET`|`/project`|Get All Project| [ℹ️details](#project-route) | <p align="center">✔️</p>|<p align="center">❌</p>
+|`GET`|`/project/members`|Find your status Member on Project| [ℹ️details](#project-route) | <p align="center">✔️</p>|<p align="center">❌</p>
+|`GET`|`/project/cancel/:id`|Cancel Invite Project| [ℹ️details](#project-route) | <p align="center">✔️</p>|<p align="center">❌</p>
+|`GET`|`/project/:id`|Get all Project With User Id| [ℹ️details](#project-route) | <p align="center">✔️</p>|<p align="center">❌</p>
+|`POST`|`/project`|Create Project| [ℹ️details](#project-route) | <p align="center">✔️</p>|<p align="center">❌</p>
+|`POST`|`/project/:id`|Invite User on Project| [ℹ️details](#project-route) | <p align="center">✔️</p>|<p align="center">❌</p>
+|`PUT`|`/project/:id`|Update Project With All Params| [ℹ️details](#project-route) | <p align="center">✔️</p>|<p align="center">✔️</p>
+|`PATCH`|`/project/:id`|Update Project With Name Params| [ℹ️details](#project-route) | <p align="center">✔️</p>|<p align="center">✔️</p>
+|`DELETE`|`/project/:id`|Delete Project| [ℹ️details](#project-route) | <p align="center">✔️</p>|<p align="center">✔️</p>
 
 # INSTALLATION
 ### PACKAGE with NPM SERVER SIDE
@@ -92,7 +89,11 @@ jika tidak maka kamu akan melihat error dengan status code `500` ``` CANNOT GET 
 		⏩ SOLVE : please check your route is valid
 
 	▶️ FAILED [STATUS 500 INTERNAL SERVER ERROR]
-		⏩ SOLVE : please check your connection
+			⏩ ERROR :
+				{
+					"message":  "Internal Server Error",
+				}
+			⏩ SOLVE : please check your connection
 		
 ### 2. [GET] /user/invitation
 		▶️ HEADERS { "token" : jwt_token }
@@ -106,10 +107,19 @@ jika tidak maka kamu akan melihat error dengan status code `500` ``` CANNOT GET 
 				"password":  HASHING_PASSWORD
 			}
 
-		▶️ FAILED [STATUS 400 BAD REQUEST]
+		▶️ FAILED [STATUS 401 Unauthorized]
 			⏩ ERROR :
 				{
-					"message":  "Json Web Token Error"
+					"message":  {
+					"name":  "JsonWebTokenError",
+					"message":  "jwt must be provided"
+					},
+				"errors":  [
+						{
+							"name":  "JsonWebTokenError",
+							"message":  "jwt must be provided"
+						}
+					]
 				}
 			⏩ SOLVE : sign your jwt_token on your headers
 
@@ -124,6 +134,10 @@ jika tidak maka kamu akan melihat error dengan status code `500` ``` CANNOT GET 
 			⏩ SOLVE : please check your route is valid
 			
 		▶️ FAILED [STATUS 500 INTERNAL SERVER ERROR]
+			⏩ ERROR :
+				{
+					"message":  "Internal Server Error",
+				}
 			⏩ SOLVE : please check your connection
 
 ### 3. [GET] /user/:idproject/invitation
@@ -141,10 +155,19 @@ jika tidak maka kamu akan melihat error dengan status code `500` ``` CANNOT GET 
 				"updatedAt":  DATE
 			}
 		
-		▶️ FAILED [STATUS 400 BAD REQUEST]
+		▶️ FAILED [STATUS 401 Unauthorized]
 			⏩ ERROR :
 				{
-					"message":  "Json Web Token Error"
+					"message":  {
+					"name":  "JsonWebTokenError",
+					"message":  "jwt must be provided"
+					},
+				"errors":  [
+						{
+							"name":  "JsonWebTokenError",
+							"message":  "jwt must be provided"
+						}
+					]
 				}
 			⏩ SOLVE : sign your jwt_token on your headers
 
@@ -159,6 +182,10 @@ jika tidak maka kamu akan melihat error dengan status code `500` ``` CANNOT GET 
 			⏩ SOLVE : please check your route is valid
 
 		▶️ FAILED [STATUS 500 INTERNAL SERVER ERROR]
+			⏩ ERROR :
+				{
+					"message":  "Internal Server Error",
+				}
 			⏩ SOLVE : please check your connection
 			
 ### 4. [POST] /user/signup
@@ -192,6 +219,10 @@ jika tidak maka kamu akan melihat error dengan status code `500` ``` CANNOT GET 
 			⏩ SOLVE : please check your route is valid
 		
 		▶️ FAILED [STATUS 500 INTERNAL SERVER ERROR]
+			⏩ ERROR :
+				{
+					"message":  "Internal Server Error",
+				}
 			⏩ SOLVE : please check your connection
 			
 ### 5. [PUT] /user/signin
@@ -223,6 +254,10 @@ jika tidak maka kamu akan melihat error dengan status code `500` ``` CANNOT GET 
 			⏩ SOLVE : please check your route is valid
 			
 		▶️ FAILED [STATUS 500 INTERNAL SERVER ERROR]
+			⏩ ERROR :
+				{
+					"message":  "Internal Server Error",
+				}
 			⏩ SOLVE : please check your connection
 
 ### 6. [PATCH] /user/signinGoogle
@@ -247,6 +282,10 @@ jika tidak maka kamu akan melihat error dengan status code `500` ``` CANNOT GET 
 			⏩ SOLVE : please check your route is valid
 			
 		▶️ FAILED [STATUS 500 INTERNAL SERVER ERROR]
+			⏩ ERROR :
+				{
+					"message":  "Internal Server Error",
+				}
 			⏩ SOLVE : please check your connection
 
 ### 6. [DELETE] /user/:id
@@ -284,6 +323,10 @@ jika tidak maka kamu akan melihat error dengan status code `500` ``` CANNOT GET 
 			⏩ SOLVE : please check your route is valid
 			
 		▶️ FAILED [STATUS 500 INTERNAL SERVER ERROR]
+			⏩ ERROR :
+				{
+					"message":  "Internal Server Error",
+				}
 			⏩ SOLVE : please check your connection
 
 
@@ -327,26 +370,61 @@ jika tidak maka kamu akan melihat error dengan status code `500` ``` CANNOT GET 
 		⏩ SOLVE : please check your route is valid
 
 	▶️ FAILED [STATUS 500 INTERNAL SERVER ERROR]
-		⏩ SOLVE : please check your connection
+			⏩ ERROR :
+				{
+					"message":  "Internal Server Error",
+				}
+			⏩ SOLVE : please check your connection
 		
 ### 2. [POST] /todo/
+		▶️ BODY {
+				"title":  STRING,
+				"description":  STRING,
+				"due_date":  DATE,
+			}
 		▶️ HEADERS { "token" : jwt_token }
 		▶️ SUCCESS [STATUS 200 OK!]
 			{
-				"bookmark":  [],
-				"invitesProject":  [],
-				"_id":  "5de384cf5cfca851c476bef0",
-				"name":  STRING,
-				"email":  EMAIL,
-				"password":  HASHING_PASSWORD
+			"todo":  {
+				"_id":  "5de6138c3639fd3b64388e01",
+				"title":  STRING,
+				"description":  STRING,
+				"due_date":  DATE,
+				"UserId":  "5dde4facc29d364b68914f3b",
+				"createdAt":  "2019-12-03T07:49:32.858Z",
+				"updatedAt":  "2019-12-03T07:49:32.858Z",
+				"status":  BOOLEAN
+			},
+			"message":  "create successfuly!"
 			}
+
+		▶️ FAILED [STATUS 401 Unauthorized]
+			⏩ ERROR :
+				{
+					"message":  {
+					"name":  "JsonWebTokenError",
+					"message":  "jwt must be provided"
+					},
+				"errors":  [
+						{
+							"name":  "JsonWebTokenError",
+							"message":  "jwt must be provided"
+						}
+					]
+				}
+			⏩ SOLVE : sign your jwt_token on your headers
 
 		▶️ FAILED [STATUS 400 BAD REQUEST]
 			⏩ ERROR :
-				{
-					"message":  "Json Web Token Error"
-				}
-			⏩ SOLVE : sign your jwt_token on your headers
+			{
+				"message":  "Validation Error",
+				"errors":  [
+					"title is required!",
+					"description is required!",
+					"due date is required!"
+				]
+			}
+			⏩ SOLVE : fill all input because all input is required
 
 		▶️ FAILED [STATUS 404 NOT FOUND]
 			⏩ ERROR :
@@ -359,30 +437,63 @@ jika tidak maka kamu akan melihat error dengan status code `500` ``` CANNOT GET 
 			⏩ SOLVE : please check your route is valid
 			
 		▶️ FAILED [STATUS 500 INTERNAL SERVER ERROR]
+			⏩ ERROR :
+				{
+					"message":  "Internal Server Error",
+				}
 			⏩ SOLVE : please check your connection
 
 ### 3. [POST] /todo/:id
+		▶️ PARAMS { id }
+		▶️ BODY {
+				"title":  STRING,
+				"description":  STRING,
+				"due_date":  DATE,
+			}
 		▶️ HEADERS { "token" : jwt_token }
 		▶️ SUCCESS [STATUS 200 OK!]
 			{
-				"members":  [
-					"5de384cf5cfca851c476bef0",
-					"5de41fca533971570455fe16"
-					],
-				"_id":  "5de41fea533971570455fe17",
-				"name": STRING,
-				"owner":  "5de41fca533971570455fe16",
-				"createdAt":  DATE,
-				"updatedAt":  DATE
+			"todo":  {
+				"_id":  "5de6138c3639fd3b64388e01",
+				"title":  STRING,
+				"description":  STRING,
+				"due_date":  DATE,
+				"UserId":  "5dde4facc29d364b68914f3b",
+				"createdAt":  "2019-12-03T07:49:32.858Z",
+				"updatedAt":  "2019-12-03T07:49:32.858Z",
+				"status":  BOOLEAN
+			},
+			"message":  "create successfuly!"
 			}
-		
-		▶️ FAILED [STATUS 400 BAD REQUEST]
+
+		▶️ FAILED [STATUS 401 Unauthorized]
 			⏩ ERROR :
 				{
-					"message":  "Json Web Token Error"
+					"message":  {
+					"name":  "JsonWebTokenError",
+					"message":  "jwt must be provided"
+					},
+				"errors":  [
+						{
+							"name":  "JsonWebTokenError",
+							"message":  "jwt must be provided"
+						}
+					]
 				}
 			⏩ SOLVE : sign your jwt_token on your headers
 
+		▶️ FAILED [STATUS 400 BAD REQUEST]
+			⏩ ERROR :
+			{
+				"message":  "Validation Error",
+				"errors":  [
+					"title is required!",
+					"description is required!",
+					"due date is required!"
+				]
+			}
+			⏩ SOLVE : fill all input because all input is required
+
 		▶️ FAILED [STATUS 404 NOT FOUND]
 			⏩ ERROR :
 				{
@@ -392,115 +503,72 @@ jika tidak maka kamu akan melihat error dengan status code `500` ``` CANNOT GET 
 					]
 				}
 			⏩ SOLVE : please check your route is valid
+			
+		▶️ FAILED [STATUS 404 NOT FOUND]
+			⏩ ERROR :
+				{
+					"message":  "Id Not Found"
+				}
+			⏩ SOLVE : please check your params is valid			
 
 		▶️ FAILED [STATUS 500 INTERNAL SERVER ERROR]
+			⏩ ERROR :
+				{
+					"message":  "Internal Server Error",
+				}
 			⏩ SOLVE : please check your connection
 			
 ### 4. [PUT] /todo/:id
-		▶️ BODY { name, email, password }
+		▶️ PARAMS { id }
+		▶️ BODY {
+				"title":  STRING,
+				"description":  STRING,
+				"due_date":  DATE,
+			}
+		▶️ HEADERS { "token" : jwt_token }
 		▶️ SUCCESS [STATUS 200 OK!]
 			{
-				"message":  "create user successfuly",
-				"name":  STRING
+			"todo":  {
+				"_id":  "5de6138c3639fd3b64388e01",
+				"title":  STRING,
+				"description":  STRING,
+				"due_date":  DATE,
+				"UserId":  "5dde4facc29d364b68914f3b",
+				"createdAt":  "2019-12-03T07:49:32.858Z",
+				"updatedAt":  "2019-12-03T07:49:32.858Z",
+				"status":  BOOLEAN
+			},
+			"message":  "update successfuly!"
 			}
-		
+
+		▶️ FAILED [STATUS 401 Unauthorized]
+			⏩ ERROR :
+				{
+					"message":  {
+					"name":  "JsonWebTokenError",
+					"message":  "jwt must be provided"
+					},
+				"errors":  [
+						{
+							"name":  "JsonWebTokenError",
+							"message":  "jwt must be provided"
+						}
+					]
+				}
+			⏩ SOLVE : sign your jwt_token on your headers
+
 		▶️ FAILED [STATUS 400 BAD REQUEST]
 			⏩ ERROR :
-				{
-					"message":  "Validation Error",
-					"errors":  [
-						"name is required",
-						"Password Minimum Contain 4 Character",
-						"email is Already Exist"
-					]
-				}
-			⏩ SOLVE : fill all column input
-		
-		▶️ FAILED [STATUS 404 NOT FOUND]
-			⏩ ERROR :
-				{
-					"message":  "Invalid Input",
-					"errors":  [
-						"Not Found"
-					]
-				}
-			⏩ SOLVE : please check your route is valid
-		
-		▶️ FAILED [STATUS 500 INTERNAL SERVER ERROR]
-			⏩ SOLVE : please check your connection
-			
-### 5. [PATCH] /todo/:id
-		▶️ BODY { email, password }
-		▶️ SUCCESS [STATUS 200 OK!]
-    		{
-				"token": jwt_token,
-				"name":  STRING
-			}
-
-		▶️ FAILED [STATUS 404 NOT FOUND]
-			⏩ ERROR :
-				{
-					"message":  "Email or Password Wrong!",
-					"errors":  [
-						"Email or Password Wrong!"
-					]
-				}	
-			⏩ SOLVE : please check your email or password is valid		
-
-		▶️ FAILED [STATUS 404 NOT FOUND]
-			⏩ ERROR :
-				{
-					"message":  "Invalid Input",
-					"errors":  [
-						"Not Found"
-					]
-				}
-			⏩ SOLVE : please check your route is valid
-			
-		▶️ FAILED [STATUS 500 INTERNAL SERVER ERROR]
-			⏩ SOLVE : please check your connection
-
-### 6. [GET] /todo/title
-		
-		▶️ Documentation 
-			```
-			```
-		▶️ SUCCESS [STATUS 200 OK!]
-    		{
-				"token": jwt_token,
-				"name":  STRING
-			}
-		
-		▶️ FAILED [STATUS 404 NOT FOUND]
-			⏩ ERROR :
-				{
-					"message":  "Invalid Input",
-					"errors":  [
-						"Not Found"
-					]
-				}
-			⏩ SOLVE : please check your route is valid
-			
-		▶️ FAILED [STATUS 500 INTERNAL SERVER ERROR]
-			⏩ SOLVE : please check your connection
-
-### 6. [DELETE] /todo/:id
-		
-		▶️ PARAMS { id }
-		▶️ SUCCESS [STATUS 200 OK!]
 			{
-				"user":  {
-					"bookmark":  [],
-					"invitesProject":  [
-						"5de40f2579c91f48d04da388"
-					],
-					"_id":  "5dde349a878e853d02ce19f3",
-					"email":  EMAIL,
-					"password":  HASHING_PASSWORD
-				},
-				"message":  "Delete Success"
+				"message":  "Validation Error",
+				"errors":  [
+					"title is required!",
+					"description is required!",
+					"due date is required!"
+				]
 			}
-
+			⏩ SOLVE : fill all input because all input is required
+			
 		▶️ FAILED [STATUS 404 NOT FOUND]
 			⏩ ERROR :
 				{
@@ -519,34 +587,152 @@ jika tidak maka kamu akan melihat error dengan status code `500` ``` CANNOT GET 
 			⏩ SOLVE : please check your route is valid
 			
 		▶️ FAILED [STATUS 500 INTERNAL SERVER ERROR]
+			⏩ ERROR :
+				{
+					"message":  "Internal Server Error",
+				}
+			⏩ SOLVE : please check your connection
+			
+### 5. [PATCH] /todo/:id
+		▶️ PARAMS { id }
+		▶️ HEADERS { "token" : jwt_token }
+		▶️ SUCCESS [STATUS 200 OK!]
+			{
+			"todo":  {
+				"_id":  "5de6138c3639fd3b64388e01",
+				"title":  STRING,
+				"description":  STRING,
+				"due_date":  DATE,
+				"UserId":  "5dde4facc29d364b68914f3b",
+				"createdAt":  "2019-12-03T07:49:32.858Z",
+				"updatedAt":  "2019-12-03T07:49:32.858Z",
+				"status":  BOOLEAN
+			},
+			"message":  "update successfuly!"
+			}
+
+		▶️ FAILED [STATUS 401 Unauthorized]
+			⏩ ERROR :
+				{
+					"message":  {
+					"name":  "JsonWebTokenError",
+					"message":  "jwt must be provided"
+					},
+				"errors":  [
+						{
+							"name":  "JsonWebTokenError",
+							"message":  "jwt must be provided"
+						}
+					]
+				}
+			⏩ SOLVE : sign your jwt_token on your headers
+			
+		▶️ FAILED [STATUS 404 NOT FOUND]
+			⏩ ERROR :
+				{
+					"message":  "Id Not Found"
+				}
+			⏩ SOLVE : please check your params is valid
+
+		▶️ FAILED [STATUS 404 NOT FOUND]
+			⏩ ERROR :
+				{
+					"message":  "Invalid Input",
+					"errors":  [
+						"Not Found"
+					]
+				}
+			⏩ SOLVE : please check your route is valid
+			
+		▶️ FAILED [STATUS 500 INTERNAL SERVER ERROR]
+			⏩ ERROR :
+				{
+					"message":  "Internal Server Error",
+				}
+			⏩ SOLVE : please check your connection
+			
+### 6. [DELETE] /todo/:id
+		▶️ HEADERS { "token" : jwt_token }
+		▶️ PARAMS { id }
+		▶️ SUCCESS [STATUS 200 OK!]
+			{
+				"user":  {
+					"bookmark":  [],
+					"invitesProject":  [
+						"5de40f2579c91f48d04da388"
+					],
+					"_id":  "5dde349a878e853d02ce19f3",
+					"email":  EMAIL,
+					"password":  HASHING_PASSWORD
+				},
+				"message":  "Delete Success"
+			}
+
+		▶️ FAILED [STATUS 401 Unauthorized]
+			⏩ ERROR :
+				{
+					"message":  {
+					"name":  "JsonWebTokenError",
+					"message":  "jwt must be provided"
+					},
+				"errors":  [
+						{
+							"name":  "JsonWebTokenError",
+							"message":  "jwt must be provided"
+						}
+					]
+				}
+			⏩ SOLVE : sign your jwt_token on your headers
+			
+		▶️ FAILED [STATUS 404 NOT FOUND]
+			⏩ ERROR :
+				{
+					"message":  "Id Not Found"
+				}
+			⏩ SOLVE : please check your params is valid
+
+		▶️ FAILED [STATUS 404 NOT FOUND]
+			⏩ ERROR :
+				{
+					"message":  "Invalid Input",
+					"errors":  [
+						"Not Found"
+					]
+				}
+			⏩ SOLVE : please check your route is valid
+			
+		▶️ FAILED [STATUS 500 INTERNAL SERVER ERROR]
+			⏩ ERROR :
+				{
+					"message":  "Internal Server Error",
+				}
 			⏩ SOLVE : please check your connection
 
 
 ## PROJECT ROUTE
 ### 1. [GET] /project/
 	▶️ SUCCESS [Status 200 OK!]
-		{
-		"todos":  [
+		[
 			{
-				"_id":  "5dde5532bbf1184e781f192d",
-				"title":  STRING,
-				"description":  STRING,
-				"due_date":  DATE,
-				"UserId":  {
-					"bookmark":  [],
-					"invitesProject":  [],
-					"_id":  "5dde4facc29d364b68914f3b",
-					"email":  EMAIL,
-					"password":  HASH_PASSWORD
-				},
-				"createdAt":  "2019-11-27T10:51:30.418Z",
-				"updatedAt":  "2019-12-01T19:18:25.179Z",
-				"status":  BOOLEAN,
-				"projectId":  "5de40f3479c91f48d04da389"
-				}
+			"members":  [],
+			"_id":  "5de612c33639fd3b64388e00",
+			"name":  STRING,
+			"owner":  "5de41fca533971570455fe16",
+			"createdAt":  "2019-12-03T07:46:11.514Z",
+			"updatedAt":  "2019-12-03T07:46:11.514Z"
+			},
+			{
+			"members":  [
+				"5de384cf5cfca851c476bef0",
+				"5de41fca533971570455fe16"
 			],
-			"message":  "find successfuly!"
-		}
+			"_id":  "5de41fea533971570455fe17",
+			"name":  STRING,
+			"owner":  "5de41fca533971570455fe16",
+			"createdAt":  "2019-12-01T20:17:46.190Z",
+			"updatedAt":  "2019-12-02T01:15:00.634Z"
+			}
+		]
 
 	▶️ FAILED [STATUS 404 NOT FOUND]
 		⏩ ERROR :
@@ -559,26 +745,40 @@ jika tidak maka kamu akan melihat error dengan status code `500` ``` CANNOT GET 
 		⏩ SOLVE : please check your route is valid
 
 	▶️ FAILED [STATUS 500 INTERNAL SERVER ERROR]
-		⏩ SOLVE : please check your connection
+			⏩ ERROR :
+				{
+					"message":  "Internal Server Error",
+				}
+			⏩ SOLVE : please check your connection
 		
 ### 2. [POST] /project/
+
+		▶️ BODY {
+				"name":  STRING,
+			}
 		▶️ HEADERS { "token" : jwt_token }
 		▶️ SUCCESS [STATUS 200 OK!]
 			{
-				"bookmark":  [],
-				"invitesProject":  [],
-				"_id":  "5de384cf5cfca851c476bef0",
+			"project":  {
+				"members":  [],
+				"_id":  "5de6235ca8ab8c43c17e6797",
 				"name":  STRING,
-				"email":  EMAIL,
-				"password":  HASHING_PASSWORD
+				"owner":  "5de41fca533971570455fe16",
+				"createdAt":  "2019-12-03T08:57:00.432Z",
+				"updatedAt":  "2019-12-03T08:57:00.432Z"
+			},
+				"message":  "create project successfuly!"
 			}
 
 		▶️ FAILED [STATUS 400 BAD REQUEST]
 			⏩ ERROR :
-				{
-					"message":  "Json Web Token Error"
-				}
-			⏩ SOLVE : sign your jwt_token on your headers
+			{
+				"message":  "Validation Error",
+				"errors":  [
+					"name is Already Exist"
+				]
+			}
+			⏩ SOLVE : fill all input because all input is required
 
 		▶️ FAILED [STATUS 404 NOT FOUND]
 			⏩ ERROR :
@@ -591,27 +791,44 @@ jika tidak maka kamu akan melihat error dengan status code `500` ``` CANNOT GET 
 			⏩ SOLVE : please check your route is valid
 			
 		▶️ FAILED [STATUS 500 INTERNAL SERVER ERROR]
+			⏩ ERROR :
+				{
+					"message":  "Internal Server Error",
+				}
 			⏩ SOLVE : please check your connection
 
+
 ### 3. [GET] /project/members
+
 		▶️ HEADERS { "token" : jwt_token }
 		▶️ SUCCESS [STATUS 200 OK!]
-			{
+			[
+				{
 				"members":  [
 					"5de384cf5cfca851c476bef0",
 					"5de41fca533971570455fe16"
-					],
-				"_id":  "5de41fea533971570455fe17",
-				"name": STRING,
-				"owner":  "5de41fca533971570455fe16",
-				"createdAt":  DATE,
-				"updatedAt":  DATE
-			}
-		
-		▶️ FAILED [STATUS 400 BAD REQUEST]
+				],
+					"_id":  "5de41fea533971570455fe17",
+					"name":  STRING,
+					"owner":  "5de41fca533971570455fe16",
+					"createdAt":  "2019-12-01T20:17:46.190Z",
+					"updatedAt":  "2019-12-02T01:15:00.634Z"
+				}
+			]
+
+		▶️ FAILED [STATUS 401 Unauthorized]
 			⏩ ERROR :
 				{
-					"message":  "Json Web Token Error"
+					"message":  {
+					"name":  "JsonWebTokenError",
+					"message":  "jwt must be provided"
+					},
+				"errors":  [
+						{
+							"name":  "JsonWebTokenError",
+							"message":  "jwt must be provided"
+						}
+					]
 				}
 			⏩ SOLVE : sign your jwt_token on your headers
 
@@ -624,30 +841,38 @@ jika tidak maka kamu akan melihat error dengan status code `500` ``` CANNOT GET 
 					]
 				}
 			⏩ SOLVE : please check your route is valid
-
+			
 		▶️ FAILED [STATUS 500 INTERNAL SERVER ERROR]
+			⏩ ERROR :
+				{
+					"message":  "Internal Server Error",
+				}
 			⏩ SOLVE : please check your connection
 			
 ### 4. [GET] /project/cancel/:id
-		▶️ BODY { name, email, password }
+		▶️ PARAMS { id }
+		▶️ HEADERS { "token" : jwt_token }
 		▶️ SUCCESS [STATUS 200 OK!]
 			{
-				"message":  "create user successfuly",
-				"name":  STRING
+				"message":  "success delete invitation"
 			}
-		
-		▶️ FAILED [STATUS 400 BAD REQUEST]
+
+		▶️ FAILED [STATUS 401 Unauthorized]
 			⏩ ERROR :
 				{
-					"message":  "Validation Error",
-					"errors":  [
-						"name is required",
-						"Password Minimum Contain 4 Character",
-						"email is Already Exist"
+					"message":  {
+					"name":  "JsonWebTokenError",
+					"message":  "jwt must be provided"
+					},
+				"errors":  [
+						{
+							"name":  "JsonWebTokenError",
+							"message":  "jwt must be provided"
+						}
 					]
 				}
-			⏩ SOLVE : fill all column input
-		
+			⏩ SOLVE : sign your jwt_token on your headers
+			
 		▶️ FAILED [STATUS 404 NOT FOUND]
 			⏩ ERROR :
 				{
@@ -657,28 +882,85 @@ jika tidak maka kamu akan melihat error dengan status code `500` ``` CANNOT GET 
 					]
 				}
 			⏩ SOLVE : please check your route is valid
-		
+			
+		▶️ FAILED [STATUS 404 NOT FOUND]
+			⏩ ERROR :
+				{
+					"message":  "Id Not Found"
+				}
+			⏩ SOLVE : please check your params is valid
+			
 		▶️ FAILED [STATUS 500 INTERNAL SERVER ERROR]
+			⏩ ERROR :
+				{
+					"message":  "Internal Server Error",
+				}
 			⏩ SOLVE : please check your connection
 			
 ### 5. [GET] /project/:id
-		▶️ BODY { email, password }
+		▶️ PARAMS { id }
+		▶️ HEADERS { "token" : jwt_token }
 		▶️ SUCCESS [STATUS 200 OK!]
-    		{
-				"token": jwt_token,
-				"name":  STRING
+			{
+			"project":  {
+				"members":  [
+						"5de384cf5cfca851c476bef0",
+						"5de41fca533971570455fe16"
+					],
+					"_id":  "5de41fea533971570455fe17",
+					"name":  STRING,
+					"owner":  "5de41fca533971570455fe16",
+					"createdAt":  "2019-12-01T20:17:46.190Z",
+					"updatedAt":  "2019-12-02T01:15:00.634Z"
+				},
+				"todos":  [
+					{
+						"_id":  "5de4512c2cf0e07c238940c8",
+						"title":  STRING,
+						"description":  STRING,
+						"due_date":  DATE,
+						"UserId":  {
+						"bookmark":  [],
+						"invitesProject":  [],
+						"_id":  "5de384cf5cfca851c476bef0",
+						"name":  STRING,
+						"email":  EMAIL,
+						"password": HASH_PASSWORD
+					},
+					"projectId":  {
+						"members":  [
+							"5de384cf5cfca851c476bef0",
+							"5de41fca533971570455fe16"
+						],
+						"_id":  "5de41fea533971570455fe17",
+						"name":  STRING,
+						"owner":  "5de41fca533971570455fe16",
+						"createdAt":  "2019-12-01T20:17:46.190Z",
+						"updatedAt":  "2019-12-02T01:15:00.634Z"
+					},
+					"createdAt":  "2019-12-01T23:47:56.495Z",
+					"updatedAt":  "2019-12-01T23:47:56.495Z",
+					"status":  BOOLEAN
+					},
+				]
 			}
-
-		▶️ FAILED [STATUS 404 NOT FOUND]
+			
+		▶️ FAILED [STATUS 401 Unauthorized]
 			⏩ ERROR :
 				{
-					"message":  "Email or Password Wrong!",
-					"errors":  [
-						"Email or Password Wrong!"
+					"message":  {
+					"name":  "JsonWebTokenError",
+					"message":  "jwt must be provided"
+					},
+				"errors":  [
+						{
+							"name":  "JsonWebTokenError",
+							"message":  "jwt must be provided"
+						}
 					]
-				}	
-			⏩ SOLVE : please check your email or password is valid		
-
+				}
+			⏩ SOLVE : sign your jwt_token on your headers
+			
 		▶️ FAILED [STATUS 404 NOT FOUND]
 			⏩ ERROR :
 				{
@@ -689,20 +971,54 @@ jika tidak maka kamu akan melihat error dengan status code `500` ``` CANNOT GET 
 				}
 			⏩ SOLVE : please check your route is valid
 			
+		▶️ FAILED [STATUS 404 NOT FOUND]
+			⏩ ERROR :
+				{
+					"message":  "Id Not Found"
+				}
+			⏩ SOLVE : please check your params is valid
+			
 		▶️ FAILED [STATUS 500 INTERNAL SERVER ERROR]
+			⏩ ERROR :
+				{
+					"message":  "Internal Server Error",
+				}
 			⏩ SOLVE : please check your connection
 
 ### 6. [POST] /project/:id
-		
-		▶️ Documentation 
-			```
-			```
+		▶️ PARAMS { id }
+		▶️ HEADERS { "token" : jwt_token }
 		▶️ SUCCESS [STATUS 200 OK!]
-    		{
-				"token": jwt_token,
-				"name":  STRING
+			{
+			"result":  {
+				"bookmark":  [],
+				"invitesProject":  [
+					"5de41fea533971570455fe17"
+				],
+				"_id":  "5de43a4bacba196fd8c553d3",
+				"name":  STRING,
+				"email":  EMAIL,
+				"password":  HASH_PASSWORD
+				},
+				"message":  "invite member successfuly!"
 			}
-		
+
+		▶️ FAILED [STATUS 401 Unauthorized]
+			⏩ ERROR :
+				{
+					"message":  {
+					"name":  "JsonWebTokenError",
+					"message":  "jwt must be provided"
+					},
+				"errors":  [
+						{
+							"name":  "JsonWebTokenError",
+							"message":  "jwt must be provided"
+						}
+					]
+				}
+			⏩ SOLVE : sign your jwt_token on your headers
+			
 		▶️ FAILED [STATUS 404 NOT FOUND]
 			⏩ ERROR :
 				{
@@ -713,26 +1029,71 @@ jika tidak maka kamu akan melihat error dengan status code `500` ``` CANNOT GET 
 				}
 			⏩ SOLVE : please check your route is valid
 			
+		▶️ FAILED [STATUS 404 NOT FOUND]
+			⏩ ERROR :
+				{
+					"message":  "Id Not Found"
+				}
+			⏩ SOLVE : please check your params is valid
+			
 		▶️ FAILED [STATUS 500 INTERNAL SERVER ERROR]
+			⏩ ERROR :
+				{
+					"message":  "Internal Server Error",
+				}
 			⏩ SOLVE : please check your connection
 
-### 6. [PUT] /project/:id
-		
+### 7. [PUT] /project/:id
 		▶️ PARAMS { id }
+		▶️ BODY {
+				"title":  STRING,
+				"description":  STRING,
+				"due_date":  DATE,
+			}
+		▶️ HEADERS { "token" : jwt_token }
 		▶️ SUCCESS [STATUS 200 OK!]
 			{
-				"user":  {
-					"bookmark":  [],
-					"invitesProject":  [
-						"5de40f2579c91f48d04da388"
-					],
-					"_id":  "5dde349a878e853d02ce19f3",
-					"email":  EMAIL,
-					"password":  HASHING_PASSWORD
-				},
-				"message":  "Delete Success"
+			"todo":  {
+				"_id":  "5de6138c3639fd3b64388e01",
+				"title":  STRING,
+				"description":  STRING,
+				"due_date":  DATE,
+				"UserId":  "5dde4facc29d364b68914f3b",
+				"createdAt":  "2019-12-03T07:49:32.858Z",
+				"updatedAt":  "2019-12-03T07:49:32.858Z",
+				"status":  BOOLEAN
+			},
+			"message":  "update successfuly!"
 			}
 
+		▶️ FAILED [STATUS 401 Unauthorized]
+			⏩ ERROR :
+				{
+					"message":  {
+					"name":  "JsonWebTokenError",
+					"message":  "jwt must be provided"
+					},
+				"errors":  [
+						{
+							"name":  "JsonWebTokenError",
+							"message":  "jwt must be provided"
+						}
+					]
+				}
+			⏩ SOLVE : sign your jwt_token on your headers
+
+		▶️ FAILED [STATUS 400 BAD REQUEST]
+			⏩ ERROR :
+			{
+				"message":  "Validation Error",
+				"errors":  [
+					"title is required!",
+					"description is required!",
+					"due date is required!"
+				]
+			}
+			⏩ SOLVE : fill all input because all input is required
+			
 		▶️ FAILED [STATUS 404 NOT FOUND]
 			⏩ ERROR :
 				{
@@ -751,26 +1112,42 @@ jika tidak maka kamu akan melihat error dengan status code `500` ``` CANNOT GET 
 			⏩ SOLVE : please check your route is valid
 			
 		▶️ FAILED [STATUS 500 INTERNAL SERVER ERROR]
+			⏩ ERROR :
+				{
+					"message":  "Internal Server Error",
+				}
 			⏩ SOLVE : please check your connection
 
-
-### 6. [PATCH] /project/:id
-		
+### 8. [PATCH] /project/:id
 		▶️ PARAMS { id }
+		▶️ BODY { name }
+		▶️ HEADERS { "token" : jwt_token }
 		▶️ SUCCESS [STATUS 200 OK!]
 			{
-				"user":  {
-					"bookmark":  [],
-					"invitesProject":  [
-						"5de40f2579c91f48d04da388"
-					],
-					"_id":  "5dde349a878e853d02ce19f3",
-					"email":  EMAIL,
-					"password":  HASHING_PASSWORD
-				},
-				"message":  "Delete Success"
+			"project":  {
+				"n":  1,
+				"nModified":  1,
+				"ok":  1
+			},
+				"message":  "update successfuly!"
 			}
 
+		▶️ FAILED [STATUS 401 Unauthorized]
+			⏩ ERROR :
+				{
+					"message":  {
+					"name":  "JsonWebTokenError",
+					"message":  "jwt must be provided"
+					},
+				"errors":  [
+						{
+							"name":  "JsonWebTokenError",
+							"message":  "jwt must be provided"
+						}
+					]
+				}
+			⏩ SOLVE : sign your jwt_token on your headers
+			
 		▶️ FAILED [STATUS 404 NOT FOUND]
 			⏩ ERROR :
 				{
@@ -789,26 +1166,44 @@ jika tidak maka kamu akan melihat error dengan status code `500` ``` CANNOT GET 
 			⏩ SOLVE : please check your route is valid
 			
 		▶️ FAILED [STATUS 500 INTERNAL SERVER ERROR]
+			⏩ ERROR :
+				{
+					"message":  "Internal Server Error",
+				}
 			⏩ SOLVE : please check your connection
-			
 
-### 6. [DELETE] /project/:id
-		
+### 9. [DELETE] /project/:id
 		▶️ PARAMS { id }
+		▶️ HEADERS { "token" : jwt_token }
 		▶️ SUCCESS [STATUS 200 OK!]
 			{
-				"user":  {
-					"bookmark":  [],
-					"invitesProject":  [
-						"5de40f2579c91f48d04da388"
-					],
-					"_id":  "5dde349a878e853d02ce19f3",
-					"email":  EMAIL,
-					"password":  HASHING_PASSWORD
-				},
-				"message":  "Delete Success"
+			"project":  {
+				"members":  [],
+				"_id":  "5de622f3d0bf3e42cf9d2be9",
+				"name":  STRING,
+				"owner":  "5de41fca533971570455fe16",
+				"createdAt":  "2019-12-03T08:55:15.162Z",
+				"updatedAt":  "2019-12-03T08:55:15.162Z"
+			},
+				"message":  "delete project successfuly!"
 			}
 
+		▶️ FAILED [STATUS 401 Unauthorized]
+			⏩ ERROR :
+				{
+					"message":  {
+					"name":  "JsonWebTokenError",
+					"message":  "jwt must be provided"
+					},
+				"errors":  [
+						{
+							"name":  "JsonWebTokenError",
+							"message":  "jwt must be provided"
+						}
+					]
+				}
+			⏩ SOLVE : sign your jwt_token on your headers
+			
 		▶️ FAILED [STATUS 404 NOT FOUND]
 			⏩ ERROR :
 				{
@@ -827,6 +1222,10 @@ jika tidak maka kamu akan melihat error dengan status code `500` ``` CANNOT GET 
 			⏩ SOLVE : please check your route is valid
 			
 		▶️ FAILED [STATUS 500 INTERNAL SERVER ERROR]
+			⏩ ERROR :
+				{
+					"message":  "Internal Server Error",
+				}
 			⏩ SOLVE : please check your connection
 
 

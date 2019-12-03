@@ -62,6 +62,17 @@ module.exports = {
             })
             .catch(next)
     },
+    updateTodosProject(req,res,next){
+        let { id } = req.params
+        let { title, description, due_date } = req.body
+        TodoModel.findOneAndUpdate({ _id : id },{ title, description, due_date }, { new: true, runValidators: true })
+            .then(todo=>{
+                res.status(200).json({
+                    todo, message : 'update successfuly!'
+                })
+            })
+            .catch(next)
+    },
     updatePatch(req,res,next){
         let { id } = req.params
         TodoModel.find({ _id : id })
@@ -75,6 +86,16 @@ module.exports = {
             .then(todo=>{
                 res.status(200).json({
                     todo, message : 'update successfuly!'
+                })
+            })
+            .catch(next)
+    },
+    deleteTodosProject(req,res,next){
+        let { id } = req.params
+        TodoModel.findOneAndDelete({ _id : id })
+            .then(todo=>{
+                res.status(200).json({
+                    todo, message : 'delete successfuly!'
                 })
             })
             .catch(next)

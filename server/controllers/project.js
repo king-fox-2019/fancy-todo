@@ -1,6 +1,7 @@
 const ProjectModel = require('../models/project')
 const UserModel = require('../models/user')
 const TodoModel = require('../models/todo')
+const nodemailer = require('../helpers/nodemailer')
 
 module.exports = {
     updateTodosProject(req,res,next){
@@ -20,7 +21,9 @@ module.exports = {
         const { name } = req.body
         ProjectModel.updateOne({ _id : id },{ name },{new:true, runValidators:true})
             .then(project=>{
-                res.status(200).json(project)
+                res.status(200).json({
+                    project, message : 'updated successfuly!'
+                })
             })
             .catch(next)
     },
@@ -64,7 +67,7 @@ module.exports = {
         ProjectModel.create({ name, owner })
             .then(todo=>{
                 res.status(201).json({
-                    todo, message : 'create project successfuly!'
+                    project : todo, message : 'create project successfuly!'
                 })
             })
             .catch(next)
@@ -72,21 +75,23 @@ module.exports = {
     invite(req,res,next){
         const { email } = req.body
         const { id } = req.params
+        let emailUser
         UserModel.findOne({ email })
             .then(user=>{
-                
                 if(!user){
                     throw {
                         status : 404,
                         message : 'user tidak ditemukan'
                     }
                 } else {
+                    emailUser = user.email
                     return UserModel.findOneAndUpdate(
                         { _id : user._id },
                         { $addToSet : { invitesProject : id }}, { new : true })
                 }
             })
             .then(result=> {
+                nodemailer(emailUser,`Invitation Project at ${new Date()}`)
                 res.status(200).json({
                     result, message : 'invite member successfuly!'
                 })
@@ -110,13 +115,14 @@ module.exports = {
     },
     deleteInvite(req,res,next){
         const idProject = req.params.id
-        console.log(idProject);
         const { id } = req.loggedUser
         UserModel.findOneAndUpdate(
             { _id : id },
             { $pull : { invitesProject : idProject }}, { new : true })
             .then(result=>{
-                res.status(200).json(result)
+                res.status(200).json({
+                    message : 'success delete invitation'
+                })
             })
             .catch(next)
     },
@@ -124,10 +130,10 @@ module.exports = {
         const { id } = req.params
         ProjectModel.findOneAndDelete(
             { _id : id })
-            .then(result=>{
-                console.log(result);
-                
-                res.status(200).json(result)
+            .then(project=>{
+                res.status(200).json({
+                    project, message : 'delete project successfuly!'
+                })
             })
             .catch(next)
     }

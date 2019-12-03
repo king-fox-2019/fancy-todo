@@ -29,10 +29,10 @@ function errorHandling(err, req, res, next) {
             message: 'Validation Error',
             errors
         })
-    } else if (err.message.name === 'JsonWebTokenError') {
+    } else if (err.name === 'JsonWebTokenError') {
         // error token
         errors.push(message)
-        res.status(400).json({
+        res.status(401).json({
             message: 'Json Web Token Error',
             errors
         })
@@ -47,15 +47,14 @@ function errorHandling(err, req, res, next) {
         for (var key in err.keyPattern) {
             errors.push(key + ' is Already Exist')
         }
-        res.status(401).json({
+        res.status(400).json({
             message: 'Validation Error',
             errors
         })
     } else {
         errors.push(message)
-        res.status(status).json({
-            message,
-            errors
+        res.status(500).json({
+            message
         })
     }
 }

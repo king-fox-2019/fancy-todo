@@ -1,3 +1,4 @@
+const BaseUrl = 'http://localhost:3000'
 $(document).ready(e=>{
     $("#emailForm").val(''),
     $('#passwordForm').val('')
@@ -66,7 +67,7 @@ function inviteProject(e,id) {
     }
     loading()
     $.ajax({
-        url : `http://localhost:3000/project/${id}`,
+        url : `${BaseUrl}/project/${id}`,
         method : 'post',
         headers : {
             'token' : localStorage.getItem('token')
@@ -97,7 +98,7 @@ function cancelInvite(e,id) {
     e.preventDefault()
     loading()
     $.ajax({
-        url : `http://localhost:3000/project/cancel/${id}`,
+        url : `${BaseUrl}/project/cancel/${id}`,
         method : 'get',
         headers : {
             'token' : localStorage.getItem('token')
@@ -128,7 +129,7 @@ function acceptInvite(e,id) {
     e.preventDefault()
     loading()
     $.ajax({
-        url : `http://localhost:3000/user/${id}/invitation`,
+        url : `${BaseUrl}/user/${id}/invitation`,
         method : 'get',
         headers : {
             'token' : localStorage.getItem('token')
@@ -139,6 +140,7 @@ function acceptInvite(e,id) {
         // console.log(response);
         checkInvitation(event)
         $('#exampleModalLongInvitation').modal('hide');
+        mylistProject()
     })
     .fail(({ responseJSON })=>{
         let allError = ``
@@ -159,7 +161,7 @@ function checkInvitation(e) {
     e.preventDefault()
     loading()
     $.ajax({
-        url : `http://localhost:3000/user/invitation`,
+        url : `${BaseUrl}/user/invitation`,
         method : 'get',
         headers : {
             'token' : localStorage.getItem('token')
@@ -231,7 +233,7 @@ function deleteProject(e,id){
     e.preventDefault()
     loading()
     $.ajax({
-        url : `http://localhost:3000/project/${id}`,
+        url : `${BaseUrl}/project/${id}`,
         method : 'delete',
         headers : {
             'token' : localStorage.getItem('token')
@@ -267,7 +269,7 @@ function updateProject(e,id){
     // console.log($('#projectNameformEdit').val());
 
     $.ajax({
-        url : `http://localhost:3000/project/${id}`,
+        url : `${BaseUrl}/project/${id}`,
         method : 'patch',
         headers : {
             'token' : localStorage.getItem('token')
@@ -306,7 +308,7 @@ function updateTodoProject(e,id,projectId){
     }
     // console.log(form);
     $.ajax({
-        url : `http://localhost:3000/project/${id}`,
+        url : `${BaseUrl}/project/todo/${id}`,
         method : 'put',
         headers : {
             'token' : localStorage.getItem('token')
@@ -337,7 +339,7 @@ function updateTodoProject(e,id,projectId){
 function deleteTodoProject(e,id, projectId){
     e.preventDefault()
     $.ajax({
-        url : `http://localhost:3000/todo/${id}`,
+        url : `${BaseUrl}/project/todo/${id}`,
         method : 'delete',
         headers : {
             'token' : localStorage.getItem('token')
@@ -562,7 +564,7 @@ function goToProject(e,id,member){
                                 author : ${todo.UserId.name}
                             </div>
                             <div class="col-auto ml-auto">
-                                <button type="button" class="btn btn-danger btn-sm" onclick="deleteTodoProject(event,'${todo._id}','${todo.projectId._id}')">Delete</button>
+                            ${!member ? `<button type="button" class="btn btn-danger btn-sm" onclick="deleteTodoProject(event,'${todo._id}','${todo.projectId._id}')">Delete</button>` : '' }
                                 <button type="button" class="btn btn-primary btn-sm updatedMyTodos" data-toggle="modal" data-target="#exampleModal${todo._id}">Update</button>
                             </div>
                         </div>
@@ -688,7 +690,7 @@ function mylistProjectMember(){
 function mylistProject(){
     $('.cardMyProject').empty()
     $.ajax({
-        url : `http://localhost:3000/project/`,
+        url : `${BaseUrl}/project/`,
         method : 'get',
         headers : {
             'token' : localStorage.getItem('token')
@@ -733,7 +735,7 @@ function createProject(e){
         'name' : $('#projectNameform').val() 
     }
     $.ajax({
-        url : `http://localhost:3000/project/`,
+        url : `${BaseUrl}/project/`,
         method : 'post',
         data : form,
         headers : {
@@ -772,7 +774,7 @@ function listMyTodoButton(e){
     loading()
     $(".cardTodos").empty()
     $.ajax({
-        url : `http://localhost:3000/todo`,
+        url : `${BaseUrl}/todo`,
         method : 'get',
         headers : {
             'token' : localStorage.getItem('token')
@@ -885,7 +887,7 @@ function login(e){
     }
     loading()
     $.ajax({
-        url : `http://localhost:3000/user/signin`,
+        url : `${BaseUrl}/user/signin`,
         method : 'post',
         data : form
     })
@@ -929,7 +931,7 @@ function updateMyTodosPut(e,id){
         due_date : $(`#dateMyTodo${id}`).val(),
     }
     $.ajax({
-        url : `http://localhost:3000/todo/${id}`,
+        url : `${BaseUrl}/todo/${id}`,
         method : 'put',
         headers : {
             'token' : localStorage.getItem('token')
@@ -960,7 +962,7 @@ function listMyTodo(){
     loading()
     $(".cardTodos").empty()
     $.ajax({
-        url : `http://localhost:3000/todo`,
+        url : `${BaseUrl}/todo`,
         method : 'get',
         headers : {
             'token' : localStorage.getItem('token')
@@ -970,7 +972,7 @@ function listMyTodo(){
         loadingClose()
         // console.log(response);
         response.todos.forEach(todo=>{
-            // console.log(todo);
+            console.log(todo.status);
             if (!todo.projectId) {
             let checking = 'on-process'
             if (new Date(todo.due_date) < new Date()) {
@@ -995,7 +997,7 @@ function listMyTodo(){
                         <p class="card-text">${todo.description}</p>
                     </div>
                     <div class="card-footer text-center">
-                        <button type="button" class="btn btn-light btn-block btn-sm">${ checking }</button>
+                        ${todo.status ? `<button type="button" class="btn btn-success btn-block btn-sm"> Complete </button>` : `<button type="button" class="btn btn-light btn-block btn-sm" onclick="updateStatus(event,'${todo._id}')">${ checking }</button>`}
                     </div>
                 </div>
                 
@@ -1065,10 +1067,39 @@ function listMyTodo(){
     })
 }
 
+function updateStatus(e,id) {
+    console.log(id);
+    e.preventDefault()
+    $.ajax({
+        url : `${BaseUrl}/todo/${id}`,
+        method : 'patch',
+        headers : {
+            'token' : localStorage.getItem('token')
+        }
+    })
+    .done(response=>{
+        loadingClose()
+        listMyTodo()
+    })
+    .fail(({ responseJSON })=>{
+        let allError = ``
+        responseJSON.errors.forEach((error,index) => {
+            if(index == responseJSON.errors.length -1){
+                allError += error
+            } else {
+                allError += error + ' & '
+            }
+        });
+        errorLoading(allError)
+    })
+    .always(_=>{
+    })
+}
+
 function deleted(id){
     loading()
     $.ajax({
-        url : `http://localhost:3000/todo/${id}`,
+        url : `${BaseUrl}/todo/${id}`,
         method : 'delete',
         headers : {
             'token' : localStorage.getItem('token')
@@ -1102,7 +1133,7 @@ function addMyTodo(e){
     }
     loading()
     $.ajax({
-        url : `http://localhost:3000/todo`,
+        url : `${BaseUrl}/todo`,
         method : 'post',
         data : form,
         headers : {
@@ -1142,7 +1173,7 @@ function register(e){
     }
     loading()
     $.ajax({
-        url : `http://localhost:3000/user/signup`,
+        url : `${BaseUrl}/user/signup`,
         method : 'post',
         data : form
     })
@@ -1175,7 +1206,7 @@ function onSignIn(googleUser) {
     const { id_token } = googleUser.getAuthResponse();
     loading()
     $.ajax({
-        url : `http://localhost:3000/user/signinGoogle`,
+        url : `${BaseUrl}/user/signinGoogle`,
         method : 'post',
         data : {id_token}
     })
@@ -1259,5 +1290,4 @@ function loadingClose(){
 
 function menuLoad(){
     $('.menuLoad').toggle('slow')
-    
 }
