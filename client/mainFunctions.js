@@ -191,7 +191,7 @@ function deleteTodo(id,projectId,page){
       })
       .then((willDelete) => {
         if (willDelete) {
-          swal("delete successfully deleted", {
+          swal("Todo successfully deleted", {
             icon: "success",
           });
           $.ajax({
@@ -362,16 +362,17 @@ function toogleEditProject(id,title,description,members){
     .done((project) => {
         let memberInput = []
         for(let i = 0 ; i < project.members.length; i++){
-            memberInput.push(project.members[i].email)
+            memberInput.push(project.members[i].name)
         }
         
         $('#edit-project-title').val(title)
         $('#edit-project-description').val(description)
         $('#edit-projectId').val(id)
+        $('#edit-project-members').val(memberInput.toString())
         // $('#form-member').val(`"${memberInput.toString()}"`)
-        $('#form-member').attr('value','irene@mail.com')
+        // $('#form-member').attr('value','irene@mail.com')
         // $('#form-member').val('irene@mail.com')
-        $('#template-member').val('dwitama.alfred@gmail.com')
+        // $('#template-member').val('dwitama.alfred@gmail.com')
         $('#modalEditProjectForm').modal('show')
     })
     .fail((err) => {
@@ -384,8 +385,6 @@ function nameGetter(){
     console.log($('#edit-project-members').val())
     return $('#edit-project-members').val()
 }
-
-
 
 
 function updateTodo(id,title,date,page){
@@ -430,7 +429,7 @@ function updateTodoProject(id,title,date,assignee,projectId,projectTitle,project
         }
     })
     .done((project)=>{
-        // console.log(project,'---------------')
+        console.log(projectMembers,'---------------')
         $('#todolist').empty()
         $('.project-todos').empty()
         $('#wrapper').show()
@@ -499,6 +498,8 @@ function generateUserProfile(){
         console.log(err)
     })
 }
+
+
 
 function generateTodo(page){
     console.log(page)
@@ -785,23 +786,186 @@ function generateProjectHeader(id,title,description,members){
     $(".header-project").empty()
     $(".header-project").empty()
     // $('.project-page').empty()
+    $.ajax({
+        method:'get',
+        url: `${baseUri}/projects/`,
+        headers: {
+            token : localStorage.getItem('token')
+        }
+    })
         $(".header-project").prepend(`
         <h1 style="font-weight: 100;">${title} </h1>
         <hr style="color: white;
             background-color: white;
             height: 0.5px;
-        <p style="margin-top:10px"> description :</p> 
         <p style="margin-top:-10px;font-style:italic"> ${description}</p> 
-        <p style="margin-top:10px"> members :</p>
-        <p style="margin-top:-10px;font-style:italic"> ${members}</p>
         <button type="button" style="margin-bottom:30px;" onclick="toogleEditProject('${id}','${title}','${description}','${members}')" class="btn btn-outline-light">Edit Project</button>
+        <button id="button-member" type="button" style="margin-bottom:30px;" onclick="showMembers('${members}','${id}')" class="btn btn-outline-light">Members</button>
+        <button id="button-back" type="button" style="margin-bottom:30px;display:none" onclick="backToProjectTodo()" class="btn btn-outline-light">Back</button>
         <button type="button" style="margin-bottom:30px;" data-toggle="modal" data-target="modalAddTodoProjectForm" onclick="toogleAddTodoProject('${id}')" class="btn btn-outline-light">Add Todo</button>
         `)
     }
 
+
+function backToProjectTodo(){
+    $('.project-todos').show()
+    $("#button-member").show()
+    $(".project-todos").show()
+    $("#button-back").hide()
+    $(".project-members-page").hide()
+    $(".project-members").empty()
+    $(".form-add-member-page").empty()
+}
+
+function showMembers(members,id){
+    $("#button-member").hide()
+    $(".project-todos").hide()
+    $("#button-back").show()
+    $(".project-members-page").show()
+    $(".project-members").empty()
+
+    $.ajax({
+        method:'get',
+        url: `${baseUri}/projects/${id}`,
+        headers: {
+            token : localStorage.getItem('token')
+        }
+    })
+    .done((project) => {
+        for(let i = 0 ; i < project.members.length; i++){
+            let html = ''
+            html += `
+            <div href="#" style="align-items:center; margin-bottom: 20px;">
+                <div class="name-members" style="display: flex;flex-direction: row;justify-content: space-between;align-items:center;">
+                    <div href="#" style="display:flex;flex-direction:row;align-items:center">
+                    <div id="members" style="width: 50px;height: 50px; margin: 5px; background-size: cover; background-position: top center;border-radius: 50%; background-image: url('${project.members[i].profilePicture}');"> 
+                    </div>
+                    <div style="color:white;margin-left:20px">${project.members[i].name}</div>
+                </div>
+                <i onclick="deleteMember('${id}','${project.members[i].email}')" class="fas fa-minus-square" style="color:white"></i>
+            
+                </div> 
+            </div>
+            `
+            $(".project-members").prepend (html)
+        }
+        $(".form-add-member-page").append(`
+            <form> 
+                <div class="form-group">
+                    <input type="text" class="form-control" id="new-member"> 
+                </div>
+            <button type="button" style="margin-top:20px;" onclick="addMember('${id}')" class="btn btn-outline-light">Add Member</button>
+            </form>
+            `
+         )
+    })
+}
+
+function addMember(projectId){
+    let newMember = $('#new-member').val()
+    $.ajax({
+        method:'patch',
+        url: `${baseUri}/projects/${projectId}/addmember`,
+        headers: {
+            token : localStorage.getItem('token')
+        },
+        data: {
+            member : newMember
+        }
+    })
+    .done(()=>{ 
+        $(".project-members").empty()
+        $("#button-member").hide()
+        $(".project-todos").hide()
+        $("#button-back").show()
+        $(".project-members-page").show()
+        $('.project-page').empty()
+        showMembers(members,projectId)
+        swal(`Successfully added!`, "let see your new member", "success");
+        generateProject()
+        $('#new-member').val('')
+        $(".form-add-member-page").empty()
+    })
+    .fail(function(xhr, status, error){
+        swal(`Oops!`, JSON.parse(xhr.responseText).message, "error");
+    
+    })
+}
+
+
+function deleteMember(projectId,email){
+    swal({
+        title: "Are you sure?",
+        text: "The member will lose access to the project!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+    .then((willDelete) => {
+        if (willDelete) {
+            swal("successfully removed", {
+                icon: "success",
+            });
+            
+            $.ajax({
+                method:'patch',
+                url: `${baseUri}/projects/${projectId}/removemembers`,
+                headers: {
+                    token : localStorage.getItem('token')
+                },
+                data: {
+                    member : email
+                }
+            })
+            .done(()=>{
+                $(".project-members").empty()
+                $("#button-member").hide()
+                $(".project-todos").hide()
+                $("#button-back").show()
+                $(".project-members-page").show()
+                $('.project-page').empty()
+                showMembers(members,projectId)
+                generateProjectTodo(projectId)
+                // swal(`Successfully added!`, "let see your new member", "success");
+                generateProject()
+                $('#new-member').val('')
+                $(".form-add-member-page").empty()
+            })
+            .fail(function(xhr, status, error){
+                swal(`Oops!`, JSON.parse(xhr.responseText).message, "error");
+            
+            })
+          
+        } else {
+          swal("delete cancelled");
+        }
+      });
+}
+
+
 function generateProjectTodo(id,title,description,members){
     // console.log(title,'=======from generate project todooooooooo=========')
+    $("#page-content-wrapper-project-todo").show()
     $('.project-todos').empty()
+    $(".project-members-page").hide()
+    $(".form-add-member-page").empty()
+    $("#page-content-wrapper-personal").animate({
+        width: '+=48%'
+    }, 1000)
+    $("#page-content-right").animate({
+        width: '-=40%'
+    }, 1000)
+    $("#add-todo-form").animate({
+        width: '-=800px'
+    }, 1000),
+    $("#add-todo-title").animate({
+        fontSize: '-=36px'
+    },1000),
+    $('#button-submit-addTodo').animate({
+        opacity: '-=1'
+    })
+    $("#add-todo-form").hide()
+    
     
     // $('.project-page').empty()
     $.ajax({
@@ -980,8 +1144,6 @@ function generateProjectTodo(id,title,description,members){
     })
 }
 
-
-
 function addProject(title,description,members){
     $.ajax({
         method:'post',
@@ -998,6 +1160,9 @@ function addProject(title,description,members){
     .done(()=>{
         $('.project-todos').empty()
         $('.project-page').empty()
+        $('#add-project-title').val('')
+        $('#add-project-description').val('')
+        $('#add-project-members').val('')
         generateProject()   
         swal(`Successfully added!`, "let see your new data", "success");
         console.log('successfully added')
@@ -1034,6 +1199,7 @@ function deleteProject(id){
               $('.project-todos').empty()
               $('.project-page').empty()
               $(`#todolist`).empty()
+              $("#page-content-wrapper-project-todo").hide()
               generateProject()
               console.log('successfully added')
           })
@@ -1090,6 +1256,7 @@ function leaveGroup(id){
 }
 
 function addTodoProject(title,date,assignee,projectId){
+    backToProjectTodo()
     console.log(title,date,assignee,projectId)
     $.ajax({
         method:'post',
@@ -1119,7 +1286,7 @@ function addTodoProject(title,date,assignee,projectId){
 }
 
 function editProject(id,title,description,members){
-    console.log(id,title,description,members)
+    console.log(members)
     $.ajax({
         method:'put',
         url: `${baseUri}/projects/${id}`,

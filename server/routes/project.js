@@ -49,7 +49,7 @@ router.get('/:id',projectController.projectDetails)
 router.delete('/:id',MemberAuthorization,projectController.deleteProject)
 router.put('/:id',MemberAuthorization,projectController.updateProjectDetail)
 router.patch('/:id/leave',MemberAuthorization,projectController.leaveGroup)
-router.patch('/:id/addmembers',OwnerAuthorization,projectController.addMembers)
+router.patch('/:id/addmember',OwnerAuthorization,projectController.addMembers)
 router.patch('/:id/removemembers',OwnerAuthorization,projectController.removeMembers)
 
 router.get('/:id/todos',MemberAuthorization,projectController.showTodo)

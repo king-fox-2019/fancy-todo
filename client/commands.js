@@ -1,6 +1,6 @@
 // import { addTodo } from "../server/controllers/projectController"
 
-$('#register-button').click((e)=>{
+$('#register-form-submit').submit((e)=>{
     e.preventDefault()
     let name = $('#nameRegister').val()
     let email = $('#emailRegister').val()
@@ -26,7 +26,7 @@ $('#edit-project-modal').click((e) => {
 })
 
 
-$('#login-button').click((e) => {
+$('#login-form').submit((e) => {
     e.preventDefault()
     let email = $('#emailLogin').val()
     let password = $('#passwordLogin').val()
@@ -71,8 +71,9 @@ $('#button-submit-create-project').click((e)=>{
     let title = $('#add-project-title').val()
     let description = $('#add-project-description').val()
     let members = $('#add-project-members').val().split(',')
+    console.log(members,'from members button')
     addProject(title,description,members)
-    $('#add-project-title').val('')
+    // $('#add-project-title').val('')
 })
 
 $('#button-submit-edit-project').click((e)=>{
@@ -81,8 +82,8 @@ $('#button-submit-edit-project').click((e)=>{
     let title = $('#edit-project-title').val()
     let description = $('#edit-project-description').val()
     let projectId = $('#edit-projectId').val()
-    let members = $('#add-project-members').val().split(',')
-    // let members = $('#edit-project-members').val()
+    // let members = $('#add-project-members').val().split(',')
+    let members = $('#edit-project-members').val() // default
     
     
 
@@ -140,7 +141,6 @@ $('#button-submit-editTodo').click((e)=>{
     
     console.log('function edit todo running',title,date,id,page)
 
-    
     updateTodo(id,title,date,page)
     // console.log('edit button triggered')
     $('#edit-title-todo').val('')
@@ -149,6 +149,7 @@ $('#button-submit-editTodo').click((e)=>{
 })
 
 let addButton = 'show';
+let memberButton = 'show';
 
 $('#show-personal-page').click((e) => {
     e.preventDefault()
@@ -256,7 +257,7 @@ $('#show-group-page').click((e) => {
     $('.project-page').empty()
     $("#page-content-wrapper-personal").hide()
     $("#page-content-wrapper-project").show()
-    $("#page-content-wrapper-project-todo").show()
+    // $("#page-content-wrapper-project-todo").show()
     generateProject()
     $("#page-content-wrapper-personal").animate({
         width: '+=48%'
@@ -320,7 +321,11 @@ $("#add-button-show").click(function() {
     }
 })
 
-
+$('#project-members').hover({
+    function(){
+        $('#remove-member').hide()
+    }
+})
 // $(document).ready(function() {
 //     $("#datepicker-group").datepicker({
 //       format: "yyyy/mm/dd",

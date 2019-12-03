@@ -35,6 +35,7 @@ class ProjectController {
    
     static create(req,res,next){
         console.log(req.body.member)
+        console.log('from createeeeeeeee')
         const membersToAdd = req.body.member;
         let userIdsGetter = [];
 
@@ -109,95 +110,103 @@ class ProjectController {
     }
 
     static addMembers(req,res,next){
-        
-        const membersToAdd = req.body.member;
-        let userIdsGetter = [];
-
-        for (let email of membersToAdd) {
-            userIdsGetter.push(
-                new Promise((resolve, reject) => {
-                    User
-                        .findOne({ email })
-                        .then(function(user) {
-                            if (!user) {
-                                console.log(email,'==================', membersToAdd)
-                                const name = email.split("@")[0];
-                                User
-                                    .create({ name, email, password: hashPassword(process.env.DEFAULT_PASSWORD) })
-                                    .then(function(newUser) {
-                                        resolve(newUser._id);
-                                    })
-                                    .catch(reject);
-                            } else {
-                                resolve(user._id);
-                            }
-                            
-                        })
-                        .catch(reject);
-                })
-            );
-        }
-        Promise
-            .all(userIdsGetter)
-            .then(function(userIds) {
-                console.log(userIds)
-                
+        User.findOne({
+            email : req.body.member
+        })
+        .then(user => {
+            if(user){
                 return Project.findOneAndUpdate({ _id : req.params.id},
-                    { $addToSet: {members: { $each: userIds }}},{new: true})
-            })
-            .then(project => {
-               res.status(201).json(project)
-            })
-            .catch(err => {
-                console.log(err)
-                next()
-            })
+                    { $addToSet: { members: user._id }},{new: true})
+            }else{
+                res.status(404).json({message : 'user not found!'})
+            }
+        })
+        .then(project => {
+            res.status(201).json(project)
+        })
+        .catch(err => {
+            console.log(err)
+            next()
+        })
     }
 
-    static removeMembers(req,res,next){
-        const membersToAdd = req.body.member;
-        let userIdsGetter = [];
+    // static addMembers(req,res,next){
+        
+    //     const membersToAdd = req.body.member;
+    //     let userIdsGetter = [];
 
-        for (let email of membersToAdd) {
-            userIdsGetter.push(
-                new Promise((resolve, reject) => {
-                    User
-                        .findOne({ email })
-                        .then(function(user) {
-                            if (!user) {
-                                const name = email.split("@")[0];
-                                User
-                                    .create({ name, email, password: hashPassword(process.env.DEFAULT_PASSWORD) })
-                                    .then(function(newUser) {
-                                        resolve(newUser._id);
-                                    })
-                                    .catch(reject);
-                            } else {
-                                resolve(user._id);
-                            }
+    //     for (let email of membersToAdd) {
+    //         userIdsGetter.push(
+    //             new Promise((resolve, reject) => {
+    //                 User
+    //                     .findOne({ email })
+    //                     .then(function(user) {
+    //                         if (!user) {
+    //                             console.log(email,'==================', membersToAdd)
+    //                             const name = email.split("@")[0];
+    //                             User
+    //                                 .create({ name, email, password: hashPassword(process.env.DEFAULT_PASSWORD) })
+    //                                 .then(function(newUser) {
+    //                                     resolve(newUser._id);
+    //                                 })
+    //                                 .catch(reject);
+    //                         } else {
+    //                             resolve(user._id);
+    //                         }
                             
-                        })
-                        .catch(reject);
-                })
-            );
-        }
-        Promise
-            .all(userIdsGetter)
-            .then(function(userIds) {
-                console.log(userIds)
+    //                     })
+    //                     .catch(reject);
+    //             })
+    //         );
+    //     }
+    //     Promise
+    //         .all(userIdsGetter)
+    //         .then(function(userIds) {
+    //             console.log(userIds)
+                
+    //             return Project.findOneAndUpdate({ _id : req.params.id},
+    //                 { $addToSet: {members: { $each: userIds }}},{new: true})
+    //         })
+    //         .then(project => {
+    //            res.status(201).json(project)
+    //         })
+    //         .catch(err => {
+    //             console.log(err)
+    //             next()
+    //         })
+    // }
+
+    static removeMembers(req,res,next){
+        let owner
+        let user
+        Project.findById(req.params.id)
+        .then(nowProject => {
+            owner = nowProject.owner
+            return User.findOne({
+                email : req.body.member
+            })
+        })
+        .then(userFound => {
+            user = userFound._id
+            if(user == owner){
+                res.status(403).json({message : 'owner cannot leave the group'})
+            }else{
                 return Project.findOneAndUpdate({ _id : req.params.id},
-                    { $pull: { members:{  $in: userIds } }},{new: true})
-                    .catch(err => {
-                        console.log(err)
-                    })
+                    { $pull: { members:{  $in: user } }},{new: true})
+            }
+        })
+        .then((project) => {
+            return Todo.deleteMany({
+                assignee : user
             })
-            .then(project => {
-               res.status(201).json(project)
-            })
-            .catch(err => {
-                console.log(err)
-                next()
-            })
+        })
+        .then(project => {
+            res.status(201).json(project)
+        })
+        .catch(err => {
+            console.log(err)
+            next()
+        })
     }
 
     static deleteProject(req,res,next){

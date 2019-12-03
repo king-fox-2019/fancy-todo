@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+var ONE_HOUR = 60 * 60 * 1000; /* ms */
 
 const TodoSchema = new Schema({
     title : {
@@ -16,7 +17,7 @@ const TodoSchema = new Schema({
     date : {
         type: Date,
         required: [true, 'Date is required'],
-        min : new Date()
+        min : new Date().setDate(new Date().getDate())
     },
     userId : {
         type: Schema.Types.ObjectId,
