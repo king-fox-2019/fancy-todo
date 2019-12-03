@@ -9,7 +9,7 @@ $(document).ready(function(){
         $('#wrapper').show()
         $('#page-content-wrapper-personal').show()
         
-        generateTodo()
+        generateTodo('personal')
         generateUserProfile()
     }else{
         $('#wrapper').hide()
@@ -34,7 +34,7 @@ function register(name,email,password){
         $('#wrapper').show()
         $('#page-content-wrapper-personal').show()
         
-        generateTodo()
+        generateTodo('personal')
         generateUserProfile()
         swal(`Hello ${name}!`, "Now you're logged-in", "success");
     })
@@ -61,7 +61,7 @@ function login(email,password){
         $('#wrapper').show()
         $('#page-content-wrapper-personal').show()
         
-        generateTodo()
+        generateTodo('personal')
         generateUserProfile()
 
         console.log(data.accessToken)
@@ -93,7 +93,7 @@ function onSignIn(googleUser) {
             $('#wrapper').show()
             $('#page-content-wrapper-personal').show()
             
-            generateTodo()
+            generateTodo('personal')
             generateUserProfile()
             swal(`Welcome back!`, "Now you're logged-in", "success");
         
@@ -130,10 +130,10 @@ $('#updateStatus').on("click",function(event){
     $('.project-todos').empty()
     $('.header-project').empty()
     $('#wrapper').show()
-    generateTodo()
+    // generateTodo('')
 })
 
-function updateStatus(id){
+function updateStatus(id,page){
     // console.log(id)
     $.ajax({
         method:'patch',
@@ -147,7 +147,7 @@ function updateStatus(id){
         $('.project-todos').empty()
         $('.header-project').empty()
         $('#wrapper').show()
-        generateTodo()
+        generateTodo(page)
         
         // console.log('successfully updated')
     })
@@ -180,7 +180,7 @@ function updateStatusTodoProject(id,projectId,title){
     })
 }
 
-function deleteTodo(id,projectId,title){
+function deleteTodo(id,projectId,page){
     // console.log(`ready to delete ${id}`)
     swal({
         title: "Are you sure?",
@@ -205,7 +205,7 @@ function deleteTodo(id,projectId,title){
                 $('#todolist').empty()
                 $('.project-todos').empty()
                 $('#wrapper').show()
-                generateTodo()
+                generateTodo(page)
                 // generateProjectTodo(projectId,title)
                 console.log('successfully deleted')
             })
@@ -255,8 +255,8 @@ function deleteTodoProject(id,projectId,title){
       });
 }
 
-function toogleUpdate(id,projectTitle){
-    console.log(id,projectTitle,'<======')
+function toogleUpdate(id,page){
+    
     $.ajax({
         method: 'get',
         url: `${baseUri}/todos/${id}`,
@@ -270,6 +270,7 @@ function toogleUpdate(id,projectTitle){
         let todoId = $("#todo-id").val(id)
         let editTitle = $("#edit-title-todo").val(todo.title)
         let editTodo = $("#edit-date-todo").val(todo.date)
+        let where = $('#page-now').val(page)
         
     })
     .fail((err)=>{
@@ -363,13 +364,15 @@ function toogleEditProject(id,title,description,members){
         for(let i = 0 ; i < project.members.length; i++){
             memberInput.push(project.members[i].email)
         }
+        
         $('#edit-project-title').val(title)
         $('#edit-project-description').val(description)
         $('#edit-projectId').val(id)
-        $('#edit-project-members').val(members)
+        // $('#form-member').val(`"${memberInput.toString()}"`)
+        $('#form-member').attr('value','irene@mail.com')
+        // $('#form-member').val('irene@mail.com')
+        $('#template-member').val('dwitama.alfred@gmail.com')
         $('#modalEditProjectForm').modal('show')
-        
-        console.log(memberInput)
     })
     .fail((err) => {
         console.log(err)
@@ -377,9 +380,15 @@ function toogleEditProject(id,title,description,members){
 
 }
 
+function nameGetter(){
+    console.log($('#edit-project-members').val())
+    return $('#edit-project-members').val()
+}
 
 
-function updateTodo(id,title,date){
+
+
+function updateTodo(id,title,date,page){
     $.ajax({
         method: 'put',
         url: `${baseUri}/todos/${id}`,
@@ -396,7 +405,7 @@ function updateTodo(id,title,date){
         $('#todolist').empty()
         $('.project-todos').empty()
         $('#wrapper').show()
-        generateTodo()
+        generateTodo(page)
         // generateProjectTodo(id,title)
         swal(`Successfully updated!`, "let see your new data", "success");
         console.log('successfully updated')
@@ -452,7 +461,7 @@ function addTodo(title,date){
     .done(()=>{
         $('#todolist').empty()
         $('#wrapper').show()
-        generateTodo()
+        generateTodo('personal')
         swal(`Successfully added!`, "let see your new data", "success");
         console.log('successfully added')
     })
@@ -491,22 +500,68 @@ function generateUserProfile(){
     })
 }
 
-
-
-
-function generateTodo(){
-    $.ajax({
-        method:'get',
-        url: `${baseUri}/todos/`,
-        headers: {
-            token : localStorage.getItem('token')
-        }
-    })
-    .done((todos) => {
-        
-        for(i = 0 ; i < todos.length; i++){
-
-            if(todos[i].status === false && todos[i].starred === false ){
+function generateTodo(page){
+    console.log(page)
+    $('#todolist').empty()
+        $.ajax({
+            method:'get',
+            url: `${baseUri}/todos/${page}`,
+            headers: {
+                token : localStorage.getItem('token')
+            }
+        })
+        .done((todos) => {
+            
+            for(i = 0 ; i < todos.length; i++){                
+    
+                if(todos[i].status === false && todos[i].starred === false ){
+                    let html = ''
+                    html += `
+                            <div class="promoting-card" style="background: linear-gradient(148deg, rgba(56,56,56,1) 0%, rgba(47,47,47,1) 100%);">
+                                <div class="card-body d-flex flex-row" style="padding-bottom:0px;display:flex;justify-content: space-between;">
+                                    <div class="todo-header-part" style="display: flex;">
+                                        <div class="todo-star-area" id="todo-starred">
+                                            <a href="#">
+                                            <i class="fas fa-star" onclick="updateStarred('${todos[i]._id}','${page}')" id='todo-star-part' style="font-size:50px; margin-right:20px; opacity: 0.3;color: #000000;"></i>
+                                            </a>
+                                        </div>
+                                        <div class="task-title">
+                                        <h3 class="card-title font-weight-bold mb-2" style="color: white;" >${todos[i].title}</h3>
+                                        <p class="card-text" style="color: white;font-size:18px"><i class="far fa-clock pr-2"></i>${todos[i].date.slice(0,10)}</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <a style="background: transparent; border: none; " onclick="deleteTodo('${todos[i]._id}','${todos[i].projectId}','${page}')">
+                                        <i class="fas fa-times" id="edit-button" style="font-size:40px;color:white;"></i>
+                                        </a>
+                                    </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="bottom" style="display:flex; justify-content: space-between;align-items: center;">
+                                            <div class="bottom-right">
+                                            <button type="button"  id="updateStatusButton" onclick="updateStatus('${todos[i]._id}','${page}')"  class="btn btn-outline-light">done</button>
+                                            <button type="button" data-toggle="modal" data-target="#editTodo" onclick="toogleUpdate('${todos[i]._id}','${page}')" class="btn btn-outline-light">edit</button>
+                                            </div>
+                                            <div class="bottom-left">
+                                            <div class="assignee${i}" style="display:flex; flex-direction:row">
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            `
+                $(`#todolist`).prepend(html)
+                if(todos[i].projectId){
+                    for(let j = 0 ; j < todos[i].projectId.members.length; j++){
+                        console.log(todos[i].projectId.members[j].profilePicture)
+                        let members = ''
+                        members += `<div id="members" style="width: 50px;height: 50px; margin: 5px; background-size: cover; background-position: top center;border-radius: 50%; background-image: url('${todos[i].projectId.members[j].profilePicture}');"></div>`
+                        $(`.assignee${i}`).prepend(members)
+                    }
+                }
+            }else if(todos[i].status === false && todos[i].starred === true ){
                 let html = ''
                 html += `
                         <div class="promoting-card" style="background: linear-gradient(148deg, rgba(56,56,56,1) 0%, rgba(47,47,47,1) 100%);">
@@ -514,7 +569,7 @@ function generateTodo(){
                                 <div class="todo-header-part" style="display: flex;">
                                     <div class="todo-star-area" id="todo-starred">
                                         <a href="#">
-                                        <i class="fas fa-star" onclick="updateStarred('${todos[i]._id}',event)" id='todo-star-part' style="font-size:50px; margin-right:20px; opacity: 0.3;color: #000000;"></i>
+                                        <i class="fas fa-star" onclick="updateStarred('${todos[i]._id}','${page}')" id='todo-star-part' style="font-size:50px; margin-right:20px;color: #d7c15c;"></i>
                                         </a>
                                     </div>
                                     <div class="task-title">
@@ -523,7 +578,7 @@ function generateTodo(){
                                     </div>
                                 </div>
                                 <div>
-                                    <a style="background: transparent; border: none; " onclick="deleteTodo('${todos[i]._id}','${todos[i].projectId}')">
+                                    <a style="background: transparent; border: none; " onclick="deleteTodo('${todos[i]._id}','${todos[i].projectId}','${page}')">
                                     <i class="fas fa-times" id="edit-button" style="font-size:40px;color:white;"></i>
                                     </a>
                                 </div>
@@ -531,278 +586,36 @@ function generateTodo(){
                                 <div class="card-body">
                                     <div class="bottom" style="display:flex; justify-content: space-between;align-items: center;">
                                         <div class="bottom-right">
-                                        <button type="button"  id="updateStatusButton" onclick="updateStatus('${todos[i]._id}',event)"  class="btn btn-outline-light">done</button>
-                                        <button type="button" data-toggle="modal" data-target="#editTodo" onclick="toogleUpdate('${todos[i]._id}')" class="btn btn-outline-light">edit</button>
+                                        <button type="button"  id="updateStatusButton" onclick="updateStatus('${todos[i]._id}','${page}')"  class="btn btn-outline-light">done</button>
+                                        <button type="button" data-toggle="modal" data-target="#editTodo" onclick="toogleUpdate('${todos[i]._id}','${page}')" class="btn btn-outline-light">edit</button>
                                         </div>
                                         <div class="bottom-left">
-                                        <div class="assignee">
-                                            <div id="members" style="width: 50px;height: 50px; margin: 5px; background-size: cover; background-position: top center;border-radius: 50%; background-image: url('${todos[i].assignee.profilePicture}');"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        `
-            $(`#todolist`).prepend(html)
-        }else if(todos[i].status === false && todos[i].starred === true ){
-            let html = ''
-            html += `
-                    <div class="promoting-card" style="background: linear-gradient(148deg, rgba(56,56,56,1) 0%, rgba(47,47,47,1) 100%);">
-                        <div class="card-body d-flex flex-row" style="padding-bottom:0px;display:flex;justify-content: space-between;">
-                            <div class="todo-header-part" style="display: flex;">
-                                <div class="todo-star-area" id="todo-starred">
-                                    <a href="#">
-                                    <i class="fas fa-star" onclick="updateStarred('${todos[i]._id}',event)" id='todo-star-part' style="font-size:50px; margin-right:20px;color: #d7c15c;"></i>
-                                    </a>
-                                </div>
-                                <div class="task-title">
-                                <h3 class="card-title font-weight-bold mb-2" style="color: white;" >${todos[i].title}</h3>
-                                <p class="card-text" style="color: white;font-size:18px"><i class="far fa-clock pr-2"></i>${todos[i].date.slice(0,10)}</p>
-                                </div>
-                            </div>
-                            <div>
-                                <a style="background: transparent; border: none; " onclick="deleteTodo('${todos[i]._id}','${todos[i].projectId}')">
-                                <i class="fas fa-times" id="edit-button" style="font-size:40px;color:white;"></i>
-                                </a>
-                            </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="bottom" style="display:flex; justify-content: space-between;align-items: center;">
-                                    <div class="bottom-right">
-                                    <button type="button"  id="updateStatusButton" onclick="updateStatus('${todos[i]._id}',event)"  class="btn btn-outline-light">done</button>
-                                    <button type="button" data-toggle="modal" data-target="#editTodo" onclick="toogleUpdate('${todos[i]._id}')" class="btn btn-outline-light">edit</button>
-                                    </div>
-                                    <div class="bottom-left">
-                                    <div class="assignee">
-                                        <div id="members" style="width: 50px;height: 50px; margin: 5px; background-size: cover; background-position: top center;border-radius: 50%; background-image: url('${todos[i].assignee.profilePicture}');"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    `
-        $(`#todolist`).prepend(html)
-        }else if(todos[i].status === true && todos[i].starred === false ){
-            let html = ''
-            html += `
-                    <div class="promoting-card" style="background: linear-gradient(90deg, rgba(100,171,56,1) 0%, rgba(194,215,28,1) 100%);">
-                        <div class="card-body d-flex flex-row" style="padding-bottom:0px;display:flex;justify-content: space-between;">
-                            <div class="todo-header-part" style="display: flex;">
-                                <a href="#" >
-                                <i class="fas fa-star" onclick="updateStarred('${todos[i]._id}',event)" id='todo-star-part' style="font-size:50px; margin-right:20px; opacity: 0.3;color: #000000;"></i>
-                                </a>
-                                <div class="task-title">
-                                <h3 class="card-title font-weight-bold mb-2" style="color: white;" >${todos[i].title}</h3>
-                                <p class="card-text" style="color: white;font-size:18px"><i class="far fa-clock pr-2"></i>${todos[i].date.slice(0,10)}</p>
-                                </div>
-                            </div>
-                            <div>
-                                <a style="background: transparent; border: none;" onclick="deleteTodo('${todos[i]._id}','${todos[i].projectId}')">
-                                <i class="fas fa-times" id="edit-button" style="font-size:40px;color:white"></i>
-                                </a>
-                            </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="bottom" style="display:flex; justify-content: space-between;align-items: center;">
-                                    <div class="bottom-right">
-                                    <button type="button" id="updateStatus" onclick="updateStatus('${todos[i]._id}',event)" class="btn btn-outline-light">on going</button>
-                                    <button type="button" data-toggle="modal" data-target="#editTodo" onclick="toogleUpdate('${todos[i]._id}')" class="btn btn-outline-light">edit</button>
-                                    </div>
-                                    <div class="bottom-left">
-                                    <div class="assignee">
-                                    <div id="members" style="width: 50px;height: 50px; margin: 5px; background-size: cover; background-position: top center;border-radius: 50%; background-image: url('${todos[i].assignee.profilePicture}');"></div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    `
-        $(`#todolist`).prepend(html)
-        }else{
-            let html = ''
-            html += `
-                        <div class="promoting-card" style="background: linear-gradient(90deg, rgba(100,171,56,1) 0%, rgba(194,215,28,1) 100%);">
-                            <div class="card-body d-flex flex-row" style="padding-bottom:0px;display:flex;justify-content: space-between;">
-                                <div class="todo-header-part" style="display: flex;">
-                                    <a href="#" >
-                                    <i class="fas fa-star" onclick="updateStarred('${todos[i]._id}',event)" id='todo-star-part' style="font-size:50px; margin-right:20px;color: #d7c15c;"></i>
-                                    </a>
-                                    <div class="task-title">
-                                    <h3 class="card-title font-weight-bold mb-2" style="color: white;" >${todos[i].title}</h3>
-                                    <p class="card-text" style="color: white;font-size:18px"><i class="far fa-clock pr-2"></i>${todos[i].date.slice(0,10)}</p>
-                                    </div>
-                                </div>
-                                <div>
-                                    <a style="background: transparent; border: none;" onclick="deleteTodo('${todos[i]._id}','${todos[i].projectId}')">
-                                    <i class="fas fa-times" id="edit-button" style="font-size:40px;color:white"></i>
-                                    </a>
-                                </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="bottom" style="display:flex; justify-content: space-between;align-items: center;">
-                                        <div class="bottom-right">
-                                        <button type="button" id="updateStatus" onclick="updateStatus('${todos[i]._id}',event)" class="btn btn-outline-light">on going</button>
-                                        <button type="button" data-toggle="modal" data-target="#editTodo" onclick="toogleUpdate('${todos[i]._id}')" class="btn btn-outline-light">edit</button>
-                                        </div>
-                                        <div class="bottom-left">
-                                        <div class="assignee">
-                                        <div id="members" style="width: 50px;height: 50px; margin: 5px; background-size: cover; background-position: top center;border-radius: 50%; background-image: url('${todos[i].assignee.profilePicture}');"></div>
+                                        <div class="assignee${i}" style="display:flex; flex-direction:row">
                                             
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-            `
+    
+                        `
             $(`#todolist`).prepend(html)
-            // $('#add-todo-form').show()
-            }
-        }
-    })
-}
-
-function generateTodoOnProgress(){
-    $(`#todolist`).empty()
-    $.ajax({
-        method:'get',
-        url: `${baseUri}/todos/onProgress`,
-        headers: {
-            token : localStorage.getItem('token')
-        }
-    })
-    .done((todos) => {
-        
-        for(i = 0 ; i < todos.length; i++){
-
-            if(todos[i].status === false && todos[i].starred === false ){
+                if(todos[i].projectId){
+                    for(let j = 0 ; j < todos[i].projectId.members.length; j++){
+                        console.log(todos[i].projectId.members[j].profilePicture)
+                        let members = ''
+                        members += `<div id="members" style="width: 50px;height: 50px; margin: 5px; background-size: cover; background-position: top center;border-radius: 50%; background-image: url('${todos[i].projectId.members[j].profilePicture}');"></div>`
+                        $(`.assignee${i}`).prepend(members)
+                    }
+                }
+            }else if(todos[i].status === true && todos[i].starred === false ){
                 let html = ''
                 html += `
-                        <div class="promoting-card" style="background: linear-gradient(148deg, rgba(56,56,56,1) 0%, rgba(47,47,47,1) 100%);">
-                            <div class="card-body d-flex flex-row" style="padding-bottom:0px;display:flex;justify-content: space-between;">
-                                <div class="todo-header-part" style="display: flex;">
-                                    <div class="todo-star-area" id="todo-starred">
-                                        <a href="#">
-                                        <i class="fas fa-star" onclick="updateStarred('${todos[i]._id}',event)" id='todo-star-part' style="font-size:50px; margin-right:20px; opacity: 0.3;color: #000000;"></i>
-                                        </a>
-                                    </div>
-                                    <div class="task-title">
-                                    <h3 class="card-title font-weight-bold mb-2" style="color: white;" >${todos[i].title}</h3>
-                                    <p class="card-text" style="color: white;font-size:18px"><i class="far fa-clock pr-2"></i>${todos[i].date.slice(0,10)}</p>
-                                    </div>
-                                </div>
-                                <div>
-                                    <a style="background: transparent; border: none; " onclick="deleteTodo('${todos[i]._id}','${todos[i].projectId}')">
-                                    <i class="fas fa-times" id="edit-button" style="font-size:40px;color:white;"></i>
-                                    </a>
-                                </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="bottom" style="display:flex; justify-content: space-between;align-items: center;">
-                                        <div class="bottom-right">
-                                        <button type="button"  id="updateStatusButton" onclick="updateStatus('${todos[i]._id}',event)"  class="btn btn-outline-light">done</button>
-                                        <button type="button" data-toggle="modal" data-target="#editTodo" onclick="toogleUpdate('${todos[i]._id}')" class="btn btn-outline-light">edit</button>
-                                        </div>
-                                        <div class="bottom-left">
-                                        <div class="assignee">
-                                            <div id="members" style="width: 50px;height: 50px; margin: 5px; background-size: cover; background-position: top center;border-radius: 50%; background-image: url('${todos[i].assignee.profilePicture}');"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        `
-            $(`#todolist`).prepend(html)
-        }else if(todos[i].status === false && todos[i].starred === true ){
-            let html = ''
-            html += `
-                    <div class="promoting-card" style="background: linear-gradient(148deg, rgba(56,56,56,1) 0%, rgba(47,47,47,1) 100%);">
-                        <div class="card-body d-flex flex-row" style="padding-bottom:0px;display:flex;justify-content: space-between;">
-                            <div class="todo-header-part" style="display: flex;">
-                                <div class="todo-star-area" id="todo-starred">
-                                    <a href="#">
-                                    <i class="fas fa-star" onclick="updateStarred('${todos[i]._id}',event)" id='todo-star-part' style="font-size:50px; margin-right:20px;color: #d7c15c;"></i>
-                                    </a>
-                                </div>
-                                <div class="task-title">
-                                <h3 class="card-title font-weight-bold mb-2" style="color: white;" >${todos[i].title}</h3>
-                                <p class="card-text" style="color: white;font-size:18px"><i class="far fa-clock pr-2"></i>${todos[i].date.slice(0,10)}</p>
-                                </div>
-                            </div>
-                            <div>
-                                <a style="background: transparent; border: none; " onclick="deleteTodo('${todos[i]._id}','${todos[i].projectId}')">
-                                <i class="fas fa-times" id="edit-button" style="font-size:40px;color:white;"></i>
-                                </a>
-                            </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="bottom" style="display:flex; justify-content: space-between;align-items: center;">
-                                    <div class="bottom-right">
-                                    <button type="button"  id="updateStatusButton" onclick="updateStatus('${todos[i]._id}',event)"  class="btn btn-outline-light">done</button>
-                                    <button type="button" data-toggle="modal" data-target="#editTodo" onclick="toogleUpdate('${todos[i]._id}')" class="btn btn-outline-light">edit</button>
-                                    </div>
-                                    <div class="bottom-left">
-                                    <div class="assignee">
-                                        <div id="members" style="width: 50px;height: 50px; margin: 5px; background-size: cover; background-position: top center;border-radius: 50%; background-image: url('${todos[i].assignee.profilePicture}');"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    `
-        $(`#todolist`).prepend(html)
-        }else if(todos[i].status === true && todos[i].starred === false ){
-            let html = ''
-            html += `
-                    <div class="promoting-card" style="background: linear-gradient(90deg, rgba(100,171,56,1) 0%, rgba(194,215,28,1) 100%);">
-                        <div class="card-body d-flex flex-row" style="padding-bottom:0px;display:flex;justify-content: space-between;">
-                            <div class="todo-header-part" style="display: flex;">
-                                <a href="#" >
-                                <i class="fas fa-star" onclick="updateStarred('${todos[i]._id}',event)" id='todo-star-part' style="font-size:50px; margin-right:20px; opacity: 0.3;color: #000000;"></i>
-                                </a>
-                                <div class="task-title">
-                                <h3 class="card-title font-weight-bold mb-2" style="color: white;" >${todos[i].title}</h3>
-                                <p class="card-text" style="color: white;font-size:18px"><i class="far fa-clock pr-2"></i>${todos[i].date.slice(0,10)}</p>
-                                </div>
-                            </div>
-                            <div>
-                                <a style="background: transparent; border: none;" onclick="deleteTodo('${todos[i]._id}','${todos[i].projectId}')">
-                                <i class="fas fa-times" id="edit-button" style="font-size:40px;color:white"></i>
-                                </a>
-                            </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="bottom" style="display:flex; justify-content: space-between;align-items: center;">
-                                    <div class="bottom-right">
-                                    <button type="button" id="updateStatus" onclick="updateStatus('${todos[i]._id}',event)" class="btn btn-outline-light">on going</button>
-                                    <button type="button" data-toggle="modal" data-target="#editTodo" onclick="toogleUpdate('${todos[i]._id}')" class="btn btn-outline-light">edit</button>
-                                    </div>
-                                    <div class="bottom-left">
-                                    <div class="assignee">
-                                    <div id="members" style="width: 50px;height: 50px; margin: 5px; background-size: cover; background-position: top center;border-radius: 50%; background-image: url('${todos[i].assignee.profilePicture}');"></div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    `
-        $(`#todolist`).prepend(html)
-        }else{
-            let html = ''
-            html += `
                         <div class="promoting-card" style="background: linear-gradient(90deg, rgba(100,171,56,1) 0%, rgba(194,215,28,1) 100%);">
                             <div class="card-body d-flex flex-row" style="padding-bottom:0px;display:flex;justify-content: space-between;">
                                 <div class="todo-header-part" style="display: flex;">
                                     <a href="#" >
-                                    <i class="fas fa-star" onclick="updateStarred('${todos[i]._id}',event)" id='todo-star-part' style="font-size:50px; margin-right:20px;color: #d7c15c;"></i>
+                                    <i class="fas fa-star" onclick="updateStarred('${todos[i]._id}','${page}')" id='todo-star-part' style="font-size:50px; margin-right:20px; opacity: 0.3;color: #000000;"></i>
                                     </a>
                                     <div class="task-title">
                                     <h3 class="card-title font-weight-bold mb-2" style="color: white;" >${todos[i].title}</h3>
@@ -810,7 +623,7 @@ function generateTodoOnProgress(){
                                     </div>
                                 </div>
                                 <div>
-                                    <a style="background: transparent; border: none;" onclick="deleteTodo('${todos[i]._id}','${todos[i].projectId}')">
+                                    <a style="background: transparent; border: none;" onclick="deleteTodo('${todos[i]._id}','${todos[i].projectId}','${page}')">
                                     <i class="fas fa-times" id="edit-button" style="font-size:40px;color:white"></i>
                                     </a>
                                 </div>
@@ -818,26 +631,77 @@ function generateTodoOnProgress(){
                                 <div class="card-body">
                                     <div class="bottom" style="display:flex; justify-content: space-between;align-items: center;">
                                         <div class="bottom-right">
-                                        <button type="button" id="updateStatus" onclick="updateStatus('${todos[i]._id}',event)" class="btn btn-outline-light">on going</button>
-                                        <button type="button" data-toggle="modal" data-target="#editTodo" onclick="toogleUpdate('${todos[i]._id}')" class="btn btn-outline-light">edit</button>
+                                        <button type="button" id="updateStatus" onclick="updateStatus('${todos[i]._id}','${page}')" class="btn btn-outline-light">on going</button>
+                                        <button type="button" data-toggle="modal" data-target="#editTodo" onclick="toogleUpdate('${todos[i]._id}','${page}')" class="btn btn-outline-light">edit</button>
                                         </div>
                                         <div class="bottom-left">
-                                        <div class="assignee">
-                                        <div id="members" style="width: 50px;height: 50px; margin: 5px; background-size: cover; background-position: top center;border-radius: 50%; background-image: url('${todos[i].assignee.profilePicture}');"></div>
+                                        <div class="assignee${i}" style="display:flex; flex-direction:row">
                                             
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-            `
+    
+                        `
             $(`#todolist`).prepend(html)
-            // $('#add-todo-form').show()
+                if(todos[i].projectId){
+                    for(let j = 0 ; j < todos[i].projectId.members.length; j++){
+                        console.log(todos[i].projectId.members[j].profilePicture)
+                        let members = ''
+                        members += `<div id="members" style="width: 50px;height: 50px; margin: 5px; background-size: cover; background-position: top center;border-radius: 50%; background-image: url('${todos[i].projectId.members[j].profilePicture}');"></div>`
+                        $(`.assignee${i}`).prepend(members)
+                    }
+                }
+            }else{
+                let html = ''
+                html += `
+                            <div class="promoting-card" style="background: linear-gradient(90deg, rgba(100,171,56,1) 0%, rgba(194,215,28,1) 100%);">
+                                <div class="card-body d-flex flex-row" style="padding-bottom:0px;display:flex;justify-content: space-between;">
+                                    <div class="todo-header-part" style="display: flex;">
+                                        <a href="#" >
+                                        <i class="fas fa-star" onclick="updateStarred('${todos[i]._id}','${page}')" id='todo-star-part' style="font-size:50px; margin-right:20px;color: #d7c15c;"></i>
+                                        </a>
+                                        <div class="task-title">
+                                        <h3 class="card-title font-weight-bold mb-2" style="color: white;" >${todos[i].title}</h3>
+                                        <p class="card-text" style="color: white;font-size:18px"><i class="far fa-clock pr-2"></i>${todos[i].date.slice(0,10)}</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <a style="background: transparent; border: none;" onclick="deleteTodo('${todos[i]._id}','${todos[i].projectId}','${page}')">
+                                        <i class="fas fa-times" id="edit-button" style="font-size:40px;color:white"></i>
+                                        </a>
+                                    </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="bottom" style="display:flex; justify-content: space-between;align-items: center;">
+                                            <div class="bottom-right">
+                                            <button type="button" id="updateStatus" onclick="updateStatus('${todos[i]._id}','${page}')" class="btn btn-outline-light">on going</button>
+                                            <button type="button" data-toggle="modal" data-target="#editTodo" onclick="toogleUpdate('${todos[i]._id}','${page}')" class="btn btn-outline-light">edit</button>
+                                            </div>
+                                            <div class="bottom-left">
+                                            <div class="assignee${i}" style="display:flex; flex-direction:row">
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                `
+                $(`#todolist`).prepend(html)
+                    if(todos[i].projectId){
+                        for(let j = 0 ; j < todos[i].projectId.members.length; j++){
+                            console.log(todos[i].projectId.members[j].profilePicture)
+                            let members = ''
+                            members += `<div id="members" style="width: 50px;height: 50px; margin: 5px; background-size: cover; background-position: top center;border-radius: 50%; background-image: url('${todos[i].projectId.members[j].profilePicture}');"></div>`
+                            $(`.assignee${i}`).prepend(members)
+                        }
+                    }
+                }
             }
-        }
-    })
+        })
 }
+
 
 function generateProject(){
     
@@ -912,7 +776,6 @@ function generateProject(){
                 let members = ''
                 members += `<div id="members" style="width: 50px;height: 50px; margin: 5px; background-size: cover; background-position: top center;border-radius: 50%; background-image: url('${project[i].members[j].profilePicture}');"></div>`
                 $(`.project-members${i}`).prepend(members)
-               
             }
         }
     })
@@ -1283,7 +1146,7 @@ function editProject(id,title,description,members){
     })
 }
 
-function updateStarred(id){
+function updateStarred(id,page){
     $.ajax({
         method:'patch',
         url: `${baseUri}/todos/${id}/starred`,
@@ -1297,7 +1160,7 @@ function updateStarred(id){
         $('.header-project').empty()
         $('#wrapper').show()
         // $('.todo-header-part').hide()
-        generateTodo()
+        generateTodo(page)
         // $('#todo-star').css('color',"#d7c15c")
         console.log('successfully update star')
     })
@@ -1307,8 +1170,8 @@ function updateStarred(id){
 }
 
 
-function updateStarredProject(todoId,projectId,projectTitle){
-    
+function updateStarredProject(todoId,projectId,projectTitle,page){
+    console.log(page)
     $.ajax({
         method:'patch',
         url: `${baseUri}/todos/${todoId}/starred`,
@@ -1320,7 +1183,7 @@ function updateStarredProject(todoId,projectId,projectTitle){
         $('#todolist').empty()
         $('.project-todos').empty()
         $('#wrapper').show()
-        generateTodo()
+        generateTodo(page)
         generateProjectTodo(projectId,projectTitle)
         console.log('successfully updated')
     })

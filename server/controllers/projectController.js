@@ -32,21 +32,7 @@ class ProjectController {
         
     }
 
-    // static create(req,res,next){
-    //     console.log(req.body.member)
-    //     Project.create({
-    //         title : req.body.title,
-    //         description : req.body.description,
-    //         owner : req.loggedUser.id,
-    //         members : req.body.member
-    //     })
-    //     .then( project => {
-
-    //         res.status(201).json(project)
-    //     })
-    //     .catch(next)
-    // }
-
+   
     static create(req,res,next){
         console.log(req.body.member)
         const membersToAdd = req.body.member;
@@ -226,7 +212,7 @@ class ProjectController {
                     _id : req.params.id
                 })
             }else{
-                res.status(401).json({message : 'only owner can perform this action'})
+                res.status(403).json({message : 'only owner can perform this action'})
             }
         })
         .then(project => {
@@ -273,10 +259,9 @@ class ProjectController {
                 { _id : req.params.id },{ $push: { todos : todo } },{ new:true })
         })
         .then(project => {
-            res.status(201).json(project)
+            res.status(201).json({message : "project successfully updated"})
         })
         .catch(err => {
-            console.log(err)
             next()
         })
     }
@@ -312,7 +297,7 @@ class ProjectController {
                 })
         })
         .then(project => {
-           res.status(201).json({message : `${project.title} is successfully deleted`})
+           res.status(201).json({message : "delete todo success, project successfully updated"})
         })
         .catch(err => {
             console.log(err)
@@ -400,7 +385,7 @@ class ProjectController {
             })
         })
         .then((todo)=>{
-            res.status(201).json({message : `you left the group, you can ask the owner to re-invited you later`})
+            res.status(201).json({message : `Todo in project successfully updated`})
         })
         .catch(err => {
             res.status(403).json({message : `you're not allowed to leave the group`})

@@ -66,23 +66,25 @@ $('#button-submit-addTodo').click((e)=>{
 })
 
 $('#button-submit-create-project').click((e)=>{
-    console.log('function add project triggered')
+    console.log('function add project triggered',$('#add-project-members').val())
     e.preventDefault()
     let title = $('#add-project-title').val()
     let description = $('#add-project-description').val()
     let members = $('#add-project-members').val().split(',')
     addProject(title,description,members)
     $('#add-project-title').val('')
-    $('#add-project-description').val('')
 })
 
 $('#button-submit-edit-project').click((e)=>{
-    console.log('function edit project triggered')
+    console.log('function edit project triggered',$('#add-project-members').val())
     e.preventDefault()
     let title = $('#edit-project-title').val()
     let description = $('#edit-project-description').val()
     let projectId = $('#edit-projectId').val()
-    let members = $('#edit-project-members').val()
+    let members = $('#add-project-members').val().split(',')
+    // let members = $('#edit-project-members').val()
+    
+    
 
     // console.log(title,description)
     editProject(projectId,title,description,members)
@@ -134,11 +136,12 @@ $('#button-submit-editTodo').click((e)=>{
     let title = $('#edit-title-todo').val()
     let date = $('#edit-date-todo').val()
     let id = $('#todo-id').val()
+    let page = $('#page-now').val()
     
-    console.log('function edit todo running',title,date,id)
+    console.log('function edit todo running',title,date,id,page)
 
     
-    updateTodo(id,title,date)
+    updateTodo(id,title,date,page)
     // console.log('edit button triggered')
     $('#edit-title-todo').val('')
     $('#edit-date-todo').val(new Date())
@@ -150,7 +153,82 @@ let addButton = 'show';
 $('#show-personal-page').click((e) => {
     e.preventDefault()
     $('#todolist').empty()
-    generateTodo()
+    generateTodo('personal')
+    $("#page-content-wrapper-personal").show()
+    $("#page-content-wrapper-project").hide()
+    $("#page-content-wrapper-project-todo").hide()
+    $("#page-content-wrapper-personal").animate({
+        width: '+=48%'
+    }, 1000)
+    $("#page-content-right").animate({
+        width: '-=40%'
+    }, 1000)
+    $("#add-todo-form").animate({
+        width: '-=800px'
+    }, 1000),
+    $("#add-todo-title").animate({
+        fontSize: '-=36px'
+    },1000),
+    $('#button-submit-addTodo').animate({
+        opacity: '-=1'
+    })
+    $("#add-todo-form").hide()
+    addButton = 'show';
+})
+
+$('#show-personal-page-onprogress').click((e) => {
+    e.preventDefault()
+    $('#todolist').empty()
+    $("#page-content-wrapper-personal").show()
+    $("#page-content-wrapper-project").hide()
+    $("#page-content-wrapper-project-todo").hide()
+    $("#page-content-wrapper-personal").animate({
+        width: '+=48%'
+    }, 1000)
+    $("#page-content-right").animate({
+        width: '-=40%'
+    }, 1000)
+    $("#add-todo-form").animate({
+        width: '-=800px'
+    }, 1000),
+    $("#add-todo-title").animate({
+        fontSize: '-=36px'
+    },1000),
+    $('#button-submit-addTodo').animate({
+        opacity: '-=1'
+    })
+    $("#add-todo-form").hide()
+    addButton = 'show';
+})
+
+$('#show-personal-page-done').click((e) => {
+    e.preventDefault()
+    $('#todolist').empty()
+    $("#page-content-wrapper-personal").show()
+    $("#page-content-wrapper-project").hide()
+    $("#page-content-wrapper-project-todo").hide()
+    $("#page-content-wrapper-personal").animate({
+        width: '+=48%'
+    }, 1000)
+    $("#page-content-right").animate({
+        width: '-=40%'
+    }, 1000)
+    $("#add-todo-form").animate({
+        width: '-=800px'
+    }, 1000),
+    $("#add-todo-title").animate({
+        fontSize: '-=36px'
+    },1000),
+    $('#button-submit-addTodo').animate({
+        opacity: '-=1'
+    })
+    $("#add-todo-form").hide()
+    addButton = 'show';
+})
+
+$('#show-personal-page-starred').click((e) => {
+    e.preventDefault()
+    $('#todolist').empty()
     $("#page-content-wrapper-personal").show()
     $("#page-content-wrapper-project").hide()
     $("#page-content-wrapper-project-todo").hide()

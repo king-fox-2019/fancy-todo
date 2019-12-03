@@ -9,7 +9,7 @@ module.exports = {
         errors.push(err.errors[key].message)
       }
       res.status(400).json({
-        message: 'validation error',
+        message: 'Validation error',
         errors
       })
     } else if(err.message.name === 'JsonWebTokenError') {

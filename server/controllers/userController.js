@@ -24,7 +24,12 @@ class UserController{
             console.log(user)
             res.status(200).json({accessToken : token})
         })
-        .catch(next)
+        .catch(err => {
+            next({
+                status : 400,
+                message : 'email already registered'
+            })
+        })
     }
 
     static login(req,res,next){

@@ -43,11 +43,12 @@
       this.isSelect = (element.tagName === 'SELECT');
       this.multiple = (this.isSelect && element.hasAttribute('multiple'));
       this.objectItems = options && options.itemValue;
-      this.placeholderText = element.hasAttribute('placeholder') ? this.$element.attr('placeholder') : '';
+      this.placeholderText = element.hasAttribute('placeholder') ? this.$element.attr('placeholder') : 'insert members';
       this.inputSize = Math.max(1, this.placeholderText.length);
-  
+      let defaultValue = $('#edit-project-members').val().toString()
       this.$container = $('<div class="bootstrap-tagsinput"></div>');
-      this.$input = $('<input type="text" placeholder="' + this.placeholderText + '"/>').appendTo(this.$container);
+      this.$input = $(`<input type="text" value="${defaultValue}"/>`).appendTo(this.$container);
+      console.log(defaultValue)
   
       this.$element.before(this.$container);
   

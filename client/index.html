@@ -26,6 +26,7 @@
     <meta name="google-signin-client_id" content="1022858583945-39qk9pff5ufum61l2qdpkqmndr2cbl8b.apps.googleusercontent.com">
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    
   
 
     
@@ -201,13 +202,13 @@
                           <h6 style="color:rgb(119, 119, 119)">Filters</h6>
                       </li>
                       <li>
-                          <a id="show-personal-page-onprogress" onclick="generateTodoOnProgress()" href="#"><i class="fas fa-running" style="margin-right:10px"></i>On Progress</a>
+                          <a id="show-personal-page-onprogress" onclick="generateTodo('onProgress')" href="#"><i class="fas fa-running" style="margin-right:10px"></i>On Progress</a>
                       </li>
                       <li>
-                          <a href="#"><i class="fas fa-check" style="margin-right:10px"></i>Done</a>
+                          <a id="show-personal-page-done" onclick="generateTodo('done')"  href="#"><i class="fas fa-check" style="margin-right:10px"></i>Done</a>
                       </li>
                       <li>
-                          <a href="#"><i class="fas fa-star" style="margin-right:10px"></i>Starred</a>
+                          <a id="show-personal-page-starred" onclick="generateTodo('starred')"  href="#"><i class="fas fa-star"  style="margin-right:10px"></i>Starred</a>
                       </li>
                     </div>
                 </ul>
@@ -318,6 +319,7 @@
           <div class="form-group">
             
             <input type="text" class="form-control" id="todo-id" style="display: none;">
+            <input type="text" class="form-control" id="page-now" style="display: none;">
             <input type="text" class="form-control" id="project-title" style="display: none;">
             <label for="recipient-name" class="col-form-label">Title</label>
             <input type="text" class="form-control" id="edit-title-todo"> 
@@ -404,7 +406,7 @@
               <input type="text" class="form-control" id="add-project-description" placeholder="Project details..."> 
             </div>
             <label for="message-text" class="col-form-label">Members</label>
-            <input id="add-project-members" type="text" value="" data-role="tagsinput" placeholder="member@mail.com " />
+            <input id="add-project-members" type="text" data-role="tagsinput"/>
           </form>
         </div>
         <div class="modal-footer">
@@ -477,6 +479,10 @@
                 <label for="message-text" class="col-form-label">Description</label>
                 <input type="text" class="form-control" id="edit-project-description" placeholder="Project details..."> 
               </div>
+      
+              <!-- <label for="message-text" class="col-form-label">Members</label>
+              <input type="text" id="form-member" value ='jasjdfnadf'  data-role="tagsinput"/> -->
+            
             </form>
           </div>
           <div class="modal-footer">
@@ -494,9 +500,9 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<script src="tags.js"></script>
 <script src="mainFunctions.js"></script>
 <script src="commands.js"></script>
+<script src="tags.js"></script>
 <!-- sweet alert -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- google Oauth -->

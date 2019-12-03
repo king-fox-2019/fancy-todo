@@ -18,8 +18,10 @@ class TodoController {
             res.status(201).json(todo)
         })
         .catch(err => {
-            console.log(err)
-            next()
+            next({
+                status : 400,
+                message : err
+            })
         })
     }
 
@@ -76,7 +78,7 @@ class TodoController {
                 })
         })
         .then(project => {
-           res.status(201).json(project)
+           res.status(201).json({message :`delete todo success` })
         })
         .catch(next)
     }
