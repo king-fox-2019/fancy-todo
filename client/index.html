@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta
+      name="google-signin-client_id"
+      content="8070598710-i2etrm5l71mv7nhr8a5ncudrpfpahv9k.apps.googleusercontent.com"
+    />
+    <link rel="icon" href="./public/img/icon.jpeg" />
+    <!-- bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <!-- end bootstrap -->
+    <!-- css alert -->
+    <!-- CSS -->
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/alertifyjs@1.12.0/build/css/alertify.min.css"
+    />
+    <!-- Default theme -->
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/alertifyjs@1.12.0/build/css/themes/default.min.css"
+    />
+    <!-- Semantic UI theme -->
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/alertifyjs@1.12.0/build/css/themes/semantic.min.css"
+    />
+    <!-- Bootstrap theme -->
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/alertifyjs@1.12.0/build/css/themes/bootstrap.min.css"
+    />
+    <!-- end css alert -->
+    <!-- mycss -->
+    <link rel="stylesheet" href="./public/css/main.css" />
+    <link rel="stylesheet" href="./public//css/todo.css" />
+    <link rel="stylesheet" href="./public/css/content.css" />
+    <link rel="stylesheet" href="./public/css/project.css" />
+    <!-- end mycss -->
+    <title>Fancy Todo</title>
+  </head>
+  <body>
+    <!-- landingpage without login -->
+    <div class="page-beforesignin" id="landing-page"></div>
+    <!-- enn landingpage -->
+    <!-- navbar -->
+    <nav
+      id="top-nav"
+      class="navbar navbar-expand-lg navbar-light bg-light shadow"
+    >
+      <a class="navbar-brand" href="#">DoList</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#"
+              >Home <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              List Menu
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a id="btn-go-create-project" class="dropdown-item" href="#"
+                >Create Project</a
+              >
+              <div class="dropdown-divider"></div>
+              <a id="btn-go-create-todo" class="dropdown-item" href="#"
+                >Create Todo</a
+              >
+            </div>
+          </li>
+          <!-- nav project -->
+          <li class="nav-item dropdown project-content" style="display: none;">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Project Menu
+            </a>
+            <div
+              class="dropdown-menu"
+              id="dropdown-project"
+              aria-labelledby="navbarDropdown"
+            ></div>
+          </li>
+          <!-- end nav -->
+        </ul>
+        <button
+          id="btn-go-signin"
+          class="page-beforesignin btn-sm btn-outline-dark my-2 my-sm-0"
+          type="button"
+        >
+          SignIn/SignUp
+        </button>
+        <!--modal signin-->
+        <div
+          class="modal fade"
+          id="modal-signin"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Form SignIn</h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="btn-signin">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="signin-email"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter email"
+                      required
+                    />
+                    <small id="emailHelp" class="form-text text-muted"
+                      >We'll never share your email with anyone else.</small
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="signin-password"
+                      placeholder="Password"
+                    />
+                  </div>
+                  <div class="form-check">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      id="sign-check"
+                    />
+                    <label class="form-check-label" for="exampleCheck1"
+                      >Check me out</label
+                    >
+                  </div>
+                  <button
+                    type="submit"
+                    id="btn-signin-check"
+                    class="btn btn-primary disabled"
+                  >
+                    SignIn
+                  </button>
+                  &nbsp; or &nbsp;
+                  <button
+                    class="g-signin2"
+                    data-onsuccess="onSignIn"
+                    id="my-signin2"
+                  ></button>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  id="btn-go-signup"
+                  type="button"
+                  class="btn btn-warning mr-auto"
+                >
+                  SignUp
+                </button>
+                <button
+                  type="button"
+                  id="close-modal-signin"
+                  class="btn btn-secondary"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--end modal signin-->
+        <!--modal signup-->
+        <div
+          class="modal fade"
+          id="modal-signup"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Form SignUp</h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="btn-signup">
+                  <div class="form-group">
+                    <label for="exampleInputName">Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="signup-name"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter Name"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="signup-email"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter email"
+                    />
+                    <small id="emailHelp" class="form-text text-muted"
+                      >We'll never share your email with anyone else.</small
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="signup-password"
+                      placeholder="Password"
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-primary">
+                    SignUp
+                  </button>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  id="btn-backsignin"
+                >
+                  Back to SignIn
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end modal signup -->
+        <!-- modal create todo -->
+        <div
+          class="modal fade"
+          id="modal-create-todo"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Form Create Todo
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="btn-create-todo">
+                  <div class="form-group">
+                    <label for="exampleInputTodoName">Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="createTodo-name"
+                      placeholder="Enter Todo Name"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputTodoDescription">Description</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="createTodo-description"
+                      placeholder="Enter Todo Description"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputDueDate">Due Date</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="createTodo-due"
+                      placeholder="Enter Todo Due Date"
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-primary">
+                    Create Todo
+                  </button>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  id="close-modal-createtodo"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end modal create todo -->
+
+        <!-- modal create todo in project -->
+        <div
+          class="modal fade"
+          id="modal-create-todo-project"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Form Create Todo
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="btn-create-todo-project">
+                  <div class="form-group">
+                    <label for="exampleInputTodoName">Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="createTodo-project-name"
+                      placeholder="Enter Todo Name"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputTodoDescription">Description</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="createTodo-project-description"
+                      placeholder="Enter Todo Description"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputDueDate">Due Date</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="createTodo-project-due"
+                      placeholder="Enter Todo Due Date"
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-primary">
+                    Create Todo
+                  </button>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  id="close-modal-project-createtodo"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- modal end create todo in project -->
+
+        <!-- modal create project -->
+        <div
+          class="modal fade"
+          id="modal-create-project"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Form Create Project
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="btn-create-project">
+                  <div class="form-group">
+                    <label for="exampleInputTodoName">Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="createProject-name"
+                      placeholder="Enter Project Name"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputTodoDescription">Description</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="createProject-description"
+                      placeholder="Enter Project Description"
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-primary">
+                    Create project
+                  </button>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  id="close-modal-createproject"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end modal create project -->
+        <div
+          class="all-page"
+          id="user-login"
+          style="display: flex; flex-direction: row; justify-content: center; text-align: center; align-items: center;"
+        >
+          <div id="circle-on"></div>
+          <div id="user-nav-signin"></div>
+        </div>
+        <button
+          class="all-page btn btn-outline-dark my-2 my-sm-0"
+          type="button"
+          id="btn-signout"
+          style="display: none;"
+        >
+          SignOut
+        </button>
+      </div>
+    </nav>
+    <!-- end navbar -->
+
+    <!-- content page -->
+    <div class="all-page content-page" id="content-page">
+      <div class="row" id="content-page-wrapper">
+        <div class="col-2" id="menu-side">
+          <div class="list-group" id="list-menu-side">
+            <button
+              type="button"
+              class="list-group-item list-group-item-action active"
+              id="btn-listtodo"
+            >
+              ToDo List
+            </button>
+            <div class="dropdown">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Project List
+              </button>
+              <div
+                class="dropdown-menu"
+                id="dropdown-menu-project"
+                aria-labelledby="dropdownMenuButton"
+              ></div>
+            </div>
+            <hr />
+            <div class="dropdown">
+              <button
+                class="btn btn-success dropdown-toggle"
+                type="button"
+                id="dropdownMenuButtonInvitation"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                invitation
+              </button>
+              <div
+                class="dropdown-menu"
+                id="dropdown-menu-invitation"
+                aria-labelledby="dropdownMenuButtonInvitation"
+              ></div>
+            </div>
+          </div>
+        </div>
+        <div class="" id="main-content">
+          <div class="" id="quote-page"></div>
+          <div class="col" id="list-content">
+            <!-- todo page -->
+            <div id="todo-content" style="display: none;"></div>
+            <!-- end todo page -->
+            <!-- project page -->
+            <div
+              class="project-content"
+              id="project-todo"
+              style="display: none;"
+            >
+              <!-- <nav class="nav nav-pills nav-fill">
+                <a class="nav-item nav-link active" href="#">Active</a>
+                <a class="nav-item nav-link" href="#">Link</a>
+                <a class="nav-item nav-link" href="#">Link</a>
+                <a class="nav-item nav-link disabled" href="#">Disabled</a>
+              </nav> -->
+            </div>
+            <!-- end project page -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal update todo -->
+    <div id="renderModalUpdate"></div>
+    <!-- end modal update todo -->
+    <!-- modal acc/dec invt -->
+    <div id="renderModalInvitation"></div>
+    <!-- end modal acc/dec -->
+    <!-- modal add member -->
+    <div id="renderModalAddMember"></div>
+    <!-- end modal add member -->
+    <!-- modal kick member -->
+    <div id="renderModalKickMember"></div>
+    <!-- end modal kick member -->
+    <div id="renderModalUpdateProjectTodo"></div>
+    <!-- end content page -->
+
+    <!-- footer -->
+    <footer
+      class="navbar navbar-expand-sm navbar-light bg-light fixed-bottom shadow flex justify-content-center"
+      id="footer"
+      style="opacity: 0.8;"
+    >
+      <p style="margin-top: 10px;">2019@Edwin Satya Yudistira</p>
+    </footer>
+    <!-- end footer -->
+
+    <!-- script -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/b4ea181aaf.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.12.0/build/alertify.min.js"></script>
+    <!-- my script -->
+    <script src="./public/js/formLogin.js"></script>
+    <script src="./public/js/todo.js"></script>
+    <script src="./public/js/project.js"></script>
+    <script src="./public/js/landingpage.js"></script>
+    <script src="./public/js/main.js"></script>
+    <!-- end my script -->
+    <!-- end script -->
+  </body>
+</html>
