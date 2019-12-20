@@ -2,7 +2,7 @@
 
 module.exports = (err, req, res, next) =>{
     if (err.status && err.message ) {
-        return res.status(err.status).json({
+         res.status(err.status).json({
             message : err.message
         })
     }
@@ -16,20 +16,20 @@ module.exports = (err, req, res, next) =>{
             } else {
                 messages = err.message
             }
-            return res.status(400).send({
+            res.status(400).send({
                 message: messages
             })   
         case 'CastError':
-            return res.status(400).send({
+            res.status(400).send({
                 message: `id invalid`
             })  
         case 'JsonWebTokenError' : {
-            return res.status(400).send({
+            res.status(400).send({
                 message : "invalid token, please don't change the token in your local storage"
             })
         }                 
         default:            
-            return res.status(500).send({
+            res.status(500).send({
                 message: 'Internal Server Error'
             })
     }

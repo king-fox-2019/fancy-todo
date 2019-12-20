@@ -34,9 +34,8 @@ class TodoCon {
     }
 
     static updateTodo(req, res, next){
-        const {user} = req.params
-        const {id, title, description, dueDate} = req.body      
-        Todo.updateOne({_id : id,user}, {title, description, dueDate})
+        const {title, description, dueDate} = req.body      
+        Todo.updateOne({_id : req.params.id}, {title, description, dueDate})
         .then(data=>{
             res.status(200).json(data)
         })

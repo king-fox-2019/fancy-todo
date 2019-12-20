@@ -7,10 +7,19 @@ const {generateToken} = require('../helpers/jwt')
 class UserCon {
 
     static register (req, res, next){
-    const {name,email,password} = req.body
-    User.create({name,email,password})
+    const {email,password} = req.body
+    User.create({email,password})
     .then(user=>{
-        res.status(201).json(user.name)
+        let token = generateToken(user)  
+        let {email,_id} = user
+                    res.status(201).json({
+                        message : 'login succes',
+                        token : token,
+                        user : {
+                            email,
+                            _id
+                        }                        
+                    })
     })
     .catch(err=>{
         next(err)
@@ -27,7 +36,7 @@ class UserCon {
                 if ( valid ) {               
                     let token = generateToken(user)  
                     let {email,_id} = user
-                    res.json({
+                    res.status(200).json({
                         message : 'login succes',
                         token : token,
                         user : {

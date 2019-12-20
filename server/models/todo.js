@@ -8,7 +8,20 @@ const TodoSchema = new Schema({
         required:[true,'you must enter your title']
     },
     description: String,
-    dueDate: Date,
+    dueDate: {
+        type: Date,
+        validate :{
+            validator: function(v){
+                let now = new Date().getTime()
+                if(v.getTime() < now){
+                    return false
+                }else{
+                    return true
+                }
+            },
+            message : `dueDate is wrong input`
+        }
+    },
     status: Boolean,
     user: {
         type: mongoose.Schema.Types.ObjectId,

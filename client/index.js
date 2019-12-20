@@ -70,12 +70,13 @@ function registerMember(event) {
             'You have been registered in our web!',
             'success'
           )
-          toLogin(event)
+          toLogin(event) 
     }).fail( err => {
+        console.log(err)
         Swal.fire({
             title: 'error',
             type: 'error',
-            text: err.responseJSON.message.join(', ')
+            text: err.responseJSON.message
         })
     })    
 }
@@ -99,7 +100,8 @@ function loginMember(event) {
             'success'
             )
             localStorage.setItem("token", data.token)
-            ceckStatus()   
+            ceckStatus() 
+           
         })
         .fail( err => {
             Swal.fire({
@@ -158,9 +160,9 @@ function showProfile(token){
         }
     })
     .done( data => {
-        console.log(data)
         $('#profile').empty()
         $('#profile').append(`
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS7RNSLKy9DgXOtYPfijFv0S5EFX-ZCbcyjoCzrlm1mL06AW2Qx"  height="100" width="100" style="margin-top:20px">
           User:  ${data.email}
         `);
         showMytodo()
@@ -192,11 +194,21 @@ function showMytodo(){
             <div class="card-body">
               <h5 class="card-title">${element.description}</h5>
               <p class="card-text">${dueDate}</p>
-              <button type="button" class="btn btn-primary btn-sm">update</button>
+              <button class="btn btn-primary btn-sm" onclick="showUpdate('${element.title}','${element.description}','${dueDate}','${element._id}')">update</button>
               <button class="btn btn-outline-success btn-sm" onclick="del('${element._id}')">delete</button>
             </div>
           </div>
-            `)
+          <div class="card mb-3 mt-50" style="width: 100%;">
+        <div class="row no-gutters">
+          <div class="col-md-8">
+            <div class="card-body">
+              <p class="card-text"><small class="text-muted lastUpdate">last update</small></p>
+            </div>
+          </div>
+        </div>
+</div>  
+          
+          `)
         });
     })
 }
@@ -242,6 +254,13 @@ function add(){
     $('#detail').empty()
     showMytodo()
 })
+.fail(err=> {
+    Swal.fire({
+        title: 'Ops...',
+type: 'error',
+text: err.responseJSON.message
+    })
+})
 }
 
 function del(id){
@@ -259,4 +278,55 @@ function del(id){
 .fail(err=>{
     console.log(err)
 })  
+}
+
+function showUpdate(title,desc,date,id){
+    event.preventDefault() 
+    $('#detail').empty()
+    $('#detail').append(`
+  <div class="form-group">
+    <label for="formGroupExampleInput">Title</label>
+    <input type="text" class="form-control" id="title" value="${title}">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlTextarea1">Description</label>
+    <textarea class="form-control" id="description" rows="3">${desc}</textarea>
+  </div>
+  <div class="form-group col-md-8">
+      <label for="inputZip">Due Date</label>
+      <input type="text" class="form-control" id="dueDate"  value="${date}">
+  </div>
+  <button  class="btn btn-primary mb-2" onclick="update('${id}')">Confirm</button>
+    `)
+}
+
+function update(id){
+    let title = $('#title').val()
+    let description = $('#description').val()
+    let dueDate = $('#dueDate').val()
+
+    $.ajax({
+        url : `http://localhost:3000/todo/${id}`,
+        method : "PUT",
+        headers : {
+            token : localStorage.getItem('token')
+        },
+        data :{
+            title,
+            description,
+            dueDate,
+        }
+    })
+.done(data=>{
+    $('#detail').empty()
+    showMytodo()
+})
+.fail(err=> {
+    Swal.fire({
+        title: 'Ops...',
+type: 'error',
+text: err.responseJSON.message
+    })
+})
+
 }
