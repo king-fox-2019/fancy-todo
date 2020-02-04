@@ -1,7 +1,7 @@
 # mongoose-crud
 
 DEPLOY GCS
-> [http://fancytodos.anggabanny.online/](http://fancytodos.anggabanny.online/)
+> [http://fancytodo.anggabanny.online/](http://fancytodos.anggabanny.online/)
 
 # INTRODUCTION !
 Sebelum memulai semuanya alangkah lebih baik jika menguji server terlebih dahulu silahkan akses `/`
