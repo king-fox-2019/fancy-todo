@@ -14,14 +14,11 @@ $(document).ready(function () {
     
     var maxDate = year + '-' + month + '-' + day;
   
-    // $('#todo-input-datepicker').attr('min', maxDate);
     $('#todo-update-datepicker').attr('min', maxDate);
     $('.datepicker').attr('min', maxDate);
   })
 
   $('.collapse').on('show.bs.collapse', function(e) {
-    console.log('this pas collapse show', this);
-    
     var $card = $(this).closest('.card');
     var $open = $($(this).data('parent')).find('.collapse.show');
   
