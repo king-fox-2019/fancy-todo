@@ -1,5 +1,4 @@
 function register(event) {
-  // console.log('masuk register');
   event.preventDefault()
   $.ajax({
     url: `${baseUrl}/users/register`,
@@ -10,14 +9,15 @@ function register(event) {
       password: $('#register-password').val()
     }
   })
-    .done(function (response) {
-      // console.log("Successfully registered")
-      let { access_token } = response
-      localStorage.setItem("access_token", access_token)
-      checkToken()
-      $('.squiggly-home').show()
-    })
-    .fail(err => {
+  .done(function (response) {
+    // console.log("Successfully registered")
+    let { access_token } = response
+    localStorage.setItem("access_token", access_token)
+    checkToken()
+    $('.squiggly-home').show()
+  })
+  .fail(err => {
+      console.log('masuk register', baseUrl);
       console.log('ini err pas register', err)
       Swal.fire('Oops..', err.responseJSON.messages[0])
     })

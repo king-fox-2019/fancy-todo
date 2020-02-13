@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:3000'
+const baseUrl = 'http://35.247.132.100/'
 
 $(document).ready(function () {
   $(function(){
