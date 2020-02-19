@@ -2,7 +2,7 @@ function getAllTodo() {
   console.log(localStorage.getItem('userId'))
   $.ajax({
     method: "get",
-    url: "http://localhost:3000/todo"
+    url: "http://35.186.155.74/todo"
   })
     .done(result => {
       for (let i = 0; i < result.length; i++) {

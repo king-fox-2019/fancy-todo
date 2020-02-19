@@ -4,7 +4,7 @@ function signin(){
     event.preventDefault()
     $.ajax({
         method:"post",
-        url:"http://localhost:3000/user/signin",
+        url:"http://35.186.155.74/user/signin",
         data:{
             email:email,
             password:password
@@ -31,7 +31,7 @@ function onSignIn(googleUser) {
     var id_token = googleUser.getAuthResponse().id_token;
     $.ajax({
         method:"post",
-        url:"http://localhost:3000/user/googleSignIn",
+        url:"http://35.186.155.74/user/googleSignIn",
         data:{id_token}
     })
     .done(data=>{

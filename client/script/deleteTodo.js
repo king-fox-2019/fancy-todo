@@ -1,9 +1,11 @@
 function deleteTodo(event,id){
+    let token = localStorage.getItem('token')
     event.preventDefault()
     $.ajax({
         method:"delete",
-        url:`http://localhost:3000/todo`,
-        data:{id}
+        url:`http://35.186.155.74/todo`,
+        data:{id},
+        header:{token}
     })
     .done(()=>{
         $(`.${id}`).remove()

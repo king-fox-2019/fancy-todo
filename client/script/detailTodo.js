@@ -4,7 +4,7 @@ function showDetail(event,id){
     event.preventDefault()
     $.ajax({
         method:"get",
-        url:`http://localhost:3000/todo/detail?id=${id}`,
+        url:`http://35.186.155.74/todo/detail?id=${id}`,
         //data:{id}
     })
     .done(function(result){

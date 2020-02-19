@@ -2,7 +2,7 @@ function register(name,email,password){
     event.preventDefault()
     $.ajax({
         method:"post",
-        url:"http://localhost:3000/user/register",
+        url:"http://35.186.155.74/user/register",
         data:{name,email,password}
     })
     .done(()=>{

@@ -1,7 +1,7 @@
 function updateTodo(id,name,description,status,dueDate){
     $.ajax({
         method:"put",
-        url:"http://localhost:3000/todo",
+        url:"http://35.186.155.74/todo",
         data:{
             id,name,description,status,dueDate
         }
